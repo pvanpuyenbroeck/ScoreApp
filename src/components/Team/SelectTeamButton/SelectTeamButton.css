@@ -1,0 +1,21 @@
+.SelectTeamButton{
+    background-color: #241f61;
+    width: 100%;
+    padding: 3px;
+    min-height: 50px;
+    border-radius: 5px;
+    margin: 5px;
+    color:white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+
+.SelectTeamButton:hover{
+    cursor: pointer;
+}
+
+.SelectTeamButton div{
+    height: 50px;
+}

@@ -2,31 +2,28 @@ import React, { Component } from 'react';
 import axios from '../../../axios-scoreapp';
 
 class Team extends Component {
+    
     state = {
         teamId: '',
+        teamName: '',
+        season:'',
     }
 
     componentDidMount() {
         console.log(this.props);
-        axios.get('/Teams'
-            // , {
-            //     params: {
-            //         // id: this.state.teamId,
-            //     }
-            // }
-        )
+        axios.get('/Teams.json')
             .then(response => {
-                const fetchedTeam = null;
+                let fetchedTeam = null;
                 console.log(response.data);
                 for (let key in response.data) {
-                    fetchedTeam.push({
-                        ...response.data[key],
-                        id: key,
-                    });
+                    if (key === this.state.teamId) {
+                        fetchedTeam = response.data[key];
+                    }
                 }
 
                 this.setState({
-                    teams: fetchedTeam,
+                    teamName: fetchedTeam.teamName,
+                    season: fetchedTeam.season,
                 })
             }).catch(error => {
                 console.log(error)
@@ -37,9 +34,10 @@ class Team extends Component {
         })
     }
     render() {
+        
         return (
             <div>
-                <h1>Dit is de team pagina van {this.state.teamId}</h1>
+                <h1>Dit is de team pagina van {this.state.teamName}</h1>
             </div>
         )
     }

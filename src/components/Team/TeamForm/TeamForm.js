@@ -9,9 +9,9 @@ const teamForm = (props) => {
                 <label>Team name
                 <input type="text" name="teamName" id="teamname" onChange={props.change}/>
                 </label>
-                <label>Season
+                {/* <label>Season
                 <input type="text" name="season" id="season" onChange={props.change}/>
-                </label>
+                </label> */}
                 <input type="submit" value="Add Team"/>
             </form>
         </div>

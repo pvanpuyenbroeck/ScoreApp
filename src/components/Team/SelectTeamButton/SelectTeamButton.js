@@ -4,7 +4,7 @@ import {NavLink} from 'react-router-dom';
 
 const SelectTeamButton = (props) => (
     
-    <NavLink to={"/Team/" + props.teamId} >
+    <NavLink to={"/Team/" + props.id} >
     <div className={classes.SelectTeamButton} onClick={props.buttonClicked}>
         <div>{props.teamName}</div>
     </div>

@@ -46,9 +46,9 @@ class TeamsOverview extends Component {
             teams = teamArray.map(team => {
                 return (
                     <SelectedTeamButton
-                        key={team.teamId}
+                        key={team.id}
                         teamName={team.teamName}
-                        teamId={team.teamName}
+                        id={team.id}
                         buttonClicked={() => this.teamSelectedHandler(team.teamName)} />
                 );
             })

@@ -1,16 +1,29 @@
 import React, { Component } from 'react';
 import axios from '../../../axios-scoreapp';
 import TeamForm from '../../../components/Team/TeamForm/TeamForm';
+import { Redirect } from 'react-router-dom';
 
 class AddTeam extends Component {
+    state = {
+        teamToAdd: {
+            teamId:'',
+            teamName: '',
+            season: '',
+        },
+        submitted: false,
+    }
+    componentDidMount() {
+        if (this.state.teamToAdd !== null) {
 
-
+        }
+    }
     onSubmitHandler = (event) => {
         console.log(this.state.teamToAdd);
         axios.post('/Teams.json', this.state.teamToAdd)
             .then(res => {
                 this.setState({
                     loading: false,
+                    submitted: true,
                 })
             });
         event.preventDefault();
@@ -28,14 +41,24 @@ class AddTeam extends Component {
         })
     }
     render() {
+        let formOrRedirect = null;
+        if (this.state.submitted) {
+            formOrRedirect = <Redirect to="/selectedTeam" />
+        } else {
+            formOrRedirect = (
+                <TeamForm
+                    addTeam={this.onSubmitHandler}
+                    change={this.inputChangeHandler}
+                />
+            )
+        }
         return (
-            <TeamForm
-                addTeam={this.onSubmitHandler}
-                change={this.inputChangeHandler}
-            />
+            <div>
+                {formOrRedirect}
+            </div>
+
         )
     }
-
 }
 
 export default AddTeam;

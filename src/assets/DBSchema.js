@@ -1,5 +1,5 @@
 const teamSchema = {
-    teamID: '',
+    teamId: '',
     players: ['playerId'],
     teamName: '',
     matches: [{

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import axios from '../../../axios-scoreapp';
-import TeamForm from '../../../components/Team/TeamForm/TeamForm';
+import TeamForm from '../Team/TeamForm/TeamForm';
 import { Redirect } from 'react-router-dom';
 
 class AddTeam extends Component {
     state = {
         teamToAdd: {
-            // teamId: '',
-            players: [],
+            teamId: '',
+            players: ['test'],
             teamName: '',
             matches: [{
                 matchId: '',

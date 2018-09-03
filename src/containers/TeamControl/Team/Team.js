@@ -7,7 +7,7 @@ class Team extends Component {
     state = {
         team: {
             teamId: '',
-            players: ['playerId'],
+            players: ['test'],
             teamName: '',
             matches: [{
                 matchId: '',

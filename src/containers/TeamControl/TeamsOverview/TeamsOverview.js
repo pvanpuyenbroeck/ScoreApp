@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import classes from './TeamsOverview.css';
 import SelectedTeamButton from '../../../components/Team/SelectTeamButton/SelectTeamButton';
 import axios from '../../../axios-scoreapp';
-import Spinner from '../../../components/Design/Spinner/Spinner';
+import Spinner from '../../../components/UI/Spinner/Spinner';
 
 class TeamsOverview extends Component {
     state = {

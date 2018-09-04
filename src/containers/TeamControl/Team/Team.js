@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from '../../../axios-scoreapp';
 import TeamView from '../../../components/Team/TeamView/TeamView';
-
+import PlayerForm from './PlayerForm/PlayerForm';
 class Team extends Component {
 
     state = {
@@ -42,6 +42,7 @@ class Team extends Component {
                     teamName: fetchedTeam.teamName,
                     season: fetchedTeam.season,
                     team: fetchedTeam,
+                    teamId: this.props.match.params.teamId,
                 })
             }).catch(error => {
                 console.log(error)
@@ -55,10 +56,15 @@ class Team extends Component {
     render() {
 
         return (
-            <TeamView
-                // teamName={this.state.team.teamName}
-                team={this.state.team}
-            />
+            <div>
+                <TeamView
+                    // teamName={this.state.team.teamName}
+                    team={this.state.team}
+                />
+
+                <PlayerForm teamId={this.state.teamId}/>
+            </div>
+
         )
     }
 }

@@ -67,13 +67,15 @@ class PlayerForm extends Component {
             playerData: formData,
         }
         axios.post('/players.json', playerInfo)
-        .then(response => {
-            this.setState({loading: false});
-            // this.props.history.push('/team');
-        })
-        .catch(error => {
-            this.setState({loading: false});
-        })
+            .then(response => {
+                this.setState({ loading: false });
+                this.props.history.push({
+                    pathname: '/'
+                });
+            })
+            .catch(error => {
+                this.setState({ loading: false });
+            })
     }
     checkValidity(value, rules) {
         let isValid = true;

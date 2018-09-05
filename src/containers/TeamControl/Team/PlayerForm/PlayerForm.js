@@ -35,6 +35,7 @@ class PlayerForm extends Component {
 
         },
         loading: false,
+        teamId: '',
     }
 
     inputChangedHandler = (event, inputIdentifier) => {
@@ -61,16 +62,15 @@ class PlayerForm extends Component {
         for (let formElementIdentifier in this.state.playerForm) {
             formData[formElementIdentifier] = this.state.playerForm[formElementIdentifier].value
         }
-        console.log(this.props);
-        formData["teamId"] = this.props.teamId;
+        formData["teamId"] = this.props.match.params.teamId;
         const playerInfo = {
             playerData: formData,
         }
         axios.post('/players.json', playerInfo)
             .then(response => {
-                this.setState({ loading: false });
+                this.setState({ loading: false, });
                 this.props.history.push({
-                    pathname: '/'
+                    pathname: '/Team/' + playerInfo.playerData.teamId,
                 });
             })
             .catch(error => {

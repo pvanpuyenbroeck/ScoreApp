@@ -1,0 +1,32 @@
+.PlayerButton{
+    width: 200px;
+    min-height: 190px;
+    color: white;
+    background-color: #706c9b;
+    border-radius: 5px;
+    margin: 5px 2px;
+    text-align: center;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.PlayerButton .Image{
+    display: inline-block;
+}
+
+.PlayerButton img{
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    margin: 5px;
+    left:0;
+    border: 1px solid white;
+}
+
+.PlayerButton .Name{
+    display:inline-block;
+    height: 30px;
+    width: 100%;
+    padding-top: 10px;
+    background-color: #241f61;
+}

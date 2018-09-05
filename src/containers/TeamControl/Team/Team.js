@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import axios from '../../../axios-scoreapp';
 import TeamView from '../../../components/Team/TeamView/TeamView';
-import PlayerForm from './PlayerForm/PlayerForm';
 import Players from './Players/Players';
-import { Route, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 class Team extends Component {
 
@@ -68,7 +67,7 @@ class Team extends Component {
                     to={{
                         pathname: this.props.match.url + "/addPlayer",
                     }}>Add player</NavLink>
-
+                <Players teamId={this.props.match.params.teamId}/>
                 {/* <PlayerForm teamId={this.state.teamId}/> */}
 
             </div>

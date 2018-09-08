@@ -4,10 +4,11 @@
     background-color:#241f6148;
     padding: 20px;
     border-radius: 5px;
+    text-align: center;
 }
 
 @media(min-width:650px){
     .TeamView{
-        width:80%;
+        width:100%;
     }
 }

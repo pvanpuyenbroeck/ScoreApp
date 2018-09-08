@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import axios from '../../../axios-scoreapp';
 import TeamView from '../../../components/Team/TeamView/TeamView';
-import Players from './Players/Players';
+import Players from '../../../components/Players/Players/Players';
 import { NavLink } from 'react-router-dom';
+import Games from '../../../components/Games/Games';
 
 class Team extends Component {
 
@@ -83,6 +84,7 @@ class Team extends Component {
 
                 {/* <PlayerForm teamId={this.state.teamId}/> */}
                 <Players team={this.state.team} />
+                <Games team={this.state.team}/>
             </div>
         )
     }

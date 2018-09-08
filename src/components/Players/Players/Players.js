@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import PlayerButton from '../../../../components/Players/PlayerButton/PlayerButton';
+import React from 'react';
+import PlayerButton from '../PlayerButton/PlayerButton';
+import classes from './Players.css';
 
 const Players = (props) => {
     let players = "";
@@ -22,7 +23,10 @@ const Players = (props) => {
     return (
         <div>
             <h1>Spelers</h1>
+            <div className={classes.Players}>
             {players}
+            </div>
+           
         </div>
     )
 }

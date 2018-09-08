@@ -3,7 +3,6 @@ import classes from './TeamView.css';
 
 const TeamView = (props) => {
     const team = props.team;
-    console.log(team);
     return (
         <div className={classes.TeamView}>
             <h1>{team.teamName}</h1>

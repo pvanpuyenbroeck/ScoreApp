@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 const header = (props) => (
     <div className={classes.Header}>
-        <NavLink
+        {/* <NavLink
             to="/selectTeam"
             activeClassName={classes.active}>
             <p>Select Team</p>
@@ -13,7 +13,7 @@ const header = (props) => (
             to="/addTeam"
             activeClassName={classes.active}>
             <p>Add Team</p>
-        </NavLink>
+        </NavLink> */}
     </div>
 )
 

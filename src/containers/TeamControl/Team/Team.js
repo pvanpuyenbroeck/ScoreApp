@@ -9,7 +9,7 @@ class Team extends Component {
     state = {
         team: {
             teamId: '',
-            players: [''],
+            players: [],
             teamName: '',
             matches: [{
                 matchId: '',
@@ -30,33 +30,46 @@ class Team extends Component {
 
     componentDidMount() {
         console.log(this.props);
+        const fetchedPlayers = [];
+        let fetchedTeam = {};
+        let teamId = "";
         axios.get('/Teams.json')
             .then(response => {
-                let fetchedTeam = null;
                 for (let key in response.data) {
                     if (key === this.props.match.params.teamId) {
                         fetchedTeam = response.data[key];
+                        teamId = key;
                         console.log(fetchedTeam);
                     }
                 }
+                axios.get("/players.json")
+                    .then(res => {
+                        console.log(this.props)
+                        for (let key in res.data) {
+                            console.log(res.data);
+                            if (teamId === res.data[key].playerData.teamId) {
+                                fetchedPlayers.push({
+                                    ...res.data[key],
+                                    id: key,
+                                })
+                            }
+                        }
+                        fetchedTeam.players = fetchedPlayers;
+                        this.setState({
+                            // teamName: fetchedTeam.teamName,
+                            // season: fetchedTeam.season,
+                            team: fetchedTeam,
+                            // teamId: this.props.match.params.teamId,
 
-                this.setState({
-                    teamName: fetchedTeam.teamName,
-                    season: fetchedTeam.season,
-                    team: fetchedTeam,
-                    teamId: this.props.match.params.teamId,
-                })
+                        })
+                    })
             }).catch(error => {
                 console.log(error)
             })
 
-        // this.setState({
-        //     teamId: this.props.match.params.teamId,
-        // })
         console.log(this.state.team);
     }
     render() {
-
         return (
             <div>
                 <TeamView
@@ -67,9 +80,9 @@ class Team extends Component {
                     to={{
                         pathname: this.props.match.url + "/addPlayer",
                     }}>Add player</NavLink>
-                <Players teamId={this.props.match.params.teamId}/>
-                {/* <PlayerForm teamId={this.state.teamId}/> */}
 
+                {/* <PlayerForm teamId={this.state.teamId}/> */}
+                <Players team={this.state.team} />
             </div>
         )
     }

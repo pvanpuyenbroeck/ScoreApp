@@ -1,0 +1,28 @@
+.NavPanel{
+    width: 100%;
+    background-color: #241f61;
+    display: inline-block;
+    vertical-align: top;
+    margin: 5px 0 5px 0;
+    padding-top: 10px;
+    border-radius: 0 0 5px 5px;
+    list-style: none;
+    align-items: center;
+    margin:0;
+    padding:0
+}
+
+.NavPanel ul{
+    list-style: none;
+}
+
+@media(min-width: 650px){
+    .NavPanel{
+        box-sizing: border-box;
+        width: 29%;
+        background-color: #241f61;
+        height: 100%;
+        vertical-align: top;
+        border-radius: 0 0 5px 5px;
+    }
+}

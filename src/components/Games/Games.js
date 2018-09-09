@@ -6,7 +6,7 @@ const games = (props) => {
 
     return (
         <div className={classes.Games}>
-            <AddGame teamId={props.team.teamId}/>
+            <AddGame team={props.team}/>
         </div>
     )
 }

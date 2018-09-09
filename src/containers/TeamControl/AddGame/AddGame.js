@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import classes from './AddGame.css';
 import Input from '../../../components/UI/Input/Input';
 import Spinner from '../../../components/UI/Spinner/Spinner';
-import axios from '../../../axios-scoreapp';
+import firebase from '../../../firebase-scoreapp';
 
 
 class AddGame extends Component {
@@ -88,6 +88,8 @@ class AddGame extends Component {
     }
 
     gameSubmitHandler = (event) => {
+        const refTeamPlayers = firebase.database().ref('/Teams/' + this.props.team.teamId + '/Matches');
+
         event.preventDefault();
         this.setState({
             loading: true,
@@ -96,15 +98,15 @@ class AddGame extends Component {
         for (let formElementIdentifier in this.state.gameForm) {
             formData[formElementIdentifier] = this.state.gameForm[formElementIdentifier].value
         }
-        formData["teamId"] = this.props.teamId;
-        const playerInfo = {
-            playerData: formData,
+        formData["teamId"] = this.props.team.teamId;
+        const gameInfo = {
+            gameData: formData,
         }
-        axios.post('/players.json', playerInfo)
+        refTeamPlayers.push(gameInfo)
             .then(response => {
                 this.setState({ loading: false, });
                 this.props.history.push({
-                    pathname: '/Team/' + playerInfo.playerData.teamId,
+                    pathname: '/Team/' + gameInfo.playerData.teamId,
                 });
             })
             .catch(error => {
@@ -112,21 +114,21 @@ class AddGame extends Component {
             })
     }
 
-    // checkValidity(value, rules) {
-    //     let isValid = true;
+    checkValidity(value, rules) {
+        let isValid = true;
 
-    //     if (rules.required) {
-    //         isValid = value.trim() !== '' && isValid;
-    //     }
-    //     if (rules.minLength) {
-    //         isValid = value.lenght >= rules.minLength && isValid;
-    //     }
-    //     if (rules.maxLength) {
-    //         isValid = value.lenght >= rules.maxLength && isValid;
-    //     }
+        if (rules.required) {
+            isValid = value.trim() !== '' && isValid;
+        }
+        if (rules.minLength) {
+            isValid = value.lenght >= rules.minLength && isValid;
+        }
+        if (rules.maxLength) {
+            isValid = value.lenght >= rules.maxLength && isValid;
+        }
 
-    //     return isValid;
-    // }
+        return isValid;
+    }
 
     render() {
         const formElementArray = [];

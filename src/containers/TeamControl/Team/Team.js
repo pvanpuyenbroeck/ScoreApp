@@ -56,6 +56,7 @@ class Team extends Component {
                             }
                         }
                         fetchedTeam.players = fetchedPlayers;
+                        fetchedTeam.teamId = teamId
                         this.setState({
                             // teamName: fetchedTeam.teamName,
                             // season: fetchedTeam.season,

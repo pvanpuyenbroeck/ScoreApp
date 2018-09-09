@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 import classes from './TeamControl.css';
 import Team from './Team/Team';
 import PlayerForm from './Team/PlayerForm/PlayerForm';
+import GameForm from './AddGame/AddGame';
 
 
 class TeamControl extends Component {
@@ -17,6 +18,7 @@ class TeamControl extends Component {
             <div className={classes.TeamControl}>
                 <Switch>
                     <Route path={"/Team/:teamId/addPlayer"} exact component={PlayerForm} />
+                    <Route path={"/Team/:teamId/addGame"} exact component={GameForm} />
                     <Route path={"/Team/:teamId"} exact component={Team} />
                     <Route path="/selectTeam" component={TeamsOverview} />
                     <Route path="/addTeam" component={AddTeam} />

@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 const header = (props) => (
     <div className={classes.Header}>
+    
         {/* <NavLink
             to="/selectTeam"
             activeClassName={classes.active}>

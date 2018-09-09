@@ -4,6 +4,9 @@ import TeamView from '../../../components/Team/TeamView/TeamView';
 import Players from '../../../components/Players/Players/Players';
 import { NavLink } from 'react-router-dom';
 import Games from '../../../components/Games/Games';
+import classes from './Team.css';
+import Button from '../../../components/UI/Button/Button';
+import firebase from '../../../firebase-scoreapp';
 
 class Team extends Component {
 
@@ -30,8 +33,10 @@ class Team extends Component {
     }
 
     componentDidMount() {
+        let matchRef = '';
         console.log(this.props);
         const fetchedPlayers = [];
+        let fetchedGames = [];
         let fetchedTeam = {};
         let teamId = "";
         axios.get('/Teams.json')
@@ -40,14 +45,11 @@ class Team extends Component {
                     if (key === this.props.match.params.teamId) {
                         fetchedTeam = response.data[key];
                         teamId = key;
-                        console.log(fetchedTeam);
                     }
                 }
                 axios.get("/players.json")
                     .then(res => {
-                        console.log(this.props)
                         for (let key in res.data) {
-                            console.log(res.data);
                             if (teamId === res.data[key].playerData.teamId) {
                                 fetchedPlayers.push({
                                     ...res.data[key],
@@ -57,19 +59,23 @@ class Team extends Component {
                         }
                         fetchedTeam.players = fetchedPlayers;
                         fetchedTeam.teamId = teamId
+                        
                         this.setState({
-                            // teamName: fetchedTeam.teamName,
-                            // season: fetchedTeam.season,
                             team: fetchedTeam,
-                            // teamId: this.props.match.params.teamId,
-
                         })
                     })
+                    console.log(teamId);
+                    matchRef = firebase.database().ref('/Teams/' + teamId + '/Matches').once('value')
+                    .then(res => {
+                        console.log(res.val());
+                        fetchedGames = res.val();
+                        console.log(fetchedGames);
+                    });
             }).catch(error => {
                 console.log(error)
             })
 
-        console.log(this.state.team);
+        console.log(fetchedGames);
     }
     render() {
         return (
@@ -78,14 +84,12 @@ class Team extends Component {
                     // teamName={this.state.team.teamName}
                     team={this.state.team}
                 />
-                <NavLink
-                    to={{
-                        pathname: this.props.match.url + "/addPlayer",
-                    }}>Add player</NavLink>
-
-                {/* <PlayerForm teamId={this.state.teamId}/> */}
+                <Button
+                    path={this.props.match.url+ "/addPlayer"}>
+                    Speler Toevoegen
+                </Button>
                 <Players team={this.state.team} />
-                <Games team={this.state.team}/>
+                <Games matches={this.state.team.Matches} teamId={this.state.team.teamId} />
             </div>
         )
     }

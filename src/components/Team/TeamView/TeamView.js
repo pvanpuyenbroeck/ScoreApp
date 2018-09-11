@@ -5,8 +5,10 @@ const TeamView = (props) => {
     const team = props.team;
     return (
         <div className={classes.TeamView}>
-            <h1>{team.teamName}</h1>
-            <h2>{team.admin}</h2>
+            <div className={classes.Tekst} >
+                <h1>{team.teamName}</h1>
+                <h2>{team.admin}</h2>
+            </div>
         </div>
     )
 }

@@ -1,13 +1,18 @@
 .TeamView{
     width: 100%;
-    margin: O auto;
     background-color:#241f6148;
     /* padding: 20px; */
     border-radius: 5px;
     height: 100px;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    
 }
-
+.Tekst{
+    vertical-align: middle;
+    height: 100%;
+}
 @media(min-width:650px){
     .TeamView{
         width:100%;

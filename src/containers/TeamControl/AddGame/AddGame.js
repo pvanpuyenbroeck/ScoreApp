@@ -156,7 +156,7 @@ class AddGame extends Component {
             form = <Spinner />
         }
         return (
-            <div>
+            <div className={classes.AddGame}>
             <h1>Voeg een match toe aan de agenda</h1>
                 {form}
             </div>

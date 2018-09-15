@@ -11,7 +11,7 @@ const playerButton = (props) => (
             {props.name}
         </div>
         <div className={classes.PlayerNumber}>
-            <h1>1</h1>
+            <h1>{props.number}</h1>
         </div>
     </div>
 )

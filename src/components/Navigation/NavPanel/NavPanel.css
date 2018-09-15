@@ -1,6 +1,6 @@
 .NavPanel{
     width: 100%;
-    background-color: #241f61;
+    background-color: #2C8693;
     display: inline-block;
     vertical-align: top;
     margin: 5px 0 5px 0;
@@ -24,7 +24,7 @@
     .NavPanel{
         box-sizing: border-box;
         width: 20%;
-        background-color: #241f61;
+        background-color: #2C8693;
         height: 100%;
         vertical-align: top;
         border-radius: 0 0 5px 5px;

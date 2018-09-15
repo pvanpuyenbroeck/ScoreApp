@@ -3,6 +3,7 @@ import classes from '../PlayerForm/PlayerForm.css';
 import Spinner from '../../../../components/UI/Spinner/Spinner';
 import Input from '../../../../components/UI/Input/Input'
 import axios from '../../../../axios-scoreapp';
+import SelectPlayers from '../../SelectPlayers/SelectPlayers';
 
 
 class PlayerForm extends Component {
@@ -51,6 +52,9 @@ class PlayerForm extends Component {
     }
 
     inputChangedHandler = (event, inputIdentifier) => {
+        // if(inputIdentifier === "name"){
+        //     this.nameChangedHandler(event.target.value);
+        // }
         const updatedPlayerForm = {
             ...this.state.playerForm
         }
@@ -64,6 +68,14 @@ class PlayerForm extends Component {
             playerForm: updatedPlayerForm,
         })
     }
+
+    // nameChangedHandler = (value) => {
+    //     const playerForm = {...this.state.PlayerForm};
+    //     playerForm.name.value = value
+    //     this.setState({
+            
+    //     })
+    // }
 
     playerSubmitHandler = (event) => {
         event.preventDefault();
@@ -133,8 +145,11 @@ class PlayerForm extends Component {
         return (
             <div>
                 <div className={classes.ContactData}>
-                    <h4>Speler toevoegen:</h4>
-                    {form}
+                {form}
+                <SelectPlayers
+                    playername={this.state.playerForm.name.value}
+                />
+                    <h4>Speler toevoegen:</h4>  
                 </div>
             </div>
         )

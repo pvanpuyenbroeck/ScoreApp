@@ -1,11 +1,11 @@
 .SelectTeamButton{
-    background-color: #241f61;
+    background-color: #F19722;
     width: 100%;
     padding: 3px;
     min-height: 50px;
     border-radius: 5px;
     margin: 5px;
-    color:white;
+    color:#2C8693;
     text-align: center;
     display: flex;
     justify-content: center;

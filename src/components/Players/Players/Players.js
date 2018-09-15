@@ -13,6 +13,7 @@ const Players = (props) => {
                     <PlayerButton
                         key={player.id}
                         name={player.playerData.name}
+                        number={player.playerData.playerNumber}
                     />
                 )
             })

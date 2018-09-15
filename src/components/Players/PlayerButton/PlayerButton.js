@@ -4,11 +4,14 @@ import profilePic from '../../../assets/Images/profilePic.jpg';
 
 const playerButton = (props) => (
     <div className={classes.PlayerButton}>
+        <div className={classes.Image}>
+            <img src={profilePic} alt="Profilepic"></img>
+        </div>
         <div className={classes.Name}>
             {props.name}
         </div>
-        <div className={classes.Image}>
-            <img src={profilePic} alt="Profilepic"></img>
+        <div className={classes.PlayerNumber}>
+            <h1>1</h1>
         </div>
     </div>
 )

@@ -32,6 +32,14 @@ const input = (props) => {
                     ))}
                 </select>
             );
+            
+            break;
+            case ('number'):
+            inputElement = <input
+                className={classes.InputElement}
+                {...props.elementConfig}
+                value={props.value}
+                onChange={props.changed} />
             break;
         default:
             inputElement = <input

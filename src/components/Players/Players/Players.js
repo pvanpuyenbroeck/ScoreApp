@@ -21,9 +21,9 @@ const Players = (props) => {
     }
 
     return (
-        <div>
+        <div className={classes.Players}>
             <h1>Spelers</h1>
-            <div className={classes.Players}>
+            <div className={classes.PlayersBlock}>
             {players}
             </div>
            

@@ -16,6 +16,10 @@
     list-style: none;
 }
 
+.NavPanel li {
+    vertical-align: middle;
+}
+
 @media(min-width: 650px){
     .NavPanel{
         box-sizing: border-box;

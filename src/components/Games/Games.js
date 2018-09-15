@@ -24,7 +24,7 @@ const games = (props) => {
 
         <div className={classes.Games}>
             <Button
-                path={"/Team/ " + props.teamId + "/addGame"}>
+                path={"/Team/" + props.teamId + "/addGame"}>
                 Match Toevoegen
                 </Button>
             <div>

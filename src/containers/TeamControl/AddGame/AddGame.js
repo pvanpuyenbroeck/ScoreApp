@@ -3,6 +3,7 @@ import classes from './AddGame.css';
 import Input from '../../../components/UI/Input/Input';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import firebase from '../../../firebase-scoreapp';
+import Button from '../../../components/UI/Button/Button';
 
 
 class AddGame extends Component {
@@ -88,17 +89,16 @@ class AddGame extends Component {
     }
 
     gameSubmitHandler = (event) => {
-        const refTeamPlayers = firebase.database().ref('/Teams/' + this.props.team.teamId + '/Matches');
-
         event.preventDefault();
-        this.setState({
-            loading: true,
-        })
+        const refTeamPlayers = firebase.database().ref('/Teams/' + this.props.match.params.teamId + '/Matches');
+        // this.setState({
+        //     loading: true,
+        // })
         const formData = {};
         for (let formElementIdentifier in this.state.gameForm) {
             formData[formElementIdentifier] = this.state.gameForm[formElementIdentifier].value
         }
-        formData["teamId"] = this.props.team.teamId;
+        formData["teamId"] = this.props.match.params.teamId ;
         const gameInfo = {
             gameData: formData,
         }
@@ -106,7 +106,7 @@ class AddGame extends Component {
             .then(response => {
                 this.setState({ loading: false, });
                 this.props.history.push({
-                    pathname: '/Team/' + gameInfo.playerData.teamId,
+                    pathname: '/Team/' + gameInfo.gameData.teamId,
                 });
             })
             .catch(error => {
@@ -149,7 +149,7 @@ class AddGame extends Component {
                         changed={(event) => this.inputChangedHandler(event, formElement.id)}
                     />
                 ))}
-                <button type="submit">Toevoegen</button>
+                <button type="submit" >Toevoegen</button>
             </form>
         );
         if (this.state.loading) {

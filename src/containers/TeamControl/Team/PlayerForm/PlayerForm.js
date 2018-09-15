@@ -20,6 +20,18 @@ class PlayerForm extends Component {
                 },
                 valid: false,
             },
+            playerNumber: {
+                elementType: 'number',
+                elementConfig: {
+                    type: 'number',
+                    placeholder: 'playerNumber',
+                },
+                value: '',
+                validation: {
+                    required: true,
+                },
+                valid: false,
+            },
             email: {
                 elementType: 'input',
                 elementConfig: {

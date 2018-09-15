@@ -84,11 +84,11 @@ class Team extends Component {
                     // teamName={this.state.team.teamName}
                     team={this.state.team}
                 />
-                <Button
-                    path={this.props.match.url+ "/addPlayer"}>
-                    Speler Toevoegen
-                </Button>
                 <Players team={this.state.team} />
+                <Button
+                    path={this.props.match.url + "/addPlayer"}>
+                    <div>Speler Toevoegen</div>
+                </Button>
                 <Games matches={this.state.team.Matches} teamId={this.state.team.teamId} />
             </div>
         )

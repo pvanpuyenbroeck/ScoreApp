@@ -5,7 +5,7 @@ const Match = (props) => (
     <div className={classes.Match}>
         <div>Afbeelding komt hier</div>
         <div>
-            {props.opponent }
+            {props.opponent}
         </div>
     </div>
 )

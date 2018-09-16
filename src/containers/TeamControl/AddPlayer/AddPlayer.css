@@ -1,0 +1,13 @@
+button{
+    display: inline-block;
+    border: none;
+    padding: 5px;
+    margin: 5px;
+    text-decoration: none;
+    border-radius: 15px;
+    background:#F19722;
+    color: #F0F1D5;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+}

@@ -9,6 +9,7 @@ const NavPanel = (props) => (
             <NavPanelLink to="/">Home</NavPanelLink>
             <NavPanelLink to="/selectTeam">Teams</NavPanelLink>
             <NavPanelLink to="/AddTeam">Add Team</NavPanelLink>
+            <NavPanelLink to="/AddNewPlayer">Add New Player</NavPanelLink>
     </ul>
 )
 

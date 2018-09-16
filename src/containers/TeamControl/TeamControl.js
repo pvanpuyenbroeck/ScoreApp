@@ -6,6 +6,7 @@ import classes from './TeamControl.css';
 import Team from './Team/Team';
 import PlayerForm from './Team/PlayerForm/PlayerForm';
 import GameForm from './AddGame/AddGame';
+import SelectPlayers from './SelectPlayers/SelectPlayers';
 
 
 class TeamControl extends Component {
@@ -20,9 +21,10 @@ class TeamControl extends Component {
                     <Route path={"/Team/:teamId/addPlayer"} exact component={PlayerForm} />
                     <Route path={"/Team/:teamId/addGame"} exact component={GameForm} />
                     <Route path={"/Team/:teamId"} exact component={Team} />
-                    <Route path="/selectTeam" component={TeamsOverview} />
+                    <Route path="/selectTeam" exact component={TeamsOverview} />
+                    <Route path="/Team/:teamId/selectPlayers" exact component={SelectPlayers} />
                     <Route path="/addTeam" component={AddTeam} />
-                    <Route render={() => <h1>not found</h1>} />
+                    {/* <Route render={() => <h1>not found</h1>} /> */}
                 </Switch>
             </div>
         )

@@ -14,7 +14,7 @@ const games = (props) => {
         allGames = gameArray.map((game) => {
             console.log(game.gameData);
             return (
-                <Match opponent={game.gameData.opponent}/>
+                <Match opponent={game.gameData.opponent} key={game.gameData.opponent}/>
             )
         })
     }

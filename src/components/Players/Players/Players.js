@@ -25,9 +25,8 @@ const Players = (props) => {
         <div className={classes.Players}>
             <h1>Spelers</h1>
             <div className={classes.PlayersBlock}>
-            {players}
+                {players}
             </div>
-           
         </div>
     )
 }

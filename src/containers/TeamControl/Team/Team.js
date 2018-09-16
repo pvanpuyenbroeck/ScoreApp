@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from '../../../axios-scoreapp';
 import TeamView from '../../../components/Team/TeamView/TeamView';
 import Players from '../../../components/Players/Players/Players';
-import { NavLink } from 'react-router-dom';
 import Games from '../../../components/Games/Games';
 import classes from './Team.css';
 import Button from '../../../components/UI/Button/Button';
@@ -59,23 +58,32 @@ class Team extends Component {
                         }
                         fetchedTeam.players = fetchedPlayers;
                         fetchedTeam.teamId = teamId
-                        
+
                         this.setState({
                             team: fetchedTeam,
                         })
                     })
-                    console.log(teamId);
-                    matchRef = firebase.database().ref('/Teams/' + teamId + '/Matches').once('value')
+                console.log(teamId);
+                firebase.database().ref('/Teams/' + teamId + '/TeamMembers').once('value').then(res => {
+                    let players = [];
+                    let updatedTeam = {...this.state.team};
+                    players.push(res.val());
+                    updatedTeam.players = players;
+                    this.setState({
+                        team:updatedTeam,
+                    })
+                }
+                )
+                matchRef = firebase.database().ref('/Teams/' + teamId + '/Matches').once('value')
                     .then(res => {
                         console.log(res.val());
                         fetchedGames = res.val();
-                        console.log(fetchedGames);
+                        
                     });
             }).catch(error => {
                 console.log(error)
             })
-
-        console.log(fetchedGames);
+            
     }
     render() {
         return (
@@ -86,7 +94,7 @@ class Team extends Component {
                 />
                 <Players team={this.state.team} />
                 <Button
-                    path={this.props.match.url + "/addPlayer"}>
+                    path={this.props.match.url + "/selectPlayers"}>
                     <div>Speler Toevoegen</div>
                 </Button>
                 <Games matches={this.state.team.Matches} teamId={this.state.team.teamId} />

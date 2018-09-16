@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import classes from '../PlayerForm/PlayerForm.css';
-import Spinner from '../../../../components/UI/Spinner/Spinner';
-import Input from '../../../../components/UI/Input/Input'
-import axios from '../../../../axios-scoreapp';
-import SelectPlayers from '../../SelectPlayers/SelectPlayers';
+import classes from './AddPlayer.css';
+import Spinner from '../../../components/UI/Spinner/Spinner';
+import Input from '../../../components/UI/Input/Input'
+import axios from '../../../axios-scoreapp';
 
 
-class PlayerForm extends Component {
+class AddPlayer extends Component {
     state = {
         playerForm: {
             name: {
@@ -21,6 +20,19 @@ class PlayerForm extends Component {
                 },
                 valid: false,
             },
+            email: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'email',
+                    placeholder: 'Email',
+                },
+                value: '',
+                validation: {
+                    required: true,
+                },
+                valid: false,
+            },
+
         },
         loading: false,
         teamId: '',
@@ -110,13 +122,13 @@ class PlayerForm extends Component {
             <div>
                 <div className={classes.ContactData}>
                 {form}
-                <SelectPlayers
+                {/* <SelectPlayers
                     playername={this.state.playerForm.name.value}
-                />
+                /> */}
                 </div>
             </div>
         )
     }
 }
 
-export default PlayerForm;
+export default AddPlayer;

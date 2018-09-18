@@ -39,10 +39,11 @@ class SelectPlayers extends Component {
         players: [],
         teamMembers: [],
         selectedPlayerId: '',
+        selectedName:'',
     }
     componentWillMount() {
         let players = [];
-        let teamMembers = [];
+        let teamMembers ={} ;
         firebase.database().ref('/players').once('value').then(res => {
             // const playersArray = Object.Array(res.val());
             for (let key in res.val()) {
@@ -58,6 +59,7 @@ class SelectPlayers extends Component {
         });
         firebase.database().ref('/Teams/' + this.props.match.params.teamId + '/TeamMembers').once('value').then(res => {
             teamMembers = res.val();
+            console.log(res.val());
             if (teamMembers) {
                 this.setState({
                     teamMembers: teamMembers,
@@ -81,12 +83,14 @@ class SelectPlayers extends Component {
         formData["playerId"] = this.state.selectedPlayerId;
         const playerInfo = formData;
 
-        let updatedTeamMembers = [];
-        this.state.teamMembers.map(res => {
-            updatedTeamMembers.push(res);
-        })
+        let updatedTeamMembers = {
+            ...this.state.teamMembers,
+            [this.state.selectedPlayerId]: {
+                number: playerInfo.playerNumber,
+            }
+        }; 
+
         console.log(updatedTeamMembers);
-        updatedTeamMembers.push(playerInfo);
 
         firebase.database().ref('/Teams/' + this.props.match.params.teamId + '/TeamMembers/').set(updatedTeamMembers)
             .then(response => {
@@ -132,7 +136,21 @@ class SelectPlayers extends Component {
 
     onPlayerButtonClickedHandler = (playerId) => {
         console.log(playerId);
-        this.setState({ selectedPlayerId: playerId })
+        this.setState({ selectedPlayerId: playerId})
+        const updatedform = {...this.state.playerForm};
+        const name = {...updatedform.name};
+        console.log(this.state.players);
+        
+        this.state.players.map(res => {
+            console.log(res);
+            if(res.id === playerId){
+                name.value= res.playerData.name;
+            }
+        })
+        updatedform.name = name;
+        this.setState({
+            playerForm:updatedform,
+        })
     }
 
     render() {
@@ -162,21 +180,21 @@ class SelectPlayers extends Component {
             form = <Spinner />
         }
 
-        const allPlayers = this.state.players.map(player => {
-            const playernameLowercase = player.playerData.name.toLowerCase();
-            const playernamePropsLowercase = this.state.playerForm.name.value.toLowerCase();
-            if (playernameLowercase.startsWith(playernamePropsLowercase) && playernamePropsLowercase !== "") {
-                return (
-                    <PlayerButton
-                        number={player.playerData.playerNumber}
-                        name={player.playerData.name}
-                        key={player.id}
-                        playerid={player.id}
-                        clicked={(playerId) => this.onPlayerButtonClickedHandler(playerId)}
-                    />
-                )
-            }
-        })
+            const allPlayers = this.state.players.map(player => {
+                const playernameLowercase = player.playerData.name.toLowerCase();
+                const playernamePropsLowercase = this.state.playerForm.name.value.toLowerCase();
+                if (playernameLowercase.startsWith(playernamePropsLowercase) && playernamePropsLowercase !== "") {
+                    return (
+                        <PlayerButton
+                            number={player.playerData.playerNumber}
+                            name={player.playerData.name}
+                            key={player.id}
+                            playerid={player.id}
+                            clicked={(playerId) => this.onPlayerButtonClickedHandler(playerId)}
+                        />
+                    )
+                }
+            })
 
         return (
             <div>

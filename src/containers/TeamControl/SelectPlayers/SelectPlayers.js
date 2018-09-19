@@ -49,9 +49,10 @@ class SelectPlayers extends Component {
             for (let key in res.val()) {
                 const player = {
                     id: key,
-                    playerData: res.val()[key].playerData,
+                    ...res.val()[key],
                 }
                 players.push(player);
+                console.log(players);
             }
             this.setState({
                 players: players,
@@ -96,7 +97,7 @@ class SelectPlayers extends Component {
             .then(response => {
                 this.setState({ loading: false, });
                 this.props.history.push({
-                    pathname: '/Team/' + playerInfo.playerData.teamId,
+                    pathname: '/Team/' + playerInfo.teamId,
                 });
             })
             .catch(error => {
@@ -135,16 +136,13 @@ class SelectPlayers extends Component {
     }
 
     onPlayerButtonClickedHandler = (playerId) => {
-        console.log(playerId);
         this.setState({ selectedPlayerId: playerId})
         const updatedform = {...this.state.playerForm};
         const name = {...updatedform.name};
-        console.log(this.state.players);
         
         this.state.players.map(res => {
-            console.log(res);
             if(res.id === playerId){
-                name.value= res.playerData.name;
+                name.value= res.name;
             }
         })
         updatedform.name = name;
@@ -181,13 +179,13 @@ class SelectPlayers extends Component {
         }
 
             const allPlayers = this.state.players.map(player => {
-                const playernameLowercase = player.playerData.name.toLowerCase();
+                const playernameLowercase = player.name.toLowerCase();
                 const playernamePropsLowercase = this.state.playerForm.name.value.toLowerCase();
                 if (playernameLowercase.startsWith(playernamePropsLowercase) && playernamePropsLowercase !== "") {
                     return (
                         <PlayerButton
-                            number={player.playerData.playerNumber}
-                            name={player.playerData.name}
+                            number={player.playerNumber}
+                            name={player.name}
                             key={player.id}
                             playerid={player.id}
                             clicked={(playerId) => this.onPlayerButtonClickedHandler(playerId)}

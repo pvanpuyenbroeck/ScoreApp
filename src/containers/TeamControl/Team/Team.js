@@ -12,7 +12,7 @@ class Team extends Component {
     state = {
         team: {
             teamId: '',
-            players: [],
+            players: {},
             teamName: '',
             matches: [{
                 matchId: '',
@@ -29,61 +29,34 @@ class Team extends Component {
             }],
             admin: '',
         },
+        playerDetails:{},
     }
-
-    componentDidMount() {
-        let matchRef = '';
-        console.log(this.props);
-        const fetchedPlayers = [];
-        let fetchedGames = [];
-        let fetchedTeam = {};
-        let teamId = "";
-        axios.get('/Teams.json')
-            .then(response => {
-                for (let key in response.data) {
-                    if (key === this.props.match.params.teamId) {
-                        fetchedTeam = response.data[key];
-                        teamId = key;
-                    }
-                }
-                axios.get("/players.json")
-                    .then(res => {
-                        for (let key in res.data) {
-                            if (teamId === res.data[key].playerData.teamId) {
-                                fetchedPlayers.push({
-                                    ...res.data[key],
-                                    id: key,
-                                })
+    pick(obj, keys) {
+        return keys.map(k => k in obj ? {[k]: obj[k]} : {})
+                   .reduce((res, o) => Object.assign(res, o), {});
+    }
+    componentDidMount() {;
+        const teamId = this.props.match.params.teamId;
+        firebase.database().ref('/Teams/' + teamId).once('value').then(res => {
+            console.log(res.val());
+            const team = res.val();
+            const players = Object.keys(team.TeamMembers);
+            firebase.database().ref('/players').once('value').then(allPlayers => {
+                const allTeamMembers = allPlayers.val();
+                const filteredPlayers = this.pick(allTeamMembers,players);
+                for(let key in filteredPlayers){
+                            filteredPlayers[key] = {
+                                ...filteredPlayers[key],
+                                playerNumber: team.TeamMembers[key].number,
                             }
-                        }
-                        fetchedTeam.players = fetchedPlayers;
-                        fetchedTeam.teamId = teamId
-
-                        this.setState({
-                            team: fetchedTeam,
-                        })
-                    })
-                console.log(teamId);
-                firebase.database().ref('/Teams/' + teamId + '/TeamMembers').once('value').then(res => {
-                    let players = [];
-                    let updatedTeam = {...this.state.team};
-                    players.push(res.val());
-                    updatedTeam.players = players;
-                    this.setState({
-                        team:updatedTeam,
-                    })
-                }
-                )
-                matchRef = firebase.database().ref('/Teams/' + teamId + '/Matches').once('value')
-                    .then(res => {
-                        console.log(res.val());
-                        fetchedGames = res.val();
-                        
-                    });
-            }).catch(error => {
-                console.log(error)
+                    }          
+                this.setState({
+                    team: team,
+                    playerDetails: filteredPlayers,
+                })
             })
-            
+        })
+
     }
     render() {
         return (
@@ -92,13 +65,13 @@ class Team extends Component {
                     // teamName={this.state.team.teamName}
                     team={this.state.team}
                 />
-                <Players team={this.state.team} />
+                <Players team={this.state.team} playerDetails={this.state.playerDetails}/>
                 <Button
                     path={this.props.match.url + "/selectPlayers"}>
                     <div>Speler Toevoegen</div>
                 </Button>
                 <Games matches={this.state.team.Matches} teamId={this.state.team.teamId} />
-            </div>
+            </div >
         )
     }
 }

@@ -63,14 +63,12 @@ class AddPlayer extends Component {
             formData[formElementIdentifier] = this.state.playerForm[formElementIdentifier].value
         }
         formData["teamId"] = this.props.match.params.teamId;
-        const playerInfo = {
-            playerData: formData,
-        }
+        const playerInfo = formData;
         axios.post('/players.json', playerInfo)
             .then(response => {
                 this.setState({ loading: false, });
                 this.props.history.push({
-                    pathname: '/Team/' + playerInfo.playerData.teamId,
+                    pathname: '/selectTeam'
                 });
             })
             .catch(error => {

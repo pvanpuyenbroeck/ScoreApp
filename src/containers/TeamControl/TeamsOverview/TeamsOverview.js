@@ -3,6 +3,7 @@ import classes from './TeamsOverview.css';
 import SelectedTeamButton from '../../../components/Team/SelectTeamButton/SelectTeamButton';
 import axios from '../../../axios-scoreapp';
 import Spinner from '../../../components/UI/Spinner/Spinner';
+import {connect} from 'react-redux';
 
 class TeamsOverview extends Component {
     state = {
@@ -33,11 +34,11 @@ class TeamsOverview extends Component {
                 console.log(error)
             })
     }
-    teamSelectedHandler = (team) => {
-        this.setState({
-            selectedTeam: team,
-        })
-    }
+    // teamSelectedHandler = (team) => {
+    //     this.setState({
+    //         selectedTeam: team,
+    //     })
+    // }
 
     render() {
         let teams = null;
@@ -49,7 +50,9 @@ class TeamsOverview extends Component {
                         key={team.id}
                         teamName={team.teamName}
                         id={team.id}
-                        buttonClicked={() => this.teamSelectedHandler(team.teamName)} />
+                        buttonClicked={() => this.props.teamSelectedHandler(team)} 
+                        />
+                        
                 );
             })
         }else{
@@ -66,4 +69,16 @@ class TeamsOverview extends Component {
     }
 }
 
-export default TeamsOverview;
+const mapStateToProps = state => {
+    return {
+        // teamName: state.teamName
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        teamSelectedHandler: (team) => dispatch({type: 'teamSelected', team: team}),
+    }
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(TeamsOverview);

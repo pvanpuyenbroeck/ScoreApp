@@ -13,7 +13,7 @@ const Players = (props) => {
             playersArray.map(player => {
                 return (
                     <PlayerButton
-                        // key={player.id}
+                        key={player.id}
                         name={player.name}
                         number={player.playerNumber}
                     />

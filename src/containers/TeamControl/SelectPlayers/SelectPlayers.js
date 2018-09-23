@@ -97,7 +97,7 @@ class SelectPlayers extends Component {
             .then(response => {
                 this.setState({ loading: false, });
                 this.props.history.push({
-                    pathname: '/Team/' + playerInfo.teamId,
+                    pathname: '/Team/' + this.props.match.params.teamId ,
                 });
             })
             .catch(error => {

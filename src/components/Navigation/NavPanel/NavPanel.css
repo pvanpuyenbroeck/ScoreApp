@@ -5,19 +5,38 @@
     vertical-align: top;
     margin: 5px 0 5px 0;
     padding-top: 10px;
-    border-radius: 0 0 5px 5px;
     list-style: none;
     align-items: center;
     margin:0;
-    padding:0
+    padding:0;
+    z-index: 100;
+    overflow: hidden;
+}
+.NavPanelColapsed{
+    max-height: 50px;
 }
 
+.NavPanelOpen{
+    height: 100%;
+}
+
+.NavIcon{
+    width:50px;
+    height: 50px;
+    background-color:#2C8693;
+}
+.NavIcon img{
+    height:100%;
+    width: 100%;
+}
 .NavPanel ul{
     list-style: none;
+    width: 100%;
 }
 
 .NavPanel li {
     vertical-align: middle;
+    width:100%;
 }
 
 @media(min-width: 650px){

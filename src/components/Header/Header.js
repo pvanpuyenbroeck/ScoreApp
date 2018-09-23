@@ -1,21 +1,25 @@
-import React from 'react';
+import React, { Component } from 'react';
 import classes from './Header.css';
-import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const header = (props) => (
-    <div className={classes.Header}>
-    
-        {/* <NavLink
-            to="/selectTeam"
-            activeClassName={classes.active}>
-            <p>Select Team</p>
-        </NavLink>
-        <NavLink
-            to="/addTeam"
-            activeClassName={classes.active}>
-            <p>Add Team</p>
-        </NavLink> */}
-    </div>
-)
+class header extends Component {
 
-export default header;
+    render() {
+        return (
+            <div>
+                <div className={classes.Header}>
+                <div className={classes.TeamName}>{this.props.team.teamName}</div>
+                </div>
+            </div>
+        )
+    }
+}
+
+
+const mapStateToProps = state => {
+    return {
+        team: state.team
+    }
+}
+
+export default connect(mapStateToProps)(header);

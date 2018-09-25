@@ -17,7 +17,13 @@
 }
 
 .NavPanelOpen{
+    transition: 2s ease;
     height: 100%;
+}
+
+.Slide{
+    position: fixed;
+    left:0;
 }
 
 .NavIcon{

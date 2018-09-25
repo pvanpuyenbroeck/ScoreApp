@@ -11,10 +11,10 @@ const sidePanel = (props) => {
     return (
         // Pass on our props
         <div className={attachedClasses.join(' ')}>
-                <NavPanelLink to="/">Home</NavPanelLink>
-                <NavPanelLink to="/selectTeam">Teams</NavPanelLink>
-                <NavPanelLink to="/AddTeam">Add Team</NavPanelLink>
-                <NavPanelLink to="/AddNewPlayer">Add New Player</NavPanelLink>
+                <NavPanelLink to="/" NavClicked={props.sidePanelToggle}>Home</NavPanelLink>
+                <NavPanelLink to="/selectTeam" NavClicked={props.sidePanelToggle}>Teams</NavPanelLink>
+                <NavPanelLink to="/AddTeam" NavClicked={props.sidePanelToggle}>Add Team</NavPanelLink>
+                <NavPanelLink to="/AddNewPlayer" NavClicked={props.sidePanelToggle}>Add New Player</NavPanelLink>
         </div>
     )
 }

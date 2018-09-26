@@ -23,14 +23,7 @@ const games = (props) => {
     return (
 
         <div className={classes.Games}>
-            <Button
-                path={"/Team/" + props.teamId + "/addGame"}>
-                Match Toevoegen
-                </Button>
-            <div>
-
-            </div>
-            {allGames}
+        {allGames}            
         </div>
     )
 }

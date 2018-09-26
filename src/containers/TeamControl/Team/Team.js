@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import axios from '../../../axios-scoreapp';
-import TeamView from '../../../components/Team/TeamView/TeamView';
 import Players from '../../../components/Players/Players/Players';
 import Games from '../../../components/Games/Games';
 import classes from './Team.css';
-import Button from '../../../components/UI/Button/Button';
 import firebase from '../../../firebase-scoreapp';
 import Modal from '../../../components/UI/Modal/Modal';
+import TeamFunctionMenu from '../../../components/Navigation/TeamFunctionMenu/TeamFunctionMenu';
 
 class Team extends Component {
 
@@ -69,12 +67,9 @@ class Team extends Component {
                     // teamName={this.state.team.teamName}
                     team={this.state.team}
                 /> */}
+                <TeamFunctionMenu url={this.props.match.params.url} team={this.state.team}/>
                 <Modal show={this.state.showModal}/>
                 <Players team={this.state.team} playerDetails={this.state.playerDetails} />
-                <Button
-                    path={this.props.match.url + "/selectPlayers"}>
-                    <div>Speler Toevoegen</div>
-                </Button>
                 <Games matches={this.state.team.Matches} teamId={this.state.team.teamId} />
             </div>
         )

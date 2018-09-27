@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Aux from '../Aux/Aux';
+import Aux from '../_Aux/_Aux';
 import classes from './Layout.css';
 import Header from '../../components/Header/Header';
 

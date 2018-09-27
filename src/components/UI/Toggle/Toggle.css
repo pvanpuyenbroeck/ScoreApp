@@ -26,10 +26,16 @@
 .TeamToggle{
     background-color:#C33325;
     display:inline-block;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 2px 2px black;
+    color:#F19722;
+    text-shadow: 1px 1px black;
 }
 
 .TeamToggle:hover{
     cursor:pointer;
+    box-shadow: none;
 }
 
 @media (min-width: 600px) {

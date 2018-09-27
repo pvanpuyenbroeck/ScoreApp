@@ -8,7 +8,7 @@ import SidePanel from './components/Navigation/SidePanel/SidePanel';
 import Modal from './components/UI/Modal/Modal';
 import "./components/Navigation/SidePanel/SidePanel.css";
 import Aux from './hoc/_Aux/_Aux';
-import TeamFunctionMenu from './components/Navigation/TeamFunctionMenu/TeamFunctionMenu';
+import Flexbox from './components/UI/Flexbox/Flexbox';
 
 class App extends Component {
   state = {
@@ -28,6 +28,7 @@ class App extends Component {
       <SidePanel showToggle={this.state.showToggle} sidePanelToggle={this.NavpanelToggleClickedHandler}/>
       <Modal modalClosed={this.NavpanelToggleClickedHandler} show={this.state.showToggle}/>
       <Layout>
+      <Flexbox/>
         <NavPanel sidePanelToggle={this.NavpanelToggleClickedHandler}/>
         <Route path="/" component={TeamControl} />
         <Route path="/AddNewPlayer" exact component={AddNewPlayer} />

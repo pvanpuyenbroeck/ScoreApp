@@ -19,14 +19,6 @@ const teamFunctionMenu = (props) => {
                 path={"/Team/" + props.team.teamId + "/addGame"}>
                 Match Toevoegen
             </ButtonTeamMenu>
-            <ButtonTeamMenu
-            path={"/Team/" + props.team.teamId + "/addGame"}>
-            Match Toevoegen
-        </ButtonTeamMenu>
-        <ButtonTeamMenu
-        path={"/Team/" + props.team.teamId + "/addGame"}>
-        Match Toevoegen
-    </ButtonTeamMenu>
         </div>
     )
 }

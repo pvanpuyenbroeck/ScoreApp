@@ -4,6 +4,7 @@ import classes from './ButtonTeamMenu.css';
 
 const ButtonTeamMenu = (props) => (
     <div className={classes.ButtonTeamMenu}>
+    <div>
     <Link
     to ={{
     pathname:props.path,
@@ -14,6 +15,7 @@ const ButtonTeamMenu = (props) => (
     >
     {props.children}
     </Link>
+    </div>
     </div>
 )
 

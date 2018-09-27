@@ -8,6 +8,7 @@ import SidePanel from './components/Navigation/SidePanel/SidePanel';
 import Modal from './components/UI/Modal/Modal';
 import "./components/Navigation/SidePanel/SidePanel.css";
 import Aux from './hoc/_Aux/_Aux';
+import TeamFunctionMenu from './components/Navigation/TeamFunctionMenu/TeamFunctionMenu';
 
 class App extends Component {
   state = {

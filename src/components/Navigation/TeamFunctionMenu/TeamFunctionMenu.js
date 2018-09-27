@@ -1,19 +1,27 @@
 import React from 'react';
 import classes from './TeamFunctionMenu.css';
-import Button from '../../UI/Button/Button';
+import ButtonTeamMenu from '../../UI/ButtonTeamMenu/ButtonTeamMenu';
 import {connect} from 'react-redux';
 
 const teamFunctionMenu = (props) => {
     return (
         <div className={classes.TeamFunctionMenu}>
-            <Button
+            <ButtonTeamMenu
                 path={props.url + "/selectPlayers"}>
                 <div>Speler Toevoegen</div>
-            </Button>
-            <Button
+            </ButtonTeamMenu>
+            <ButtonTeamMenu
                 path={"/Team/" + props.team.teamId + "/addGame"}>
                 Match Toevoegen
-            </Button>
+            </ButtonTeamMenu>
+            <ButtonTeamMenu
+            path={"/Team/" + props.team.teamId + "/addGame"}>
+            Match Toevoegen
+        </ButtonTeamMenu>
+        <ButtonTeamMenu
+        path={"/Team/" + props.team.teamId + "/addGame"}>
+        Match Toevoegen
+    </ButtonTeamMenu>
         </div>
     )
 }

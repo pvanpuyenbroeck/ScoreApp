@@ -1,0 +1,22 @@
+.ButtonTeamMenu{
+    display: inline-block;
+    border: none;
+    padding: 5px;
+    border-radius: 15px;
+    background:#F19722;
+    cursor: pointer;
+    text-align: center;
+    height: 110px;
+    width: 110px;
+    vertical-align: middle;
+    border: 2px solid #F0F1D5;
+}
+
+.ButtonTeamMenu a{
+    text-decoration: none;
+    color: #F0F1D5;
+    font-size: 0.8rem;
+}
+
+
+

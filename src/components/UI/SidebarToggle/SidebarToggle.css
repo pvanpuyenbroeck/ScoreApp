@@ -17,6 +17,9 @@
     margin: 4px;
     background-color: #F0F1D5;
 }
+.DrawerToggle p{
+    color:#F0F1D5;
+}
 
 @media (min-width: 600px) {
     .DrawerToggle {

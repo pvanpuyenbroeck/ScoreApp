@@ -4,8 +4,13 @@ import ButtonTeamMenu from '../../UI/ButtonTeamMenu/ButtonTeamMenu';
 import {connect} from 'react-redux';
 
 const teamFunctionMenu = (props) => {
+    let attachedClasses = [classes.TeamFunctionMenu]
+    if(props.showToggle === false){
+        attachedClasses.push(classes.Closed);
+    }
+
     return (
-        <div className={classes.TeamFunctionMenu}>
+        <div className={attachedClasses.join(' ')}>
             <ButtonTeamMenu
                 path={props.url + "/selectPlayers"}>
                 <div>Speler Toevoegen</div>

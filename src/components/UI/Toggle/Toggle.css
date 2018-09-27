@@ -1,5 +1,6 @@
-.DrawerToggle {
-    width: 40px;
+.Toggle {
+    width: 50px;
+    height: 50px;
     margin: 0 auto;
     height: 100%;
     display: flex;
@@ -9,20 +10,30 @@
     padding: 10px 0;
     box-sizing: border-box;
     cursor: pointer;
+    background-color: #2C8693;
 }
 
-.DrawerToggle div {
+.Toggle div {
     width: 90%;
     height: 3px;
     margin: 4px;
     background-color: #F0F1D5;
 }
-.DrawerToggle p{
+.Toggle p{
     color:#F0F1D5;
 }
 
+.TeamToggle{
+    background-color:#C33325;
+    display:inline-block;
+}
+
+.TeamToggle:hover{
+    cursor:pointer;
+}
+
 @media (min-width: 600px) {
-    .DrawerToggle {
+    .Toggle {
         display: none;
     }
 }

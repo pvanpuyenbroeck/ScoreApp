@@ -3,7 +3,7 @@ import classes from './NavPanel.css';
 import NavPanelLink from './NavPanelLink/NavPanelLink';
 import NavIcon from '../../../assets/Images/NavIconBeige.png';
 import SidePanel from '../SidePanel/SidePanel';
-import SidePanelToggle from '../../UI/SidebarToggle/SidebarToggle';
+import Toggle from '../../UI/Toggle/Toggle';
 
 class NavPanel extends Component {
     showSettings(event) {
@@ -18,8 +18,10 @@ class NavPanel extends Component {
 
         return (
             <div className={attachedClasses.join(' ')} >
-            <SidePanelToggle toggleClicked={this.props.sidePanelToggle}/>
+            <Toggle toggleClicked={this.props.sidePanelToggle}>MENU</Toggle>
+            <Toggle toggleClicked={this.props.sidePanelToggle}>MY TEAM</Toggle>
             <SidePanel/>
+            
                 {/* <div className={classes.NavIcon} onClick={this.showSettings}>
                     <img src={NavIcon} alt="NavIcon" />
                 </div>

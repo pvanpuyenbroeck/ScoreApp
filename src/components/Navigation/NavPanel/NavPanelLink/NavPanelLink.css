@@ -4,11 +4,15 @@
     box-sizing: border-box;
 }
 .NavPanelLink{
-    height: 50px;
-    width: 100%;
     text-align: center;
     vertical-align: middle;
     box-sizing: border-box;
+    display: inline-block;
+    font-size: 0.9rem;
+    vertical-align: center;
+    font-size: 1rem;
+    width: 100%;
+    margin: 5px;
 }
 
 .NavLink{
@@ -22,4 +26,13 @@
 .NavPanelLink a:hover
 {
     /* background-color: red; */
+}
+
+@media(min-width:600px){
+    .NavPanelLink{
+        padding: 2px 5px;
+        margin-top: 10px;
+        border-right: 1px solid #F0F1D5;
+        width: initial;
+    }
 }

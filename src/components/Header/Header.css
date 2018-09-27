@@ -1,14 +1,37 @@
 .Header {
     width: 100%;
-    height: 80px;
+    height: 40px;
     background-color: #2C8693;
 }
 
 .TeamName{
     vertical-align: middle;
     color: #F0F1D5;
-    height: 100%;
-    font-size: 3rem;
-    padding-top: 20px;
+    font-size: 1.5rem;
+    padding-top: 10px;
     text-align:center;
+}
+
+.HeaderLinks{
+    display: none;
+}
+
+@media(min-width: 600px){
+    .HeaderLinks{
+        display: inline-block;
+        position: fixed;
+        right:0px;
+        height:30px;
+    }
+
+    .HeaderLinks li{
+        display: inline-block;
+    }
+
+    .TeamName{
+        display: inline-block;
+        width: 50%;
+        text-align: left;
+        padding-left: 5px;
+    }
 }

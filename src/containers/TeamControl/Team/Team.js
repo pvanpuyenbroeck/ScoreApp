@@ -5,6 +5,7 @@ import classes from './Team.css';
 import firebase from '../../../firebase-scoreapp';
 import Modal from '../../../components/UI/Modal/Modal';
 import TeamFunctionMenu from '../../../components/Navigation/TeamFunctionMenu/TeamFunctionMenu';
+import Toggle from '../../../components/UI/Toggle/Toggle';
 
 class Team extends Component {
 
@@ -30,6 +31,7 @@ class Team extends Component {
         },
         playerDetails: {},
         showModal: false,
+        showToggle:false,
     }
     pick(obj, keys) {
         return keys.map(k => k in obj ? { [k]: obj[k] } : {})
@@ -60,6 +62,13 @@ class Team extends Component {
         })
 
     }
+
+    showToggle(){
+        this.setState({
+            showToggle:!this.state.showToggle,
+            showModal:!this.state.showModal,
+        })
+    }
     render() {
         return (
             <div>
@@ -67,8 +76,9 @@ class Team extends Component {
                     // teamName={this.state.team.teamName}
                     team={this.state.team}
                 /> */}
-                <TeamFunctionMenu url={this.props.match.params.url} team={this.state.team}/>
-                <Modal show={this.state.showModal}/>
+                <Toggle toggleClicked={() => this.showToggle()} classtheme="TeamButton">MY TEAM</Toggle>
+                <TeamFunctionMenu team={this.state.team} showToggle={this.state.showToggle}/>
+                <Modal show={this.state.showModal} modalClosed={() => this.showToggle()}/>
                 <Players team={this.state.team} playerDetails={this.state.playerDetails} />
                 <Games matches={this.state.team.Matches} teamId={this.state.team.teamId} />
             </div>

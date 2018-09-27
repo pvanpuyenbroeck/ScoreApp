@@ -1,0 +1,45 @@
+.Toggle {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    box-sizing: border-box;
+    cursor: pointer;
+    background-color: #2C8693;
+}
+
+.Toggle div {
+    width: 90%;
+    height: 3px;
+    margin: 4px;
+    background-color: #F0F1D5;
+}
+.Toggle p{
+    color:#F0F1D5;
+}
+
+.TeamToggle{
+    background-color:#C33325;
+    display:inline-block;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 2px 2px black;
+    color:#F19722;
+    text-shadow: 1px 1px black;
+}
+
+.TeamToggle:hover{
+    cursor:pointer;
+    box-shadow: none;
+}
+
+@media (min-width: 600px) {
+    .Toggle {
+        display: none;
+    }
+}

@@ -1,3 +1,28 @@
 .TeamFunctionMenu{
-    
+    width:250px;
+    height: 250px;
+    z-index: 101;
+    position:fixed;
+    vertical-align: middle;
+    margin: 0 auto;
+    padding: 5px;
+    top: 50%;
+    left:50%;
+    margin-top: -125px;
+    margin-left: -125px;
+    display: flex;
+    background-color: #F0F1D5;
+    border-radius: 10px;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
+
+.Closed{
+    display: none;
+}
+
+/* @media(min-width:600px){
+    .TeamFunctionMenu{
+        display: none;
+    }
+} */

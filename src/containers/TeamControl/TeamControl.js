@@ -7,6 +7,7 @@ import Team from './Team/Team';
 import PlayerForm from './Team/PlayerForm/PlayerForm';
 import GameForm from './AddGame/AddGame';
 import SelectPlayers from './SelectPlayers/SelectPlayers';
+import Flexbox from '../../components/UI/Flexbox/Flexbox';
 
 
 class TeamControl extends Component {
@@ -15,6 +16,7 @@ class TeamControl extends Component {
     }
 
     render() {
+        
         return (
             <div className={classes.TeamControl}>
                 <Switch>

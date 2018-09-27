@@ -13,12 +13,14 @@ import Flexbox from './components/UI/Flexbox/Flexbox';
 class App extends Component {
   state = {
     showToggle: false,
+    showFlexbox: false,
   }
 
   NavpanelToggleClickedHandler = () => {
     const toggle = !this.state.showToggle;
     this.setState({
       showToggle: toggle,
+      showAddPlayer: false,
     })
   }
 
@@ -28,7 +30,7 @@ class App extends Component {
       <SidePanel showToggle={this.state.showToggle} sidePanelToggle={this.NavpanelToggleClickedHandler}/>
       <Modal modalClosed={this.NavpanelToggleClickedHandler} show={this.state.showToggle}/>
       <Layout>
-      <Flexbox/>
+      <Flexbox show={this.state.showFlexbox}></Flexbox>
         <NavPanel sidePanelToggle={this.NavpanelToggleClickedHandler}/>
         <Route path="/" component={TeamControl} />
         <Route path="/AddNewPlayer" exact component={AddNewPlayer} />

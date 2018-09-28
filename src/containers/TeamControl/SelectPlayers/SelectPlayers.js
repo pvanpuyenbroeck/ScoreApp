@@ -52,7 +52,6 @@ class SelectPlayers extends Component {
                     ...res.val()[key],
                 }
                 players.push(player);
-                console.log(players);
             }
             this.setState({
                 players: players,
@@ -60,7 +59,6 @@ class SelectPlayers extends Component {
         });
         firebase.database().ref('/Teams/' + this.props.team.TeamId + '/TeamMembers').once('value').then(res => {
             teamMembers = res.val();
-            console.log(res.val());
             if (teamMembers) {
                 this.setState({
                     teamMembers: teamMembers,
@@ -90,8 +88,6 @@ class SelectPlayers extends Component {
                 number: playerInfo.playerNumber,
             }
         }; 
-
-        console.log(this.props);
 
         firebase.database().ref('/Teams/' + this.props.team.TeamId + '/TeamMembers/').set(updatedTeamMembers)
             .then(response => {

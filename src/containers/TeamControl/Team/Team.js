@@ -39,7 +39,7 @@ class Team extends Component {
             .reduce((res, o) => Object.assign(res, o), {});
     }
     componentDidMount() {
-        const teamId = this.props.match.params.teamId;
+        const teamId = this.props.team.TeamId;
         firebase.database().ref('/Teams/' + teamId).once('value').then(res => {
 
             const team = res.val();

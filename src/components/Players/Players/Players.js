@@ -5,15 +5,24 @@ import firebase from '../../../firebase-scoreapp';
 
 const Players = (props) => {
     let players = "";
+    let allPlayers = [];
     console.log(props.playerDetails);
-    const playersArray = Object.values(props.playerDetails);
-    console.log(playersArray);
-    if (playersArray.length > 0) {
-        players =
-            playersArray.map(player => {
+    const playersArrayKeys = Object.keys(props.playerDetails);
+    if (playersArrayKeys.length > 0) {
+        for(let key in props.playerDetails){
+            console.log(key);
+            allPlayers.push({
+                playerId: key,
+                ...props.playerDetails[key]
+            })
+        }
+        console.log(playersArray);
+        const playersArray = Object.values(allPlayers)
+     players = playersArray.map(player => {
+                console.log(player);
                 return (
                     <PlayerButton
-                        key={player.id}
+                        key={player.playerId}
                         name={player.name}
                         number={player.playerNumber}
                     />

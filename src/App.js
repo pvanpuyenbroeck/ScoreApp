@@ -9,6 +9,9 @@ import Modal from './components/UI/Modal/Modal';
 import "./components/Navigation/SidePanel/SidePanel.css";
 import Aux from './hoc/_Aux/_Aux';
 import Flexbox from './components/UI/Flexbox/Flexbox';
+import {connect} from 'react-redux';
+import TeamsOverview from './containers/TeamControl/TeamsOverview/TeamsOverview';
+
 
 class App extends Component {
   state = {
@@ -20,25 +23,41 @@ class App extends Component {
     const toggle = !this.state.showToggle;
     this.setState({
       showToggle: toggle,
-      showAddPlayer: false,
     })
   }
+
+
 
   render() {
     return (
       <Aux>
-      <SidePanel showToggle={this.state.showToggle} sidePanelToggle={this.NavpanelToggleClickedHandler}/>
-      <Modal modalClosed={this.NavpanelToggleClickedHandler} show={this.state.showToggle}/>
+      <SidePanel showToggle={this.props.toggleSidePanel} showFlexbox={this.state.showFlexbox}/>
+      <Modal modalClosed={() => this.props.ModalClicked()} show={this.props.showModal}/>
       <Layout>
-      <Flexbox show={this.state.showFlexbox}></Flexbox>
-        <NavPanel sidePanelToggle={this.NavpanelToggleClickedHandler}/>
+        <Flexbox show={this.props.showFlexbox} navItem={this.props.navItem}></Flexbox>
+        <NavPanel toggleClicked={() => this.props.sidePanelToggle()} showToggle={this.state.showToggle}/>
         <Route path="/" component={TeamControl} />
         <Route path="/AddNewPlayer" exact component={AddNewPlayer} />
-        {/*<Route path="/SelectTeam" component={TeamsOverview}/>*/}
       </Layout>
       </Aux>
     );
   }
 }
 
-export default App;
+const mapDispatchToProps = dispatch => {
+  return {
+      sidePanelToggle: () => dispatch({type: "sidePanelToggle"}),
+      ModalClicked: () => dispatch({type:"closeModal"}),
+  }
+};
+
+const mapStateToProps = state => {
+  return {
+    navItem: state.NavPanelLink,
+    toggleSidePanel: state.ToggleSidePanel,
+    showFlexbox: state.showFlexItem,
+    showModal: state.showModal,
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

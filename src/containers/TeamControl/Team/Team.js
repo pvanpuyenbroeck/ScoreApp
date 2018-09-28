@@ -6,6 +6,7 @@ import firebase from '../../../firebase-scoreapp';
 import Modal from '../../../components/UI/Modal/Modal';
 import TeamFunctionMenu from '../../../components/Navigation/TeamFunctionMenu/TeamFunctionMenu';
 import Toggle from '../../../components/UI/Toggle/Toggle';
+import {connect} from 'react-redux';
 
 class Team extends Component {
 
@@ -53,6 +54,7 @@ class Team extends Component {
                             playerNumber: team.TeamMembers[key].number,
                         }
                     }
+                    this.props.getTeam(team);
                     this.setState({
                         team: team,
                         playerDetails: filteredPlayers,
@@ -86,6 +88,17 @@ class Team extends Component {
     }
 }
 
+const mapDispatchToProps = dispatch => {
+    return{
+        getTeam: (team) => dispatch({type:"GetTeam", team:team})
+    }
+}
+
+const mapStateToProps = state => {
+    return{
+        team: state.team,
+    }
+}
 
 
-export default Team;
+export default connect(mapStateToProps,mapDispatchToProps)(Team);

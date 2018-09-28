@@ -1,35 +1,61 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { slide as Menu } from 'react-burger-menu';
 import NavPanelLink from '../NavPanel/NavPanelLink/NavPanelLink';
 import classes from './SidePanel.css';
 import Flexbox from '../../UI/Flexbox/Flexbox';
 import AddPlayer from '../../../containers/TeamControl/AddPlayer/AddPlayer';
+import {connect} from 'react-redux';
+import { NavLink } from 'react-router-dom';
 
-const sidePanel = (props) => {
-    let attachedClasses = [classes.SidePanel]
-    if (props.showToggle) {
-        attachedClasses.push(classes.SidePanelOpen)
-    }
-    const flexComponent = <AddPlayer/>;
-
-    return (
-        // Pass on our props
-        <div>
-            <div className={attachedClasses.join(' ')}>
-                <div className={classes.Bmitem} onClick={this.showAddPlayer}>Add Player</div>
-                <NavPanelLink to="/" NavClicked={props.sidePanelToggle}>Home</NavPanelLink>
-                <NavPanelLink to="/selectTeam" NavClicked={props.sidePanelToggle}>Teams</NavPanelLink>
-                <NavPanelLink to="/AddTeam" NavClicked={props.sidePanelToggle}>Add Team</NavPanelLink>
-                <NavPanelLink to="/AddNewPlayer" NavClicked={props.sidePanelToggle}>Add New Player</NavPanelLink>
-            </div>
-            <Flexbox show={true}>
-                <div>
-                    {flexComponent}
+class sidePanel extends Component {
+    render(){
+        let attachedClasses = [classes.SidePanel]
+        if (this.props.showToggle) {
+            attachedClasses.push(classes.SidePanelOpen)
+        }
+        console.log(this.props);
+        const flexComponent = <AddPlayer/>;
+    
+        return (
+            // Pass on our props
+            <div>
+                <div className={attachedClasses.join(' ')}>
+                    <NavPanelLink>
+                    <NavLink
+                    onClick={() => this.props.closeSidePanel()}
+                    className={classes.NavLink}
+                    to="/selectTeam"
+                    activeClassName={classes.active}>
+                    Select Team
+                </NavLink>
+                    </NavPanelLink>
+                    <NavPanelLink NavClicked={() =>  this.props.navItemClicked("AddTeam")}>Add Team</NavPanelLink>
+                    <NavPanelLink NavClicked={() =>  this.props.navItemClicked("AddNewPlayer")}>Add New Player</NavPanelLink>
                 </div>
-            </Flexbox>
-
-        </div>
-    )
+                <Flexbox show={this.props.showFlexbox}>
+                    <div>
+                        {flexComponent}
+                    </div>
+                </Flexbox>
+    
+            </div>
+        )
+    }
+    
 }
 
-export default sidePanel;
+const mapDispatchToProps = dispatch => {
+    return {
+        navItemClicked: (navItem) => dispatch({type: 'NavPanelSelection', navItem:navItem}),
+        closeSidePanel: () => dispatch({type: 'closeModal'}),
+    }
+};
+
+const mapStateToProps = state => {
+    return {
+      navItem: state.NavPanelLink,
+      toggleSidePanel: state.ToggleSidePanel,
+    }
+  }
+
+export default connect(mapStateToProps, mapDispatchToProps)(sidePanel);

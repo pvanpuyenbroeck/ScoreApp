@@ -18,9 +18,7 @@ class NavPanel extends Component {
 
         return (
             <div className={attachedClasses.join(' ')} >
-            <Toggle toggleClicked={this.props.sidePanelToggle}>MENU</Toggle>
-            <Toggle toggleClicked={this.props.sidePanelToggle}>MY TEAM</Toggle>
-            <SidePanel/>
+            <Toggle toggleClicked={this.props.toggleClicked}>MENU</Toggle>
             
                 {/* <div className={classes.NavIcon} onClick={this.showSettings}>
                     <img src={NavIcon} alt="NavIcon" />

@@ -30,7 +30,7 @@ class sidePanel extends Component {
                 </NavLink>
                     </NavPanelLink>
                     <NavPanelLink NavClicked={() =>  this.props.navItemClicked("AddTeam")}>Add Team</NavPanelLink>
-                    <NavPanelLink NavClicked={() =>  this.props.navItemClicked("AddNewPlayer")}>Add New Player</NavPanelLink>
+                    <NavPanelLink NavClicked={() =>  this.props.navItemClicked("AddPlayer")}>Add New Player</NavPanelLink>
                 </div>
                 <Flexbox show={this.props.showFlexbox}>
                     <div>

@@ -41,8 +41,9 @@ class Team extends Component {
     componentDidMount() {
         const teamId = this.props.match.params.teamId;
         firebase.database().ref('/Teams/' + teamId).once('value').then(res => {
-            console.log(res.val());
+
             const team = res.val();
+            
             if (team.TeamMembers) {
                 const players = Object.keys(team.TeamMembers);
                 firebase.database().ref('/players').once('value').then(allPlayers => {
@@ -54,7 +55,11 @@ class Team extends Component {
                             playerNumber: team.TeamMembers[key].number,
                         }
                     }
-                    this.props.getTeam(team);
+                    this.props.getTeam({
+                        ...team,
+                        TeamId:teamId,
+                        playerDetails: filteredPlayers,
+                    });
                     this.setState({
                         team: team,
                         playerDetails: filteredPlayers,
@@ -78,9 +83,9 @@ class Team extends Component {
                     // teamName={this.state.team.teamName}
                     team={this.state.team}
                 /> */}
-                <Toggle toggleClicked={() => this.showToggle()} classtheme="TeamButton">MY TEAM</Toggle>
-                <TeamFunctionMenu team={this.state.team} showToggle={this.state.showToggle}/>
-                <Modal show={this.state.showModal} modalClosed={() => this.showToggle()}/>
+                <Toggle toggleClicked={() => this.props.showFunctionMenu()} classtheme="TeamButton">MY TEAM</Toggle>
+                <TeamFunctionMenu team={this.state.team} showMenu={this.props.showfunctionMenu}/>
+                <Modal show={this.props.showModal} modalClosed={() => this.props.closeModal()}/>
                 <Players team={this.state.team} playerDetails={this.state.playerDetails} />
                 <Games matches={this.state.team.Matches} teamId={this.state.team.teamId} />
             </div>
@@ -90,13 +95,18 @@ class Team extends Component {
 
 const mapDispatchToProps = dispatch => {
     return{
-        getTeam: (team) => dispatch({type:"GetTeam", team:team})
+        getTeam: (team) => dispatch({type:"GetTeam", team:team}),
+        closeModal: () => dispatch({type:"closeModal"}),
+        showFunctionMenu: () => dispatch({type:"showFunctionMenu"}),
+
     }
 }
 
 const mapStateToProps = state => {
     return{
         team: state.team,
+        showModal: state.showModal,
+        showfunctionMenu: state.showFunctionMenu,
     }
 }
 

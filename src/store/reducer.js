@@ -4,6 +4,7 @@ const initialState = {
     ToggleSidePanel: false,
     showFlexItem: false,
     showModal: false,
+    showFunctionMenu: false,
 }
 
 const reducer = (state = initialState, action) => {
@@ -31,11 +32,26 @@ const reducer = (state = initialState, action) => {
             showModal:false,
             ToggleSidePanel:false,
             showFlexItem:false,
+            showFunctionMenu: false,
         }
         case "GetTeam":
         return{
             ...state,
             team:action.team,
+        }
+        case "showComponent":
+        return{
+            ...state,
+            showFlexItem: true,
+            NavPanelLink: action.navItem,
+            showModal:true,
+            showFunctionMenu: false,
+        }
+        case "showFunctionMenu":
+        return{
+            ...state,
+            showFunctionMenu:true,
+            showModal: true,
         }
         default: return state;
     }

@@ -58,7 +58,7 @@ class SelectPlayers extends Component {
                 players: players,
             })
         });
-        firebase.database().ref('/Teams/' + this.props.match.params.teamId + '/TeamMembers').once('value').then(res => {
+        firebase.database().ref('/Teams/' + this.props.team.TeamId + '/TeamMembers').once('value').then(res => {
             teamMembers = res.val();
             console.log(res.val());
             if (teamMembers) {
@@ -91,13 +91,13 @@ class SelectPlayers extends Component {
             }
         }; 
 
-        console.log(updatedTeamMembers);
+        console.log(this.props);
 
-        firebase.database().ref('/Teams/' + this.props.match.params.teamId + '/TeamMembers/').set(updatedTeamMembers)
+        firebase.database().ref('/Teams/' + this.props.team.TeamId + '/TeamMembers/').set(updatedTeamMembers)
             .then(response => {
                 this.setState({ loading: false, });
                 this.props.history.push({
-                    pathname: '/Team/' + this.props.match.params.teamId ,
+                    pathname: '/Team/' + this.props.team.teamId ,
                 });
             })
             .catch(error => {

@@ -7,15 +7,15 @@ class header extends Component {
 
     render() {
         return (
-        <div>
-            <div className={classes.Header}>
-                <div className={classes.TeamName}>{this.props.team.teamName}</div>
-                        <div className={classes.HeaderLinks}>
-                                <NavPanelLink to="/">Home</NavPanelLink>
-                                <NavPanelLink to="/selectTeam">Teams</NavPanelLink>
-                                <NavPanelLink to="/AddTeam">Add Team</NavPanelLink>
-                                <NavPanelLink to="/AddNewPlayer">Add New Player</NavPanelLink>
-                        </div>
+            <div>
+                <div className={classes.Header}>
+                    <div className={classes.TeamName}>{this.props.team.teamName}</div>
+                    <div className={classes.HeaderLinks}>
+                        <NavPanelLink to="/">Home</NavPanelLink>
+                        <NavPanelLink to="/selectTeam">Teams</NavPanelLink>
+                        <NavPanelLink NavClicked={() => this.props.navItemClicked("AddTeam")}>Add Team</NavPanelLink>
+                        <NavPanelLink NavClicked={() => this.props.navItemClicked("AddPlayer")}>Add New Player</NavPanelLink>
+                    </div>
                 </div>
             </div>
         )
@@ -29,4 +29,10 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(header);
+const mapDispatchToProps = dispatch => {
+    return {
+        navItemClicked: (navItem) => dispatch({type: 'NavPanelSelection', navItem:navItem}),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(header);

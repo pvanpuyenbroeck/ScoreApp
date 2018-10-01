@@ -39,11 +39,10 @@ class Team extends Component {
             .reduce((res, o) => Object.assign(res, o), {});
     }
     componentDidMount() {
-        const teamId = this.props.team.TeamId;
+        const teamId = this.props.match.params.teamId;
         firebase.database().ref('/Teams/' + teamId).once('value').then(res => {
 
             const team = res.val();
-            
             if (team.TeamMembers) {
                 const players = Object.keys(team.TeamMembers);
                 firebase.database().ref('/players').once('value').then(allPlayers => {
@@ -84,7 +83,7 @@ class Team extends Component {
                     team={this.state.team}
                 /> */}
                 <Toggle toggleClicked={() => this.props.showFunctionMenu()} classtheme="TeamButton">MY TEAM</Toggle>
-                <TeamFunctionMenu team={this.state.team} showMenu={this.props.showfunctionMenu}/>
+                <TeamFunctionMenu team={this.state.team}/>
                 <Modal show={this.props.showModal} modalClosed={() => this.props.closeModal()}/>
                 <Players team={this.state.team} playerDetails={this.state.playerDetails} />
                 <Games matches={this.state.team.Matches} teamId={this.state.team.teamId} />
@@ -98,7 +97,7 @@ const mapDispatchToProps = dispatch => {
         getTeam: (team) => dispatch({type:"GetTeam", team:team}),
         closeModal: () => dispatch({type:"closeModal"}),
         showFunctionMenu: () => dispatch({type:"showFunctionMenu"}),
-
+        getTeamFirebase: (teamId) => dispatch({type:"getTeamFirebase", teamId:teamId}),
     }
 }
 

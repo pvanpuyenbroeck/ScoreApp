@@ -1,3 +1,5 @@
+import firebase from '../firebase-scoreapp';
+
 const initialState = {
     team: {},
     NavPanelLink:"",
@@ -19,6 +21,7 @@ const reducer = (state = initialState, action) => {
             NavPanelLink:action.navItem,
             showFlexItem: true,
             ToggleSidePanel:!state.ToggleSidePanel,
+            showModal:true,
         }
         case"sidePanelToggle":
         return{

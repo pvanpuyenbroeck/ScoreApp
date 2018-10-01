@@ -6,9 +6,10 @@ import {connect} from 'react-redux';
 class teamFunctionMenu extends Component {
 
     render(){
-        let attachedClasses = [classes.TeamFunctionMenu]
-        if(this.props.showMenu === false){
-            attachedClasses.push(classes.Closed);
+        let attachedClasses = [classes.TeamFunctionMenu, classes.Closed]
+        console.log(this.props.showFunctionMenu);
+        if(this.props.showFunctionMenu === true){
+            attachedClasses.pop();
         }
         return (
             <div className={attachedClasses.join(' ')}>
@@ -27,6 +28,7 @@ class teamFunctionMenu extends Component {
 const mapStateToProps = state => {
     return{
         team: state.team,
+        showFunctionMenu: state.showFunctionMenu,
     }
 }
 

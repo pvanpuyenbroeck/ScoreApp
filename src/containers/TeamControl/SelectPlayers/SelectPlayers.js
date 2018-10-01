@@ -5,6 +5,7 @@ import PlayerButton from '../../../components/Players/PlayerButton/PlayerButton'
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import axios from '../../../axios-scoreapp';
 import Input from '../../../components/UI/Input/Input';
+import {connect} from 'react-redux';
 
 class SelectPlayers extends Component {
     state = {
@@ -94,11 +95,13 @@ class SelectPlayers extends Component {
                 this.setState({ loading: false, });
                 this.props.history.push({
                     pathname: '/Team/' + this.props.team.teamId ,
-                });
+                });                
             })
             .catch(error => {
                 this.setState({ loading: false });
             })
+            window.location.reload()
+            this.props.closeModal();     
     }
     checkValidity(value, rules) {
         let isValid = true;
@@ -199,4 +202,16 @@ class SelectPlayers extends Component {
     }
 }
 
-export default SelectPlayers;
+const mapDispatchToProps = dispatch => {
+    return{
+        closeModal: () => dispatch({type:"closeModal"}),
+    }
+}
+
+const mapStateToProps = state => {
+    return{
+        
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(SelectPlayers);

@@ -3,6 +3,7 @@ import classes from './AddPlayer.css';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input'
 import axios from '../../../axios-scoreapp';
+import {connect} from 'react-redux';
 
 
 class AddPlayer extends Component {
@@ -62,14 +63,12 @@ class AddPlayer extends Component {
         for (let formElementIdentifier in this.state.playerForm) {
             formData[formElementIdentifier] = this.state.playerForm[formElementIdentifier].value
         }
-        formData["teamId"] = this.props.match.params.teamId;
+        // formData["teamId"] = this.props.match.params.teamId;
         const playerInfo = formData;
         axios.post('/players.json', playerInfo)
             .then(response => {
                 this.setState({ loading: false, });
-                this.props.history.push({
-                    pathname: '/selectTeam'
-                });
+                this.props.closeModal();
             })
             .catch(error => {
                 this.setState({ loading: false });
@@ -129,4 +128,17 @@ class AddPlayer extends Component {
     }
 }
 
-export default AddPlayer;
+const mapStateToProps = state => {
+    return{
+        showFlexItem: state.showFlexItem,
+        showModal: state.showModal,
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return{      
+        closeModal: () => dispatch({type:"closeModal"}),
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(AddPlayer);

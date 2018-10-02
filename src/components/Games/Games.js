@@ -18,7 +18,7 @@ const games = (props) => {
         allGames = gameArray.map((game) => {
             console.log(game);
             return (
-                <Match key={game.gameData.opponent} match={game} location={props.location}/>
+                <Match key={game.gameData.opponent} match={game} matchButtonClicked={(match) => props.matchClicked(match)} />
             )
         })
     }

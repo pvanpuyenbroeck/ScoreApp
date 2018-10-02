@@ -71,8 +71,11 @@ class Team extends Component {
 
     }
 
-    matchSelected(matchId){
-
+    matchSelected = (matchId) => {
+        console.log(matchId);
+            this.setState({
+                showMatchControl: true,
+            })
     }
 
     showToggle() {
@@ -92,7 +95,10 @@ class Team extends Component {
                     <TeamFunctionMenu team={this.state.team} />
                     <Modal show={this.props.showModal} modalClosed={() => this.props.closeModal()} />
                     <Players team={this.state.team} playerDetails={this.state.playerDetails} />
-                    <Games matches={this.state.team.Matches} teamId={this.state.team.teamId} matchClicked={(matchId) => this.matchSelected(matchId)} />
+                    <Games 
+                    matches={this.state.team.Matches} 
+                    teamId={this.state.team.teamId} 
+                    matchClicked={(matchId) => this.matchSelected(matchId)} />
                 </div>
             )
         }

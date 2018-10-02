@@ -19,7 +19,7 @@
 @media(min-width: 600px){
     .HeaderLinks{
         display: inline-block;
-        position: fixed;
+        position: absolute;
         right:0px;
         height:30px;
     }

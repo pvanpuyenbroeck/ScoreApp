@@ -26,7 +26,7 @@ class TeamControl extends Component {
                     <Route path={"/Team/:teamId"} exact component={Team}/>
                     <Route path="/selectTeam" exact component={TeamsOverview} />
                     <Route path="/Team/:teamId/selectPlayers" exact component={SelectPlayers} />
-                    <Route path="/Team/:teamId/matchCenter/:matchId" exact component={MatchCenter} />
+                    {/* <Route path="/Team/:teamId/matchCenter/:matchId" exact component={MatchCenter} /> */}
                     <Route path="/addTeam" component={AddTeam} />
                     {/* <Route render={() => <h1>not found</h1>} /> */}
                 </Switch>

@@ -6,7 +6,8 @@ import firebase from '../../../firebase-scoreapp';
 import Modal from '../../../components/UI/Modal/Modal';
 import TeamFunctionMenu from '../../../components/Navigation/TeamFunctionMenu/TeamFunctionMenu';
 import Toggle from '../../../components/UI/Toggle/Toggle';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
+import MatchCenter from '../MatchCenter/MatchCenter';
 
 class Team extends Component {
 
@@ -32,7 +33,8 @@ class Team extends Component {
         },
         playerDetails: {},
         showModal: false,
-        showToggle:false,
+        showToggle: false,
+        showMatchControl: false,
     }
     pick(obj, keys) {
         return keys.map(k => k in obj ? { [k]: obj[k] } : {})
@@ -56,7 +58,7 @@ class Team extends Component {
                     }
                     this.props.getTeam({
                         ...team,
-                        TeamId:teamId,
+                        TeamId: teamId,
                         playerDetails: filteredPlayers,
                     });
                     this.setState({
@@ -69,40 +71,50 @@ class Team extends Component {
 
     }
 
-    showToggle(){
+    matchSelected(matchId){
+
+    }
+
+    showToggle() {
         this.setState({
-            showToggle:!this.state.showToggle,
-            showModal:!this.state.showModal,
+            showToggle: !this.state.showToggle,
+            showModal: !this.state.showModal,
         })
     }
     render() {
+        let teamControl = "";
+        if (this.state.showMatchControl) {
+            teamControl = <MatchCenter />
+        } else {
+            teamControl = (
+                <div>
+                    <Toggle toggleClicked={() => this.props.showFunctionMenu()} classtheme="TeamButton">MY TEAM</Toggle>
+                    <TeamFunctionMenu team={this.state.team} />
+                    <Modal show={this.props.showModal} modalClosed={() => this.props.closeModal()} />
+                    <Players team={this.state.team} playerDetails={this.state.playerDetails} />
+                    <Games matches={this.state.team.Matches} teamId={this.state.team.teamId} matchClicked={(matchId) => this.matchSelected(matchId)} />
+                </div>
+            )
+        }
         return (
             <div>
-                {/* <TeamView
-                    // teamName={this.state.team.teamName}
-                    team={this.state.team}
-                /> */}
-                <Toggle toggleClicked={() => this.props.showFunctionMenu()} classtheme="TeamButton">MY TEAM</Toggle>
-                <TeamFunctionMenu team={this.state.team}/>
-                <Modal show={this.props.showModal} modalClosed={() => this.props.closeModal()}/>
-                <Players team={this.state.team} playerDetails={this.state.playerDetails} />
-                <Games matches={this.state.team.Matches} teamId={this.state.team.teamId} location={this.props.location}/>
+                {teamControl}
             </div>
         )
     }
 }
 
 const mapDispatchToProps = dispatch => {
-    return{
-        getTeam: (team) => dispatch({type:"GetTeam", team:team}),
-        closeModal: () => dispatch({type:"closeModal"}),
-        showFunctionMenu: () => dispatch({type:"showFunctionMenu"}),
-        getTeamFirebase: (teamId) => dispatch({type:"getTeamFirebase", teamId:teamId}),
+    return {
+        getTeam: (team) => dispatch({ type: "GetTeam", team: team }),
+        closeModal: () => dispatch({ type: "closeModal" }),
+        showFunctionMenu: () => dispatch({ type: "showFunctionMenu" }),
+        getTeamFirebase: (teamId) => dispatch({ type: "getTeamFirebase", teamId: teamId }),
     }
 }
 
 const mapStateToProps = state => {
-    return{
+    return {
         team: state.team,
         showModal: state.showModal,
         showfunctionMenu: state.showFunctionMenu,
@@ -110,4 +122,4 @@ const mapStateToProps = state => {
 }
 
 
-export default connect(mapStateToProps,mapDispatchToProps)(Team);
+export default connect(mapStateToProps, mapDispatchToProps)(Team);

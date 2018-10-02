@@ -14,14 +14,11 @@ const games = (props) => {
         allGames = gameArray.map((game) => {
             console.log(game.gameData);
             return (
-                <Match opponent={game.gameData.opponent} key={game.gameData.opponent}/>
+                <Match opponent={game.gameData.opponent} key={game.gameData.opponent} matchButtonClicked={props.matchClicked}/>
             )
         })
     }
-
-
     return (
-
         <div className={classes.Games}>
         {allGames}            
         </div>

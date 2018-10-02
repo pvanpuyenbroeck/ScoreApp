@@ -20,6 +20,7 @@ class teamFunctionMenu extends Component {
                 <ButtonTeamMenu buttonClicked={() => this.props.showComponent("AddMatch")}>
                     Match Toevoegen
                 </ButtonTeamMenu>
+                
             </div>
         )
     }

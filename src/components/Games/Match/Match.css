@@ -9,3 +9,7 @@
     border-radius: 5px;
 }
 
+.Match:hover{
+    cursor: pointer;
+}
+

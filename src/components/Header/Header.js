@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import classes from './Header.css';
 import { connect } from 'react-redux';
 import NavPanelLink from '../Navigation/NavPanel/NavPanelLink/NavPanelLink';
+import { NavLink } from 'react-router-dom';
 
 class header extends Component {
 
@@ -12,7 +13,15 @@ class header extends Component {
                     <div className={classes.TeamName}>{this.props.team.teamName}</div>
                     <div className={classes.HeaderLinks}>
                         <NavPanelLink to="/">Home</NavPanelLink>
-                        <NavPanelLink to="/selectTeam">Teams</NavPanelLink>
+                        <NavPanelLink>
+                        <NavLink
+                        onClick={() => this.props.closeSidePanel()}
+                        className={classes.NavLink}
+                        to="/selectTeam"
+                        activeClassName={classes.active}>
+                        Select Team
+                    </NavLink>
+                        </NavPanelLink>
                         <NavPanelLink NavClicked={() => this.props.navItemClicked("AddTeam")}>Add Team</NavPanelLink>
                         <NavPanelLink NavClicked={() => this.props.navItemClicked("AddPlayer")}>Add New Player</NavPanelLink>
                     </div>

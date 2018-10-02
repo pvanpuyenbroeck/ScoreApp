@@ -15,6 +15,7 @@ import AddPlayer from './containers/TeamControl/AddPlayer/AddPlayer';
 import SelectPlayer from './containers/TeamControl/SelectPlayers/SelectPlayers';
 import AddMatch from './containers/TeamControl/AddGame/AddGame';
 import TeamsOverview from './containers/TeamControl/TeamsOverview/TeamsOverview';
+import MatchCenter from './containers/TeamControl/MatchCenter/MatchCenter';
 
 
 class App extends Component {

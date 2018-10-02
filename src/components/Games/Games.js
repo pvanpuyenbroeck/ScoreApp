@@ -7,14 +7,18 @@ const games = (props) => {
     console.log(props);
     let gameArray = [];
     for(let key in props.matches){
-        gameArray.push(props.matches[key]);
+        gameArray.push({
+            ...props.matches[key],
+            matchId:[key],
+        });
     }
+    console.log(gameArray);
     let allGames = <h1>Er zijn geen geplande matches</h1>
     if (props.matches) {
         allGames = gameArray.map((game) => {
-            console.log(game.gameData);
+            console.log(game);
             return (
-                <Match opponent={game.gameData.opponent} key={game.gameData.opponent} matchButtonClicked={props.matchClicked}/>
+                <Match key={game.gameData.opponent} match={game} location={props.location}/>
             )
         })
     }

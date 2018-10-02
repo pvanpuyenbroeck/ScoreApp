@@ -1,17 +1,17 @@
 import React from 'react';
 import classes from './Match.css';
-import {NavLink} from 'react-router-dom';
+import {NavLink, Link} from 'react-router-dom';
 
 const Match = (props) => (
+    <Link to={"/Team/" + props.match.gameData.teamId + "/matchCenter/" + props.match.matchId}>
     <div className={classes.Match} onClick={props.matchButtonClicked}>
-    <NavLink to={"/Team/" + props.id + "/matchCenter/" + props.matchId}>
         <div>Afbeelding komt hier</div>
         <div>    
-            <div>{props.teamName}</div>   
-            {props.opponent}
+            <div>{props.match.gameData.teamName}</div>   
+            {props.match.gameData.opponent}
         </div>
-        </NavLink>
-    </div>
+        </div>
+        </Link>
 )
 
 export default Match;

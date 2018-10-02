@@ -86,7 +86,7 @@ class Team extends Component {
                 <TeamFunctionMenu team={this.state.team}/>
                 <Modal show={this.props.showModal} modalClosed={() => this.props.closeModal()}/>
                 <Players team={this.state.team} playerDetails={this.state.playerDetails} />
-                <Games matches={this.state.team.Matches} teamId={this.state.team.teamId} matchClicked={() => this.props.openMatchCenter('matchcenter')} />
+                <Games matches={this.state.team.Matches} teamId={this.state.team.teamId} location={this.props.location}/>
             </div>
         )
     }
@@ -98,7 +98,6 @@ const mapDispatchToProps = dispatch => {
         closeModal: () => dispatch({type:"closeModal"}),
         showFunctionMenu: () => dispatch({type:"showFunctionMenu"}),
         getTeamFirebase: (teamId) => dispatch({type:"getTeamFirebase", teamId:teamId}),
-        openMatchCenter: (navitem) => dispatch({type:"showComponent", navItem:navitem}),
     }
 }
 

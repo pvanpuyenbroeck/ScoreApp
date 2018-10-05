@@ -1,5 +1,3 @@
-import firebase from '../firebase-scoreapp';
-
 const initialState = {
     team: {},
     NavPanelLink:"",
@@ -7,6 +5,7 @@ const initialState = {
     showFlexItem: false,
     showModal: false,
     showFunctionMenu: false,
+    selectedTeam:{},
 }
 
 const reducer = (state = initialState, action) => {
@@ -55,6 +54,16 @@ const reducer = (state = initialState, action) => {
             ...state,
             showFunctionMenu:true,
             showModal: true,
+        }
+        case "selectedTeam":
+        return{
+            ...state,
+            selectedTeam: action.selectedTeam,
+        }
+        case "addTeam":
+        return{
+            ...state,
+            //Nog af te werken
         }
         default: return state;
     }

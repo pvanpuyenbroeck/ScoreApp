@@ -35,6 +35,7 @@ class Team extends Component {
         showModal: false,
         showToggle: false,
         showMatchControl: false,
+        selectedMatch:{},
     }
     pick(obj, keys) {
         return keys.map(k => k in obj ? { [k]: obj[k] } : {})
@@ -71,8 +72,8 @@ class Team extends Component {
 
     }
 
-    matchSelected = (matchId) => {
-        console.log(matchId);
+    matchSelected = (matchDetails) => {
+        this.props.selectedTeam(matchDetails);
             this.setState({
                 showMatchControl: true,
             })
@@ -116,6 +117,7 @@ const mapDispatchToProps = dispatch => {
         closeModal: () => dispatch({ type: "closeModal" }),
         showFunctionMenu: () => dispatch({ type: "showFunctionMenu" }),
         getTeamFirebase: (teamId) => dispatch({ type: "getTeamFirebase", teamId: teamId }),
+        selectedTeam: (selectedTeam) => dispatch({type:"selectedTeam", selectedTeam:selectedTeam}),
     }
 }
 

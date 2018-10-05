@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import Players from '../../../components/Players/Players/Players';
 import Games from '../../../components/Games/Games';
 import classes from './Team.css';
-import firebase from '../../../firebase-scoreapp';
 import Modal from '../../../components/UI/Modal/Modal';
 import TeamFunctionMenu from '../../../components/Navigation/TeamFunctionMenu/TeamFunctionMenu';
 import Toggle from '../../../components/UI/Toggle/Toggle';
 import { connect } from 'react-redux';
 import MatchCenter from '../MatchCenter/MatchCenter';
+import * as actions from '../../../store/actions/index';
 
 class Team extends Component {
 
@@ -43,32 +43,7 @@ class Team extends Component {
     }
     componentDidMount() {
         const teamId = this.props.match.params.teamId;
-        firebase.database().ref('/Teams/' + teamId).once('value').then(res => {
-
-            const team = res.val();
-            if (team.TeamMembers) {
-                const players = Object.keys(team.TeamMembers);
-                firebase.database().ref('/players').once('value').then(allPlayers => {
-                    const allTeamMembers = allPlayers.val();
-                    const filteredPlayers = this.pick(allTeamMembers, players);
-                    for (let key in filteredPlayers) {
-                        filteredPlayers[key] = {
-                            ...filteredPlayers[key],
-                            playerNumber: team.TeamMembers[key].number,
-                        }
-                    }
-                    this.props.getTeam({
-                        ...team,
-                        TeamId: teamId,
-                        playerDetails: filteredPlayers,
-                    });
-                    this.setState({
-                        team: team,
-                        playerDetails: filteredPlayers,
-                    })
-                })
-            }
-        })
+        this.props.getTeamFirebase(teamId);
 
     }
 
@@ -116,16 +91,16 @@ const mapDispatchToProps = dispatch => {
         getTeam: (team) => dispatch({ type: "GetTeam", team: team }),
         closeModal: () => dispatch({ type: "closeModal" }),
         showFunctionMenu: () => dispatch({ type: "showFunctionMenu" }),
-        getTeamFirebase: (teamId) => dispatch({ type: "getTeamFirebase", teamId: teamId }),
+        getTeamFirebase: (teamId) => dispatch(actions.getTeam(teamId)),
         selectedTeam: (selectedTeam) => dispatch({type:"selectedTeam", selectedTeam:selectedTeam}),
     }
 }
 
 const mapStateToProps = state => {
     return {
-        team: state.team,
-        showModal: state.showModal,
-        showfunctionMenu: state.showFunctionMenu,
+        team: state.team.team,
+        showModal: state.navigation.showModal,
+        showfunctionMenu: state.navigation.showFunctionMenu,
     }
 }
 

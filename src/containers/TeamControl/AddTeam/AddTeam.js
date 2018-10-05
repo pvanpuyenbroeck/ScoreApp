@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from '../../../axios-scoreapp';
 import TeamForm from '../Team/TeamForm/TeamForm';
 import { Redirect } from 'react-router-dom';
+import {connect} from 'react-redux';
+import * as actions from '../../../store/actions/index';
 
 class AddTeam extends Component {
     state = {
@@ -33,13 +35,14 @@ class AddTeam extends Component {
     }
     onSubmitHandler = (event) => {
         console.log(this.state.teamToAdd);
-        axios.post('/Teams.json', this.state.teamToAdd)
-            .then(res => {
-                this.setState({
-                    loading: false,
-                    submitted: true,
-                })
-            });
+        this.props.addTeam(this.state.teamToAdd);
+        // axios.post('/Teams.json', this.state.teamToAdd)
+        //     .then(res => {
+        //         this.setState({
+        //             loading: false,
+        //             submitted: true,
+        //         })
+        //     });
         event.preventDefault();
     }
 
@@ -56,7 +59,7 @@ class AddTeam extends Component {
     }
     render() {
         let formOrRedirect = null;
-        if (this.state.submitted) {
+        if (this.props.submitted) {
             formOrRedirect = <Redirect to="/selectedTeam" />
         } else {
             formOrRedirect = (
@@ -75,4 +78,17 @@ class AddTeam extends Component {
     }
 }
 
-export default AddTeam;
+const mapStateToProps = state => {
+    return{
+        loading: state.team.loading,
+        submitted: state.team.submitted,
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return{
+        addTeam: (team) => dispatch(actions.addTeam(team)),
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(AddTeam);

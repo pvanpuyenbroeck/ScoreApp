@@ -1,20 +1,16 @@
+import * as actionTypes from '../actions/actionTypes';
+
 const initialState = {
-    team: {},
     NavPanelLink:"",
     ToggleSidePanel: false,
     showFlexItem: false,
     showModal: false,
     showFunctionMenu: false,
-    selectedTeam:{},
 }
 
 const reducer = (state = initialState, action) => {
     switch(action.type){
-        case "teamSelected":
-        return{
-            team: action.team,
-        }
-        case "NavPanelSelection":
+        case actionTypes.NAVPANEL_SELECTION:
         return{
             ...state,
             NavPanelLink:action.navItem,
@@ -22,13 +18,13 @@ const reducer = (state = initialState, action) => {
             ToggleSidePanel:!state.ToggleSidePanel,
             showModal:true,
         }
-        case"sidePanelToggle":
+        case actionTypes.SIDEPANEL_TOGGLE:
         return{
             ...state,
             ToggleSidePanel:!state.ToggleSidePanel,
             showModal: true,
         }
-        case "closeModal":
+        case actionTypes.CLOSE_MODAL:
         return{
             ...state,
             showModal:false,
@@ -36,12 +32,7 @@ const reducer = (state = initialState, action) => {
             showFlexItem:false,
             showFunctionMenu: false,
         }
-        case "GetTeam":
-        return{
-            ...state,
-            team:action.team,
-        }
-        case "showComponent":
+        case actionTypes.SHOW_COMPONENT:
         return{
             ...state,
             showFlexItem: true,
@@ -49,19 +40,12 @@ const reducer = (state = initialState, action) => {
             showModal:true,
             showFunctionMenu: false,
         }
-        case "showFunctionMenu":
+        case actionTypes.SHOW_FUNCTIONMENU:
         return{
             ...state,
             showFunctionMenu:true,
             showModal: true,
         }
-        case "selectedTeam":
-        return{
-            ...state,
-            selectedTeam: action.selectedTeam,
-        }
-        case "addTeam":
-
         default: return state;
     }
 };

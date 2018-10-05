@@ -3,6 +3,7 @@ import classes from './Header.css';
 import { connect } from 'react-redux';
 import NavPanelLink from '../Navigation/NavPanel/NavPanelLink/NavPanelLink';
 import { NavLink } from 'react-router-dom';
+import * as actions from '../../store/actions/index';
 
 class header extends Component {
 
@@ -40,6 +41,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        navItemClicked: (navItem) => dispatch({type: 'NavPanelSelection', navItem:navItem}),
         navItemClicked: (navItem) => dispatch({type: 'NavPanelSelection', navItem:navItem}),
     }
 }

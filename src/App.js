@@ -14,6 +14,7 @@ import AddTeam from './containers/TeamControl/AddTeam/AddTeam';
 import AddPlayer from './containers/TeamControl/AddPlayer/AddPlayer';
 import SelectPlayer from './containers/TeamControl/SelectPlayers/SelectPlayers';
 import AddMatch from './containers/TeamControl/AddGame/AddGame';
+import * as actions from './store/actions/index';
 import TeamsOverview from './containers/TeamControl/TeamsOverview/TeamsOverview';
 import MatchCenter from './containers/TeamControl/MatchCenter/MatchCenter';
 
@@ -57,18 +58,18 @@ class App extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-      sidePanelToggle: () => dispatch({type: "sidePanelToggle"}),
-      ModalClicked: () => dispatch({type:"closeModal"}),
+      sidePanelToggle: () => dispatch(actions.sidepanelToggle()),
+      ModalClicked: () => dispatch(actions.sidepanelToggle()),
   }
 };
 
 const mapStateToProps = state => {
   return {
-    navItem: state.NavPanelLink,
-    toggleSidePanel: state.ToggleSidePanel,
-    showFlexbox: state.showFlexItem,
-    showModal: state.showModal,
-    team: state.team,
+    navItem: state.navigation.NavPanelLink,
+    toggleSidePanel: state.navigation.ToggleSidePanel,
+    showFlexbox: state.navigation.showFlexItem,
+    showModal: state.navigation.showModal,
+    team: state.team.team,
   }
 }
 

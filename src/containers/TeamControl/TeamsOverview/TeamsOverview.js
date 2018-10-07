@@ -4,6 +4,8 @@ import SelectedTeamButton from '../../../components/Team/SelectTeamButton/Select
 import axios from '../../../axios-scoreapp';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
+import * as actions from '../../../store/actions/index';
 
 class TeamsOverview extends Component {
     state = {
@@ -77,8 +79,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        teamSelectedHandler: (team) => dispatch({type: 'teamSelected', team: team}),
+        teamSelectedHandler: (team) => dispatch(actions.setSelectedTeam(team)),
     }
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(TeamsOverview);
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(TeamsOverview));

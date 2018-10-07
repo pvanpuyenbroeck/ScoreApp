@@ -41,8 +41,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        navItemClicked: (navItem) => dispatch({type: 'NavPanelSelection', navItem:navItem}),
-        navItemClicked: (navItem) => dispatch({type: 'NavPanelSelection', navItem:navItem}),
+        // navItemClicked: (navItem) => dispatch({type: 'NavPanelSelection', navItem:navItem}),
+        navItemClicked: (navItem) => dispatch(actions.navpanelSelection(navItem)),
+        closeSidePanel: () => dispatch(actions.sidepanelToggle()),
     }
 }
 

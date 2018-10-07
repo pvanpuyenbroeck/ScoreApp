@@ -9,7 +9,7 @@ import GameForm from './AddGame/AddGame';
 import SelectPlayers from './SelectPlayers/SelectPlayers';
 import MatchCenter from '../TeamControl/MatchCenter/MatchCenter';
 import Flexbox from '../../components/UI/Flexbox/Flexbox';
-
+import {withRouter} from 'react-router-dom';
 
 class TeamControl extends Component {
     state = {
@@ -35,4 +35,4 @@ class TeamControl extends Component {
     }
 }
 
-export default TeamControl;
+export default withRouter(TeamControl);

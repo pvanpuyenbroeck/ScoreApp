@@ -8,6 +8,7 @@ import Toggle from '../../../components/UI/Toggle/Toggle';
 import { connect } from 'react-redux';
 import MatchCenter from '../MatchCenter/MatchCenter';
 import * as actions from '../../../store/actions/index';
+import {withRouter} from 'react-router-dom';
 
 class Team extends Component {
 
@@ -37,10 +38,10 @@ class Team extends Component {
         showMatchControl: false,
         selectedMatch:{},
     }
-    pick(obj, keys) {
-        return keys.map(k => k in obj ? { [k]: obj[k] } : {})
-            .reduce((res, o) => Object.assign(res, o), {});
-    }
+    // pick(obj, keys) {
+    //     return keys.map(k => k in obj ? { [k]: obj[k] } : {})
+    //         .reduce((res, o) => Object.assign(res, o), {});
+    // }
     componentDidMount() {
         const teamId = this.props.match.params.teamId;
         this.props.getTeamFirebase(teamId);
@@ -88,9 +89,9 @@ class Team extends Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        getTeam: (team) => dispatch({ type: "GetTeam", team: team }),
-        closeModal: () => dispatch({ type: "closeModal" }),
-        showFunctionMenu: () => dispatch({ type: "showFunctionMenu" }),
+        getTeam: (team) => dispatch(actions.getTeam(team)),
+        closeModal: () => dispatch(actions.closeModal()),
+        showFunctionMenu: () => dispatch(actions.showFunctionMenu()),
         getTeamFirebase: (teamId) => dispatch(actions.getTeam(teamId)),
         selectedTeam: (selectedTeam) => dispatch({type:"selectedTeam", selectedTeam:selectedTeam}),
     }
@@ -105,4 +106,4 @@ const mapStateToProps = state => {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Team);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Team));

@@ -5,6 +5,7 @@ const initialState = {
     submitted: false,
     error: "",
     selectedTeam:{},
+    sidePanelOpen: false,
 }
 
 const addTeam = (state,action) => {
@@ -57,6 +58,13 @@ const getTeamFail= (state, action) => {
     }
 }
 
+const setSelectedTeam= (state, action) => {
+    return{
+        ...state,
+        selectedTeam:action.selectedTeam,
+    }
+}
+
 
 
 const reducer = (state = initialState, action) => {
@@ -69,6 +77,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.GET_TEAM_START: return getTeamStart(state, action);
         case actionTypes.GET_TEAM_SUCCESS: return getTeamSuccess(state, action);
         case actionTypes.GET_TEAM_FAIL: return getTeamFail(state, action);
+        case actionTypes.SET_SELECTED_TEAM: return setSelectedTeam(state,action);
         default: return state;
 }
 }

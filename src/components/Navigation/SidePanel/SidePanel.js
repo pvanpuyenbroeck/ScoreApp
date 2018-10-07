@@ -6,6 +6,7 @@ import Flexbox from '../../UI/Flexbox/Flexbox';
 import AddPlayer from '../../../containers/TeamControl/AddPlayer/AddPlayer';
 import {connect} from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import * as actions from '../../../store/actions/index';
 
 class sidePanel extends Component {
     render(){
@@ -46,8 +47,8 @@ class sidePanel extends Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        navItemClicked: (navItem) => dispatch({type: 'NavPanelSelection', navItem:navItem}),
-        closeSidePanel: () => dispatch({type: 'closeModal'}),
+        navItemClicked: (navItem) => dispatch(actions.navpanelSelection(navItem)),
+        closeSidePanel: () => dispatch(actions.closeModal()),
     }
 };
 

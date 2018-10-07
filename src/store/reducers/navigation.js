@@ -22,7 +22,7 @@ const reducer = (state = initialState, action) => {
         return{
             ...state,
             ToggleSidePanel:!state.ToggleSidePanel,
-            showModal: true,
+            showModal: !state.showModal,
         }
         case actionTypes.CLOSE_MODAL:
         return{

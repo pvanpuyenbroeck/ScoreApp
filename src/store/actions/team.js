@@ -89,3 +89,10 @@ export const getTeam = (teamId) => {
     })
     }
 }
+
+export const setSelectedTeam = (team) => {
+    return{
+        type: actionTypes.SET_SELECTED_TEAM,
+        selectedTeam: team, 
+    }
+}

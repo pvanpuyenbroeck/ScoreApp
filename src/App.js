@@ -15,6 +15,7 @@ import AddPlayer from './containers/TeamControl/AddPlayer/AddPlayer';
 import SelectPlayer from './containers/TeamControl/SelectPlayers/SelectPlayers';
 import AddMatch from './containers/TeamControl/AddGame/AddGame';
 import * as actions from './store/actions/index';
+import { withRouter } from 'react-router-dom'
 import TeamsOverview from './containers/TeamControl/TeamsOverview/TeamsOverview';
 import MatchCenter from './containers/TeamControl/MatchCenter/MatchCenter';
 
@@ -73,4 +74,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

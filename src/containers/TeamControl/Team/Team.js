@@ -42,17 +42,17 @@ class Team extends Component {
     //     return keys.map(k => k in obj ? { [k]: obj[k] } : {})
     //         .reduce((res, o) => Object.assign(res, o), {});
     // }
-    componentDidMount() {
+    componentWillMount() {
         const teamId = this.props.match.params.teamId;
-        this.props.getTeamFirebase(teamId);
+        this.props.selectedTeam(teamId);
 
     }
 
     matchSelected = (matchDetails) => {
-        this.props.selectedTeam(matchDetails);
-            this.setState({
-                showMatchControl: true,
-            })
+        // this.props.selectedTeam(matchDetails);
+        //     this.setState({
+        //         showMatchControl: true,
+        //     })
     }
 
     showToggle() {
@@ -71,7 +71,7 @@ class Team extends Component {
                     <Toggle toggleClicked={() => this.props.showFunctionMenu()} classtheme="TeamButton">MY TEAM</Toggle>
                     <TeamFunctionMenu team={this.state.team} />
                     <Modal show={this.props.showModal} modalClosed={() => this.props.closeModal()} />
-                    <Players team={this.state.team} playerDetails={this.state.playerDetails} />
+                    <Players team={this.props.team.selectedTeam} playerDetails={this.props.team.filteredPlayers} />
                     <Games 
                     matches={this.state.team.Matches} 
                     teamId={this.state.team.teamId} 
@@ -92,14 +92,14 @@ const mapDispatchToProps = dispatch => {
         getTeam: (team) => dispatch(actions.getTeam(team)),
         closeModal: () => dispatch(actions.closeModal()),
         showFunctionMenu: () => dispatch(actions.showFunctionMenu()),
-        getTeamFirebase: (teamId) => dispatch(actions.getTeam(teamId)),
-        selectedTeam: (selectedTeam) => dispatch({type:"selectedTeam", selectedTeam:selectedTeam}),
+        // getTeamFirebase: (teamId) => dispatch(actions.getTeam(teamId)),
+        selectedTeam: (teamId) => dispatch(actions.getTeam(teamId)),
     }
 }
 
 const mapStateToProps = state => {
     return {
-        team: state.team.team,
+        team: state.team.selectedTeam,
         showModal: state.navigation.showModal,
         showfunctionMenu: state.navigation.showFunctionMenu,
     }

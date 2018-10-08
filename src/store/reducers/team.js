@@ -6,6 +6,7 @@ const initialState = {
     error: "",
     selectedTeam:{},
     sidePanelOpen: false,
+    playerDetails:{},
 }
 
 const addTeam = (state,action) => {
@@ -55,6 +56,7 @@ const getTeamFail= (state, action) => {
         ...state,
         loading: false,
         submitted: false,
+        error: action.error,
     }
 }
 

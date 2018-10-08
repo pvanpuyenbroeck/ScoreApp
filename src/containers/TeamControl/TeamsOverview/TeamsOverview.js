@@ -4,7 +4,6 @@ import SelectedTeamButton from '../../../components/Team/SelectTeamButton/Select
 import axios from '../../../axios-scoreapp';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
 import * as actions from '../../../store/actions/index';
 
 class TeamsOverview extends Component {
@@ -73,7 +72,7 @@ class TeamsOverview extends Component {
 
 const mapStateToProps = state => {
     return {
-        // teamName: state.teamName
+        team: state.team.selectedTeam,
     };
 };
 
@@ -83,4 +82,4 @@ const mapDispatchToProps = dispatch => {
     }
 };
 
-export default withRouter(connect(mapStateToProps,mapDispatchToProps)(TeamsOverview));
+export default connect(mapStateToProps,mapDispatchToProps)(TeamsOverview);

@@ -7,15 +7,12 @@ import Team from './Team/Team';
 import PlayerForm from './Team/PlayerForm/PlayerForm';
 import GameForm from './AddGame/AddGame';
 import SelectPlayers from './SelectPlayers/SelectPlayers';
+import {connect} from 'react-redux';
+import { withRouter } from 'react-router-dom'
 import MatchCenter from '../TeamControl/MatchCenter/MatchCenter';
 import Flexbox from '../../components/UI/Flexbox/Flexbox';
-import {withRouter} from 'react-router-dom';
 
 class TeamControl extends Component {
-    state = {
-
-    }
-
     render() {
         
         return (
@@ -35,4 +32,10 @@ class TeamControl extends Component {
     }
 }
 
-export default withRouter(TeamControl);
+const mapStateToProps = state => {
+    return{
+        team:state.team.selectedTeam,
+    }
+}
+
+export default withRouter(connect(mapStateToProps)(TeamControl));

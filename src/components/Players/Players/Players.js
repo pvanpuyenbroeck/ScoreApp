@@ -7,6 +7,7 @@ import Spinner from '../../UI/Spinner/Spinner';
 const Players = (props) => {
     let players = "";
     let allPlayers = [];
+    console.log(props);
     const playersArrayKeys = Object.keys(props.playerDetails);
     if (playersArrayKeys.length > 0) {
         for(let key in props.playerDetails){

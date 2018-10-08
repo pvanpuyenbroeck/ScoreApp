@@ -63,6 +63,7 @@ class Team extends Component {
     }
     render() {
         let teamControl = "";
+        console.log(this.props);
         if (this.state.showMatchControl) {
             teamControl = <MatchCenter />
         } else {
@@ -71,7 +72,7 @@ class Team extends Component {
                     <Toggle toggleClicked={() => this.props.showFunctionMenu()} classtheme="TeamButton">MY TEAM</Toggle>
                     <TeamFunctionMenu team={this.state.team} />
                     <Modal show={this.props.showModal} modalClosed={() => this.props.closeModal()} />
-                    <Players team={this.props.team.selectedTeam} playerDetails={this.props.team.filteredPlayers} />
+                    <Players team={this.props.team  } playerDetails={this.props.team.filteredPlayers} />
                     <Games 
                     matches={this.state.team.Matches} 
                     teamId={this.state.team.teamId} 

@@ -68,6 +68,27 @@ const setSelectedTeam= (state, action) => {
     }
 }
 
+const addPlayerToTeamSuccess = (state, action) => {
+    return{
+        ...state,
+        loading:false,
+    }
+}
+
+const addPlayerToTeamFail = (state, action) => {
+    return{
+        ...state,
+        loading:false,
+    }
+}
+
+const addPlayerToTeamStart = (state, action) => {
+    return{
+        ...state,
+        loading:true,
+    }
+}
+
 
 
 const reducer = (state = initialState, action) => {

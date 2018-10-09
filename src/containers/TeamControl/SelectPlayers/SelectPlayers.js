@@ -6,6 +6,7 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import axios from '../../../axios-scoreapp';
 import Input from '../../../components/UI/Input/Input';
 import {connect} from 'react-redux';
+import * as actions from '../../../store/actions/index';
 
 class SelectPlayers extends Component {
     state = {
@@ -89,19 +90,19 @@ class SelectPlayers extends Component {
                 number: playerInfo.playerNumber,
             }
         }; 
-
-        firebase.database().ref('/Teams/' + this.props.team.TeamId + '/TeamMembers/').set(updatedTeamMembers)
-            .then(response => {
-                this.setState({ loading: false, });
-                this.props.history.push({
-                    pathname: '/Team/' + this.props.team.teamId ,
-                });                
-            })
-            .catch(error => {
-                this.setState({ loading: false });
-            })
-            window.location.reload()
-            this.props.closeModal();     
+        this.props.addPlayerToTeam(this.props.team.teamId, updatedTeamMembers)
+        // firebase.database().ref('/Teams/' + this.props.team.TeamId + '/TeamMembers/').set(updatedTeamMembers)
+        //     .then(response => {
+        //         this.setState({ loading: false, });
+        //         this.props.history.push({
+        //             pathname: '/Team/' + this.props.team.teamId ,
+        //         });                
+        //     })
+        //     .catch(error => {
+        //         this.setState({ loading: false });
+        //     })
+        //     window.location.reload()
+        //     this.props.closeModal();     
     }
     checkValidity(value, rules) {
         let isValid = true;
@@ -205,6 +206,7 @@ class SelectPlayers extends Component {
 const mapDispatchToProps = dispatch => {
     return{
         closeModal: () => dispatch({type:"closeModal"}),
+        addPlayerToTeam: (teamId, updatedTeamMembers) => dispatch(actions.addPlayerToTeam),
     }
 }
 

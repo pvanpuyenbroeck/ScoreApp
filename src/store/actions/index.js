@@ -1,6 +1,7 @@
 export{
     addTeam,
     getTeam,
+    addPlayerToTeam,
 } from './team';
 
 export{

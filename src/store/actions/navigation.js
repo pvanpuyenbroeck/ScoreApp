@@ -18,9 +18,10 @@ export const closeModal = () => {
     }
 }
 
-export const showComponent = () => {
+export const showComponent = (component) => {
     return{
         type: actionTypes.SHOW_COMPONENT,
+        component: component,
     }
 }
 

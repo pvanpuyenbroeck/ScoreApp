@@ -36,7 +36,7 @@ const reducer = (state = initialState, action) => {
         return{
             ...state,
             showFlexItem: true,
-            NavPanelLink: action.navItem,
+            NavPanelLink: action.component,
             showModal:true,
             showFunctionMenu: false,
         }

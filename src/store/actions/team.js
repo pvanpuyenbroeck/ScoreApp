@@ -82,19 +82,23 @@ export const getTeam = (teamId) => {
                         playerNumber: team.TeamMembers[key].number,
                     }
                 }
-                console.log(filteredPlayers);
                 dispatch(getTeamSuccess({
                     ...team,
                     teamId: teamId, 
                     filteredPlayers: filteredPlayers,
                 }));
+                console.log(filteredPlayers);
             })
-            .catch(
-                error => {
-                    dispatch(getTeamFail(error))
-                }
-            );
+        }else{
+            dispatch(getTeamSuccess({
+                ...team,
+                teamId: teamId,
+            }));
         }
-    })
+    }).catch(
+        error => {
+            dispatch(getTeamFail(error))
+        }
+    )
     }
 }

@@ -8,8 +8,7 @@ const Players = (props) => {
     let players = "";
     let allPlayers = [];
     console.log(props);
-    const playersArrayKeys = Object.keys(props.playerDetails);
-    if (playersArrayKeys.length > 0) {
+    if (props.playerDetails) {
         for(let key in props.playerDetails){
             console.log(key);
             allPlayers.push({

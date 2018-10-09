@@ -1,43 +1,41 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import classes from './TeamFunctionMenu.css';
 import ButtonTeamMenu from '../../UI/ButtonTeamMenu/ButtonTeamMenu';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
-class teamFunctionMenu extends Component {
+const teamFunctionMenu = (props) => {
+    let attachedClasses = [classes.TeamFunctionMenu, classes.Closed]
+    console.log(props.showFunctionMenu);
+    if (props.showFunctionMenu === true) {
+        attachedClasses.pop();
+    }
+    return (
+        <div className={attachedClasses.join(' ')}>
+            <ButtonTeamMenu buttonClicked={() => props.showComponent("SelectPlayer")}>
+                <div>Speler Toevoegen</div>
+            </ButtonTeamMenu>
 
-    render(){
-        let attachedClasses = [classes.TeamFunctionMenu, classes.Closed]
-        console.log(this.props.showFunctionMenu);
-        if(this.props.showFunctionMenu === true){
-            attachedClasses.pop();
-        }
-        return (
-            <div className={attachedClasses.join(' ')}>
-                <ButtonTeamMenu buttonClicked={() => this.props.showComponent("SelectPlayer")}>             
-                    <div>Speler Toevoegen</div>
+            <ButtonTeamMenu buttonClicked={() => props.showComponent("AddMatch")}>
+                Match Toevoegen
                 </ButtonTeamMenu>
 
-                <ButtonTeamMenu buttonClicked={() => this.props.showComponent("AddMatch")}>
-                    Match Toevoegen
-                </ButtonTeamMenu>
-                
-            </div>
-        )
-    }
+        </div>
+    )
+
 }
 
-const mapStateToProps = state => {
-    return{
-        team: state.team,
-        showFunctionMenu: state.showFunctionMenu,
-    }
-}
+// const mapStateToProps = state => {
+//     return{
+//         team: state.team.selectedTeam,
+//         showFunctionMenu: state.navigation.showFunctionMenu,
+//     }
+// }
 
-const mapDispatchToProps = dispatch => {
-    return{
-        showComponent: (component) => dispatch({type:"showComponent", navItem:component})
-    }
-}
+// const mapDispatchToProps = dispatch => {
+//     return{
+//         showComponent: (component) => dispatch({type:"showComponent", navItem:component})
+//     }
+// }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(teamFunctionMenu)
+export default teamFunctionMenu;

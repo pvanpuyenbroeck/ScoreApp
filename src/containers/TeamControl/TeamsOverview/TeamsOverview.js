@@ -35,11 +35,6 @@ class TeamsOverview extends Component {
                 console.log(error)
             })
     }
-    // teamSelectedHandler = (team) => {
-    //     this.setState({
-    //         selectedTeam: team,
-    //     })
-    // }
 
     render() {
         let teams = null;

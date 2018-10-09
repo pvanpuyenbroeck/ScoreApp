@@ -34,7 +34,7 @@ class header extends Component {
 
 const mapStateToProps = state => {
     return {
-        team: state.team
+        team: state.team.selectedTeam,
     }
 }
 

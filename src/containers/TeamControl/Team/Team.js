@@ -75,12 +75,16 @@ class Team extends Component {
             teamControl = (
                 <div>
                     <Toggle toggleClicked={() => this.props.showFunctionMenu()} classtheme="TeamButton">MY TEAM</Toggle>
-                    <TeamFunctionMenu team={this.state.team} />
+                    <TeamFunctionMenu 
+                    team={this.props.team} 
+                    showFunctionMenu={this.props.showfunctionMenu} 
+                    showComponent={(component) => this.props.showComponent(component)}
+                    />
                     <Modal show={this.props.showModal} modalClosed={() => this.props.closeModal()} />
                     <Players team={this.props.team  } playerDetails={this.props.team.filteredPlayers} />
                     <Games 
-                    matches={this.state.team.Matches} 
-                    teamId={this.state.team.teamId} 
+                    matches={this.props.team.Matches} 
+                    teamId={this.props.team.teamId} 
                     matchClicked={(matchId) => this.matchSelected(matchId)} />
                 </div>
             )
@@ -101,6 +105,7 @@ const mapDispatchToProps = dispatch => {
         showFunctionMenu: () => dispatch(actions.showFunctionMenu()),
         // getTeamFirebase: (teamId) => dispatch(actions.getTeam(teamId)),
         selectedTeam: (teamId) => dispatch(actions.getTeam(teamId)),
+        showComponent: (component) => dispatch(actions.showComponent(component)),
     }
 }
 

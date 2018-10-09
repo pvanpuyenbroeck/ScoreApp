@@ -210,7 +210,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
     return{
-        
+        team: state.team.selectedTeam,
     }
 }
 

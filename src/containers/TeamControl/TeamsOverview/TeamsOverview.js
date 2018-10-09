@@ -51,7 +51,7 @@ class TeamsOverview extends Component {
                         key={team.id}
                         teamName={team.teamName}
                         id={team.id}
-                        buttonClicked={() => this.props.teamSelectedHandler(team)} 
+                        // buttonClicked={() => this.props.teamSelectedHandler(team.id)} 
                         />
                         
                 );
@@ -78,7 +78,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        teamSelectedHandler: (team) => dispatch(actions.setSelectedTeam(team)),
+        teamSelectedHandler: (teamId) => dispatch(actions.getTeam(teamId)),
     }
 };
 

@@ -1,7 +1,6 @@
 export{
     addTeam,
     getTeam,
-    setSelectedTeam,
 } from './team';
 
 export{

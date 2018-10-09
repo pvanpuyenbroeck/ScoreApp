@@ -8,7 +8,7 @@ import Toggle from '../../../components/UI/Toggle/Toggle';
 import { connect } from 'react-redux';
 import MatchCenter from '../MatchCenter/MatchCenter';
 import * as actions from '../../../store/actions/index';
-import {withRouter} from 'react-router-dom';
+import Spinner from '../../../components/UI/Spinner/Spinner';
 
 class Team extends Component {
 
@@ -42,9 +42,10 @@ class Team extends Component {
     //     return keys.map(k => k in obj ? { [k]: obj[k] } : {})
     //         .reduce((res, o) => Object.assign(res, o), {});
     // }
-    componentWillMount() {
+    componentDidMount() {
         const teamId = this.props.match.params.teamId;
         this.props.selectedTeam(teamId);
+
 
     }
 
@@ -63,7 +64,11 @@ class Team extends Component {
     }
     render() {
         let teamControl = "";
-        console.log(this.props);
+        console.log(this.props.team);
+        if(this.props.loading){
+            teamControl = <Spinner/>;
+        }
+        else{
         if (this.state.showMatchControl) {
             teamControl = <MatchCenter />
         } else {
@@ -80,6 +85,7 @@ class Team extends Component {
                 </div>
             )
         }
+    }
         return (
             <div>
                 {teamControl}
@@ -103,8 +109,9 @@ const mapStateToProps = state => {
         team: state.team.selectedTeam,
         showModal: state.navigation.showModal,
         showfunctionMenu: state.navigation.showFunctionMenu,
+        loading: state.team.loading,
     }
 }
 
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Team));
+export default connect(mapStateToProps, mapDispatchToProps)(Team);

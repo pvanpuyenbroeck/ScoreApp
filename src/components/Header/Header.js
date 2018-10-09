@@ -16,7 +16,6 @@ class header extends Component {
                         <NavPanelLink to="/">Home</NavPanelLink>
                         <NavPanelLink>
                         <NavLink
-                        onClick={() => this.props.closeSidePanel()}
                         className={classes.NavLink}
                         to="/selectTeam"
                         activeClassName={classes.active}>

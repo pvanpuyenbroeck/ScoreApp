@@ -1,7 +1,7 @@
 
 import * as actionTypes from '../actions/actionTypes';
 const initialState = {
-    loading: false,
+    loading: true,
     submitted: false,
     error: "",
     selectedTeam:{},
@@ -43,6 +43,7 @@ const getTeamSuccess = (state, action) => {
     return{
         ...state,
         selectedTeam: action.selectedTeam,
+        loading:false,
     }
 }
 const getTeamStart = (state, action) => {

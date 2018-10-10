@@ -10,6 +10,7 @@ import SelectPlayers from './SelectPlayers/SelectPlayers';
 import {connect} from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import MatchCenter from '../TeamControl/MatchCenter/MatchCenter';
+import Auth from '../Auth/Auth';
 
 class TeamControl extends Component {
     render() {
@@ -17,6 +18,7 @@ class TeamControl extends Component {
         return (
             <div className={classes.TeamControl}>
                 <Switch>
+                    <Route path={"/Auth"} component={Auth}/>
                     <Route path={"/Team/:teamId/addPlayer"} exact component={PlayerForm} />
                     <Route path={"/Team/:teamId/addGame"} exact component={GameForm} />
                     <Route path={"/Team/:teamId"} exact component={Team}/>

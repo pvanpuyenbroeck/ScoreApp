@@ -8,6 +8,7 @@ import {Provider} from 'react-redux';
 import {createStore, applyMiddleware, compose, combineReducers} from 'redux';
 import matchReducer from './store/reducers/match';
 import teamReducer from './store/reducers/team';
+import authReducer from './store/reducers/auth';
 import navigationReducer from './store/reducers/navigation';
 import thunk from 'redux-thunk';
 
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
     team:teamReducer,
     navigation:navigationReducer,
     match: matchReducer,
+    auth: authReducer,
 })
 
 const store = createStore(rootReducer,composeEnhancers(

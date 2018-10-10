@@ -15,3 +15,10 @@ export{
 export{
     setSelectedMatchInfo,
 } from './match';
+
+export{
+    auth,
+    logout,
+    setAuthRedirectPath,
+    authCheckState
+}from './auth';

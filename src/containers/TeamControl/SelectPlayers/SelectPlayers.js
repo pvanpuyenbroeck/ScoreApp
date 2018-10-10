@@ -45,7 +45,7 @@ class SelectPlayers extends Component {
     }
     componentWillMount() {
         let players = [];
-        let teamMembers ={} ;
+        // let teamMembers ={} ;
         firebase.database().ref('/players').once('value').then(res => {
             // const playersArray = Object.Array(res.val());
             for (let key in res.val()) {
@@ -58,14 +58,6 @@ class SelectPlayers extends Component {
             this.setState({
                 players: players,
             })
-        });
-        firebase.database().ref('/Teams/' + this.props.team.TeamId + '/TeamMembers').once('value').then(res => {
-            teamMembers = res.val();
-            if (teamMembers) {
-                this.setState({
-                    teamMembers: teamMembers,
-                })
-            }
         });
     }
 
@@ -83,26 +75,14 @@ class SelectPlayers extends Component {
         }
         formData["playerId"] = this.state.selectedPlayerId;
         const playerInfo = formData;
-
+        console.log
         let updatedTeamMembers = {
-            ...this.state.teamMembers,
+            ...this.props.team.TeamMembers,
             [this.state.selectedPlayerId]: {
                 number: playerInfo.playerNumber,
             }
         }; 
-        this.props.addPlayerToTeam(this.props.team.teamId, updatedTeamMembers)
-        // firebase.database().ref('/Teams/' + this.props.team.TeamId + '/TeamMembers/').set(updatedTeamMembers)
-        //     .then(response => {
-        //         this.setState({ loading: false, });
-        //         this.props.history.push({
-        //             pathname: '/Team/' + this.props.team.teamId ,
-        //         });                
-        //     })
-        //     .catch(error => {
-        //         this.setState({ loading: false });
-        //     })
-        //     window.location.reload()
-        //     this.props.closeModal();     
+        this.props.addPlayerToTeam(this.props.team.teamId, updatedTeamMembers)  
     }
     checkValidity(value, rules) {
         let isValid = true;
@@ -205,8 +185,8 @@ class SelectPlayers extends Component {
 
 const mapDispatchToProps = dispatch => {
     return{
-        closeModal: () => dispatch({type:"closeModal"}),
-        addPlayerToTeam: (teamId, updatedTeamMembers) => dispatch(actions.addPlayerToTeam),
+        // closeModal: () => dispatch({type:"closeModal"}),
+        addPlayerToTeam: (teamId, updatedTeamMembers) => dispatch(actions.addPlayerToTeam(teamId, updatedTeamMembers)),
     }
 }
 

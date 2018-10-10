@@ -125,17 +125,25 @@ export const addPlayerToTeamFail = (error) => {
     }
 }
 
+export const closeFunctionModal = () => {
+    return{
+        type:actionTypes.CLOSE_MODAL,
+    }
+}
+ 
 export const addPlayerToTeam = (teamId, updatedTeamMembers) => {
+    console.log(updatedTeamMembers);
     return dispatch =>{
         dispatch(addPlayerToTeamStart());
-        firebase.database().ref('/Teams/' + this.props.team.TeamId + '/TeamMembers/').set(updatedTeamMembers)
+        firebase.database().ref('/Teams/' + teamId + '/TeamMembers/').set(updatedTeamMembers)
             .then(response => {
                 dispatch(addPlayerToTeamSuccess());
+                dispatch(closeFunctionModal());
             })
             .catch(error => {
                 dispatch(addPlayerToTeamFail(error));
             })
-        // window.location.reload()
+        window.location.reload()
         // this.props.closeModal(); 
     }
 }

@@ -102,6 +102,10 @@ const reducer = (state = initialState, action) => {
         case actionTypes.GET_TEAM_SUCCESS: return getTeamSuccess(state, action);
         case actionTypes.GET_TEAM_FAIL: return getTeamFail(state, action);
         case actionTypes.SET_SELECTED_TEAM: return setSelectedTeam(state,action);
+
+        case actionTypes.ADD_PLAYER_TO_TEAM_START: return addPlayerToTeamStart(state,action);
+        case actionTypes.ADD_PLAYER_TO_TEAM_SUCCESS: return addPlayerToTeamSuccess(state,action);
+        case actionTypes.ADD_PLAYER_TO_TEAM_FAIL: return addPlayerToTeamFail(state,action);
         default: return state;
 }
 }

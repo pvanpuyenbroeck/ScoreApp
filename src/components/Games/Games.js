@@ -9,7 +9,7 @@ const games = (props) => {
     for(let key in props.matches){
         gameArray.push({
             ...props.matches[key],
-            matchId:[key],
+            matchId:key,
         });
     }
     console.log(gameArray);
@@ -18,7 +18,7 @@ const games = (props) => {
         allGames = gameArray.map((game) => {
             console.log(game);
             return (
-                <Match key={game.gameData.opponent} match={game} matchButtonClicked={(match) => props.matchClicked(match)} />
+                <Match key={game.gameData.teamId} match={game} matchButtonClicked={(match) => props.matchClicked(match)} />
             )
         })
     }

@@ -16,8 +16,6 @@ import SelectPlayer from './containers/TeamControl/SelectPlayers/SelectPlayers';
 import AddMatch from './containers/TeamControl/AddGame/AddGame';
 import * as actions from './store/actions/index';
 import { withRouter } from 'react-router-dom'
-import TeamsOverview from './containers/TeamControl/TeamsOverview/TeamsOverview';
-import MatchCenter from './containers/TeamControl/MatchCenter/MatchCenter';
 
 
 class App extends Component {
@@ -60,7 +58,7 @@ class App extends Component {
 const mapDispatchToProps = dispatch => {
   return {
       sidePanelToggle: () => dispatch(actions.sidepanelToggle()),
-      ModalClicked: () => dispatch(actions.sidepanelToggle()),
+      ModalClicked: () => dispatch(actions.closeModal()),
   }
 };
 

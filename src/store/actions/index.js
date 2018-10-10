@@ -11,3 +11,7 @@ export{
     showComponent,
     showFunctionMenu,
 } from './navigation';
+
+export{
+    setSelectedMatchInfo,
+} from './match';

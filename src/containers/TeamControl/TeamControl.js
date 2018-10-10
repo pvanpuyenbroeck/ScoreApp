@@ -10,7 +10,6 @@ import SelectPlayers from './SelectPlayers/SelectPlayers';
 import {connect} from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import MatchCenter from '../TeamControl/MatchCenter/MatchCenter';
-import Flexbox from '../../components/UI/Flexbox/Flexbox';
 
 class TeamControl extends Component {
     render() {
@@ -21,11 +20,10 @@ class TeamControl extends Component {
                     <Route path={"/Team/:teamId/addPlayer"} exact component={PlayerForm} />
                     <Route path={"/Team/:teamId/addGame"} exact component={GameForm} />
                     <Route path={"/Team/:teamId"} exact component={Team}/>
+                    <Route path={"/Team/:teamId/match/:matchId"} exact component={MatchCenter}/>
                     <Route path="/selectTeam" exact component={TeamsOverview} />
                     <Route path="/Team/:teamId/selectPlayers" exact component={SelectPlayers} />
-                    {/* <Route path="/Team/:teamId/matchCenter/:matchId" exact component={MatchCenter} /> */}
                     <Route path="/addTeam" component={AddTeam} />
-                    {/* <Route render={() => <h1>not found</h1>} /> */}
                 </Switch>
             </div>
         )

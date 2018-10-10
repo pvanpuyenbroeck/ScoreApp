@@ -50,6 +50,8 @@ class Team extends Component {
     }
 
     matchSelected = (matchDetails) => {
+        // console.log(matchDetails);
+        // this.props.history.push('/Team/' + matchDetails.gamedata.teamId + '/Match/' + matchDetails.matchId);
         // this.props.selectedTeam(matchDetails);
         //     this.setState({
         //         showMatchControl: true,
@@ -85,7 +87,9 @@ class Team extends Component {
                     <Games 
                     matches={this.props.team.Matches} 
                     teamId={this.props.team.teamId} 
-                    matchClicked={(matchId) => this.matchSelected(matchId)} />
+                    matchClicked={(match) => this.props.matchSelected(match)} 
+                    
+                    />
                 </div>
             )
         }
@@ -106,6 +110,7 @@ const mapDispatchToProps = dispatch => {
         // getTeamFirebase: (teamId) => dispatch(actions.getTeam(teamId)),
         selectedTeam: (teamId) => dispatch(actions.getTeam(teamId)),
         showComponent: (component) => dispatch(actions.showComponent(component)),
+        matchSelected: (match) => dispatch(actions.setSelectedMatchInfo(match)),
     }
 }
 

@@ -1,8 +1,10 @@
 import * as actionTypes from './actionTypes';
 
-export const navpanelSelection = () => {
+export const navpanelSelection = (navItem) => {
+    console.log(navItem);
     return{
         type: actionTypes.NAVPANEL_SELECTION,
+        navItem:navItem,
     }
 }
 

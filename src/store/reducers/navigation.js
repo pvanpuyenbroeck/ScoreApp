@@ -15,7 +15,7 @@ const reducer = (state = initialState, action) => {
             ...state,
             NavPanelLink:action.navItem,
             showFlexItem: true,
-            ToggleSidePanel:!state.ToggleSidePanel,
+            ToggleSidePanel:false,
             showModal:true,
         }
         case actionTypes.SIDEPANEL_TOGGLE:

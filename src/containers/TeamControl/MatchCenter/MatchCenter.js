@@ -6,7 +6,7 @@ class matchCenter extends Component {
     render(){
         return(
             <div className={classes.MatchCenter}>
-                <h1>{this.props.team.gameData.opponent}</h1>
+                <h1>{this.props.match.gameData.opponent}</h1>
             </div>
         )
     }
@@ -14,7 +14,7 @@ class matchCenter extends Component {
 
 const mapStateToProps = state => {
     return{
-        team:state.selectedTeam,
+        match:state.match.selectedMatch,
     }
 }
 

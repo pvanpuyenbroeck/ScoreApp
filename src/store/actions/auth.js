@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as actionTypes from './actionTypes';
+import firebase from '../../firebase-scoreapp';
 
 export const authStart = () => {
     return {
@@ -41,6 +42,7 @@ export const checkAuthTimeout = (expirationTime) => {
 
 export const auth = (email, password, isSignup) => {
     return dispatch => {
+        dispatch(FirebaseAuth(email,password));
         dispatch(authStart());
         const authData = {
             email: email,
@@ -66,6 +68,26 @@ export const auth = (email, password, isSignup) => {
             });
     };
 };
+
+export const FirebaseAuth = (email, password) => {
+    return dispatch => {
+        dispatch(authStart());
+        firebase.auth().signInWithEmailAndPassword(email,password)
+            .then(response => {
+                console.log(response);
+                // const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
+                // localStorage.setItem('token', response.user.uid);
+                // localStorage.setItem('expirationDate', expirationDate);
+                // localStorage.setItem('userId', response.user.uid);
+                // dispatch(authSuccess(response.data.idToken, response.data.localId));
+                // dispatch(checkAuthTimeout(response.data.expiresIn));
+            })
+            .catch(err => {
+                console.log(err.message);
+                dispatch(authFail(err));
+            });
+    };
+}
 
 export const setAuthRedirectPath = (path) => {
     return {

@@ -44,7 +44,7 @@ class Team extends Component {
     // }
     componentDidMount() {
         const teamId = this.props.match.params.teamId;
-        this.props.selectedTeam(teamId);
+        this.props.selectedTeam(teamId, this.props.token, this.props.userId);
 
 
     }
@@ -108,7 +108,7 @@ const mapDispatchToProps = dispatch => {
         closeModal: () => dispatch(actions.closeModal()),
         showFunctionMenu: () => dispatch(actions.showFunctionMenu()),
         // getTeamFirebase: (teamId) => dispatch(actions.getTeam(teamId)),
-        selectedTeam: (teamId) => dispatch(actions.getTeam(teamId)),
+        selectedTeam: (teamId, token, userId) => dispatch(actions.getTeam(teamId, token, userId)),
         showComponent: (component) => dispatch(actions.showComponent(component)),
         matchSelected: (match) => dispatch(actions.setSelectedMatchInfo(match)),
     }
@@ -120,6 +120,8 @@ const mapStateToProps = state => {
         showModal: state.navigation.showModal,
         showfunctionMenu: state.navigation.showFunctionMenu,
         loading: state.team.loading,
+        token: state.auth.token,
+        userId: state.auth.userId,
     }
 }
 

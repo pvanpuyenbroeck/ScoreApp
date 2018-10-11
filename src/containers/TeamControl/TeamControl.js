@@ -14,19 +14,28 @@ import Auth from '../Auth/Auth';
 
 class TeamControl extends Component {
     render() {
+        let routes = (
+            <Switch>
+            <Route path={"/Auth"} component={Auth}/>
+            </Switch>
+        )
+        if(this.props.isAuthenticated){
+            routes = (
+                <Switch>
+                <Route path={"/Team/:teamId/addPlayer"} exact component={PlayerForm} />
+                <Route path={"/Team/:teamId/addGame"} exact component={GameForm} />
+                <Route path={"/Team/:teamId"} exact component={Team}/>
+                <Route path={"/Team/:teamId/match/:matchId"} exact component={MatchCenter}/>
+                <Route path="/selectTeam" exact component={TeamsOverview} />
+                <Route path="/Team/:teamId/selectPlayers" exact component={SelectPlayers} />
+                <Route path="/addTeam" component={AddTeam} />
+                </Switch>
+            )
+        }
         
         return (
             <div className={classes.TeamControl}>
-                <Switch>
-                    <Route path={"/Auth"} component={Auth}/>
-                    <Route path={"/Team/:teamId/addPlayer"} exact component={PlayerForm} />
-                    <Route path={"/Team/:teamId/addGame"} exact component={GameForm} />
-                    <Route path={"/Team/:teamId"} exact component={Team}/>
-                    <Route path={"/Team/:teamId/match/:matchId"} exact component={MatchCenter}/>
-                    <Route path="/selectTeam" exact component={TeamsOverview} />
-                    <Route path="/Team/:teamId/selectPlayers" exact component={SelectPlayers} />
-                    <Route path="/addTeam" component={AddTeam} />
-                </Switch>
+                {routes}
             </div>
         )
     }
@@ -35,6 +44,7 @@ class TeamControl extends Component {
 const mapStateToProps = state => {
     return{
         team:state.team.selectedTeam,
+        isAuthenticated: state.auth.token != null,
     }
 }
 

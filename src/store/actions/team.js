@@ -147,3 +147,45 @@ export const addPlayerToTeam = (teamId, updatedTeamMembers) => {
         // this.props.closeModal(); 
     }
 }
+
+export const getAllTeamSuccess = (teams) => {
+    return{
+        type:actionTypes.GET_ALL_TEAMS_SUCCESS,
+        teams: teams,
+    }
+}
+
+
+export const getAllTeamFail = (error) => {
+    return{
+        type:actionTypes.GET_ALL_TEAMS_FAIL,
+        error: error,
+    }
+}
+
+
+export const getAllTeamStart = () => {
+    return{
+        type:actionTypes.GET_ALL_TEAMS_START,
+    }
+}
+
+export const getAllTeams = (userId, token) => {
+    return dispatch => {
+        dispatch(getAllTeamStart());
+        axios.get('/Teams.json?auth=' + token)
+            .then(response => {
+                const fetchedTeams = [];
+                console.log(response.data);
+                for (let key in response.data) {
+                    fetchedTeams.push({
+                        ...response.data[key],
+                        id: key,
+                    });
+                }
+                dispatch(getAllTeamSuccess(fetchedTeams));
+            }).catch(error => {
+                dispatch(getAllTeamFail(error));
+            })
+    }
+}

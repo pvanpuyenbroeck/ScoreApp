@@ -3,7 +3,7 @@ import classes from './AddGame.css';
 import Input from '../../../components/UI/Input/Input';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import firebase from '../../../firebase-scoreapp';
-import Button from '../../../components/UI/Button/Button';
+import Button from '../../../components/UI/Button/ButtonLink/ButtonLink';
 
 
 class AddGame extends Component {

@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './Games';
-import Button from '../UI/Button/Button';
+import Button from '../UI/Button/ButtonLink/ButtonLink';
 import Match from '../Games/Match/Match';
 
 const games = (props) => {

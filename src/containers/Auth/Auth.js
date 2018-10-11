@@ -5,7 +5,7 @@ import classes from './Auth.css';
 import Input from '../../components/UI/Input/Input';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import { Redirect } from 'react-router';
-import Button from '../../components/UI/Button/Button';
+import Button from '../../components/UI/Button/Button/Button';
 
 class Auth extends Component {
     state = {
@@ -151,7 +151,8 @@ class Auth extends Component {
                 </form>
                 <Button
                     clicked={this.switchAuthModeHandler}
-                    btnType="Danger">SWITCH TO {this.state.isSignup ? 'SIGNIN' : 'SIGNUP'}</Button>
+                    btnType="Danger">SWITCH TO {this.state.isSignup ? 'SIGNIN' : 'SIGNUP'}
+                </Button>
             </div>
         );
     }

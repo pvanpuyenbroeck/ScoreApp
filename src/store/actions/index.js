@@ -2,6 +2,7 @@ export{
     addTeam,
     getTeam,
     addPlayerToTeam,
+    getAllTeams,
 } from './team';
 
 export{

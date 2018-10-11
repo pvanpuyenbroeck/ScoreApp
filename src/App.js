@@ -15,7 +15,8 @@ import AddPlayer from './containers/TeamControl/AddPlayer/AddPlayer';
 import SelectPlayer from './containers/TeamControl/SelectPlayers/SelectPlayers';
 import AddMatch from './containers/TeamControl/AddGame/AddGame';
 import * as actions from './store/actions/index';
-import { withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
+import Auth from './containers/Auth/Auth';
 
 
 class App extends Component {
@@ -35,10 +36,26 @@ class App extends Component {
 
   render() {
     let flexItem = "";
+    let routes = (
+      <div>
+      <Route path="/" component={TeamControl} />
+      <Route path="/AddNewPlayer" exact component={AddNewPlayer} />
+      </div>
+    )
+    if(!this.props.isAuthenticated){
+      routes = (
+        <div>
+        <Route path="/" component={Auth} />
+        </div>
+      )
+    }
+
+
     if(this.props.navItem === "AddTeam"){flexItem = <AddTeam/>};
     if(this.props.navItem === "AddPlayer"){flexItem = <AddPlayer/>};
     if(this.props.navItem === "SelectPlayer"){flexItem = <SelectPlayer team={this.props.team}/>};
     if(this.props.navItem === "AddMatch"){flexItem = <AddMatch team={this.props.team}/>};
+
 
     return (
       <Aux>
@@ -47,8 +64,7 @@ class App extends Component {
       <Layout>
         <Flexbox show={this.props.showFlexbox} navItem={this.props.navItem}>{flexItem}</Flexbox>
         <NavPanel toggleClicked={() => this.props.sidePanelToggle()} showToggle={this.state.showToggle}/>
-        <Route path="/" component={TeamControl} />
-        <Route path="/AddNewPlayer" exact component={AddNewPlayer} />
+        {routes}
       </Layout>
       </Aux>
     );
@@ -69,6 +85,7 @@ const mapStateToProps = state => {
     showFlexbox: state.navigation.showFlexItem,
     showModal: state.navigation.showModal,
     team: state.team.team,
+    isAuthenticated: state.auth.token != null,
   }
 }
 

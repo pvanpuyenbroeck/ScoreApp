@@ -14,32 +14,19 @@ class TeamsOverview extends Component {
             season: '',
         },
         loading: true,
+
     }
 
     componentDidMount() {
-        axios.get('/Teams.json')
-            .then(response => {
-                const fetchedTeams = [];
-                console.log(response.data);
-                for (let key in response.data) {
-                    fetchedTeams.push({
-                        ...response.data[key],
-                        id: key,
-                    });
-                }
-
-                this.setState({
-                    teams: fetchedTeams,
-                })
-            }).catch(error => {
-                console.log(error)
-            })
+        if(this.props.isAuthenticated){
+            this.props.getAllTeams(this.props.userId, this.props.token);
+        } 
     }
 
     render() {
-        let teams = null;
-        if (this.state.teams) {
-            const teamArray = this.state.teams;
+        let teams = <Spinner/>;
+        if (!this.props.loading) {
+            const teamArray = this.props.teams;
             teams = teamArray.map(team => {
                 return (
                     <SelectedTeamButton
@@ -47,12 +34,9 @@ class TeamsOverview extends Component {
                         teamName={team.teamName}
                         id={team.id}
                         // buttonClicked={() => this.props.teamSelectedHandler(team.id)} 
-                        />
-                        
+                        /> 
                 );
             })
-        }else{
-            teams = <Spinner/>;
         }
         return (
             <div className={classes.TeamsOverview}>
@@ -68,12 +52,18 @@ class TeamsOverview extends Component {
 const mapStateToProps = state => {
     return {
         team: state.team.selectedTeam,
+        token: state.auth.token,
+        userId: state.auth.userId,
+        teams: state.team.teams,
+        loading: state.team.loading,
+        isAuthenticated: state.auth.token != null,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         teamSelectedHandler: (teamId) => dispatch(actions.getTeam(teamId)),
+        getAllTeams: (userId, token) => dispatch(actions.getAllTeams(userId, token)),
     }
 };
 

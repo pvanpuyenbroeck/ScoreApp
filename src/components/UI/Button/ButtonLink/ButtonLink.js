@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import classes from './Button.css';
+import classes from './ButtonLink.css';
 
 const Button = (props) => (
     <Link

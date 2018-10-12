@@ -9,5 +9,6 @@ import firebase from 'firebase';
     storageBucket: "score-app-b69dc.appspot.com",
     messagingSenderId: "989567740894"
   };
+
   const firebasedb = firebase.initializeApp(config);
   export default firebasedb;

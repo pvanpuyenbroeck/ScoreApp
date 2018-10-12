@@ -22,5 +22,6 @@ export{
     logout,
     setAuthRedirectPath,
     authCheckState,
-    authFirebase
+    authFirebaseLogin,
+    authFirebaseSignup
 }from './auth';

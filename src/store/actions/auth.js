@@ -8,7 +8,7 @@ export const authStart = () => {
     };
 };
 
-export const authSuccess = (token, userId) => {
+export const authSuccess = (userId, token ) => {
     return {
         type: actionTypes.AUTH_SUCCESS,
         idToken: token,
@@ -41,53 +41,71 @@ export const checkAuthTimeout = (expirationTime) => {
 };
 
 export const auth = (email, password, isSignup) => {
-    return dispatch => {
-        dispatch(FirebaseAuth(email,password));
-        dispatch(authStart());
-        const authData = {
-            email: email,
-            password: password,
-            returnSecureToken: true
-        };
-        let url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyBIHrb20BX4dvFaZJWe9WkUTSeL7hHwE04';
-        if (!isSignup) {
-            url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyBIHrb20BX4dvFaZJWe9WkUTSeL7hHwE04';
-        }
-        axios.post(url, authData)
-            .then(response => {
-                console.log(response);
-                const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
-                localStorage.setItem('token', response.data.idToken);
-                localStorage.setItem('expirationDate', expirationDate);
-                localStorage.setItem('userId', response.data.localId);
-                dispatch(authSuccess(response.data.idToken, response.data.localId));
-                dispatch(checkAuthTimeout(response.data.expiresIn));
-            })
-            .catch(err => {
-                dispatch(authFail(err.response.data.error));
-            });
-    };
+    // return dispatch => {
+    //     dispatch(authStart());
+    //     const authData = {
+    //         email: email,
+    //         password: password,
+    //         returnSecureToken: true
+    //     };
+    //     let url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyBIHrb20BX4dvFaZJWe9WkUTSeL7hHwE04';
+    //     if (!isSignup) {
+    //         url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyBIHrb20BX4dvFaZJWe9WkUTSeL7hHwE04';
+    //     }
+    //     axios.post(url, authData)
+    //         .then(response => {
+    //             console.log(response);
+    //             const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
+    //             localStorage.setItem('token', response.data.idToken);
+    //             localStorage.setItem('expirationDate', expirationDate);
+    //             localStorage.setItem('userId', response.data.localId);
+    //             dispatch(authSuccess(response.data.idToken, response.data.localId));
+    //             dispatch(checkAuthTimeout(response.data.expiresIn));
+    //         })
+    //         .catch(err => {
+    //             dispatch(authFail(err.response.data.error));
+    //         });
+    // };
 };
 
-export const FirebaseAuth = (email, password) => {
+
+
+export const authFirebaseLogin = (email, password) => {
     return dispatch => {
         dispatch(authStart());
         firebase.auth().signInWithEmailAndPassword(email,password)
-            .then(response => {
-                console.log(response);
-                // const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
-                // localStorage.setItem('token', response.user.uid);
-                // localStorage.setItem('expirationDate', expirationDate);
-                // localStorage.setItem('userId', response.user.uid);
-                // dispatch(authSuccess(response.data.idToken, response.data.localId));
-                // dispatch(checkAuthTimeout(response.data.expiresIn));
+            .then(user => {
+                console.log(user);
+                dispatch(authSuccess(user.user.uid, user.user.qa));
             })
             .catch(err => {
                 console.log(err.message);
                 dispatch(authFail(err));
             });
+            
+            firebase.auth().setPersistence('session')
+            .then(() => {
+                return firebase.auth().signInWithEmailAndPassword(email,password);
+            }).catch((err) => {
+                console.log(err);
+            });
     };
 }
+
+export const authFirebaseSignup = (email, password, username, voornaam, familienaam) => {
+    return dispatch => {
+        dispatch(authStart());
+        firebase.auth().createUserWithEmailAndPassword(email,password)
+        .then(user => {
+            dispatch(addUser(user.user.uid,username,voornaam,familienaam));
+            dispatch(authSuccess());
+        })
+        .catch(error => {
+            dispatch(authFail(error));
+        })
+    }
+}
+
 
 export const setAuthRedirectPath = (path) => {
     return {
@@ -113,3 +131,13 @@ export const authCheckState = () => {
         }
     };
 };
+
+export const addUser = (userid, username, voornaam, familienaam) => {
+    return dispatch => {
+        firebase.database().ref('/Players/' + userid).set({
+            userid:userid,
+            username: username,
+            voornaam:voornaam,
+            familienaam: familienaam})
+        }
+    }

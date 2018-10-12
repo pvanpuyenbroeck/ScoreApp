@@ -36,29 +36,28 @@ class SelectPlayers extends Component {
                 valid: false,
             },
         },
-        loading: false,
+        loading: true,
         teamId: '',
-        players: [],
+        players: null,
         teamMembers: [],
         selectedPlayerId: '',
         selectedName:'',
     }
-    componentWillMount() {
-        let players = [];
-        // let teamMembers ={} ;
-        firebase.database().ref('/players').once('value').then(res => {
-            // const playersArray = Object.Array(res.val());
+    componentDidMount() {
+        firebase.database().ref('/Players').once('value').then(res => {
+            let players = [];
             for (let key in res.val()) {
                 const player = {
-                    id: key,
                     ...res.val()[key],
                 }
-                players.push(player);
-            }
-            this.setState({
-                players: players,
-            })
-        });
+            players.push(player);
+            console.log(players);
+        }
+        this.setState({
+            players: players,
+            loading: false,
+        })
+    });
     }
 
     playerSubmitHandler = (event) => {
@@ -75,7 +74,7 @@ class SelectPlayers extends Component {
         }
         formData["playerId"] = this.state.selectedPlayerId;
         const playerInfo = formData;
-        console.log
+        console.log(playerInfo);
         let updatedTeamMembers = {
             ...this.props.team.TeamMembers,
             [this.state.selectedPlayerId]: {
@@ -121,10 +120,12 @@ class SelectPlayers extends Component {
         const name = {...updatedform.name};
         
         this.state.players.map(res => {
-            if(res.id === playerId){
-                name.value= res.name;
+            console.log(res);
+            if(res.userid === playerId){
+                name.value= res.voornaam + " " + res.familienaam;
             }
         })
+        console.log(name);
         updatedform.name = name;
         this.setState({
             playerForm:updatedform,
@@ -139,40 +140,42 @@ class SelectPlayers extends Component {
                 config: this.state.playerForm[key]
             })
         }
+        let allPlayers = <div></div>
+        let form = <Spinner />
+        if (!this.state.loading) {
+             form = (
+                <form onSubmit={this.playerSubmitHandler}>
+                    {formElementArray.map(formElement => (
+                        <Input
+                            key={formElement.id}
+                            elementType={formElement.config.elementType}
+                            elementConfig={formElement.config.elementConfig}
+                            value={formElement.config.value}
+                            changed={(event) => this.inputChangedHandler(event, formElement.id)}
+                        />
+                    ))}
+                    <button type="submit">Toevoegen</button>
+                </form>
+            );
 
-        let form = (
-            <form onSubmit={this.playerSubmitHandler}>
-                {formElementArray.map(formElement => (
-                    <Input
-                        key={formElement.id}
-                        elementType={formElement.config.elementType}
-                        elementConfig={formElement.config.elementConfig}
-                        value={formElement.config.value}
-                        changed={(event) => this.inputChangedHandler(event, formElement.id)}
-                    />
-                ))}
-                <button type="submit">Toevoegen</button>
-            </form>
-        );
-        if (this.state.loading) {
-            form = <Spinner />
-        }
 
-            const allPlayers = this.state.players.map(player => {
-                const playernameLowercase = player.name.toLowerCase();
+            allPlayers = this.state.players.map(player => {
+                const playerfirstnameLowercase = player.voornaam.toLowerCase();
+                const playerlastnamLowercase = player.familienaam.toLowerCase();
                 const playernamePropsLowercase = this.state.playerForm.name.value.toLowerCase();
-                if (playernameLowercase.startsWith(playernamePropsLowercase) && playernamePropsLowercase !== "") {
+                if ((playerfirstnameLowercase.startsWith(playernamePropsLowercase) && playernamePropsLowercase !== "") ||
+                (playerlastnamLowercase.startsWith(playernamePropsLowercase) && playernamePropsLowercase !== "")) {
                     return (
                         <PlayerButton
-                            number={player.playerNumber}
-                            name={player.name}
-                            key={player.id}
-                            playerid={player.id}
-                            clicked={(playerId) => this.onPlayerButtonClickedHandler(playerId)}
+                            name={player.voornaam + " " + player.familienaam}
+                            key={player.userid}
+                            playerid={player.userid}
+                            clicked={(userid) => this.onPlayerButtonClickedHandler(userid)}
                         />
                     )
                 }
             })
+        }
 
         return (
             <div>

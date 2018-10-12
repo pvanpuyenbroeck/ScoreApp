@@ -73,9 +73,11 @@ export const getTeam = (teamId, token, userId) => {
             console.log(res.val());
             if (team.TeamMembers) {
                 const players = Object.keys(team.TeamMembers);
-                firebase.database().ref('/players').once('value').then(allPlayers => {
+                firebase.database().ref('/Players').once('value').then(allPlayers => {
                     const allTeamMembers = allPlayers.val();
+                    console.log(allTeamMembers);
                     const filteredPlayers = pick(allTeamMembers, players);
+                    console.log(filteredPlayers);
                     for (let key in filteredPlayers) {
                         console.log(key);
                         filteredPlayers[key] = {
@@ -144,7 +146,7 @@ export const addPlayerToTeam = (teamId, updatedTeamMembers) => {
             .catch(error => {
                 dispatch(addPlayerToTeamFail(error));
             })
-        window.location.reload()
+        // window.location.reload()
         // this.props.closeModal(); 
     }
 }

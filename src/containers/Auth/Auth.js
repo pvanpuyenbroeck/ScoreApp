@@ -22,7 +22,8 @@ class Auth extends Component {
                     isEmail: true
                 },
                 valid: false,
-                touched: false
+                touched: false,
+                signin: true,
             },
             password: {
                 elementType: 'input',
@@ -36,8 +37,51 @@ class Auth extends Component {
                     minLength: 6
                 },
                 valid: false,
-                touched: false
-            }
+                touched: false,
+                signin: true,
+            },
+            userName: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Gebruikersnaam (Go Crazy)'
+                },
+                value: '',
+                validation: {
+                    required: true,
+                },
+                valid: false,
+                touched: false,
+                signin: false,
+            },
+            voornaam: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Voornaam'
+                },
+                value: '',
+                validation: {
+                    required: true,
+                },
+                valid: false,
+                touched: false,
+                signin: false,
+            },
+            familienaam: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Familienaam'
+                },
+                value: '',
+                validation: {
+                    required: true,
+                },
+                valid: false,
+                touched: false,
+                signin: false,
+            },
         },
         isSignup: true
     }
@@ -94,7 +138,18 @@ class Auth extends Component {
 
     submitHandler = (event) => {
         event.preventDefault();
-        this.props.onAuth(this.state.controls.email.value, this.state.controls.password.value, this.state.isSignup);
+        if(this.state.isSignup){
+            this.props.onAuthSignup(
+                this.state.controls.email.value, 
+                this.state.controls.password.value, 
+                this.state.controls.userName.value,
+                this.state.controls.voornaam.value,
+                this.state.controls.familienaam.value,
+                this.state.isSignup);
+        }else{
+            this.props.onAuthLogin(this.state.controls.email.value, this.state.controls.password.value);
+        }
+
     }
 
     switchAuthModeHandler = () => {
@@ -106,10 +161,20 @@ class Auth extends Component {
     render() {
         const formElementsArray = [];
         for (let key in this.state.controls) {
+            if(this.state.isSignup){
             formElementsArray.push({
                 id: key,
                 config: this.state.controls[key]
             });
+        }
+            else {
+                if(this.state.controls[key].signin === true){
+                formElementsArray.push({
+                    id: key,
+                    config: this.state.controls[key]
+                });
+            };
+        }
         }
 
         let form = formElementsArray.map(formElement => (
@@ -169,7 +234,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuth: (email, password, isSignup) => dispatch(actions.auth(email, password, isSignup)),
+        onAuthLogin: (email, password) => dispatch(actions.authFirebaseLogin(email, password)),
+        onAuthSignup: (email, password, userName,voornaam,familienaam) => dispatch(actions.authFirebaseSignup(email, password,userName,voornaam,familienaam)),
         onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/selectTeam'))
     };
 };

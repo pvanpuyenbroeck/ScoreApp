@@ -26,6 +26,7 @@ class TeamsOverview extends Component {
     render() {
         let teams = <Spinner/>;
         if (!this.props.loading) {
+            console.log(this.props.teams);
             const teamArray = this.props.teams;
             teams = teamArray.map(team => {
                 return (
@@ -56,7 +57,7 @@ const mapStateToProps = state => {
         userId: state.auth.userId,
         teams: state.team.teams,
         loading: state.team.loading,
-        isAuthenticated: state.auth.token != null,
+        isAuthenticated: state.auth.user != null,
     };
 };
 

@@ -22,8 +22,8 @@ const Players = (props) => {
                 console.log(player);
                 return (
                     <PlayerButton
-                        key={player.playerId}
-                        name={player.name}
+                        key={player.userId}
+                        name={player.voornaam + " " + player.familienaam}
                         number={player.playerNumber}
                     />
                 )})

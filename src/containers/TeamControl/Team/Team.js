@@ -107,7 +107,6 @@ const mapDispatchToProps = dispatch => {
         getTeam: (team) => dispatch(actions.getTeam(team)),
         closeModal: () => dispatch(actions.closeModal()),
         showFunctionMenu: () => dispatch(actions.showFunctionMenu()),
-        // getTeamFirebase: (teamId) => dispatch(actions.getTeam(teamId)),
         selectedTeam: (teamId, token, userId) => dispatch(actions.getTeam(teamId, token, userId)),
         showComponent: (component) => dispatch(actions.showComponent(component)),
         matchSelected: (match) => dispatch(actions.setSelectedMatchInfo(match)),

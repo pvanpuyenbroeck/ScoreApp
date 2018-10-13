@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import classes from './TeamFunctionMenu.css';
 import ButtonTeamMenu from '../../UI/ButtonTeamMenu/ButtonTeamMenu';
-import { connect } from 'react-redux';
 
 const teamFunctionMenu = (props) => {
     let attachedClasses = [classes.TeamFunctionMenu, classes.Closed]
@@ -23,19 +22,4 @@ const teamFunctionMenu = (props) => {
     )
 
 }
-
-// const mapStateToProps = state => {
-//     return{
-//         team: state.team.selectedTeam,
-//         showFunctionMenu: state.navigation.showFunctionMenu,
-//     }
-// }
-
-// const mapDispatchToProps = dispatch => {
-//     return{
-//         showComponent: (component) => dispatch({type:"showComponent", navItem:component})
-//     }
-// }
-
-
 export default teamFunctionMenu;

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import * as actionTypes from './actionTypes';
 import firebase from '../../firebase-scoreapp';
 
@@ -8,11 +7,10 @@ export const authStart = () => {
     };
 };
 
-export const authSuccess = (userId, token ) => {
+export const authSuccess = (user) => {
     return {
         type: actionTypes.AUTH_SUCCESS,
-        idToken: token,
-        userId: userId
+        user:user,
     };
 };
 
@@ -24,9 +22,7 @@ export const authFail = (error) => {
 };
 
 export const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('expirationDate');
-    localStorage.removeItem('userId');
+    firebase.auth().signOut();
     return {
         type: actionTypes.AUTH_LOGOUT
     };
@@ -76,7 +72,7 @@ export const authFirebaseLogin = (email, password) => {
         firebase.auth().signInWithEmailAndPassword(email,password)
             .then(user => {
                 console.log(user);
-                dispatch(authSuccess(user.user.uid, user.user.qa));
+                dispatch(authSuccess(user));
             })
             .catch(err => {
                 console.log(err.message);
@@ -98,7 +94,7 @@ export const authFirebaseSignup = (email, password, username, voornaam, familien
         firebase.auth().createUserWithEmailAndPassword(email,password)
         .then(user => {
             dispatch(addUser(user.user.uid,username,voornaam,familienaam));
-            dispatch(authSuccess());
+            dispatch(authSuccess(user));
         })
         .catch(error => {
             dispatch(authFail(error));
@@ -114,23 +110,23 @@ export const setAuthRedirectPath = (path) => {
     };
 };
 
-export const authCheckState = () => {
-    return dispatch => {
-        const token = localStorage.getItem('token');
-        if (!token) {
-            dispatch(logout());
-        } else {
-            const expirationDate = new Date(localStorage.getItem('expirationDate'));
-            if (expirationDate <= new Date()) {
-                dispatch(logout());
-            } else {
-                const userId = localStorage.getItem('userId');
-                dispatch(authSuccess(token, userId));
-                dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000 ));
-            }   
-        }
-    };
-};
+// export const authCheckState = () => {
+//     return dispatch => {
+//         const token = localStorage.getItem('token');
+//         if (!token) {
+//             dispatch(logout());
+//         } else {
+//             const expirationDate = new Date(localStorage.getItem('expirationDate'));
+//             if (expirationDate <= new Date()) {
+//                 dispatch(logout());
+//             } else {
+//                 const userId = localStorage.getItem('userId');
+//                 dispatch(authSuccess(token, userId));
+//                 dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000 ));
+//             }   
+//         }
+//     };
+// };
 
 export const addUser = (userid, username, voornaam, familienaam) => {
     return dispatch => {

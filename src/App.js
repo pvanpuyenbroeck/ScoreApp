@@ -17,12 +17,22 @@ import AddMatch from './containers/TeamControl/AddGame/AddGame';
 import * as actions from './store/actions/index';
 import { withRouter } from 'react-router-dom';
 import Auth from './containers/Auth/Auth';
+import firebase from './firebase-scoreapp';
 
 
 class App extends Component {
   state = {
     showToggle: false,
     showFlexbox: false,
+  }
+
+  componentDidMount(){
+    firebase.auth().onAuthStateChanged(user => {
+      console.log(user);
+      if(user){
+        this.props.authSuccess(user);
+      }
+    })
   }
 
   NavpanelToggleClickedHandler = () => {
@@ -75,6 +85,7 @@ const mapDispatchToProps = dispatch => {
   return {
       sidePanelToggle: () => dispatch(actions.sidepanelToggle()),
       ModalClicked: () => dispatch(actions.closeModal()),
+      authSuccess: (user) => dispatch(actions.authSuccess(user)),
   }
 };
 
@@ -85,7 +96,7 @@ const mapStateToProps = state => {
     showFlexbox: state.navigation.showFlexItem,
     showModal: state.navigation.showModal,
     team: state.team.team,
-    isAuthenticated: state.auth.token != null,
+    isAuthenticated: state.auth.user !== null,
   }
 }
 

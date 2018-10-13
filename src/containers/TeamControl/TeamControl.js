@@ -44,7 +44,7 @@ class TeamControl extends Component {
 const mapStateToProps = state => {
     return{
         team:state.team.selectedTeam,
-        isAuthenticated: state.auth.token != null,
+        isAuthenticated: state.auth.user != null,
     }
 }
 

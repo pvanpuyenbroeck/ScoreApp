@@ -176,16 +176,17 @@ export const getAllTeamStart = () => {
 export const getAllTeams = (userId, token) => {
     return dispatch => {
         dispatch(getAllTeamStart());
-        axios.get('/Teams.json?auth=' + token)
-            .then(response => {
+        firebase.database().ref('/Teams').once('value')
+            .then(response =>{
+                const teams = response.val();
                 const fetchedTeams = [];
-                console.log(response.data);
-                for (let key in response.data) {
+                for (let key in teams) {
                     fetchedTeams.push({
-                        ...response.data[key],
+                        ...teams[key],
                         id: key,
                     });
                 }
+                console.log(fetchedTeams);
                 dispatch(getAllTeamSuccess(fetchedTeams));
             }).catch(error => {
                 dispatch(getAllTeamFail(error));

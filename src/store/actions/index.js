@@ -23,5 +23,6 @@ export{
     setAuthRedirectPath,
     authCheckState,
     authFirebaseLogin,
-    authFirebaseSignup
+    authFirebaseSignup,
+    authSuccess,
 }from './auth';

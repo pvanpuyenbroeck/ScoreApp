@@ -1,21 +1,17 @@
-import React from 'react';
-import PlayerButton from '../PlayerButton/PlayerButton';
-import classes from './Players.css';
-import firebase from '../../../firebase-scoreapp';
 import Spinner from '../../UI/Spinner/Spinner';
-import GetAllPlayers from '../Players/Players';
+import PlayerButton from '../PlayerButton/';
+import React from 'react';
 
-const Players = (props) => {
-    console.log(props);
-    GetAllPlayers(props);
+getAllPlayers(team) {
     let players = "";
     let allPlayers = [];
-    if (props.playerDetails) {
-        for(let key in props.playerDetails){
+    console.log(team);
+    if (team.playerDetails) {
+        for(let key in team.playerDetails){
             console.log(key);
             allPlayers.push({
                 playerId: key,
-                ...props.playerDetails[key]
+                ...team.playerDetails[key]
             })
         }
         const playersArray = Object.values(allPlayers)
@@ -32,16 +28,6 @@ const Players = (props) => {
     } else {
         players = <h2>Voeg spelers toe</h2>
     }
+} 
 
-    return (
-        <div className={classes.Players}>
-            <h1>Spelers</h1>
-            <div className={classes.PlayersBlock}>
-                {players}
-            </div>
-        </div>
-    )
-}
-
-
-export default Players;
+export default getAllPlayers;

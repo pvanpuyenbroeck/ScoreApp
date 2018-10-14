@@ -8,3 +8,10 @@ export const setSelectedMatchInfo = (selectedMatch) => {
     }
 }
 
+export const setMatchInfo = (updatedMatch) => {
+    return{
+        type: actionTypes.SET_SELECTED_MATCH,
+        selectedMatch: updatedMatch,
+    }
+}
+

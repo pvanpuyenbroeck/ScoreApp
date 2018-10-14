@@ -11,10 +11,12 @@ export{
     closeModal,
     showComponent,
     showFunctionMenu,
+    showPlayerSelectWindow,
 } from './navigation';
 
 export{
     setSelectedMatchInfo,
+    setMatchInfo,
 } from './match';
 
 export{

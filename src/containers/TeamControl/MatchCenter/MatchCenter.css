@@ -1,14 +1,43 @@
-.MatchCenter{
+.MatchCenter {
     /* position: absolute; */
     /* display: inline-block; */
     /* left:O;
     top:0; */
-    background: #F0F1D5;
-    width:80%;
     margin: 0 auto;
-    padding: 10px;
 }
 
-@media(min-width:600px){
-    
+.PlayersField {
+    width: 100%;
+    /* min-width: 350px; */
+    height: 600px;
+    background-color: #2C8693;
+}
+
+.PlayersFieldTitle {
+    height: 50px;
+    background-color: #105187;
+    color: #F0F1D5;
+    text-align: center;
+}
+
+.PlayersFieldTitle h2 {
+    padding-top: 12px;
+}
+
+.PlayersFieldNames {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.PlayersFieldName {
+    height: 100px;
+    width: 50%;
+    border: 1px solid #105187;
+    box-sizing: border-box;
+}
+
+@media(min-width:600px) {
+    .PlayersField {
+        width: 500px;
+    }
 }

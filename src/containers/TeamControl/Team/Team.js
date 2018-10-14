@@ -83,7 +83,7 @@ class Team extends Component {
                     showComponent={(component) => this.props.showComponent(component)}
                     />
                     <Modal show={this.props.showModal} modalClosed={() => this.props.closeModal()} />
-                    <Players team={this.props.team  } playerDetails={this.props.team.filteredPlayers} />
+                    <Players team={this.props.team} playerDetails={this.props.team.filteredPlayers} />
                     <Games 
                     matches={this.props.team.Matches} 
                     teamId={this.props.team.teamId} 

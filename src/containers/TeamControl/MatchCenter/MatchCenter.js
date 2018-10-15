@@ -6,16 +6,31 @@ import Button from '../../../components/UI/Button/Button/Button';
 import * as actions from '../../../store/actions/index';
 import AddPlayerstoMatch from '../../../components/Navigation/AddPlayersToMatch/AddPlayersToMatch';
 
+
 class matchCenter extends Component {
     state = {
         teamMembers: null,
+        teamMembersMatch: null,
     }
 
     componentDidMount(){
         this.setState({
-            teamMembers: this.props.team.teamMembers,
+            teamMembers: this.props.team.filteredPlayers,
         })
     }
+
+    playerButtonClicked(playerId){
+        console.log(playerId);
+        let updatedTeamMembersMatch = {
+            ...this.state.teamMembersMatch,
+            [playerId]: playerId,
+        };
+
+        this.setState({
+            teamMembersMatch: updatedTeamMembersMatch,
+        })
+    }
+
     render() {
         let redirect = null
         // if (Object.keys(this.props.match).length === 0) {
@@ -29,7 +44,7 @@ class matchCenter extends Component {
                     <div className={classes.PlayersField}>
                         <div className={classes.PlayersFieldTitle}>
                             <div>
-                                <h2>{this.props.team.selectedTeam.teamName} - {this.props.match.gameData.opponent}</h2>
+                                <h2>{this.props.team.teamName} - {this.props.match.gameData.opponent}</h2>
                             </div>
                         </div>
                         <div className={classes.PlayersFieldNames}>
@@ -46,7 +61,12 @@ class matchCenter extends Component {
         return (
             <div>
                 {redirect}
-                <AddPlayerstoMatch players={this.state.teamMembers} visible/>
+                <AddPlayerstoMatch 
+                team={this.props.team} 
+                playerDetails={this.state.teamMembers} 
+                PlayerButtonClicked={(playerId) => this.playerButtonClicked(playerId)} 
+                visible
+                addPlayers={() => this.props.setSelectedPlayers(this.state.teamMembersMatch)}/>
                 {matchCenter}
             </div>
         )
@@ -56,12 +76,13 @@ class matchCenter extends Component {
 const mapStateToProps = state => {
     return {
         match: state.match.selectedMatch,
-        team: state.team,
+        team: state.team.selectedTeam,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
+        setSelectedPlayers: (teamMembersMatch) => dispatch(actions.setPlayersMatch(teamMembersMatch))
         // showPlayerSelectWindow = () => dispatch(actions.)
     }
 }

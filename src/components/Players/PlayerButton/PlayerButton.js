@@ -5,8 +5,8 @@ import profilePic from '../../../assets/Images/profilePic.jpg';
 class playerButton extends Component {
 
     onClickHandler() {
-        if (this.props.playerid) {
-            this.props.clicked(this.props.playerid)
+        if (this.props.playerId) {
+            this.props.clicked(this.props.playerId)
         }
 
     }

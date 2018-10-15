@@ -1,8 +1,8 @@
 import Spinner from '../../UI/Spinner/Spinner';
-import PlayerButton from '../PlayerButton/';
+import PlayerButton from '../PlayerButton/PlayerButton';
 import React from 'react';
 
-getAllPlayers(team) {
+const getAllPlayers = (team) => {
     let players = "";
     let allPlayers = [];
     console.log(team);
@@ -28,6 +28,8 @@ getAllPlayers(team) {
     } else {
         players = <h2>Voeg spelers toe</h2>
     }
+
+    return players;
 } 
 
 export default getAllPlayers;

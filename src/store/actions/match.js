@@ -15,3 +15,10 @@ export const setMatchInfo = (updatedMatch) => {
     }
 }
 
+export const setPlayersMatch = (players) => {
+    return{
+        type: actionTypes.SET_MATCH_PLAYERS,
+        players: players,
+    }
+}
+

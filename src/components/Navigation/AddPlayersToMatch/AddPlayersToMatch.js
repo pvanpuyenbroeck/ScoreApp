@@ -27,6 +27,7 @@ const addPlayersToMatch = props => {
                         name={player.voornaam + " " + player.familienaam}
                         number={player.playerNumber}
                         clicked={(playerId) => props.PlayerButtonClicked(playerId)}
+                        attending={player.attending}
                     />
                 )})
     } else {

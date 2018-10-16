@@ -3,7 +3,7 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
     selectedMatch:{},
-    selectedPlayers: null,
+    MatchPlayers: null,
 }
 
 const setSelectedMatch = (state, action) => {
@@ -17,7 +17,7 @@ const setMatchPlayers = (state, action) => {
     console.log(action.players);
     return{
         ...state,
-        selectedPlayers: action.players,
+        MatchPlayers: action.players,
     }
 }
 

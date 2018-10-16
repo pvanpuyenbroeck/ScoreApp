@@ -12,8 +12,15 @@ class playerButton extends Component {
     }
 
     render() {
+        let attachedClasses = [classes.PlayerButton];
+        if(this.props.attending){
+            attachedClasses.push(classes.Green);
+        }
+        // if(!this.props.attending){
+        //     attachedClasses.push(classes.Red);
+        // }
         return (
-            <div className={classes.PlayerButton} onClick={this.onClickHandler.bind(this)}>
+            <div className={attachedClasses.join(' ')} onClick={this.onClickHandler.bind(this)}>
                 <div className={classes.Image}>
                     <img src={profilePic} alt="Profilepic"></img>
                 </div>

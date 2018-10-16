@@ -14,20 +14,42 @@ class matchCenter extends Component {
     }
 
     componentDidMount(){
+        let updateFilteredPlayer = {...this.props.team.filteredPlayers}; 
+            for(let key in this.props.team.filteredPlayers){
+                updateFilteredPlayer[key] = {
+                    ...this.props.team.filteredPlayers[key],
+                    attending: false,
+                } 
+        }
+
         this.setState({
-            teamMembers: this.props.team.filteredPlayers,
+
+            teamMembers: updateFilteredPlayer,
         })
     }
 
     playerButtonClicked(playerId){
         console.log(playerId);
-        let updatedTeamMembersMatch = {
-            ...this.state.teamMembersMatch,
-            [playerId]: playerId,
-        };
+        let updatedTeamMembers = {...this.state.teamMembers};
+        let available = false;
+        updatedTeamMembers[playerId].attending = !updatedTeamMembers[playerId].attending;
+        // if updatedTeamMembers[playerId].available === false  {
+        //         updatedTeamMembers[playerId] = {
+        //             ...this.state.teamMembers[playerId],
+        //             attending: false,
+        //         }
+        //         available = true;
+        //     }
+        // }
+        // if(!available){
+        //     updatedTeamMembers[playerId] = {
+        //         ...this.state.teamMembers[playerId],
+        //         attending: true,
+        //     }
+        // }
 
         this.setState({
-            teamMembersMatch: updatedTeamMembersMatch,
+            teamMembers:updatedTeamMembers,
         })
     }
 
@@ -58,6 +80,16 @@ class matchCenter extends Component {
             )
         }
 
+            let MatchPlayers = {};
+            for(let key in this.state.teamMembers){
+                if(this.state.teamMembers[key].attending){
+                    MatchPlayers = {
+                        ...MatchPlayers,
+                        [key]: this.state.teamMembers[key],
+                    }
+                }
+            }
+
         return (
             <div>
                 {redirect}
@@ -66,7 +98,7 @@ class matchCenter extends Component {
                 playerDetails={this.state.teamMembers} 
                 PlayerButtonClicked={(playerId) => this.playerButtonClicked(playerId)} 
                 visible
-                addPlayers={() => this.props.setSelectedPlayers(this.state.teamMembersMatch)}/>
+                addPlayers={() => this.props.setSelectedPlayers(MatchPlayers)}/>
                 {matchCenter}
             </div>
         )

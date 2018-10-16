@@ -46,5 +46,12 @@
     vertical-align: middle;
     color: #C33325;
     background-color: #F0F1D5;
-;
+}
+
+.Red{
+    background-color:#C33325;
+}
+
+.Green{
+    background-color:#2C8693;
 }

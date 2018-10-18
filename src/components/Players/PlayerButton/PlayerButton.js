@@ -13,12 +13,14 @@ class playerButton extends Component {
 
     render() {
         let attachedClasses = [classes.PlayerButton];
+        if(this.props.playerSelect){
         if(this.props.attending){
             attachedClasses.push(classes.Green);
         }
-        // if(!this.props.attending){
-        //     attachedClasses.push(classes.Red);
-        // }
+        if(!this.props.attending){
+            attachedClasses.push(classes.Red);
+        }
+    }
         return (
             <div className={attachedClasses.join(' ')} onClick={this.onClickHandler.bind(this)}>
                 <div className={classes.Image}>

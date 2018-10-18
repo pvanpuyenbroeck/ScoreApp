@@ -4,3 +4,7 @@
     z-index: 105;
     position: absolute;
 }
+
+.Hide{
+    display: none;
+}

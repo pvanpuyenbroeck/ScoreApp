@@ -1,0 +1,6 @@
+.MatchPlayerFrame{
+    height: 100px;
+    width: 50%;
+    border: 1px solid #105187;
+    box-sizing: border-box;
+}

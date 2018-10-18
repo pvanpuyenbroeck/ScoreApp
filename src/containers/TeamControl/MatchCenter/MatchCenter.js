@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classes from './MatchCenter.css';
-import { Redirect } from 'react-router-dom';
+import MatchPlayerFrame from '../../../components/Match/MatchPlayerFrame/MatchPlayerFrame';
 import Button from '../../../components/UI/Button/Button/Button';
 import * as actions from '../../../store/actions/index';
 import AddPlayerstoMatch from '../../../components/Navigation/AddPlayersToMatch/AddPlayersToMatch';
@@ -11,6 +11,7 @@ class matchCenter extends Component {
     state = {
         teamMembers: null,
         teamMembersMatch: null,
+        showAddPlayersWindow: false,
     }
 
     componentDidMount(){
@@ -31,25 +32,21 @@ class matchCenter extends Component {
     playerButtonClicked(playerId){
         console.log(playerId);
         let updatedTeamMembers = {...this.state.teamMembers};
-        let available = false;
         updatedTeamMembers[playerId].attending = !updatedTeamMembers[playerId].attending;
-        // if updatedTeamMembers[playerId].available === false  {
-        //         updatedTeamMembers[playerId] = {
-        //             ...this.state.teamMembers[playerId],
-        //             attending: false,
-        //         }
-        //         available = true;
-        //     }
-        // }
-        // if(!available){
-        //     updatedTeamMembers[playerId] = {
-        //         ...this.state.teamMembers[playerId],
-        //         attending: true,
-        //     }
-        // }
-
         this.setState({
             teamMembers:updatedTeamMembers,
+        })
+    }
+    showPlayerSelectWindow(){
+        this.setState({
+            showAddPlayersWindow:true,
+        })
+    }
+
+    settingSelectedPlayers(MatchPlayers){
+        this.props.setSelectedPlayers(MatchPlayers);
+        this.setState({
+            showAddPlayersWindow:false,
         })
     }
 
@@ -60,9 +57,13 @@ class matchCenter extends Component {
         // }
         let matchCenter = null;
         if (Object.keys(this.props.match).length !== 0) {
+
+            const PlayerFrames =  this.state.teamMembers.map(playerInfo => {
+                console.log(playerInfo);
+            })
             matchCenter = (
                 <div className={classes.MatchCenter}>
-                <Button btnType="RedButton" clicked={() => this.props.showPlayerSelectWindow()}>Speler(s) toevoegen </Button>
+                <Button btnType="RedButton" clicked={() => this.showPlayerSelectWindow()}>Speler(s) toevoegen </Button>
                     <div className={classes.PlayersField}>
                         <div className={classes.PlayersFieldTitle}>
                             <div>
@@ -70,9 +71,8 @@ class matchCenter extends Component {
                             </div>
                         </div>
                         <div className={classes.PlayersFieldNames}>
-                            <div className={classes.PlayersFieldName}></div>
-                            <div className={classes.PlayersFieldName}></div>
-                            <div className={classes.PlayersFieldName}></div>
+                        
+                            <MatchPlayerFrame playerName="Pieter"/>
 
                         </div>
                     </div>
@@ -97,8 +97,9 @@ class matchCenter extends Component {
                 team={this.props.team} 
                 playerDetails={this.state.teamMembers} 
                 PlayerButtonClicked={(playerId) => this.playerButtonClicked(playerId)} 
-                visible
-                addPlayers={() => this.props.setSelectedPlayers(MatchPlayers)}/>
+                addPlayers={() => this.settingSelectedPlayers(MatchPlayers)}
+                visible={this.state.showAddPlayersWindow}
+                />
                 {matchCenter}
             </div>
         )

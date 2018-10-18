@@ -7,6 +7,10 @@ import Button from '../../../components/UI/Button/Button/Button';
 const addPlayersToMatch = props => {
     let players = "";
     let allPlayers = [];
+    let classessArray = [classes.AddPlayersToMatch]
+    if(!props.visible){
+        classessArray.push(classes.Hide);
+    }
     console.log(props);
     if (props.playerDetails) {
         for(let key in props.playerDetails){
@@ -28,13 +32,14 @@ const addPlayersToMatch = props => {
                         number={player.playerNumber}
                         clicked={(playerId) => props.PlayerButtonClicked(playerId)}
                         attending={player.attending}
+                        playerSelect={true}
                     />
                 )})
     } else {
         players = <h2>Voeg spelers toe</h2>
     }
     return(
-        <div className={classes.AddPlayersToMatch}>
+        <div className={classessArray.join(' ')}>
         {players}
         <Button btnType="RedButton" clicked={props.addPlayers}>Voeg geselecteerde spelers toe</Button>
         </div>

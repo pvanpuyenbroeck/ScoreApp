@@ -27,7 +27,7 @@ const addPlayersToMatch = props => {
                 return (
                     <PlayerButton
                         key={player.userId}
-                        playerId={player.userid}
+                        playerid={player.userid}
                         name={player.voornaam + " " + player.familienaam}
                         number={player.playerNumber}
                         clicked={(playerId) => props.PlayerButtonClicked(playerId)}

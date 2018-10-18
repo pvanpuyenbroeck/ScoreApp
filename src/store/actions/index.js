@@ -18,6 +18,7 @@ export{
     setSelectedMatchInfo,
     setMatchInfo,
     setPlayersMatch,
+    setMatchPlayers,
 } from './match';
 
 export{

@@ -115,6 +115,7 @@ class SelectPlayers extends Component {
     }
 
     onPlayerButtonClickedHandler = (playerId) => {
+        console.log(playerId);
         this.setState({ selectedPlayerId: playerId})
         const updatedform = {...this.state.playerForm};
         const name = {...updatedform.name};

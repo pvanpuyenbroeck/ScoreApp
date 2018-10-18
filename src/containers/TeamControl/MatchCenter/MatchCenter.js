@@ -43,8 +43,8 @@ class matchCenter extends Component {
         })
     }
 
-    settingSelectedPlayers(MatchPlayers){
-        this.props.setSelectedPlayers(MatchPlayers);
+    settingSelectedPlayers(MatchPlayers, teamId, matchId){
+        this.props.setSelectedPlayers(MatchPlayers, teamId, matchId);
         this.setState({
             showAddPlayersWindow:false,
         })
@@ -58,14 +58,16 @@ class matchCenter extends Component {
         let matchCenter = null;
         if (Object.keys(this.props.match).length !== 0) {
 
-            const PlayerFrames =  this.state.teamMembers.map(playerInfo => {
-                console.log(playerInfo);
-                return(
-                    <div>
-                        <MatchPlayerFrame />
-                    </div>
-                )
-            })
+            // const PlayerFrames =  this.state.teamMembers.map(playerInfo => {
+            //     console.log(playerInfo);
+            //     return(
+            //         <div>
+            //             <MatchPlayerFrame
+                        
+            //              />
+            //         </div>
+            //     )
+            // })
             matchCenter = (
                 <div className={classes.MatchCenter}>
                 <Button btnType="RedButton" clicked={() => this.showPlayerSelectWindow()}>Speler(s) toevoegen </Button>
@@ -102,7 +104,7 @@ class matchCenter extends Component {
                 team={this.props.team} 
                 playerDetails={this.state.teamMembers} 
                 PlayerButtonClicked={(playerId) => this.playerButtonClicked(playerId)} 
-                addPlayers={() => this.settingSelectedPlayers(MatchPlayers)}
+                addPlayers={() => this.settingSelectedPlayers(MatchPlayers,this.props.team.teamId, this.props.match.matchId)}
                 visible={this.state.showAddPlayersWindow}
                 />
                 {matchCenter}
@@ -120,8 +122,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        setSelectedPlayers: (teamMembersMatch) => dispatch(actions.setPlayersMatch(teamMembersMatch))
-        // showPlayerSelectWindow = () => dispatch(actions.)
+        setSelectedPlayers: (teamMembersMatch, teamId, matchId) => dispatch(actions.setMatchPlayers(teamMembersMatch, teamId, matchId))
+        
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(matchCenter);

@@ -60,6 +60,11 @@ class matchCenter extends Component {
 
             const PlayerFrames =  this.state.teamMembers.map(playerInfo => {
                 console.log(playerInfo);
+                return(
+                    <div>
+                        <MatchPlayerFrame />
+                    </div>
+                )
             })
             matchCenter = (
                 <div className={classes.MatchCenter}>

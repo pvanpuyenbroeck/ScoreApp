@@ -4,6 +4,8 @@ import Input from '../../../components/UI/Input/Input';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import firebase from '../../../firebase-scoreapp';
 import Button from '../../../components/UI/Button/ButtonLink/ButtonLink';
+import {connect} from 'react-redux';
+import * as actions from '../../../store/actions/index';
 
 
 class AddGame extends Component {
@@ -90,7 +92,8 @@ class AddGame extends Component {
 
     gameSubmitHandler = (event) => {
         event.preventDefault();
-        const refTeamPlayers = firebase.database().ref('/Teams/' + this.props.match.params.teamId + '/Matches');
+        console.log(this.props);
+        const refTeamPlayers = firebase.database().ref('/Teams/' + this.props.team.teamId + '/Matches');
         // this.setState({
         //     loading: true,
         // })
@@ -98,20 +101,22 @@ class AddGame extends Component {
         for (let formElementIdentifier in this.state.gameForm) {
             formData[formElementIdentifier] = this.state.gameForm[formElementIdentifier].value
         }
-        formData["teamId"] = this.props.match.params.teamId ;
+        formData["teamId"] = this.props.team.teamId ;
         const gameInfo = {
             gameData: formData,
         }
         refTeamPlayers.push(gameInfo)
             .then(response => {
                 this.setState({ loading: false, });
-                this.props.history.push({
-                    pathname: '/Team/' + gameInfo.gameData.teamId,
-                });
+                // this.props.history.push({
+                //     // pathname: '/Team/' + gameInfo.gameData.teamId,
+                   
+                // });
             })
             .catch(error => {
                 this.setState({ loading: false });
             })
+            this.props.CloseModal();
     }
 
     checkValidity(value, rules) {
@@ -165,4 +170,15 @@ class AddGame extends Component {
     }
 }
 
-export default AddGame;
+const mapStateToProps = state => {
+    return{
+        team: state.team.selectedTeam,
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return{
+    CloseModal: () => dispatch(actions.closeModal())}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddGame);

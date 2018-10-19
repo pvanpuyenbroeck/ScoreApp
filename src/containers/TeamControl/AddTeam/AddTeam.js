@@ -35,6 +35,7 @@ class AddTeam extends Component {
     }
     onSubmitHandler = (event) => {
         console.log(this.state.teamToAdd);
+
         this.props.addTeam(this.state.teamToAdd);
         // axios.post('/Teams.json', this.state.teamToAdd)
         //     .then(res => {
@@ -53,8 +54,10 @@ class AddTeam extends Component {
         const teamToAdd = this.state.teamToAdd;
         teamToAdd.teamName = name === 'teamName' ? value : this.state.teamToAdd.teamName;
         teamToAdd.season = name === 'season' ? value : this.state.teamToAdd.season;
+        teamToAdd.admin = this.props.uid;
         this.setState({
             teamToAdd: teamToAdd,
+
         })
     }
     render() {
@@ -82,6 +85,7 @@ const mapStateToProps = state => {
     return{
         loading: state.team.loading,
         submitted: state.team.submitted,
+        adminUid: state.auth.uid,
     }
 }
 

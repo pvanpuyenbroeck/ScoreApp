@@ -4,7 +4,7 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState = {
     selectedMatch:{},
     MatchPlayers: null,
-    loading: false,
+    loading: true,
 }
 
 const setSelectedMatch = (state, action) => {

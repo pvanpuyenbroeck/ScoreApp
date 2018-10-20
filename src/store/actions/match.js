@@ -57,3 +57,17 @@ export const setMatchPlayers = (players, teamId, matchId) => {
     }
 }
 
+export const getMatchPlayers = (teamId, matchId) => {
+    return dispatch => {
+        dispatch(setMatchPlayersStart());
+        firebase.database().ref('/Teams/' + teamId + '/Matches/' + matchId + '/Participants').once('value')
+        .then(participants => {
+            dispatch(setMatchPlayersSuccess(participants));
+            console.log(participants);
+        })
+        .catch(err => {
+            dispatch(setMatchPlayersFail(err))
+        })
+    }
+}
+

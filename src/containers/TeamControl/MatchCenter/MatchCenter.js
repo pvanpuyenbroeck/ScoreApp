@@ -5,6 +5,7 @@ import MatchPlayerFrame from '../../../components/Match/MatchPlayerFrame/MatchPl
 import Button from '../../../components/UI/Button/Button/Button';
 import * as actions from '../../../store/actions/index';
 import AddPlayerstoMatch from '../../../components/Navigation/AddPlayersToMatch/AddPlayersToMatch';
+import Spinner from '../../../components/UI/Spinner/Spinner';
 
 
 class matchCenter extends Component {
@@ -15,16 +16,20 @@ class matchCenter extends Component {
     }
 
     componentDidMount(){
-        let updateFilteredPlayer = {...this.props.team.filteredPlayers}; 
+        let updateFilteredPlayer = {...this.props.team.filteredPlayers};
+        const participants = {...this.props.match.Participants};
             for(let key in this.props.team.filteredPlayers){
+                let attending = false;
+                if(typeof participants[key] !== 'undefined'){
+                    attending= participants[key].attending;
                 updateFilteredPlayer[key] = {
                     ...this.props.team.filteredPlayers[key],
-                    attending: false,
+                    attending:attending,    
+                }
                 } 
         }
-
+        this.props.getSelectedPlayers(null,this.props.match.matchId);
         this.setState({
-
             teamMembers: updateFilteredPlayer,
         })
     }
@@ -56,18 +61,23 @@ class matchCenter extends Component {
         //     redirect = <Redirect to="/selectTeam" />
         // }
         let matchCenter = null;
+        let PlayerFrames = <Spinner/>;
+        let players = [];
+        for(let key in this.props.match.Participants){
+            players.push(this.props.match.Participants[key]);
+        }
         if (Object.keys(this.props.match).length !== 0) {
+            if(players.length > 0){
+                 PlayerFrames =  players.map(playerInfo => {
+                    console.log(playerInfo);
+                    return(
+                            <MatchPlayerFrame
+                            username={playerInfo.username}
+                             />
+                    )
+                })
+            }
 
-            // const PlayerFrames =  this.state.teamMembers.map(playerInfo => {
-            //     console.log(playerInfo);
-            //     return(
-            //         <div>
-            //             <MatchPlayerFrame
-                        
-            //              />
-            //         </div>
-            //     )
-            // })
             matchCenter = (
                 <div className={classes.MatchCenter}>
                 <Button btnType="RedButton" clicked={() => this.showPlayerSelectWindow()}>Speler(s) toevoegen </Button>
@@ -78,8 +88,8 @@ class matchCenter extends Component {
                             </div>
                         </div>
                         <div className={classes.PlayersFieldNames}>
-                        
-                            <MatchPlayerFrame playerName="Pieter"/>
+                        {PlayerFrames}
+                            {/* <MatchPlayerFrame playerName="Pieter"/> */}
 
                         </div>
                     </div>
@@ -117,13 +127,14 @@ const mapStateToProps = state => {
     return {
         match: state.match.selectedMatch,
         team: state.team.selectedTeam,
+        loading: state.match.loading,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        setSelectedPlayers: (teamMembersMatch, teamId, matchId) => dispatch(actions.setMatchPlayers(teamMembersMatch, teamId, matchId))
-        
+        setSelectedPlayers: (teamMembersMatch, teamId, matchId) => dispatch(actions.setMatchPlayers(teamMembersMatch, teamId, matchId)),
+        getSelectedPlayers: (teamId,matchId) => dispatch(actions.getMatchPlayers(teamId,matchId)), 
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(matchCenter);

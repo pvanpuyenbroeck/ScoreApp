@@ -5,7 +5,7 @@ const matchPlayerFrame = props => {
 
     return(
         <div className={classes.MatchPlayerFrame}>
-        <div>{props.playerName}</div>
+        <div>{props.username}</div>
         </div>
     )
 }

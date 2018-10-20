@@ -19,6 +19,7 @@ export{
     setMatchInfo,
     setPlayersMatch,
     setMatchPlayers,
+    getMatchPlayers,
 } from './match';
 
 export{

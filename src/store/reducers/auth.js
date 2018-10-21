@@ -22,6 +22,7 @@ const authSuccess = (state, action) => {
         error: null,
         loading: false,
         user: action.user,
+        authRedirectPath:'/',
      } );
 };
 
@@ -34,7 +35,12 @@ const authFail = (state, action) => {
 };
 
 const authLogout = (state, action) => {
-    return updateObject(state, { token: null, userId: null, isAuthenticated:false });
+    return updateObject(state, { 
+        token: null, 
+        userId: null, 
+        isAuthenticated:false,
+        authRedirectPath: '/auth',
+    });
 };
 
 const setAuthRedirectPath = (state, action) => {

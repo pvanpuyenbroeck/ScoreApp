@@ -13,6 +13,7 @@ class sidePanel extends Component {
     logout = () => {
         this.props.logout();
         this.props.closeSidePanel();
+        window.location.reload();
     }
     render() {
         let attachedClasses = [classes.SidePanel]

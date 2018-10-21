@@ -20,7 +20,7 @@ const getAllPlayers = (team) => {
                 console.log(player);
                 return (
                     <PlayerButton
-                        key={player.userId}
+                        key={player.userid}
                         name={player.voornaam + " " + player.familienaam}
                         number={player.playerNumber}
                     />

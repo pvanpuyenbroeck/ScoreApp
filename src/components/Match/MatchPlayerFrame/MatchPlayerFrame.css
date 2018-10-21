@@ -3,4 +3,7 @@
     width: 50%;
     border: 1px solid #105187;
     box-sizing: border-box;
+    font-size: 1.3rem;  
+    text-align: center;
+    color: #F0F1D5;
 }

@@ -2,7 +2,9 @@ import * as actionTypes from '../actions/actionTypes';
 // import { setMatchInfo } from '../actions';
 
 const initialState = {
-    selectedMatch:{},
+    selectedMatch:{
+        Participants:{},
+    },
     MatchPlayers: null,
     loading: true,
 }
@@ -18,7 +20,10 @@ const setMatchPlayers = (state, action) => {
     console.log(action.players);
     return{
         ...state,
-        MatchPlayers: action.players,
+        selectedMatch: {
+            ...state.selectedMatch,
+            Participants: action.players,
+        },
     }
 }
 

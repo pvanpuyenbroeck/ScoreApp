@@ -41,7 +41,7 @@ const addPlayersToMatch = props => {
     return(
         <div className={classessArray.join(' ')}>
         {players}
-        <Button btnType="RedButton" clicked={props.addPlayers}>Voeg geselecteerde spelers toe</Button>
+        <Button btnType="RedButton" clicked={props.addPlayers}>Terug</Button>
         </div>
     )
 }

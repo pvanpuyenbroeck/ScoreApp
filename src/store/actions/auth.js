@@ -22,7 +22,10 @@ export const authFail = (error) => {
 };
 
 export const logout = () => {
-    firebase.auth().signOut();
+    firebase.auth().signOut()
+    .then(response => {
+        console.log('logged out');
+    });
     return {
         type: actionTypes.AUTH_LOGOUT
     };

@@ -28,7 +28,7 @@ class matchCenter extends Component {
                 }
                 } 
         }
-        this.props.getSelectedPlayers(null,this.props.match.matchId);
+        // this.props.getSelectedPlayers(null,this.props.match.matchId);
         this.setState({
             teamMembers: updateFilteredPlayer,
         })
@@ -134,7 +134,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         setSelectedPlayers: (teamMembersMatch, teamId, matchId) => dispatch(actions.setMatchPlayers(teamMembersMatch, teamId, matchId)),
-        getSelectedPlayers: (teamId,matchId) => dispatch(actions.getMatchPlayers(teamId,matchId)), 
+        // getSelectedPlayers: (teamId,matchId) => dispatch(actions.getMatchPlayers(teamId,matchId)), 
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(matchCenter);

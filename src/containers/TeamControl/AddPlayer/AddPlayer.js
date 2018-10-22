@@ -33,10 +33,22 @@ class AddPlayer extends Component {
                 },
                 valid: false,
             },
+            // image: {
+            //     elementType: 'file',
+            //     elementConfig: {
+            //         type: 'file',
+            //     },
+            //     value: '',
+            //     validation: {
+            //         required: false,
+            //     },
+            //     valid: false,
+            // },
 
         },
         loading: false,
         teamId: '',
+        selectedFile:null,
     }
 
     inputChangedHandler = (event, inputIdentifier) => {
@@ -89,6 +101,16 @@ class AddPlayer extends Component {
 
         return isValid;
     }
+
+    fileUploadHandler = () => {
+
+    }
+
+    fileSelectedHandler = (event) => {
+        this.setState({
+            selectedFile:event.target.files[0],
+        })
+    }
     render() {
         const formElementArray = [];
         for (let key in this.state.playerForm) {
@@ -109,6 +131,7 @@ class AddPlayer extends Component {
                         changed={(event) => this.inputChangedHandler(event, formElement.id)}
                     />
                 ))}
+                <input type="file" onChange={this.fileSelectedHandler}/> <button onClick={this.fileUploadHandler}>Upload</button>
                 <button type="submit">Toevoegen</button>
             </form>
         );

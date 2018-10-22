@@ -69,6 +69,10 @@ class matchCenter extends Component {
         let redirect = null
         let matchCenter = null;
         let PlayerFrames = <Spinner />;
+        if(!this.props.loading){
+            PlayerFrames = <div>Nog geen spelers geselecteerd</div>
+        }
+        
         let players = [];
         if (Object.keys(this.props.match).length === 0) {
             this.props.history.replace("/selectTeam");

@@ -103,7 +103,9 @@ class AddPlayer extends Component {
     }
 
     fileUploadHandler = () => {
-
+        const fd = new FormData();
+        fd.append('image', this.state.selectedFile, this.state.selectedFile.name);
+        axios.post()
     }
 
     fileSelectedHandler = (event) => {

@@ -7,11 +7,18 @@ const admin = require("firebase-admin");
 const cors = require("cors")({ origin: true });
 const Busboy = require("busboy");
 admin.initializeApp(functions.config().firebase);
+// const gcs = require('@google-cloud/storage')();
+const serviceAccount = './score-app-b69dc-firebase-adminsdk-8xbui-8ee62dd3f5.json';
 
-const gcConfig = {
-    projectId: 'score-app-b69dc',
-    keyFilename: 'score-app-b69dc-firebase-adminsdk-8xbui-3914567326.json'
-};
+// const gcConfig = {
+//     projectId: 'score-app-b69dc',
+//     keyFilename: 'score-app-b69dc-firebase-adminsdk-8xbui-8ee62dd3f5.json'
+// };
+
+// admin.initializeApp({
+//     credential: admin.credential.cert(serviceAccount),
+//     databaseURL:
+// });
 
 // const gcs = require('@google-cloud/storage')(gcConfig);
 
@@ -54,40 +61,5 @@ exports.uploadFile = functions.https.onRequest((req, res) => {
                 });
         });
         busboy.end(req.rawBody);
-    });
-});
-
-
-exports.onFileChange = functions.storage.object().onFinalize(event => {
-    console.log(event);
-    const gcs = admin.storage();
-    const object = event;
-    const bucket = object.bucket;
-    const contentType = object.contentType;
-    const filePath = object.name;
-    console.log('File change detected, function execution started');
-
-    if (object.resourceState === 'not_exists') {
-        console.log('We deleted a file, exit...');
-        return;
-    }
-
-    if (path.basename(filePath).startsWith('resized-')) {
-        console.log('We already renamed that file!');
-        return;
-    }
-    const destBucket = gcs.bucket(bucket);
-    const tmpFilePath = path.join(os.tmpdir(), path.basename(filePath));
-    const metadata = { contentType: contentType };
-    console.log(contentType);
-    return destBucket.file(filePath).download({
-        destination: tmpFilePath
-    }).then(() => {
-        return spawn('convert', [tmpFilePath, '-resize', '500x500', tmpFilePath]);
-    }).then(() => {
-        return destBucket.upload(tmpFilePath, {
-            destination: 'resized-' + path.basename(filePath),
-            metadata: metadata
-        })
     });
 });

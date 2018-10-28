@@ -105,7 +105,10 @@ class AddPlayer extends Component {
     fileUploadHandler = () => {
         const fd = new FormData();
         fd.append('image', this.state.selectedFile, this.state.selectedFile.name);
-        axios.post()
+        axios.post('https://us-central1-score-app-b69dc.cloudfunctions.net/uploadFile', fd)
+        .then(res => {
+            console.log(res);   
+        })
     }
 
     fileSelectedHandler = (event) => {

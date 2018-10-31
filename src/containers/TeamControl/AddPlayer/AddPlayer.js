@@ -104,8 +104,12 @@ class AddPlayer extends Component {
 
     fileUploadHandler = () => {
         const fd = new FormData();
-        fd.append('image', this.state.selectedFile, this.state.selectedFile.name);
-        axios.post('https://us-central1-score-app-b69dc.cloudfunctions.net/uploadFile', fd)
+        fd.append('image', this.state.selectedFile);
+        axios.post('https://us-central1-score-app-b69dc.cloudfunctions.net/uploadFile', fd, {
+            onUploadProgress: ProgressEvent => {
+                console.log('Upload progress: ' + Math.round(ProgressEvent.loaded / ProgressEvent.total * 100) + '%');
+            }
+        })
         .then(res => {
             console.log(res);   
         })
@@ -136,7 +140,14 @@ class AddPlayer extends Component {
                         changed={(event) => this.inputChangedHandler(event, formElement.id)}
                     />
                 ))}
-                <input type="file" onChange={this.fileSelectedHandler}/> <button onClick={this.fileUploadHandler}>Upload</button>
+                <input 
+                style={{display:'none'}} 
+                type="file" 
+                onChange={this.fileSelectedHandler}
+                ref={fileInput => this.fileInput = fileInput}
+                /> 
+                <button onClick={() => this.fileInput.click()}>Pick file</button>
+                <button onClick={this.fileUploadHandler}>Upload</button>
                 <button type="submit">Toevoegen</button>
             </form>
         );

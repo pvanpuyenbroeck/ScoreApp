@@ -1,65 +1,99 @@
-const functions = require('firebase-functions');
-const spawn = require('child-process-promise').spawn;
-const path = require('path');
-const os = require('os');
-const fs = require('fs');
-const admin = require("firebase-admin");
+const functions = require("firebase-functions");
+const os = require("os");
+const path = require("path");
+const spawn = require("child-process-promise").spawn;
 const cors = require("cors")({ origin: true });
 const Busboy = require("busboy");
+const fs = require("fs");
+const admin = require("firebase-admin");
+
 admin.initializeApp(functions.config().firebase);
-// const gcs = require('@google-cloud/storage')();
-const serviceAccount = './score-app-b69dc-firebase-adminsdk-8xbui-8ee62dd3f5.json';
 
-// const gcConfig = {
-//     projectId: 'score-app-b69dc',
-//     keyFilename: 'score-app-b69dc-firebase-adminsdk-8xbui-8ee62dd3f5.json'
-// };
+const gcconfig = {
+  projectId: "fb-cloud-functions-demo",
+  keyFilename: "fb-cloud-functions-demo-firebase-adminsdk-km39q-405896eddb.json"
+};
 
-// admin.initializeApp({
-//     credential: admin.credential.cert(serviceAccount),
-//     databaseURL:
-// });
+// const gcs = require("@google-cloud/storage")(gcconfig);
+// // Create and Deploy Your First Cloud Functions
+// // https://firebase.google.com/docs/functions/write-firebase-functions
+//
+exports.onFileChange = functions.storage.object().onFinalize(event => {
+const gcs = admin.storage();
+  const object = event.data;
+  const bucket = object.bucket;
+  const contentType = object.contentType;
+  const filePath = object.name;
+  console.log("File change detected, function execution started");
 
-// const gcs = require('@google-cloud/storage')(gcConfig);
+  if (object.resourceState === "not_exists") {
+    console.log("We deleted a file, exit...");
+    return;
+  }
+
+  if (path.basename(filePath).startsWith("resized-")) {
+    console.log("We already renamed that file!");
+    return;
+  }
+
+  const destBucket = gcs.bucket(bucket);
+  const tmpFilePath = path.join(os.tmpdir(), path.basename(filePath));
+  const metadata = { contentType: contentType };
+  return destBucket
+    .file(filePath)
+    .download({
+      destination: tmpFilePath
+    })
+    .then(() => {
+      return spawn("convert", [tmpFilePath, "-resize", "500x500", tmpFilePath]);
+    })
+    .then(() => {
+      return destBucket.upload(tmpFilePath, {
+        destination: "resized-" + path.basename(filePath),
+        metadata: metadata
+      });
+    });
+});
 
 exports.uploadFile = functions.https.onRequest((req, res) => {
     const gcs = admin.storage();
-    cors(req, res, () => {
-        if (req.method !== 'POST') {
-            return res.status(500).json({
-                message: 'Not allowed!'
-            })
-        }
-        let uploadData = null;
-        const busboy = new Busboy({ headers: req.headers });
-        busboy.on('file', (fieldname, file, filename, encoding, mimetype) => {
-            const filePath = path.join(os.tmpdir(), filename);
-            uploadData = { file: filePath, type: mimetype };
-            file.pipe(fs.createWriteStream(filePath));
-        })
+  cors(req, res, () => {
+    if (req.method !== "POST") {
+      return res.status(500).json({
+        message: "Not allowed"
+      });
+    }
+    const busboy = new Busboy({ headers: req.headers });
+    let uploadData = null;
 
-        busboy.on('finish', () => {
-            const bucket = gcs.bucket('score-app-b69dc.appspot.com');
-            bucket
-                .upload(uploadData.file, {
-                    uploadType: "media",
-                    metadata: {
-                        metadata: {
-                            contentType: uploadData.type
-                        }
-                    }
-                })
-                .then(() => {
-                    return res.status(200).json({
-                        message: "It worked!"
-                    });
-                })
-                .catch(err => {
-                    return res.status(500).json({
-                        error: err.val(),
-                    });
-                });
-        });
-        busboy.end(req.rawBody);
+    busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
+      const filepath = path.join(os.tmpdir(), filename);
+      uploadData = { file: filepath, type: mimetype };
+      file.pipe(fs.createWriteStream(filepath));
     });
+
+    busboy.on("finish", () => {
+      const bucket = gcs.bucket("score-app-b69dc.appspot.com");
+      bucket
+        .upload(uploadData.file, {
+          uploadType: "media",
+          metadata: {
+            metadata: {
+              contentType: uploadData.type
+            }
+          }
+        })
+        .then(() => {
+         return  res.status(200).json({
+            message: "It worked!"
+          });
+        })
+        .catch(err => {
+          res.status(500).json({
+            error: err
+          });
+        });
+    });
+    busboy.end(req.rawBody);
+  });
 });

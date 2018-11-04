@@ -6,13 +6,14 @@ const cors = require("cors")({ origin: true });
 const Busboy = require("busboy");
 const fs = require("fs");
 const admin = require("firebase-admin");
+const inspect = require('util').inspect;
 
 admin.initializeApp(functions.config().firebase);
 
-const gcconfig = {
-  projectId: "fb-cloud-functions-demo",
-  keyFilename: "fb-cloud-functions-demo-firebase-adminsdk-km39q-405896eddb.json"
-};
+// const gcconfig = {
+//   projectId: "fb-cloud-functions-demo",
+//   keyFilename: "fb-cloud-functions-demo-firebase-adminsdk-km39q-405896eddb.json"
+// };
 
 // const gcs = require("@google-cloud/storage")(gcconfig);
 // // Create and Deploy Your First Cloud Functions
@@ -20,10 +21,12 @@ const gcconfig = {
 //
 exports.onFileChange = functions.storage.object().onFinalize(event => {
 const gcs = admin.storage();
-  const object = event.data;
+console.log(event);
+  const object = event;
   const bucket = object.bucket;
   const contentType = object.contentType;
   const filePath = object.name;
+
   console.log("File change detected, function execution started");
 
   if (object.resourceState === "not_exists") {
@@ -38,18 +41,21 @@ const gcs = admin.storage();
 
   const destBucket = gcs.bucket(bucket);
   const tmpFilePath = path.join(os.tmpdir(), path.basename(filePath));
-  const metadata = { contentType: contentType };
+  const metadata = { contentType: contentType, uid: object.metadata.uid };
+    console.log(object.metadata);
   return destBucket
     .file(filePath)
     .download({
       destination: tmpFilePath
     })
     .then(() => {
+      console.log(tmpFilePath);
       return spawn("convert", [tmpFilePath, "-resize", "500x500", tmpFilePath]);
     })
     .then(() => {
       return destBucket.upload(tmpFilePath, {
-        destination: "resized-" + path.basename(filePath),
+        destination: metadata.uid,
+        // destination: "resized-" + path.basename(filePath),
         metadata: metadata
       });
     });
@@ -63,13 +69,20 @@ exports.uploadFile = functions.https.onRequest((req, res) => {
         message: "Not allowed"
       });
     }
+    console.log(req.headers);
     const busboy = new Busboy({ headers: req.headers });
     let uploadData = null;
+    let uid = null;
 
-    busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
+    busboy.on("file", (fieldname, file, filename, encoding, mimetype,id) => {
       const filepath = path.join(os.tmpdir(), filename);
-      uploadData = { file: filepath, type: mimetype };
+      uploadData = { file: filepath, type: mimetype, filename:uid };
       file.pipe(fs.createWriteStream(filepath));
+    });
+
+    busboy.on('field', (fieldname, val, fieldnameTruncated, valTruncated, encoding, mimetype) => {
+      console.log('Field [' + fieldname + ']: value: ' + inspect(val));
+      uid = val;
     });
 
     busboy.on("finish", () => {
@@ -79,13 +92,15 @@ exports.uploadFile = functions.https.onRequest((req, res) => {
           uploadType: "media",
           metadata: {
             metadata: {
-              contentType: uploadData.type
+              contentType: uploadData.type,
+              uid: uid,
             }
           }
         })
         .then(() => {
          return  res.status(200).json({
             message: "It worked!"
+
           });
         })
         .catch(err => {

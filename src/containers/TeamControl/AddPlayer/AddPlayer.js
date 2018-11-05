@@ -4,6 +4,7 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input'
 import axios from '../../../axios-scoreapp';
 import {connect} from 'react-redux';
+import firebase from '../../../firebase-scoreapp';
 
 
 class AddPlayer extends Component {
@@ -77,14 +78,26 @@ class AddPlayer extends Component {
         }
         // formData["teamId"] = this.props.match.params.teamId;
         const playerInfo = formData;
-        axios.post('/players.json', playerInfo)
-            .then(response => {
-                this.setState({ loading: false, });
-                this.props.closeModal();
-            })
-            .catch(error => {
-                this.setState({ loading: false });
-            })
+        const playersRef = firebase.database().ref('/Players').push(playerInfo);
+        playersRef.then(res => {
+            this.setState({ loading: false, });
+            this.props.closeModal();
+        }).catch(err => {
+            this.setState({ loading: false });
+        });
+        // const playerId = playerRef.key;
+        console.log(playersRef.key);
+
+
+        
+        // axios.post('/Players.json', playerInfo)
+        //     .then(response => {
+        //         this.setState({ loading: false, });
+        //         this.props.closeModal();
+        //     })
+        //     .catch(error => {
+        //         this.setState({ loading: false });
+        //     })
     }
     checkValidity(value, rules) {
         let isValid = true;

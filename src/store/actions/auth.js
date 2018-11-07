@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
 import firebase from '../../firebase-scoreapp';
+import axios from '../../axios-scoreapp';
 
 export const authStart = () => {
     return {
@@ -10,7 +11,7 @@ export const authStart = () => {
 export const authSuccess = (user) => {
     return {
         type: actionTypes.AUTH_SUCCESS,
-        user:user,
+        user: user,
     };
 };
 
@@ -23,9 +24,9 @@ export const authFail = (error) => {
 
 export const logout = () => {
     firebase.auth().signOut()
-    .then(response => {
-        console.log('logged out');
-    });
+        .then(response => {
+            console.log('logged out');
+        });
     return {
         type: actionTypes.AUTH_LOGOUT
     };
@@ -72,7 +73,7 @@ export const auth = (email, password, isSignup) => {
 export const authFirebaseLogin = (email, password) => {
     return dispatch => {
         dispatch(authStart());
-        firebase.auth().signInWithEmailAndPassword(email,password)
+        firebase.auth().signInWithEmailAndPassword(email, password)
             .then(user => {
                 console.log(user);
                 dispatch(authSuccess(user));
@@ -81,10 +82,10 @@ export const authFirebaseLogin = (email, password) => {
                 console.log(err.message);
                 dispatch(authFail(err));
             });
-            
-            firebase.auth().setPersistence('session')
+
+        firebase.auth().setPersistence('session')
             .then(() => {
-                return firebase.auth().signInWithEmailAndPassword(email,password);
+                return firebase.auth().signInWithEmailAndPassword(email, password);
             }).catch((err) => {
                 console.log(err);
             });
@@ -94,14 +95,14 @@ export const authFirebaseLogin = (email, password) => {
 export const authFirebaseSignup = (email, password, username, voornaam, familienaam) => {
     return dispatch => {
         dispatch(authStart());
-        firebase.auth().createUserWithEmailAndPassword(email,password)
-        .then(user => {
-            dispatch(addUser(user.user.uid,username,voornaam,familienaam));
-            dispatch(authSuccess(user));
-        })
-        .catch(error => {
-            dispatch(authFail(error));
-        })
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then(user => {
+                dispatch(addUser(user.user.uid, username, voornaam, familienaam));
+                dispatch(authSuccess(user));
+            })
+            .catch(error => {
+                dispatch(authFail(error));
+            })
     }
 }
 
@@ -134,9 +135,24 @@ export const setAuthRedirectPath = (path) => {
 export const addUser = (userid, username, voornaam, familienaam) => {
     return dispatch => {
         firebase.database().ref('/Players/' + userid).set({
-            userid:userid,
+            userid: userid,
             username: username,
-            voornaam:voornaam,
-            familienaam: familienaam})
-        }
+            voornaam: voornaam,
+            familienaam: familienaam
+        })
     }
+}
+
+export const fileUploadHandler = (selectedFile, PlayerId) => {
+    const fd = new FormData();
+    fd.append('image', selectedFile, selectedFile.name);
+    fd.append('idFromUser', PlayerId);
+    axios.post('https://us-central1-score-app-b69dc.cloudfunctions.net/uploadFile', fd, {
+        onUploadProgress: ProgressEvent => {
+            console.log('Upload progress: ' + Math.round(ProgressEvent.loaded / ProgressEvent.total * 100) + '%');
+        }
+    })
+        .then(res => {
+            console.log(res);
+        })
+}

@@ -50,8 +50,13 @@ class AddPlayer extends Component {
         loading: false,
         teamId: '',
         selectedFile:null,
+        newPlayerId: null,
     }
-
+    componentDidMount(){
+        this.setState({
+            newPlayerId:this.makeNewPlayerId(),
+        })
+    }
     inputChangedHandler = (event, inputIdentifier) => {
         const updatedPlayerForm = {
             ...this.state.playerForm
@@ -67,6 +72,11 @@ class AddPlayer extends Component {
         })
     }
 
+    makeNewPlayerId = () => {
+        const playerId = firebase.database().ref('/Players').push().key;
+        return playerId;
+    }
+
     playerSubmitHandler = (event) => {
         event.preventDefault();
         this.setState({
@@ -77,19 +87,21 @@ class AddPlayer extends Component {
             formData[formElementIdentifier] = this.state.playerForm[formElementIdentifier].value
         }
         // formData["teamId"] = this.props.match.params.teamId;
-        const playerInfo = formData;
-        const playersRef = firebase.database().ref('/Players').push(playerInfo);
+        let playerInfo = formData;
+        const playerId = this.state.newPlayerId;
+        playerInfo = {
+            ...playerInfo,
+            playerId: playerId,
+        }
+        const playersRef = firebase.database().ref('/Players/' + playerId).set(playerInfo);
         playersRef.then(res => {
-            this.setState({ loading: false, });
+            this.setState({ loading: false,  newPlayerId: playerId});
             this.props.closeModal();
         }).catch(err => {
             this.setState({ loading: false });
         });
         // const playerId = playerRef.key;
-        console.log(playersRef.key);
-
-
-        
+        console.log(playersRef.key);       
         // axios.post('/Players.json', playerInfo)
         //     .then(response => {
         //         this.setState({ loading: false, });
@@ -118,7 +130,7 @@ class AddPlayer extends Component {
     fileUploadHandler = () => {
         const fd = new FormData();
         fd.append('image', this.state.selectedFile, this.state.selectedFile.name);
-        fd.append('idFromUser', this.props.auth.user.uid);
+        fd.append('idFromUser', this.state.newPlayerId);
         axios.post('https://us-central1-score-app-b69dc.cloudfunctions.net/uploadFile', fd, {
             onUploadProgress: ProgressEvent => {
                 console.log('Upload progress: ' + Math.round(ProgressEvent.loaded / ProgressEvent.total * 100) + '%');

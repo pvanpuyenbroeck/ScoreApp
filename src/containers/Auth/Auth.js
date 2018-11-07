@@ -83,7 +83,8 @@ class Auth extends Component {
                 signin: false,
             },
         },
-        isSignup: true
+        isSignup: true,
+        selectedFile:null,
     }
 
     componentDidMount() {
@@ -138,18 +139,24 @@ class Auth extends Component {
 
     submitHandler = (event) => {
         event.preventDefault();
-        if(this.state.isSignup){
+        if (this.state.isSignup) {
             this.props.onAuthSignup(
-                this.state.controls.email.value, 
-                this.state.controls.password.value, 
+                this.state.controls.email.value,
+                this.state.controls.password.value,
                 this.state.controls.userName.value,
                 this.state.controls.voornaam.value,
                 this.state.controls.familienaam.value,
                 this.state.isSignup);
-        }else{
+        } else {
             this.props.onAuthLogin(this.state.controls.email.value, this.state.controls.password.value);
         }
 
+    }
+
+    fileSelectedHandler = (event) => {
+        this.setState({
+            selectedFile: event.target.files[0],
+        })
     }
 
     switchAuthModeHandler = () => {
@@ -161,20 +168,20 @@ class Auth extends Component {
     render() {
         const formElementsArray = [];
         for (let key in this.state.controls) {
-            if(this.state.isSignup){
-            formElementsArray.push({
-                id: key,
-                config: this.state.controls[key]
-            });
-        }
-            else {
-                if(this.state.controls[key].signin === true){
+            if (this.state.isSignup) {
                 formElementsArray.push({
                     id: key,
                     config: this.state.controls[key]
                 });
-            };
-        }
+            }
+            else {
+                if (this.state.controls[key].signin === true) {
+                    formElementsArray.push({
+                        id: key,
+                        config: this.state.controls[key]
+                    });
+                };
+            }
         }
 
         let form = formElementsArray.map(formElement => (
@@ -212,6 +219,11 @@ class Auth extends Component {
                 {errorMessage}
                 <form onSubmit={this.submitHandler}>
                     {form}
+                    <input
+                        type="file"
+                        onChange={this.fileSelectedHandler}
+                    />
+                    <button onClick={this.fileUploadHandler}>Upload</button>
                     <Button btnType="Success">SUBMIT</Button>
                 </form>
                 <Button
@@ -235,7 +247,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onAuthLogin: (email, password) => dispatch(actions.authFirebaseLogin(email, password)),
-        onAuthSignup: (email, password, userName,voornaam,familienaam) => dispatch(actions.authFirebaseSignup(email, password,userName,voornaam,familienaam)),
+        onAuthSignup: (email, password, userName, voornaam, familienaam) => dispatch(actions.authFirebaseSignup(email, password, userName, voornaam, familienaam)),
         onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/selectTeam'))
     };
 };

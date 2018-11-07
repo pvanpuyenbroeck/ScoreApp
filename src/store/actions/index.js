@@ -30,4 +30,5 @@ export{
     authFirebaseLogin,
     authFirebaseSignup,
     authSuccess,
+    fileUploadHandler,
 }from './auth';

@@ -248,7 +248,8 @@ const mapDispatchToProps = dispatch => {
     return {
         onAuthLogin: (email, password) => dispatch(actions.authFirebaseLogin(email, password)),
         onAuthSignup: (email, password, userName, voornaam, familienaam) => dispatch(actions.authFirebaseSignup(email, password, userName, voornaam, familienaam)),
-        onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/selectTeam'))
+        onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/selectTeam')),
+        onFileUpload: () => dispatch(actions.fileUploadHandler(this.state.selectedFile,)),
     };
 };
 

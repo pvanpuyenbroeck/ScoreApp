@@ -18,6 +18,7 @@ import * as actions from './store/actions/index';
 import { withRouter } from 'react-router-dom';
 import Auth from './containers/Auth/Auth';
 import firebase from './firebase-scoreapp';
+import Profile from './components/Registration/ProfileInfo';
 
 
 class App extends Component {
@@ -65,6 +66,7 @@ class App extends Component {
     if(this.props.navItem === "AddPlayer"){flexItem = <AddPlayer/>};
     if(this.props.navItem === "SelectPlayer"){flexItem = <SelectPlayer team={this.props.team}/>};
     if(this.props.navItem === "AddMatch"){flexItem = <AddMatch team={this.props.team}/>};
+    if(this.props.navItem === "Profile"){flexItem = <Profile user={this.props.user}/>}; 
 
 
     return (
@@ -97,6 +99,7 @@ const mapStateToProps = state => {
     showModal: state.navigation.showModal,
     team: state.team.team,
     isAuthenticated: state.auth.user !== null,
+    user: state.auth.user,
   }
 }
 

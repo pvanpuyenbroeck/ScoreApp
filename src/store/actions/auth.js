@@ -40,34 +40,19 @@ export const checkAuthTimeout = (expirationTime) => {
     };
 };
 
-export const auth = (email, password, isSignup) => {
-    // return dispatch => {
-    //     dispatch(authStart());
-    //     const authData = {
-    //         email: email,
-    //         password: password,
-    //         returnSecureToken: true
-    //     };
-    //     let url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyBIHrb20BX4dvFaZJWe9WkUTSeL7hHwE04';
-    //     if (!isSignup) {
-    //         url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyBIHrb20BX4dvFaZJWe9WkUTSeL7hHwE04';
-    //     }
-    //     axios.post(url, authData)
-    //         .then(response => {
-    //             console.log(response);
-    //             const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
-    //             localStorage.setItem('token', response.data.idToken);
-    //             localStorage.setItem('expirationDate', expirationDate);
-    //             localStorage.setItem('userId', response.data.localId);
-    //             dispatch(authSuccess(response.data.idToken, response.data.localId));
-    //             dispatch(checkAuthTimeout(response.data.expiresIn));
-    //         })
-    //         .catch(err => {
-    //             dispatch(authFail(err.response.data.error));
-    //         });
-    // };
-};
-
+export const fileUpload = (newPlayerId, file) => {
+    const fd = new FormData();
+    fd.append('image', this.state.selectedFile, this.state.selectedFile.name);
+    fd.append('idFromUser', this.state.newPlayerId);
+    axios.post('https://us-central1-score-app-b69dc.cloudfunctions.net/uploadFile', fd, {
+        onUploadProgress: ProgressEvent => {
+            console.log('Upload progress: ' + Math.round(ProgressEvent.loaded / ProgressEvent.total * 100) + '%');
+        }
+    })
+    .then(res => {
+        console.log(res);   
+    })
+}
 
 
 export const authFirebaseLogin = (email, password) => {
@@ -98,6 +83,13 @@ export const authFirebaseSignup = (email, password, username, voornaam, familien
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then(user => {
                 dispatch(addUser(user.user.uid, username, voornaam, familienaam));
+                user.user.updateProfile({
+                    displayName: username,
+                    firstName: voornaam,
+                    lastName:familienaam,
+                }).then(response => {
+                    console.log(response);
+                })
                 dispatch(authSuccess(user));
             })
             .catch(error => {
@@ -105,7 +97,6 @@ export const authFirebaseSignup = (email, password, username, voornaam, familien
             })
     }
 }
-
 
 export const setAuthRedirectPath = (path) => {
     return {

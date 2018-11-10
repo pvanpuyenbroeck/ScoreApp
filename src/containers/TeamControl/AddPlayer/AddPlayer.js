@@ -10,11 +10,23 @@ import firebase from '../../../firebase-scoreapp';
 class AddPlayer extends Component {
     state = {
         playerForm: {
-            name: {
+            voornaam: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'Naam',
+                    placeholder: 'Voornaam',
+                },
+                value: '',
+                validation: {
+                    required: true,
+                },
+                valid: false,
+            },
+            familienaam: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Familienaam',
                 },
                 value: '',
                 validation: {
@@ -167,12 +179,9 @@ class AddPlayer extends Component {
                     />
                 ))}
                 <input 
-                // style={{display:'none'}} 
                 type="file" 
                 onChange={this.fileSelectedHandler}
-                // ref={fileInput => this.fileInput = fileInput}
                 /> 
-                {/* <button onClick={() => this.fileInput.click()}>Pick file</button> */}
                 <button onClick={this.fileUploadHandler}>Upload</button>
                 <button type="submit">Toevoegen</button>
             </form>

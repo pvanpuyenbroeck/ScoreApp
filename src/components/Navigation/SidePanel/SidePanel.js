@@ -50,6 +50,7 @@ class sidePanel extends Component {
                     <NavPanelLink NavClicked={() => this.props.navItemClicked("AddTeam")}>Add Team</NavPanelLink>
                     <NavPanelLink NavClicked={() => this.props.navItemClicked("AddPlayer")}>Add New Player</NavPanelLink>
                     <NavPanelLink NavClicked={() => this.logout()}>Logout</NavPanelLink>
+                    <NavPanelLink NavClicked={() => this.props.navItemClicked("Profile")}>My Profile</NavPanelLink>                    
                 </div>
             )
         }

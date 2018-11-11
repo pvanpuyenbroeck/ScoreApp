@@ -14,14 +14,18 @@ class matchCenter extends Component {
         teamMembers: null,
         teamMembersMatch: null,
         showAddPlayersWindow: false,
+        matchStats:{
+
+        }
     }
 
-    componentWillMount(){
+    // componentWillMount(){
+
+    // }
+    componentWillMount() {
         if(typeof this.props.team.teamId === 'undefined'){
             this.props.history.push('/selectTeam');
         }
-    }
-    componentDidMount() {
         let updateFilteredPlayer = { ...this.props.team.filteredPlayers };
         const participants = { ...this.props.match.Participants };
         for (let key in this.props.team.filteredPlayers) {
@@ -30,6 +34,7 @@ class matchCenter extends Component {
                 attending = participants[key].attending;
                 updateFilteredPlayer[key] = {
                     ...this.props.team.filteredPlayers[key],
+                    goals:0,
                     attending: attending,
                 }
             }
@@ -43,6 +48,7 @@ class matchCenter extends Component {
             teamMembers: updateFilteredPlayer,
         })
     }
+
 
     playerButtonClicked(playerId) {
         console.log(playerId);
@@ -62,6 +68,20 @@ class matchCenter extends Component {
         this.props.setSelectedPlayers(MatchPlayers, teamId, matchId);
         this.setState({
             showAddPlayersWindow: false,
+        })
+    }
+
+    goalHandler = (playerId, addOrDetract) => {
+        let updatedTeamMembers = {...this.state.teamMembers};
+
+        if(addOrDetract === 'add'){
+            updatedTeamMembers[playerId].goals = updatedTeamMembers[playerId].goals + 1;
+        }else{
+            updatedTeamMembers[playerId].goals = updatedTeamMembers[playerId].goals - 1;
+        }
+
+        this.setState({
+            teamMembers:updatedTeamMembers,
         })
     }
 
@@ -89,6 +109,9 @@ class matchCenter extends Component {
                     return (
                         <MatchPlayerFrame
                             username={playerInfo.username}
+                            plusClicked={() => this.goalHandler(playerInfo.userid, 'add')}
+                            minClicked={() => this.goalHandler(playerInfo.userid, 'min')}
+                            goals = {this.state.teamMembers[playerInfo.userid].goals}
                         />
                     )
                 })

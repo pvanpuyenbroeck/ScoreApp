@@ -3,6 +3,7 @@ import classes from './MatchPlayerFrame.css';
 import defaultProfilePic from '../../../assets/Images/myAvatar.png';
 import plus from '../../../assets/Images/plus.png';
 import minus from '../../../assets/Images/minus.png';
+import moreButton from '../../../assets/Images/MoreButton.png';
 
 const matchPlayerFrame = props => {
     const minusClasses = [classes.AddMinusSymbol, classes.Minus];
@@ -22,6 +23,7 @@ const matchPlayerFrame = props => {
                 <div className={classes.GoalsScored}>{props.goals}</div>
                 <div className={minusClasses.join(' ')} onClick={props.minClicked}><img alt="minus" src={minus}/></div>
             </div>
+            <div className={classes.MoreButton}><img alt="more button" src={moreButton}/></div>
         </div>
     )
 }

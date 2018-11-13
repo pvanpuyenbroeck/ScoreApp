@@ -14,7 +14,7 @@ class matchCenter extends Component {
         teamMembers: null,
         teamMembersMatch: null,
         showAddPlayersWindow: false,
-        matchStats:{
+        matchStats: {
 
         }
     }
@@ -23,7 +23,7 @@ class matchCenter extends Component {
 
     // }
     componentWillMount() {
-        if(typeof this.props.team.teamId === 'undefined'){
+        if (typeof this.props.team.teamId === 'undefined') {
             this.props.history.push('/selectTeam');
         }
         let updateFilteredPlayer = { ...this.props.team.filteredPlayers };
@@ -34,7 +34,7 @@ class matchCenter extends Component {
                 attending = participants[key].attending;
                 updateFilteredPlayer[key] = {
                     ...this.props.team.filteredPlayers[key],
-                    goals:0,
+                    goals: 0,
                     attending: attending,
                 }
             }
@@ -72,16 +72,18 @@ class matchCenter extends Component {
     }
 
     goalHandler = (playerId, addOrDetract) => {
-        let updatedTeamMembers = {...this.state.teamMembers};
+        let updatedTeamMembers = { ...this.state.teamMembers };
 
-        if(addOrDetract === 'add'){
+        if (addOrDetract === 'add') {
             updatedTeamMembers[playerId].goals = updatedTeamMembers[playerId].goals + 1;
-        }else{
-            updatedTeamMembers[playerId].goals = updatedTeamMembers[playerId].goals - 1;
+        } else {
+            if (updatedTeamMembers[playerId].goals > 0) {
+                updatedTeamMembers[playerId].goals = updatedTeamMembers[playerId].goals - 1;    
+            }
         }
 
         this.setState({
-            teamMembers:updatedTeamMembers,
+            teamMembers: updatedTeamMembers,
         })
     }
 
@@ -89,10 +91,10 @@ class matchCenter extends Component {
         let redirect = null
         let matchCenter = null;
         let PlayerFrames = <Spinner />;
-        if(!this.props.loading){
+        if (!this.props.loading) {
             PlayerFrames = <div>Nog geen spelers geselecteerd</div>
         }
-        
+
         let players = [];
         if (Object.keys(this.props.match).length === 0) {
             this.props.history.replace("/selectTeam");
@@ -111,7 +113,7 @@ class matchCenter extends Component {
                             username={playerInfo.username}
                             plusClicked={() => this.goalHandler(playerInfo.userid, 'add')}
                             minClicked={() => this.goalHandler(playerInfo.userid, 'min')}
-                            goals = {this.state.teamMembers[playerInfo.userid].goals}
+                            goals={this.state.teamMembers[playerInfo.userid].goals}
                         />
                     )
                 })
@@ -175,7 +177,7 @@ const mapDispatchToProps = dispatch => {
     return {
         setSelectedPlayers: (teamMembersMatch, teamId, matchId) => dispatch(actions.setMatchPlayers(teamMembersMatch, teamId, matchId)),
         // getSelectedPlayers: (teamId,matchId) => dispatch(actions.getMatchPlayers(teamId,matchId)), 
-        getTeam:(teamId) => dispatch(actions.getTeam(teamId,null,null))
+        getTeam: (teamId) => dispatch(actions.getTeam(teamId, null, null))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(matchCenter);

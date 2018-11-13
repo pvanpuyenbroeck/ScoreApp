@@ -1,6 +1,6 @@
 .MatchPlayerFrame {
     height: 100px;
-    width: 50%;
+    width: 100%;
     /* border: 1px solid #105187; */
     box-sizing: border-box;
     font-size: 1.3rem;
@@ -30,7 +30,8 @@
 
 .PlayerInfo {
     display: inline-block;
-    width: 75%;
+    width: 40%;
+    margin-top: 25px;
 }
 
 .Scoring {
@@ -42,7 +43,7 @@
 }
 
 .Scoring div {
-    width: 100%;
+    /* width: 100%; */
     word-wrap: break-word;
     margin: 0 auto;
 }
@@ -52,12 +53,15 @@
     font-size: 1.2rem;
     text-align: center;
     vertical-align: middle;
+    display: inline-block;
+
 }
 
 .AddMinusSymbol {
     height: 33.33%;
-    background-color: #F0F1D5;
-    border: 2px solid #2C8693;
+    display: inline-block;
+    /* background-color: #F0F1D5;
+    border: 2px solid #2C8693; */
     box-sizing: border-box;
 }
 
@@ -69,13 +73,21 @@
     display: block;
     margin: 0 auto;
     vertical-align: middle; 
-    width: 25px;
+    /* width: 25px; */
 }
 
 .Minus img{
     padding-top: 14px;
+    display: inline-block;
+
 }
 
 .Plus img{
     padding-top: 3px;
+    display: inline-block;
+
+}
+
+.MoreButton{
+    display: inline-block;
 }

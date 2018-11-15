@@ -73,7 +73,7 @@ class App extends Component {
       <Aux>
       <SidePanel showToggle={this.props.toggleSidePanel} showFlexbox={this.state.showFlexbox}/>
       <Modal modalClosed={() => this.props.ModalClicked()} show={this.props.showModal}/>
-      <Layout>
+      <Layout isAuthenticated={this.props.isAuthenticated}>
         <Flexbox show={this.props.showFlexbox} navItem={this.props.navItem}>{flexItem}</Flexbox>
         <NavPanel toggleClicked={() => this.props.sidePanelToggle()} showToggle={this.state.showToggle}/>
         {routes}

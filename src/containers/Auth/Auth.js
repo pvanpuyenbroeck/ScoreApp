@@ -219,11 +219,11 @@ class Auth extends Component {
                 {errorMessage}
                 <form onSubmit={this.submitHandler}>
                     {form}
-                    <input
+                    {/* <input
                         type="file"
                         onChange={this.fileSelectedHandler}
                     />
-                    <button onClick={this.fileUploadHandler}>Upload</button>
+                    <button onClick={this.fileUploadHandler}>Upload</button> */}
                     <Button btnType="Success">SUBMIT</Button>
                 </form>
                 <Button

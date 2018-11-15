@@ -7,7 +7,7 @@ class Layout extends Component{
  render(){
      return(
         <Aux>
-        <Header/>
+        <Header isAuthenticated={this.props.isAuthenticated}/>
         <main className={classes.Layout}>
         {this.props.children}
         </main>

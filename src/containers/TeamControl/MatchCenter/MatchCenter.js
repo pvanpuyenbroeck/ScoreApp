@@ -73,19 +73,30 @@ class matchCenter extends Component {
     }
 
     goalHandler = (playerId, addOrDetract) => {
-        let updatedTeamMembers = { ...this.state.teamMembers };
+        let updatedTeamMembers = {...this.state.teamMembers };
+        let updatedMatchStats = {...this.state.matchStats};
 
         if (addOrDetract === 'add') {
+            updatedMatchStats.homeScore++;
             updatedTeamMembers[playerId].goals = updatedTeamMembers[playerId].goals + 1;
+            this.setState({
+                matchStats: updatedMatchStats,
+            })
         } else {
             if (updatedTeamMembers[playerId].goals > 0) {
-                updatedTeamMembers[playerId].goals = updatedTeamMembers[playerId].goals - 1;    
+                updatedMatchStats.homeScore--;
+                updatedTeamMembers[playerId].goals = updatedTeamMembers[playerId].goals - 1;  
+                this.setState({matchStats: updatedMatchStats});  
             }
         }
 
         this.setState({
             teamMembers: updatedTeamMembers,
         })
+    }
+
+    oponentGoalHandler(addOrDetract){
+        
     }
 
     render() {
@@ -122,19 +133,30 @@ class matchCenter extends Component {
             if (typeof this.props.team.teamId !== 'undefined') {
                 matchCenter = (
                     <div className={classes.MatchCenter}>
-                        <Button btnType="RedButton" clicked={() => this.showPlayerSelectWindow()}>Selecteer spelers</Button>
+                        {/* <Button btnType="RedButton" clicked={() => this.showPlayerSelectWindow()}>Selecteer spelers</Button> */}
                         <div className={classes.PlayersField}>
+                        <div className={classes.Menu}>
+                        <div className={classes.MenuButtons} onClick={() => this.showPlayerSelectWindow()}>
+                            <div>Selecteer Speler</div>
+                        </div>
+                        <div className={classes.MenuButtons}>
+                            <div></div>
+                        </div>
+                        <div className={classes.MenuButtons}>
+                            <div></div>
+                            <div onClick={() => }>+</div>
+                            <div>-</div>
+                        </div>
+                        </div>
                             <div className={classes.PlayersFieldTitle}>
                                 <div>
                                     <div className={classes.Score}>{this.state.matchStats.homeScore}</div>
-                                    <h2>{this.props.team.teamName} - {this.props.match.gameData.opponent}</h2>
+                                    <div className={classes.MatchTitle}><h2>{this.props.team.teamName} - {this.props.match.gameData.opponent}</h2></div>
                                     <div className={classes.Score}>{this.state.matchStats.oponentScore}</div>
                                 </div>
                             </div>
                             <div className={classes.PlayersFieldNames}>
                                 {PlayerFrames}
-                                {/* <MatchPlayerFrame playerName="Pieter"/> */}
-
                             </div>
                         </div>
                     </div>

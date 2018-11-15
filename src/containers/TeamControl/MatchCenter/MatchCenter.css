@@ -1,9 +1,47 @@
 .MatchCenter {
-    /* position: absolute; */
-    /* display: inline-block; */
-    /* left:O;
-    top:0; */
     margin: 0 auto;
+}
+
+.Menu{
+    height: 50px;
+    background-color: #C33325;
+}
+
+.MenuButtons{
+    position:relative;
+    width: 33.3%;
+    height: 100%;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    vertical-align: top;
+}
+
+.MenuButtons div{
+    position:absolute;
+    top: 50%;
+    color:#F0F1D5;
+    height:25px;
+    margin-top:-12.5px;
+    display: inline-block;
+}
+
+.MenuButtons:nth-child(1):hover,
+.MenuButtons:nth-child(3) div:nth-child(2):hover,
+.MenuButtons:nth-child(3) div:nth-child(3):hover{
+    background: rgb(191, 103, 92);
+    cursor: pointer;
+}
+
+.MenuButtons:nth-child(3) div{
+    width:33.3%;
+    vertical-align: top;
+    position: relative;
+    display: inline-block;
+    margin-top: -25px;
+    font-size:2rem;
+    padding-top:6px;
+    height: 100%;
 }
 
 .PlayersField {
@@ -20,8 +58,13 @@
     text-align: center;
 }
 
-.PlayersFieldTitle h2 {
+.MatchTitle {
     display: inline-block;
+    /* margin-top: 10px; */
+    width: 50%;
+}
+
+.MatchTitle h2{
     margin-top: 10px;
 }
 
@@ -40,6 +83,9 @@
 .Score{
     display: inline-block;
     font-size: 1.3rem;
+    width: 25%;
+    font-weight: bold;
+    font-size: 2rem;
 }
 
 @media(min-width:600px) {

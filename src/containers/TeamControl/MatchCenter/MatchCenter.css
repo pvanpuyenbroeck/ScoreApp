@@ -21,7 +21,8 @@
 }
 
 .PlayersFieldTitle h2 {
-    padding-top: 12px;
+    display: inline-block;
+    margin-top: 10px;
 }
 
 .PlayersFieldNames {
@@ -34,6 +35,11 @@
     width: 50%;
     border: 1px solid #105187;
     box-sizing: border-box;
+}
+
+.Score{
+    display: inline-block;
+    font-size: 1.3rem;
 }
 
 @media(min-width:600px) {

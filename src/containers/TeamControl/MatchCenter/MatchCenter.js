@@ -15,7 +15,8 @@ class matchCenter extends Component {
         teamMembersMatch: null,
         showAddPlayersWindow: false,
         matchStats: {
-
+            homeScore: 0,
+            oponentScore: 0,
         }
     }
 
@@ -125,7 +126,9 @@ class matchCenter extends Component {
                         <div className={classes.PlayersField}>
                             <div className={classes.PlayersFieldTitle}>
                                 <div>
+                                    <div className={classes.Score}>{this.state.matchStats.homeScore}</div>
                                     <h2>{this.props.team.teamName} - {this.props.match.gameData.opponent}</h2>
+                                    <div className={classes.Score}>{this.state.matchStats.oponentScore}</div>
                                 </div>
                             </div>
                             <div className={classes.PlayersFieldNames}>

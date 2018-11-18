@@ -73,8 +73,8 @@ class matchCenter extends Component {
     }
 
     goalHandler = (playerId, addOrDetract) => {
-        let updatedTeamMembers = {...this.state.teamMembers };
-        let updatedMatchStats = {...this.state.matchStats};
+        let updatedTeamMembers = { ...this.state.teamMembers };
+        let updatedMatchStats = { ...this.state.matchStats };
 
         if (addOrDetract === 'add') {
             updatedMatchStats.homeScore++;
@@ -85,18 +85,29 @@ class matchCenter extends Component {
         } else {
             if (updatedTeamMembers[playerId].goals > 0) {
                 updatedMatchStats.homeScore--;
-                updatedTeamMembers[playerId].goals = updatedTeamMembers[playerId].goals - 1;  
-                this.setState({matchStats: updatedMatchStats});  
+                updatedTeamMembers[playerId].goals = updatedTeamMembers[playerId].goals - 1;
+                this.setState({ matchStats: updatedMatchStats });
             }
         }
-
+        this.props.setSelectedPlayers(updatedTeamMembers, this.props.match.teamId, playerId)
         this.setState({
             teamMembers: updatedTeamMembers,
         })
     }
 
-    oponentGoalHandler(addOrDetract){
-        
+    oponentGoalHandler(addOrDetract) {
+        let updatedMatchStats = { ...this.state.matchStats }
+        if (addOrDetract === 'add') {
+            updatedMatchStats.oponentScore++
+        } else {
+            if (updatedMatchStats.oponentScore > 0) {
+                updatedMatchStats.oponentScore--
+            }
+        }
+        this.props.oponentGoal(updatedMatchStats.oponentScore);
+        this.setState({
+            matchStats: updatedMatchStats,
+        })
     }
 
     render() {
@@ -135,19 +146,19 @@ class matchCenter extends Component {
                     <div className={classes.MatchCenter}>
                         {/* <Button btnType="RedButton" clicked={() => this.showPlayerSelectWindow()}>Selecteer spelers</Button> */}
                         <div className={classes.PlayersField}>
-                        <div className={classes.Menu}>
-                        <div className={classes.MenuButtons} onClick={() => this.showPlayerSelectWindow()}>
-                            <div>Selecteer Speler</div>
-                        </div>
-                        <div className={classes.MenuButtons}>
-                            <div></div>
-                        </div>
-                        <div className={classes.MenuButtons}>
-                            <div></div>
-                            <div onClick={() => }>+</div>
-                            <div>-</div>
-                        </div>
-                        </div>
+                            <div className={classes.Menu}>
+                                <div className={classes.MenuButtons} onClick={() => this.showPlayerSelectWindow()}>
+                                    <div>Selecteer Speler</div>
+                                </div>
+                                <div className={classes.MenuButtons}>
+                                    <div>Opslaan</div>
+                                </div>
+                                <div className={classes.MenuButtons}>
+                                    <div></div>
+                                    <div onClick={() => this.oponentGoalHandler("add")}><div className={classes.Center}>+</div></div>
+                                    <div onClick={() => this.oponentGoalHandler("minus")}><div className={classes.Center}>-</div></div>
+                                </div>
+                            </div>
                             <div className={classes.PlayersFieldTitle}>
                                 <div>
                                     <div className={classes.Score}>{this.state.matchStats.homeScore}</div>
@@ -202,7 +213,9 @@ const mapDispatchToProps = dispatch => {
     return {
         setSelectedPlayers: (teamMembersMatch, teamId, matchId) => dispatch(actions.setMatchPlayers(teamMembersMatch, teamId, matchId)),
         // getSelectedPlayers: (teamId,matchId) => dispatch(actions.getMatchPlayers(teamId,matchId)), 
-        getTeam: (teamId) => dispatch(actions.getTeam(teamId, null, null))
+        getTeam: (teamId) => dispatch(actions.getTeam(teamId, null, null)),
+        saveGameStats:(matchStats) => dispatch(actions.saveMatch(matchStats)),
+        oponentGoal: (oponentGoals) => dispatch(actions.updateOponentGoals(oponentGoals)),
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(matchCenter);

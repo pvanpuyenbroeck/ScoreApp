@@ -25,20 +25,20 @@
 
 .Username {
     display: inline-block;
-    font-size: 1rem;
+    font-size: 0.8rem;
     margin-left: 5px;
     vertical-align: top;
 }
 
 .PlayerInfo {
     display: inline-block;
-    width: 40%;
+    width: 60%;
     margin-top: 25px;
 }
 
 .Scoring {
     display: inline-block;
-    width: 40%;
+    width: 30%;
     font-size: 1rem;
     height: 100%;
     vertical-align: top;

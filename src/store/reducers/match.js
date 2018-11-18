@@ -7,6 +7,7 @@ const initialState = {
     },
     MatchPlayers: null,
     loading: true,
+    oponentGoals: 0,
 }
 
 const setSelectedMatch = (state, action) => {
@@ -47,6 +48,16 @@ const setMatchPlayersStart = (state, action) =>{
     }
 }
 
+const oponentUpdateGoal = (state,action) => {
+    return{
+        ...state,
+        selectedMatch: {
+            ...state.selectedMatch,
+            oponentGoals: action.goals,
+        }
+    }
+}
+
 const reducer = (state = initialState, action) => {
     switch(action.type){
         case actionTypes.SET_SELECTED_MATCH:
@@ -59,6 +70,8 @@ const reducer = (state = initialState, action) => {
         return setMatchPlayersFail(state, action);
         case actionTypes.SET_MATCH_PLAYERS_SUCCESS:
         return setMatchPlayersSuccess(state, action);
+        case actionTypes.OPONENTGOAL_UPDATE:
+        return oponentUpdateGoal(state,action);
         // return setMatchInfo(state,action);
         default: return state;
     }

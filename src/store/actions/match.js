@@ -71,3 +71,24 @@ export const getMatchPlayers = (teamId, matchId) => {
     }
 }
 
+
+export const saveMatchStats = (teamId, matchId, userId, matchStats) => {
+    return dispatch => {
+        //start save matchStats
+        firebase.database().ref('/Teams/' + teamId + 'Matches/' + matchId + '/Participants/' + userId).set(matchStats)
+    }
+}
+
+export const loadMatchStats = () => {
+    return dispatch => {
+
+    }
+}
+
+export const updateOponentGoals = (goals) => {
+    return{
+        type: actionTypes.OPONENTGOAL_UPDATE,
+        goals: goals,
+    }
+}
+

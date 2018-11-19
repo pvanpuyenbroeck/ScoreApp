@@ -151,7 +151,7 @@ class matchCenter extends Component {
                                     <div>Selecteer Speler</div>
                                 </div>
                                 <div className={classes.MenuButtons}>
-                                    <div>Opslaan</div>
+                                    <div onClick={() => this.props.saveGameStats(this.props.team.teamId,this.props.match.matchId, this.props.match)}>Opslaan</div>
                                 </div>
                                 <div className={classes.MenuButtons}>
                                     <div></div>
@@ -214,7 +214,7 @@ const mapDispatchToProps = dispatch => {
         setSelectedPlayers: (teamMembersMatch, teamId, matchId) => dispatch(actions.setMatchPlayers(teamMembersMatch, teamId, matchId)),
         // getSelectedPlayers: (teamId,matchId) => dispatch(actions.getMatchPlayers(teamId,matchId)), 
         getTeam: (teamId) => dispatch(actions.getTeam(teamId, null, null)),
-        saveGameStats:(matchStats) => dispatch(actions.saveMatch(matchStats)),
+        saveGameStats:(teamId, matchId,match) => dispatch(actions.saveMatch(teamId, matchId,match)),
         oponentGoal: (oponentGoals) => dispatch(actions.updateOponentGoals(oponentGoals)),
     }
 }

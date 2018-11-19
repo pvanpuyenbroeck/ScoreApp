@@ -72,10 +72,20 @@ export const getMatchPlayers = (teamId, matchId) => {
 }
 
 
-export const saveMatchStats = (teamId, matchId, userId, matchStats) => {
+export const saveMatch = (teamId, matchId, match) => {
     return dispatch => {
         //start save matchStats
-        firebase.database().ref('/Teams/' + teamId + 'Matches/' + matchId + '/Participants/' + userId).set(matchStats)
+        console.log(teamId);
+        console.log(matchId);
+        console.log(match);
+        firebase.database().ref('/Teams/' + teamId + '/Matches/' + matchId).set(match)
+        .then(response => {
+            //save succesfull
+            console.log(response);
+        }).catch(err => {
+            //error message
+            console.log(err);
+        })
     }
 }
 

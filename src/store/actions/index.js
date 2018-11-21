@@ -22,6 +22,7 @@ export{
     getMatchPlayers,
     saveMatch,
     updateOponentGoals,
+    setFalseSaveState,
 } from './match';
 
 export{

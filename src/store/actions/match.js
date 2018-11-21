@@ -71,19 +71,32 @@ export const getMatchPlayers = (teamId, matchId) => {
     }
 }
 
-
+export const saveMatchStatsStart = () => {
+    return{
+        type:actionTypes.SAVE_MATCHSTATS_START,
+    }
+}
+export const saveMatchStatsSuccess = () => {
+    return{
+        type:actionTypes.SAVE_MATCHSTATS_SUCCESS,
+    }
+}
+export const saveMatchStatsFail = () => {
+    return{
+        type:actionTypes.SAVE_MATCHSTATS_FAIL,
+    }
+}
 export const saveMatch = (teamId, matchId, match) => {
     return dispatch => {
         //start save matchStats
-        console.log(teamId);
-        console.log(matchId);
-        console.log(match);
+        dispatch(saveMatchStatsStart())
         firebase.database().ref('/Teams/' + teamId + '/Matches/' + matchId).set(match)
         .then(response => {
             //save succesfull
-            console.log(response);
+            dispatch(saveMatchStatsSuccess());
         }).catch(err => {
             //error message
+            dispatch(saveMatchStatsFail());
             console.log(err);
         })
     }
@@ -102,3 +115,8 @@ export const updateOponentGoals = (goals) => {
     }
 }
 
+export const setFalseSaveState = () => {
+    return{
+        type: actionTypes.SET_FALSE_SAVE_STATE,
+    }
+}

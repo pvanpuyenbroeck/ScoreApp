@@ -93,6 +93,7 @@ class matchCenter extends Component {
         this.setState({
             teamMembers: updatedTeamMembers,
         })
+        this.props.setFalseSaveState();
     }
 
     oponentGoalHandler(addOrDetract) {
@@ -142,6 +143,10 @@ class matchCenter extends Component {
                 })
             }
             if (typeof this.props.team.teamId !== 'undefined') {
+                let saveGame = [classes.MenuButtons];
+                if(this.props.matchSaved){
+                    saveGame.push(classes.Hide);
+                }
                 matchCenter = (
                     <div className={classes.MatchCenter}>
                         {/* <Button btnType="RedButton" clicked={() => this.showPlayerSelectWindow()}>Selecteer spelers</Button> */}
@@ -150,7 +155,8 @@ class matchCenter extends Component {
                                 <div className={classes.MenuButtons} onClick={() => this.showPlayerSelectWindow()}>
                                     <div>Selecteer Speler</div>
                                 </div>
-                                <div className={classes.MenuButtons}>
+                                
+                                <div className={saveGame.join(' ')}>
                                     <div onClick={() => this.props.saveGameStats(this.props.team.teamId,this.props.match.matchId, this.props.match)}>Opslaan</div>
                                 </div>
                                 <div className={classes.MenuButtons}>
@@ -206,6 +212,7 @@ const mapStateToProps = state => {
         match: state.match.selectedMatch,
         team: state.team.selectedTeam,
         loading: state.match.loading,
+        matchSaved:state.match.matchSaved,
     }
 }
 
@@ -216,6 +223,7 @@ const mapDispatchToProps = dispatch => {
         getTeam: (teamId) => dispatch(actions.getTeam(teamId, null, null)),
         saveGameStats:(teamId, matchId,match) => dispatch(actions.saveMatch(teamId, matchId,match)),
         oponentGoal: (oponentGoals) => dispatch(actions.updateOponentGoals(oponentGoals)),
+        setFalseSaveState: () => dispatch(actions.setFalseSaveState()),
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(matchCenter);

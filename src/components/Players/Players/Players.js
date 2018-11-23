@@ -1,8 +1,5 @@
 import React from 'react';
-import PlayerButton from '../PlayerButton/PlayerButton';
 import classes from './Players.css';
-import firebase from '../../../firebase-scoreapp';
-import Spinner from '../../UI/Spinner/Spinner';
 import GetAllPlayers from './getAllPlayers';
 
 const Players = (props) => {

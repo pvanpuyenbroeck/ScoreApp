@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Players from '../../../components/Players/Players/Players';
 import Games from '../../../components/Games/Games';
-import classes from './Team.css';
 import Modal from '../../../components/UI/Modal/Modal';
 import TeamFunctionMenu from '../../../components/Navigation/TeamFunctionMenu/TeamFunctionMenu';
 import Toggle from '../../../components/UI/Toggle/Toggle';

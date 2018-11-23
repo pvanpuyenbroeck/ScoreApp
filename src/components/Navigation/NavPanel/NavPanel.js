@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import classes from './NavPanel.css';
-import NavPanelLink from './NavPanelLink/NavPanelLink';
-import NavIcon from '../../../assets/Images/NavIconBeige.png';
-import SidePanel from '../SidePanel/SidePanel';
 import Toggle from '../../UI/Toggle/Toggle';
 
 class NavPanel extends Component {

@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { slide as Menu } from 'react-burger-menu';
 import NavPanelLink from '../NavPanel/NavPanelLink/NavPanelLink';
 import classes from './SidePanel.css';
 import Flexbox from '../../UI/Flexbox/Flexbox';
 import AddPlayer from '../../../containers/TeamControl/AddPlayer/AddPlayer';
 import { connect } from 'react-redux';
-import { NavLink, Redirect } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import * as actions from '../../../store/actions/index';
 
 class sidePanel extends Component {

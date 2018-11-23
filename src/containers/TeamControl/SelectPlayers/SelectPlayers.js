@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import classes from './SelectPlayers.css';
 import firebase from '../../../firebase-scoreapp';
 import PlayerButton from '../../../components/Players/PlayerButton/PlayerButton';
 import Spinner from '../../../components/UI/Spinner/Spinner';
-import axios from '../../../axios-scoreapp';
 import Input from '../../../components/UI/Input/Input';
 import {connect} from 'react-redux';
 import * as actions from '../../../store/actions/index';
@@ -125,6 +123,7 @@ class SelectPlayers extends Component {
             if(res.userid === playerId){
                 name.value= res.voornaam + " " + res.familienaam;
             }
+            return null;
         })
         console.log(name);
         updatedform.name = name;
@@ -175,6 +174,7 @@ class SelectPlayers extends Component {
                         />
                     )
                 }
+                return null;
             })
         }
 

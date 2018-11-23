@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from '../../../axios-scoreapp';
 import TeamForm from '../Team/TeamForm/TeamForm';
 import { Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';

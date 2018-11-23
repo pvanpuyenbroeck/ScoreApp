@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import classes from './TeamFunctionMenu.css';
 import ButtonTeamMenu from '../../UI/ButtonTeamMenu/ButtonTeamMenu';
 

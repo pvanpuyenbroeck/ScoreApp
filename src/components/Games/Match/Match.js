@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './Match.css';
-import { NavLink, Link } from 'react-router-dom';
+import {Link } from 'react-router-dom';
 
 const Match = (props) => (
     <Link to={"/Team/" + props.match.gameData.teamId + "/Match/" + props.match.matchId}>

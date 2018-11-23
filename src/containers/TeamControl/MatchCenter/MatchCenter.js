@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classes from './MatchCenter.css';
 import MatchPlayerFrame from '../../../components/Match/MatchPlayerFrame/MatchPlayerFrame';
-import Button from '../../../components/UI/Button/Button/Button';
 import * as actions from '../../../store/actions/index';
 import AddPlayerstoMatch from '../../../components/Navigation/AddPlayersToMatch/AddPlayersToMatch';
 import Spinner from '../../../components/UI/Spinner/Spinner';
@@ -41,10 +40,6 @@ class matchCenter extends Component {
             }
         }
         console.log(this.props);
-        // if(Object.keys(this.props.match.Participants).length === 0){
-        //     // this.props.location.pathname.replace('/selectTeam');
-        // }
-        // this.props.getSelectedPlayers(null,this.props.match.matchId);
         this.setState({
             teamMembers: updateFilteredPlayer,
         })

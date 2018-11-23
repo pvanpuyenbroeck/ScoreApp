@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import classes from './TeamsOverview.css';
 import SelectedTeamButton from '../../../components/Team/SelectTeamButton/SelectTeamButton';
-import axios from '../../../axios-scoreapp';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import {connect} from 'react-redux';
 import * as actions from '../../../store/actions/index';

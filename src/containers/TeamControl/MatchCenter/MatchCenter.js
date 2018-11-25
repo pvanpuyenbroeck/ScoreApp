@@ -7,6 +7,7 @@ import AddPlayerstoMatch from '../../../components/Navigation/AddPlayersToMatch/
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import { Redirect } from 'react-router';
 import Aux from '../../../hoc/_Aux/_Aux';
+import Button from '../../../components/UI/Button/Button/Button';
 
 
 class matchCenter extends Component {
@@ -35,14 +36,22 @@ class matchCenter extends Component {
                 attending = participants[key].attending;
                 updateFilteredPlayer[key] = {
                     ...this.props.team.filteredPlayers[key],
-                    goals: 0,
+                    goals: this.props.match.Participants[key].goals,
                     attending: attending,
                 }
             }
         }
+        let homeGoals = 0;
+        for(let player in this.props.match.Participants){
+            homeGoals = homeGoals + this.props.match.Participants[player].goals;
+        }
         console.log(this.props);
         this.setState({
             teamMembers: updateFilteredPlayer,
+            matchStats:{
+                oponentScore: this.props.match.oponentGoals,
+                homeScore: homeGoals,
+            }
         })
     }
 
@@ -107,6 +116,10 @@ class matchCenter extends Component {
         })
     }
 
+    backToTeamViewHandler(){
+        this.props.history.push('/Team/'+ this.props.team.teamId)
+    }
+
     render() {
         let redirect = null
         let matchCenter = null;
@@ -133,7 +146,7 @@ class matchCenter extends Component {
                             username={playerInfo.username}
                             plusClicked={() => this.goalHandler(playerInfo.userid, 'add')}
                             minClicked={() => this.goalHandler(playerInfo.userid, 'min')}
-                            goals={this.state.teamMembers[playerInfo.userid].goals}
+                            goals={this.props.match.Participants[playerInfo.userid].goals}
                         />
                     )
                 })
@@ -197,6 +210,7 @@ class matchCenter extends Component {
                     addPlayers={() => this.settingSelectedPlayers(MatchPlayers, this.props.team.teamId, this.props.match.matchId)}
                     visible={this.state.showAddPlayersWindow}
                 />
+                <Button btnType='Success' clicked={() => this.backToTeamViewHandler()}>Team view</Button>
                 {matchCenter}
             </Aux>
         )

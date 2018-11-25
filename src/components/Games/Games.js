@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './Games';
+import classes from './Games.css';
 import Match from '../Games/Match/Match';
 
 const games = (props) => {

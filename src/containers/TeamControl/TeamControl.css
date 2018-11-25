@@ -1,7 +1,6 @@
 .TeamControl{
     width: 100%;
     height: 100%;
-    margin: 0 auto;
     padding: 2px;
     margin-top: 20px;
     display: inline-block;
@@ -9,9 +8,7 @@
 
 @media(min-width: 650px){
     .TeamControl{
-        box-sizing: border-box;
-        width: 70%;
-        height: 100%;
+        box-sizing: border-box; 
         margin: 0 auto;
         padding: 2px;
         margin-top: 2px;

@@ -1,5 +1,7 @@
 .MatchCenter {
     margin: 0 auto;
+    min-width: 350px;
+    /* margin-left: 100px; */
 }
 
 .Menu{
@@ -51,8 +53,6 @@
 
 .PlayersField {
     width: 100%;
-    /* min-width: 350px; */
-    height: 600px;
     background-color: #2C8693;
 }
 
@@ -100,7 +100,8 @@
 }
 
 @media(min-width:600px) {
-    .PlayersField {
+    .MatchCenter {
         width: 500px;
     }
+
 }

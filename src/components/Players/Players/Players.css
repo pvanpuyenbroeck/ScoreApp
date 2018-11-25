@@ -15,8 +15,13 @@
     .PlayersBlock{
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-evenly;
+        justify-content: space-between;
         flex-direction: row;
         align-content: flex-start;
+    }
+
+    .Players{
+        width:60%;
+        margin: 0 auto;
     }
 }

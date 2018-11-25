@@ -6,6 +6,7 @@ import * as actions from '../../../store/actions/index';
 import AddPlayerstoMatch from '../../../components/Navigation/AddPlayersToMatch/AddPlayersToMatch';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import { Redirect } from 'react-router';
+import Aux from '../../../hoc/_Aux/_Aux';
 
 
 class matchCenter extends Component {
@@ -84,7 +85,7 @@ class matchCenter extends Component {
                 this.setState({ matchStats: updatedMatchStats });
             }
         }
-        this.props.setSelectedPlayers(updatedTeamMembers, this.props.match.teamId, playerId)
+        this.props.setSelectedPlayers(updatedTeamMembers, this.props.team.teamId, this.props.match.matchId)
         this.setState({
             teamMembers: updatedTeamMembers,
         })
@@ -187,7 +188,7 @@ class matchCenter extends Component {
         }
 
         return (
-            <div>
+            <Aux>
                 {redirect}
                 <AddPlayerstoMatch
                     team={this.props.team}
@@ -197,7 +198,7 @@ class matchCenter extends Component {
                     visible={this.state.showAddPlayersWindow}
                 />
                 {matchCenter}
-            </div>
+            </Aux>
         )
     }
 }

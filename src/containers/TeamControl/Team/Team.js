@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import MatchCenter from '../MatchCenter/MatchCenter';
 import * as actions from '../../../store/actions/index';
 import Spinner from '../../../components/UI/Spinner/Spinner';
+import Aux from '../../../hoc/_Aux/_Aux';
 
 class Team extends Component {
 
@@ -74,7 +75,7 @@ class Team extends Component {
             teamControl = <MatchCenter />
         } else {
             teamControl = (
-                <div>
+                <Aux>
                     <Toggle toggleClicked={() => this.props.showFunctionMenu()} classtheme="TeamButton">MY TEAM</Toggle>
                     <TeamFunctionMenu 
                     team={this.props.team} 
@@ -89,14 +90,14 @@ class Team extends Component {
                     matchClicked={(match) => this.props.matchSelected(match)} 
                     
                     />
-                </div>
+                </Aux>
             )
         }
     }
         return (
-            <div>
+            <Aux>
                 {teamControl}
-            </div>
+            </Aux>
         )
     }
 }

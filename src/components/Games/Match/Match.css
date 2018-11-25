@@ -1,5 +1,5 @@
 .Match{
-    width: 50%;
+    width: 100%;
     height: 150px;
     background-color:#105187;
     display: inline-block;
@@ -7,9 +7,19 @@
     box-sizing:border-box;
     border: 2px solid white;
     border-radius: 5px;
+    text-decoration: none;
+}
+
+.OpponentName{
+    color:#F0F1D5;
 }
 
 .Match:hover{
     cursor: pointer;
 }
 
+@media(min-width: 600px){
+    .Match{
+        width:50%;
+    }
+}

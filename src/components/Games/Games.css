@@ -1,4 +1,14 @@
 .Games{
-    width: 75%;
+    width: 50%;
     margin:0 auto;
+}
+
+h1{
+    font-size:1.1rem;
+}
+
+@media(min-width: 650px){
+    .Games{
+        display: inline-block;
+    }
 }

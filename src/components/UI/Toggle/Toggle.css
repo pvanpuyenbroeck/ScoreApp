@@ -42,4 +42,13 @@
     .Toggle {
         display: none;
     }
+
+    .TeamToggle{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 65px;
+        width: 80px;
+        vertical-align: middle;
+    }
 }

@@ -23,6 +23,7 @@ const games = (props) => {
     }
     return (
         <div className={classes.Games}>
+        <h1>Matches:</h1>
         {allGames}            
         </div>
     )

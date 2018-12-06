@@ -24,7 +24,11 @@ class matchCenter extends Component {
     // componentWillMount(){
 
     // }
-    componentWillMount() {
+    componentDidMount() {
+        this.setInitialPlayers();
+    }
+
+    setInitialPlayers = () => {
         if (typeof this.props.team.teamId === 'undefined') {
             this.props.history.push('/selectTeam');
         }
@@ -32,14 +36,22 @@ class matchCenter extends Component {
         const participants = { ...this.props.match.Participants };
         for (let key in this.props.team.filteredPlayers) {
             let attending = false;
+            let goals = 0;
             if (typeof participants[key] !== 'undefined') {
+                if(typeof this.props.match.Participants[key].goals !== 'undefined'){
+                    goals = this.props.match.Participants[key].goals;
+                }
                 attending = participants[key].attending;
                 updateFilteredPlayer[key] = {
                     ...this.props.team.filteredPlayers[key],
-                    goals: this.props.match.Participants[key].goals,
+                    goals: goals,
                     attending: attending,
                 }
-            }
+            }else(participants[key] = {
+                ...this.props.team.filteredPlayers[key],
+                goals:goals,
+                attending: attending,
+            })
         }
         let homeGoals = 0;
         for(let player in this.props.match.Participants){
@@ -54,7 +66,6 @@ class matchCenter extends Component {
             }
         })
     }
-
 
     playerButtonClicked(playerId) {
         console.log(playerId);
@@ -72,6 +83,7 @@ class matchCenter extends Component {
 
     settingSelectedPlayers(MatchPlayers, teamId, matchId) {
         this.props.setSelectedPlayers(MatchPlayers, teamId, matchId);
+        this.setInitialPlayers();
         this.setState({
             showAddPlayersWindow: false,
         })

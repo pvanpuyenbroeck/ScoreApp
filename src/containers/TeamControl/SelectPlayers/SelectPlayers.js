@@ -170,7 +170,7 @@ class SelectPlayers extends Component {
                             name={player.voornaam + " " + player.familienaam}
                             key={player.userid}
                             playerid={player.userid}
-                            clicked={(userid) => this.onPlayerButtonClickedHandler(userid)}
+                            clicked={() => this.onPlayerButtonClickedHandler(player.userid)}
                         />
                     )
                 }

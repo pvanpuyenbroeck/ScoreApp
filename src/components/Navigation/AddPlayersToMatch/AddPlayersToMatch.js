@@ -30,7 +30,7 @@ const addPlayersToMatch = props => {
                         playerid={player.userid}
                         name={player.voornaam + " " + player.familienaam}
                         number={player.playerNumber}
-                        clicked={(playerId) => props.PlayerButtonClicked(playerId)}
+                        clicked={() => props.PlayerButtonClicked(player.userid)}
                         attending={player.attending}
                         playerSelect={true}
                     />

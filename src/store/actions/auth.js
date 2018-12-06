@@ -82,7 +82,7 @@ export const authFirebaseSignup = (email, password, username, voornaam, familien
         dispatch(authStart());
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then(user => {
-                dispatch(addUser(user.user.uid, username, voornaam, familienaam));
+                dispatch(addUser(user.user.uid, username, voornaam, familienaam, user.user.email));
                 user.user.updateProfile({
                     displayName: username,
                     firstName: voornaam,
@@ -123,13 +123,14 @@ export const setAuthRedirectPath = (path) => {
 //     };
 // };
 
-export const addUser = (userid, username, voornaam, familienaam) => {
+export const addUser = (userid, username, voornaam, familienaam, email) => {
     return dispatch => {
         firebase.database().ref('/Players/' + userid).set({
             userid: userid,
             username: username,
             voornaam: voornaam,
-            familienaam: familienaam
+            familienaam: familienaam,
+            email:email,
         })
     }
 }

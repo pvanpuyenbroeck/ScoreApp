@@ -7,13 +7,13 @@ class playerButton extends Component {
     state = {
         image: null,
     }
-    onClickHandler() {
-        console.log(this.props.playerid);
-        if (this.props.playerid) {
-            this.props.clicked(this.props.playerid)
-        }
+    // onClickHandler() {
+    //     console.log(this.props.playerid);
+    //     if (this.props.playerid) {
+    //         this.props.clicked(this.props.playerid)
+    //     }
 
-    }
+    // }
 
     componentWillMount() {
         if (this.props.playerid) {
@@ -48,7 +48,7 @@ class playerButton extends Component {
             image = this.state.image;
         }
         return (
-            <div className={attachedClasses.join(' ')} onClick={this.onClickHandler.bind(this)}>
+            <div className={attachedClasses.join(' ')} onClick={this.props.clicked}>
                 <div className={classes.Image}>
                     {image}
                 </div>

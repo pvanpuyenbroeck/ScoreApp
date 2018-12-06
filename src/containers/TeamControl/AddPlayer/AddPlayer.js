@@ -103,7 +103,7 @@ class AddPlayer extends Component {
         const playerId = this.state.newPlayerId;
         playerInfo = {
             ...playerInfo,
-            playerId: playerId,
+            userid: playerId,
         }
         const playersRef = firebase.database().ref('/Players/' + playerId).set(playerInfo);
         playersRef.then(res => {

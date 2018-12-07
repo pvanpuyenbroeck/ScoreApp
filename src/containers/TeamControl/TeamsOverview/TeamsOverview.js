@@ -16,7 +16,7 @@ class TeamsOverview extends Component {
 
     }
 
-    componentDidMount() {
+    componentWillMount() {
         if(this.props.isAuthenticated){
             this.props.getAllTeams(this.props.userId, this.props.token);
         } 

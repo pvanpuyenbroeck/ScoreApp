@@ -32,14 +32,18 @@ class matchCenter extends Component {
         if (typeof this.props.team.teamId === 'undefined') {
             this.props.history.push('/selectTeam');
         }
+        //get all the players from the team
         let updateFilteredPlayer = { ...this.props.team.filteredPlayers };
-        const participants = { ...this.props.match.Participants };
+        //Get all known participants of the match
+        const participants = { ...this.props.match.selectedMatch.Participants };
+
+        //Go over all the team players and check there availability
         for (let key in this.props.team.filteredPlayers) {
             let attending = false;
             let goals = 0;
             if (typeof participants[key] !== 'undefined') {
-                if(typeof this.props.match.Participants[key].goals !== 'undefined'){
-                    goals = this.props.match.Participants[key].goals;
+                if (typeof participants[key].goals !== 'undefined') {
+                    goals = participants[key].goals;
                 }
                 attending = participants[key].attending;
                 updateFilteredPlayer[key] = {
@@ -47,20 +51,23 @@ class matchCenter extends Component {
                     goals: goals,
                     attending: attending,
                 }
-            }else(participants[key] = {
+            } else (updateFilteredPlayer[key] = {
                 ...this.props.team.filteredPlayers[key],
-                goals:goals,
+                goals: goals,
                 attending: attending,
             })
         }
         let homeGoals = 0;
-        for(let player in this.props.match.Participants){
-            homeGoals = homeGoals + this.props.match.Participants[player].goals;
+        for (let player in updateFilteredPlayer) {
+            if (updateFilteredPlayer[player].attending === true) {
+                homeGoals = homeGoals + participants[player].goals;
+            }
         }
         console.log(this.props);
+        this.props.setSelectedPlayers(updateFilteredPlayer, this.props.team.teamId, this.props.match.selectedMatch.matchId)
         this.setState({
             teamMembers: updateFilteredPlayer,
-            matchStats:{
+            matchStats: {
                 oponentScore: this.props.match.oponentGoals,
                 homeScore: homeGoals,
             }
@@ -71,6 +78,7 @@ class matchCenter extends Component {
         console.log(playerId);
         let updatedTeamMembers = { ...this.state.teamMembers };
         updatedTeamMembers[playerId].attending = !updatedTeamMembers[playerId].attending;
+        this.props.setSelectedPlayers(updatedTeamMembers, this.props.team.teamId, this.props.match.selectedMatch.matchId)
         this.setState({
             teamMembers: updatedTeamMembers,
         })
@@ -106,7 +114,7 @@ class matchCenter extends Component {
                 this.setState({ matchStats: updatedMatchStats });
             }
         }
-        this.props.setSelectedPlayers(updatedTeamMembers, this.props.team.teamId, this.props.match.matchId)
+        this.props.setSelectedPlayers(updatedTeamMembers, this.props.team.teamId, this.props.match.selectedMatch.matchId)
         this.setState({
             teamMembers: updatedTeamMembers,
         })
@@ -128,8 +136,8 @@ class matchCenter extends Component {
         })
     }
 
-    backToTeamViewHandler(){
-        this.props.history.push('/Team/'+ this.props.team.teamId)
+    backToTeamViewHandler() {
+        this.props.history.push('/Team/' + this.props.team.teamId)
     }
 
     render() {
@@ -141,15 +149,17 @@ class matchCenter extends Component {
         }
 
         let players = [];
-        if (Object.keys(this.props.match).length === 0) {
+        if (Object.keys(this.props.match.selectedMatch).length === 0) {
             this.props.history.replace("/selectTeam");
             redirect = <Redirect to="/selectTeam" />
         }
 
-        for (let key in this.props.match.Participants) {
-            players.push(this.props.match.Participants[key]);
+        for (let key in this.state.teamMembers) {
+            if (this.state.teamMembers[key].attending === true) {
+                players.push(this.state.teamMembers[key]);
+            }
         }
-        if (Object.keys(this.props.match).length !== 0) {
+        if (Object.keys(this.props.match.selectedMatch).length !== 0) {
             if (players.length > 0) {
                 PlayerFrames = players.map(playerInfo => {
                     console.log(playerInfo);
@@ -158,14 +168,14 @@ class matchCenter extends Component {
                             username={playerInfo.username}
                             plusClicked={() => this.goalHandler(playerInfo.userid, 'add')}
                             minClicked={() => this.goalHandler(playerInfo.userid, 'min')}
-                            goals={this.props.match.Participants[playerInfo.userid].goals}
+                            goals={this.props.match.selectedMatch.Participants[playerInfo.userid].goals}
                         />
                     )
                 })
             }
             if (typeof this.props.team.teamId !== 'undefined') {
                 let saveGame = [classes.MenuButtons];
-                if(this.props.matchSaved){
+                if (this.props.matchSaved) {
                     saveGame.push(classes.Hide);
                 }
                 matchCenter = (
@@ -176,9 +186,9 @@ class matchCenter extends Component {
                                 <div className={classes.MenuButtons} onClick={() => this.showPlayerSelectWindow()}>
                                     <div>Selecteer Speler</div>
                                 </div>
-                                
+
                                 <div className={saveGame.join(' ')}>
-                                    <div onClick={() => this.props.saveGameStats(this.props.team.teamId,this.props.match.matchId, this.props.match)}>Opslaan</div>
+                                    <div onClick={() => this.props.saveGameStats(this.props.team.teamId, this.props.match.selectedMatch.matchId, this.props.match.selectedMatch)}>Opslaan</div>
                                 </div>
                                 <div className={classes.MenuButtons}>
                                     <div></div>
@@ -189,7 +199,7 @@ class matchCenter extends Component {
                             <div className={classes.PlayersFieldTitle}>
                                 <div>
                                     <div className={classes.Score}>{this.state.matchStats.homeScore}</div>
-                                    <div className={classes.MatchTitle}><h2>{this.props.team.teamName} - {this.props.match.gameData.opponent}</h2></div>
+                                    <div className={classes.MatchTitle}><h2>{this.props.team.teamName} - {this.props.match.selectedMatch.gameData.opponent}</h2></div>
                                     <div className={classes.Score}>{this.state.matchStats.oponentScore}</div>
                                 </div>
                             </div>
@@ -219,7 +229,7 @@ class matchCenter extends Component {
                     team={this.props.team}
                     playerDetails={this.state.teamMembers}
                     PlayerButtonClicked={(playerId) => this.playerButtonClicked(playerId)}
-                    addPlayers={() => this.settingSelectedPlayers(MatchPlayers, this.props.team.teamId, this.props.match.matchId)}
+                    addPlayers={() => this.settingSelectedPlayers(MatchPlayers, this.props.team.teamId, this.props.match.selectedMatch.matchId)}
                     visible={this.state.showAddPlayersWindow}
                 />
                 <Button btnType='Success' clicked={() => this.backToTeamViewHandler()}>Team view</Button>
@@ -231,10 +241,10 @@ class matchCenter extends Component {
 
 const mapStateToProps = state => {
     return {
-        match: state.match.selectedMatch,
+        match: state.match,
         team: state.team.selectedTeam,
         loading: state.match.loading,
-        matchSaved:state.match.matchSaved,
+        matchSaved: state.match.matchSaved,
     }
 }
 
@@ -243,7 +253,7 @@ const mapDispatchToProps = dispatch => {
         setSelectedPlayers: (teamMembersMatch, teamId, matchId) => dispatch(actions.setMatchPlayers(teamMembersMatch, teamId, matchId)),
         // getSelectedPlayers: (teamId,matchId) => dispatch(actions.getMatchPlayers(teamId,matchId)), 
         getTeam: (teamId) => dispatch(actions.getTeam(teamId, null, null)),
-        saveGameStats:(teamId, matchId,match) => dispatch(actions.saveMatch(teamId, matchId,match)),
+        saveGameStats: (teamId, matchId, match) => dispatch(actions.saveMatch(teamId, matchId, match)),
         oponentGoal: (oponentGoals) => dispatch(actions.updateOponentGoals(oponentGoals)),
         setFalseSaveState: () => dispatch(actions.setFalseSaveState()),
     }

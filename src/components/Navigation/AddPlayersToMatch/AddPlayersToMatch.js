@@ -8,12 +8,12 @@ const addPlayersToMatch = props => {
     let players = "";
     let allPlayers = [];
     let classessArray = [classes.AddPlayersToMatch]
-    if(!props.visible){
+    if (!props.visible) {
         classessArray.push(classes.Hide);
     }
     console.log(props);
     if (props.playerDetails) {
-        for(let key in props.playerDetails){
+        for (let key in props.playerDetails) {
             console.log(key);
             allPlayers.push({
                 playerId: key,
@@ -21,27 +21,31 @@ const addPlayersToMatch = props => {
             })
         }
         const playersArray = Object.values(allPlayers)
-        players = <Spinner/>;
+        players = <Spinner />;
         players = playersArray.map(player => {
-                console.log(player);
-                return (
-                    <PlayerButton
-                        key={player.userId}
-                        playerid={player.userid}
-                        name={player.voornaam + " " + player.familienaam}
-                        number={player.playerNumber}
-                        clicked={() => props.PlayerButtonClicked(player.userid)}
-                        attending={player.attending}
-                        playerSelect={true}
-                    />
-                )})
+            console.log(player);
+            return (
+                <PlayerButton
+                    key={player.userId}
+                    playerid={player.userid}
+                    name={player.voornaam + " " + player.familienaam}
+                    number={player.playerNumber}
+                    clicked={() => props.PlayerButtonClicked(player.userid)}
+                    attending={player.attending}
+                    playerSelect={true}
+                />
+            )
+        })
     } else {
         players = <h2>Voeg spelers toe</h2>
     }
-    return(
+    return (
         <div className={classessArray.join(' ')}>
-        {players}
-        <Button btnType="RedButton" clicked={props.addPlayers}>Terug</Button>
+            <div className={classes.Header}>Stel uw team samen</div>
+            <div className={classes.PlayerButtons}>
+                {players}
+            </div>
+            <Button btnType="RedButton" clicked={props.addPlayers}>Terug</Button>
         </div>
     )
 }

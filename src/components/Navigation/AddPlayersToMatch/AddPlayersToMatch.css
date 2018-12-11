@@ -1,8 +1,31 @@
 .AddPlayersToMatch{
-    width: 100%;
+    width: 80%;
     background-color: #F0F1D5;
     z-index: 105;
     position: absolute;
+    display: inline-block;
+}
+
+.Header{
+    width: 100%;
+    /* height: 50px; */
+    background-color: #C33325;
+    text-align: center;
+    color: #F0F1D5;
+    font-size: 1.5rem;
+    padding-top:15px;
+    padding-bottom:15px;
+}
+
+.PlayerButtons{
+    width: 100%;
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-around;
+}
+
+.PlayerButtons div{
+    float: none;
 }
 
 .Hide{

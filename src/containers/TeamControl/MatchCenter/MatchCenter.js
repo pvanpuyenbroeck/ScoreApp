@@ -163,9 +163,13 @@ class matchCenter extends Component {
             if (players.length > 0) {
                 PlayerFrames = players.map(playerInfo => {
                     console.log(playerInfo);
+                    let playerName = playerInfo.username;
+                    if(typeof playerName === 'undefined'){
+                        playerName = playerInfo.voornaam + ' ' + playerInfo.familienaam;
+                    }
                     return (
                         <MatchPlayerFrame
-                            username={playerInfo.username}
+                            username={playerName}
                             plusClicked={() => this.goalHandler(playerInfo.userid, 'add')}
                             minClicked={() => this.goalHandler(playerInfo.userid, 'min')}
                             goals={this.props.match.selectedMatch.Participants[playerInfo.userid].goals}

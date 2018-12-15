@@ -25,15 +25,13 @@ export const addTeamStart = () => {
 export const addTeam = (teamData) => {
     return dispatch => {
         dispatch(addTeamStart());
-        axios.post('/Teams.json', teamData)
-            .then(res => {
-                dispatch(addTeamSuccess());
-            })
-            .catch(
-                error => {
-                    dispatch(addTeamFail(error))
-                }
-            );
+        firebase.database().ref("/Teams/").push(teamData).then(res => {
+            dispatch(addTeamSuccess());
+        }).catch(
+            error => {
+                dispatch(addTeamFail(error))
+            }
+        );
     }
 }
 
@@ -121,22 +119,22 @@ export const addPlayerToTeamSuccess = () => {
 }
 
 export const addPlayerToTeamFail = (error) => {
-    return{
+    return {
         type: actionTypes.ADD_PLAYER_TO_TEAM_FAIL,
         error: error,
-        loading:false,
+        loading: false,
     }
 }
 
 export const closeFunctionModal = () => {
-    return{
-        type:actionTypes.CLOSE_MODAL,
+    return {
+        type: actionTypes.CLOSE_MODAL,
     }
 }
- 
+
 export const addPlayerToTeam = (teamId, updatedTeamMembers) => {
     console.log(updatedTeamMembers);
-    return dispatch =>{
+    return dispatch => {
         dispatch(addPlayerToTeamStart());
         firebase.database().ref('/Teams/' + teamId + '/TeamMembers/').set(updatedTeamMembers)
             .then(response => {
@@ -152,24 +150,24 @@ export const addPlayerToTeam = (teamId, updatedTeamMembers) => {
 }
 
 export const getAllTeamSuccess = (teams) => {
-    return{
-        type:actionTypes.GET_ALL_TEAMS_SUCCESS,
+    return {
+        type: actionTypes.GET_ALL_TEAMS_SUCCESS,
         teams: teams,
     }
 }
 
 
 export const getAllTeamFail = (error) => {
-    return{
-        type:actionTypes.GET_ALL_TEAMS_FAIL,
+    return {
+        type: actionTypes.GET_ALL_TEAMS_FAIL,
         error: error,
     }
 }
 
 
 export const getAllTeamStart = () => {
-    return{
-        type:actionTypes.GET_ALL_TEAMS_START,
+    return {
+        type: actionTypes.GET_ALL_TEAMS_START,
     }
 }
 
@@ -177,7 +175,7 @@ export const getAllTeams = (userId, token) => {
     return dispatch => {
         dispatch(getAllTeamStart());
         firebase.database().ref('/Teams').once('value')
-            .then(response =>{
+            .then(response => {
                 const teams = response.val();
                 const fetchedTeams = [];
                 for (let key in teams) {

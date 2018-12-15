@@ -68,7 +68,7 @@ class matchCenter extends Component {
         this.setState({
             teamMembers: updateFilteredPlayer,
             matchStats: {
-                oponentScore: this.props.match.oponentGoals,
+                oponentScore: this.props.match.selectedMatch.oponentGoals,
                 homeScore: homeGoals,
             }
         })

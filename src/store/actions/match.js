@@ -93,6 +93,7 @@ export const saveMatch = (teamId, matchId, match) => {
         firebase.database().ref('/Teams/' + teamId + '/Matches/' + matchId).set(match)
         .then(response => {
             //save succesfull
+            console.log(response);
             dispatch(saveMatchStatsSuccess());
         }).catch(err => {
             //error message

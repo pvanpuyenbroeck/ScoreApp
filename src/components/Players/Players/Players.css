@@ -1,6 +1,6 @@
 .PlayersBlock{
-
-
+    display: inline-flex;
+    flex-flow: column;
 }
 
 .Players h1{
@@ -9,6 +9,7 @@
 
 .Players{
     width:100%;
+
 }
 
 @media(min-width: 650px){

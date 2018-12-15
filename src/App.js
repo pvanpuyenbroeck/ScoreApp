@@ -62,7 +62,7 @@ class App extends Component {
     }
 
 
-    if(this.props.navItem === "AddTeam"){flexItem = <AddTeam/>};
+    if(this.props.navItem === "AddTeam"){flexItem = <AddTeam uid={this.props.user.uid}/>};
     if(this.props.navItem === "AddPlayer"){flexItem = <AddPlayer/>};
     if(this.props.navItem === "SelectPlayer"){flexItem = <SelectPlayer team={this.props.team}/>};
     if(this.props.navItem === "AddMatch"){flexItem = <AddMatch team={this.props.team}/>};

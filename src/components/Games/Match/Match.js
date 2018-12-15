@@ -8,8 +8,7 @@ const Match = (props) => (
             {/* <div>Afbeelding komt hier</div> */}
             <div>
                 <div>{props.match.gameData.teamName}</div>
-
-                <div className={classes.OpponentName}>{props.match.gameData.opponent}</div>
+                <div className={classes.OpponentName}>{props.match.gameData.opponent}  - {props.team.teamName}</div>
             </div>
         </div>
     </Link>

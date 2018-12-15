@@ -88,7 +88,7 @@ class Team extends Component {
                     matches={this.props.team.Matches} 
                     teamId={this.props.team.teamId} 
                     matchClicked={(match) => this.props.matchSelected(match)} 
-                    
+                    team={this.props.team}                    
                     />
                 </Aux>
             )

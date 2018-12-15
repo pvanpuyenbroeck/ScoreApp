@@ -52,7 +52,7 @@ class AddTeam extends Component {
         const value = target.value;
         const teamToAdd = this.state.teamToAdd;
         teamToAdd.teamName = name === 'teamName' ? value : this.state.teamToAdd.teamName;
-        teamToAdd.season = name === 'season' ? value : this.state.teamToAdd.season;
+        // teamToAdd.season = name === 'season' ? value : this.state.teamToAdd.season;
         teamToAdd.admin = this.props.uid;
         this.setState({
             teamToAdd: teamToAdd,

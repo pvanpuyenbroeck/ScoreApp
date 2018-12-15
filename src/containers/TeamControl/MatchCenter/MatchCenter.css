@@ -1,6 +1,7 @@
 .MatchCenter {
     margin: 0 auto;
     min-width: 350px;
+    display: inline-flex;
     /* margin-left: 100px; */
 }
 

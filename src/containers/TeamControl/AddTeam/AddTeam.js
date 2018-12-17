@@ -8,21 +8,7 @@ class AddTeam extends Component {
     state = {
         teamToAdd: {
             teamId: '',
-            players: ['test'],
             teamName: '',
-            matches: [{
-                matchId: '',
-                season: '',
-                date: '',
-                opponent: '',
-                homeGoals: 0,
-                opponentGoals: 0,
-                matchImage: '',
-                participatingPlayers: [{
-                    playerId: '',
-                    goalsScored: 0,
-                }]
-            }],
             admin: '',
         },
         submitted: false,

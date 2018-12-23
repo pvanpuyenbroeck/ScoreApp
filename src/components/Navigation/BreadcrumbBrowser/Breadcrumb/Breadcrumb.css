@@ -17,3 +17,7 @@
 .Arrow{
     display: inline-block;
 }
+
+.HideArrow{
+    display: none;
+}

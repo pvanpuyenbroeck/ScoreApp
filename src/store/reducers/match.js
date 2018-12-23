@@ -2,9 +2,7 @@ import * as actionTypes from '../actions/actionTypes';
 // import { setMatchInfo } from '../actions';
 
 const initialState = {
-    selectedMatch:{
-        Participants:{},
-    },
+    selectedMatch:null,
     MatchPlayers: null,
     loading: true,
     oponentGoals: 0,

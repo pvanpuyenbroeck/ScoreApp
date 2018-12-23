@@ -1,0 +1,19 @@
+.Breadcrumb{
+    /* height: 50px; */
+    border:0.5px solid #105187;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    display: inline-block;
+    background: #F0F1D5;
+}
+
+.Breadcrumb a{
+    text-decoration: none;
+    color:#C33325;
+    font-size:1.2rem;
+}
+
+.Arrow{
+    display: inline-block;
+}

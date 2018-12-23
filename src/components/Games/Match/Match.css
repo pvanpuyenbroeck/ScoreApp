@@ -8,10 +8,12 @@
     border: 2px solid white;
     border-radius: 5px;
     text-decoration: none;
+    color:#F0F1D5;
+    text-align: center;
 }
 
 .OpponentName{
-    color:#F0F1D5;
+
 }
 
 .Match:hover{

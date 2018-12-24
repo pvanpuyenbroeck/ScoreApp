@@ -1,5 +1,6 @@
 import React from 'react';
 import classes from './Breadcrumb.css';
+import { NavLink } from 'react-router-dom';
 
 const breadcrumb = (props) => {
     let ShowHideArrow =  classes.Arrow;
@@ -7,11 +8,9 @@ const breadcrumb = (props) => {
         ShowHideArrow = classes.HideArrow;
     }
     return (
-        <div>
-            <div className={classes.Breadcrumb}>
-                <a href="#">{props.children}</a>
-            </div>
-            <div className={ShowHideArrow}>---></div>
+        <div className={classes.Breadcrumb}>
+                <NavLink to={props.location}>{props.children}</NavLink>
+        <div className={ShowHideArrow}></div>
         </div>
     )
 }

@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import Layout from './hoc/Layout/Layout';
 import TeamControl from './containers/TeamControl/TeamControl';
-import NavPanel from './components/Navigation/NavPanel/NavPanel';
 import AddNewPlayer from './containers/TeamControl/AddPlayer/AddPlayer';
-import SidePanel from './components/Navigation/SidePanel/SidePanel';
 import Modal from './components/UI/Modal/Modal';
 import "./components/Navigation/SidePanel/SidePanel.css";
 import Aux from './hoc/_Aux/_Aux';
@@ -71,11 +69,14 @@ class App extends Component {
 
     return (
       <Aux>
-      <SidePanel showToggle={this.props.toggleSidePanel} showFlexbox={this.state.showFlexbox}/>
       <Modal modalClosed={() => this.props.ModalClicked()} show={this.props.showModal}/>
-      <Layout isAuthenticated={this.props.isAuthenticated}>
+      <Layout 
+      isAuthenticated={this.props.isAuthenticated}
+      showToggleNav={this.state.showToggle}
+      showSidePanel={this.props.toggleSidePanel}
+      showFlexBox={this.state.showFlexbox}
+      navToggleClicked={() => this.props.sidePanelToggle()}>
         <Flexbox show={this.props.showFlexbox} navItem={this.props.navItem}>{flexItem}</Flexbox>
-        <NavPanel toggleClicked={() => this.props.sidePanelToggle()} showToggle={this.state.showToggle}/>
         {routes}
       </Layout>
       </Aux>

@@ -8,11 +8,11 @@ const Match = (props) => {
         homeGoals += props.match.Participants[key].goals;
     }
     return (
-        <Link to={"/Team/" + props.match.gameData.teamId + "/Match/" + props.match.matchId} style={{ textDecoration: 'none' }}>
+        <Link to={"/Team/" + props.team.teamId + "/Match/" + props.match.matchId} style={{ textDecoration: 'none' }}>
             <div className={classes.Match} onClick={() => props.matchButtonClicked(props.match)}>
                 {/* <div>Afbeelding komt hier</div> */}
                 <div>
-                    <div>{props.match.gameData.teamName}</div>
+                    <div>{props.team.teamName}</div>
                     <div className={classes.OpponentName}>{props.team.teamName} - {props.match.gameData.opponent}</div>
                     <div className={classes.Score}>{homeGoals} - {props.match.oponentGoals}</div>
                 </div>

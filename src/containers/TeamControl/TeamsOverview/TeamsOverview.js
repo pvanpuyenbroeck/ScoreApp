@@ -28,20 +28,22 @@ class TeamsOverview extends Component {
         if (!this.props.loading) {
             console.log(this.props);
             const teamArray = this.props.teams;
-            teams = teamArray.map(team => {
-                if (team.admin === this.props.userId) {
-                    return (
-                        <SelectedTeamButton
-                            key={team.id}
-                            teamName={team.teamName}
-                            id={team.id}
-                        // buttonClicked={() => this.props.teamSelectedHandler(team.id)} 
-                        />
-                    );
-                } else {
-                    return null;
-                }
-            })
+            if(teamArray.length > 0){
+                teams = teamArray.map(team => {
+                    if (team.admin === this.props.userId) {
+                        return (
+                            <SelectedTeamButton
+                                key={team.id}
+                                teamName={team.teamName}
+                                id={team.id}
+                            // buttonClicked={() => this.props.teamSelectedHandler(team.id)} 
+                            />
+                        );
+                    } else {
+                        return null;
+                    }
+                })
+            }
         }
         return (
             <div className={classes.TeamsOverview}>

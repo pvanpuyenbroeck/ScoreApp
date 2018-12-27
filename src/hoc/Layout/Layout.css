@@ -2,4 +2,5 @@
 
 .Layout{
   font-family: 'Fira Sans', sans-serif;
+  z-index:500;
 }

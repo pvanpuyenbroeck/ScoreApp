@@ -1,23 +1,49 @@
-.Breadcrumb{
-    /* height: 50px; */
-    border:0.5px solid #105187;
-    margin: 5px;
-    padding: 5px;
-    border-radius: 5px;
-    display: inline-block;
-    background: #F0F1D5;
-}
-
-.Breadcrumb a{
+li a{
     text-decoration: none;
-    color:#C33325;
     font-size:1rem;
+    color:#C33325;
 }
 
-.Arrow{
-    display: inline-block;
+li{
+    display: block;
+    float: left;
+    transition-duration: 0.5s;
+    border:0.5px solid #105187;
+    padding: 0.5rem;
+    position:relative;
+    border-radius: 5px;
+    margin-right: 0.5rem;
+    text-decoration: none;
+    background: #F0F1D5;
+    color:#C33325;
 }
 
-.HideArrow{
+li:hover,
+li:hover > a{
+    cursor:pointer;
+    background:#105187;
+    color:#F0F1D5;
+}
+
+li ul {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    transition: all 0.5s ease;
+    margin-top: 1.6rem;
+    left: 0;
     display: none;
-}
+  }
+  
+li:hover > ul,
+li ul:hover {
+    visibility: visible;
+    opacity: 1;
+    display: block;
+  }
+  
+li ul li {
+    clear: both;
+    width: 100%;
+    margin-top:0.5rem;
+  }

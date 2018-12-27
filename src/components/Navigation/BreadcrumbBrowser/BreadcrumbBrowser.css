@@ -3,12 +3,14 @@
 }
 
 .Breadcrumb ul{
-    list-style: none;
-    display: inline-block;
+	list-style: none;
+	margin: 0;
+	padding-left: 0;
 }
 
 .Breadcrumb li{
     float:left;
+    z-index:106;
 }
 
 .Arrow{

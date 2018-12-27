@@ -4,18 +4,26 @@ import Breadcrumb from './Breadcrumb/Breadcrumb';
 
 const breadcrumbBrowser = (props) => {
     console.log(props.navigation);
-    let listItems = [<li><Breadcrumb location={"/"}>Home</Breadcrumb> </li>, <li><div className={classes.Arrow}>---></div><Breadcrumb location={"/selectTeam"}>Teams</Breadcrumb></li>];
+    let listItems = [<Breadcrumb location={"/"}>Home</Breadcrumb>, <Breadcrumb location={"/selectTeam"}>Teams</Breadcrumb>];
     for(let key in props.navigation.names){
         if(props.navigation.names[key] !== null){
             if(key === "teamName" && props.navigation.id.teamId !== null){
-                listItems.push(<li><div className={classes.Arrow}>---></div><Breadcrumb location={"/Team/" + props.navigation.id.teamId}>{props.navigation.names[key]}</Breadcrumb></li>)
+                const dropdown = ["Select team", "Add team"];
+                listItems.push(
+                    <Breadcrumb 
+                    location={"/Team/" + props.navigation.id.teamId}
+                    dropdown={dropdown}
+                    >{props.navigation.names[key]}
+                    </Breadcrumb>)
             }
             else if(key === "matchName" && props.navigation.id.matchId !== null){
-                listItems.push(<li><div className={classes.Arrow}>---></div>
-                    <Breadcrumb location={"/Team/" + props.navigation.id.teamId + "/Match/" + props.navigation.id.matchId}>{props.navigation.names[key]}</Breadcrumb>
-                    </li>)
-            }
-            
+                const dropdown = ["Speler toevoegen", "Match toevoegen"];
+                listItems.push(
+                    <Breadcrumb 
+                    location={"/Team/" + props.navigation.id.teamId + "/Match/" + props.navigation.id.matchId}
+                    dropdown={dropdown}>{props.navigation.names[key]}
+                    </Breadcrumb>)
+            }  
         }
     }
 

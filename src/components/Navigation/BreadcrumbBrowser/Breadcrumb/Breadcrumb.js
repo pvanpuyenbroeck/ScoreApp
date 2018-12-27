@@ -8,10 +8,16 @@ const breadcrumb = (props) => {
         ShowHideArrow = classes.HideArrow;
     }
     return (
-        <div className={classes.Breadcrumb}>
-                <NavLink to={props.location}>{props.children}</NavLink>
-        <div className={ShowHideArrow}></div>
-        </div>
+        <li>
+            <NavLink to={props.location}>{props.children}</NavLink>
+            {typeof props.dropdown !== 'undefined' && 
+            <ul>
+            {props.dropdown.map(item => {
+                return(<li>{item}</li>)
+            })}
+            </ul>
+            }
+        </li>
     )
 }
 

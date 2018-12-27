@@ -29,6 +29,7 @@ class Layout extends Component {
                  <SidePanel showToggle={this.props.showSidePanel} showFlexbox={this.props.showFlexBox}/>
                 <BreadcrumbBrowser 
                 navigation={navigation}
+                navClicked={(navItem) => this.props.navItemClicked(navItem)}
                 />
                 <main className={classes.Layout}>
                     {this.props.children}
@@ -48,7 +49,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return{
-
+        navItemClicked: (navItem) => dispatch(actions.navpanelSelection(navItem)),
     }
 }
 

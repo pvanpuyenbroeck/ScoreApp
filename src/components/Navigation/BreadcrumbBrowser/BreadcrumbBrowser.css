@@ -1,5 +1,6 @@
 .Breadcrumb{
-    display: inline-block;
+    display: block;
+    margin-left:100px;
 }
 
 .Breadcrumb ul{

@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Fira+Sans:400,700');
 
+.BreadcrumbBrowser{
+  width:100%;
+  height: 50px;
+  display: flex;
+  flex-direction:row;
+  flex-wrap: wrap;
+}
 .Layout{
   font-family: 'Fira Sans', sans-serif;
+
 }

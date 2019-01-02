@@ -35,7 +35,6 @@ const breadcrumbBrowser = (props) => {
     }
 
     return(
-        
         <div className={classes.Breadcrumb}>
         <ul>
             {listItems}

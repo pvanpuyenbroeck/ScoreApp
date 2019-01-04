@@ -18,8 +18,14 @@ li{
 }
 
 li:hover,
-li:hover a{
+li:hover a
+{
     cursor:pointer;
+    background:#105187;
+    color:#F0F1D5;
+}
+
+a.active{
     background:#105187;
     color:#F0F1D5;
 }

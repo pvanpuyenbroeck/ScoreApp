@@ -5,7 +5,10 @@ import { NavLink } from 'react-router-dom';
 const breadcrumb = (props) => {
     return (
         <li>
-            <NavLink to={props.location}>{props.children}</NavLink>
+            <NavLink 
+            to={props.location}
+            activeClassName={classes.active}
+            >{props.children}</NavLink>
             {typeof props.dropdown !== 'undefined' && 
             <ul>
             {props.dropdown.map(item => {

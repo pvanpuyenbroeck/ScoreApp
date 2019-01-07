@@ -45,11 +45,12 @@ class Team extends Component {
     componentDidMount() {
         const teamId = this.props.match.params.teamId;
         this.props.selectedTeam(teamId, this.props.token, this.props.userId);
-
-
+        this.props.changeLocation(3);
     }
 
-    matchSelected = (matchDetails) => {
+    matchSelected = (match) => {
+        this.props.changeLocation(4);
+        this.props.matchSelected(match);
         // console.log(matchDetails);
         // this.props.history.push('/Team/' + matchDetails.gamedata.teamId + '/Match/' + matchDetails.matchId);
         // this.props.selectedTeam(matchDetails);
@@ -87,7 +88,7 @@ class Team extends Component {
                     <Games 
                     matches={this.props.team.Matches} 
                     teamId={this.props.team.teamId} 
-                    matchClicked={(match) => this.props.matchSelected(match)} 
+                    matchClicked={(match) => this.matchSelected(match)} 
                     team={this.props.team}                    
                     />
                 </Aux>
@@ -110,6 +111,7 @@ const mapDispatchToProps = dispatch => {
         selectedTeam: (teamId, token, userId) => dispatch(actions.getTeam(teamId, token, userId)),
         showComponent: (component) => dispatch(actions.showComponent(component)),
         matchSelected: (match) => dispatch(actions.setSelectedMatchInfo(match)),
+        changeLocation: (location) => dispatch(actions.locationChange(location)),
     }
 }
 

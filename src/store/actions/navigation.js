@@ -32,3 +32,10 @@ export const showFunctionMenu = () => {
         type: actionTypes.SHOW_FUNCTIONMENU,
     }
 }
+
+export const locationChange = (location) => {
+    return{
+        type: actionTypes.LOCATION_CHANGE,
+        location: location,
+    }
+}

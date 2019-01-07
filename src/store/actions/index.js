@@ -12,6 +12,7 @@ export{
     showComponent,
     showFunctionMenu,
     showPlayerSelectWindow,
+    locationChange,
 } from './navigation';
 
 export{

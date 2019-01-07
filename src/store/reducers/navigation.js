@@ -6,6 +6,8 @@ const initialState = {
     showFlexItem: false,
     showModal: false,
     showFunctionMenu: false,
+    // location: 'home',
+    breadcrumbLocation:0,
 }
 
 const reducer = (state = initialState, action) => {
@@ -14,6 +16,7 @@ const reducer = (state = initialState, action) => {
         return{
             ...state,
             NavPanelLink:action.navItem,
+            location: action.navItem,
             showFlexItem: true,
             ToggleSidePanel:false,
             showModal:true,
@@ -45,6 +48,11 @@ const reducer = (state = initialState, action) => {
             ...state,
             showFunctionMenu:true,
             showModal: true,
+        }
+        case actionTypes.LOCATION_CHANGE:
+        return{
+            ...state,
+            breadcrumbLocation: action.location,
         }
         default: return state;
     }

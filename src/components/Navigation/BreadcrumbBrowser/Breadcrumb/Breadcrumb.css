@@ -2,9 +2,11 @@ li a{
     text-decoration: none;
     font-size:1rem;
     color:#C33325;
+    height: 100%;
+    width: 100%;
 }
 
-li{
+.Breadcrumb{
     display: block;
     float: left;
     transition-duration: 0.5s;
@@ -15,13 +17,20 @@ li{
     text-decoration: none;
     background: #F0F1D5;
     color:#C33325;
+    min-width: 70px;
 }
 
-li:hover,
-li:hover a{
+.Breadcrumb:hover,
+.Breadcrumb li:hover{
     cursor:pointer;
     background:#105187;
     color:#F0F1D5;
+}
+
+.Breadcrumb ul li{
+    clear: both;
+    width: 100%;
+    margin-top:0.5rem;
 }
 
 li ul {
@@ -34,15 +43,21 @@ li ul {
     display: none;
   }
   
-li:hover > ul,
-li ul:hover {
+.Breadcrumb:hover li > ul,
+.Breadcrumb li ul:hover {
     visibility: visible;
     opacity: 1;
     display: block;
+    width:100%
+  }
+
+  .Active{
+    background:#105187;
+    color:#F0F1D5;
   }
   
-li ul li {
+/* li ul li {
     clear: both;
     width: 100%;
     margin-top:0.5rem;
-  }
+  } */

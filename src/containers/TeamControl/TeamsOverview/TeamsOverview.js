@@ -23,6 +23,10 @@ class TeamsOverview extends Component {
         }
     }
 
+    componentDidMount(){
+        this.props.changeLocation();
+    }
+
     render() {
         let teams = <Spinner />;
         if (!this.props.loading) {
@@ -71,6 +75,7 @@ const mapDispatchToProps = dispatch => {
     return {
         teamSelectedHandler: (teamId) => dispatch(actions.getTeam(teamId)),
         getAllTeams: (userId, token) => dispatch(actions.getAllTeams(userId, token)),
+        changeLocation: () => dispatch(actions.locationChange(2)),
     }
 };
 

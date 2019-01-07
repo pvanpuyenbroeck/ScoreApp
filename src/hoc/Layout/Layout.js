@@ -10,6 +10,13 @@ import SidePanel from '../../components/Navigation/SidePanel/SidePanel';
 
 
 class Layout extends Component {
+
+    breadcrumClicked = (clickedItem) => {
+        if (typeof clickedItem.navItem !== 'undefined') {
+            this.props.navItemClicked(clickedItem.navItem);
+        }
+        this.props.breadcrumbClicked(clickedItem.navNumber);
+    }
     render() {
         console.log(this.props);
         const navigation = {
@@ -30,7 +37,8 @@ class Layout extends Component {
                 <div className={classes.BreadcrumbBrowser}>
                     <BreadcrumbBrowser
                         navigation={navigation}
-                        navClicked={(navItem) => this.props.navItemClicked(navItem)}
+                        navClicked={(navItem) => this.breadcrumClicked(navItem)}
+                        breadcrumbLocation={this.props.navigation.breadcrumbLocation}
                     />
                 </div>
                 <main className={classes.Layout}>
@@ -45,6 +53,7 @@ const mapStateToProps = state => {
     return {
         team: state.team.selectedTeam,
         match: state.match.selectedMatch,
+        navigation: state.navigation,
         // match: state.
     }
 }
@@ -52,6 +61,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         navItemClicked: (navItem) => dispatch(actions.navpanelSelection(navItem)),
+        breadcrumbClicked: (location) => dispatch(actions.locationChange(location)),
     }
 }
 

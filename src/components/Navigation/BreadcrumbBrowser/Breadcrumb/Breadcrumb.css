@@ -20,29 +20,17 @@ li a{
     min-width: 70px;
 }
 
-<<<<<<< HEAD
 .Breadcrumb:hover,
 .Breadcrumb li:hover{
-=======
-li:hover,
-li:hover a
-{
->>>>>>> 45f335bbc868c3053420c6cb6a51f12fe6a67045
     cursor:pointer;
     background:#105187;
     color:#F0F1D5;
 }
 
-<<<<<<< HEAD
 .Breadcrumb ul li{
     clear: both;
     width: 100%;
     margin-top:0.5rem;
-=======
-a.active{
-    background:#105187;
-    color:#F0F1D5;
->>>>>>> 45f335bbc868c3053420c6cb6a51f12fe6a67045
 }
 
 li ul {

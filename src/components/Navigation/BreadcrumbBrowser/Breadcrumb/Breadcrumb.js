@@ -10,7 +10,7 @@ const breadcrumb = (props) => {
         breadCrumbClass.push(classes.Active);
     }
     return (
-        <NavLink 
+      <NavLink 
         to={props.location} 
         className={breadCrumbClass.join(' ')}
         onClick={() => props.navClicked()}>

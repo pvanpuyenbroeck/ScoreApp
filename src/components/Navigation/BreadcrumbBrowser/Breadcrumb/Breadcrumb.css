@@ -18,6 +18,8 @@ li a{
     background: #F0F1D5;
     color:#C33325;
     min-width: 70px;
+    opacity: 0.5;
+    z-index: 106;
 }
 
 .Breadcrumb:hover,
@@ -43,17 +45,19 @@ li ul {
     display: none;
   }
   
-.Breadcrumb:hover li > ul,
-.Breadcrumb li ul:hover {
+.Active:hover li > ul,
+.Active li ul:hover {
     visibility: visible;
     opacity: 1;
     display: block;
     width:100%
   }
 
-  .Active{
+  .Active,
+  .Active li ul .Breadcrumb{
     background:#105187;
     color:#F0F1D5;
+    opacity: 1;
   }
   
 /* li ul li {

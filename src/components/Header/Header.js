@@ -16,16 +16,16 @@ class header extends Component {
         if(this.props.isAuthenticated){
             NavLinks = (
                 <div className={classes.HeaderLinks}>
-                <NavPanelLink to="/">Home</NavPanelLink>
+                {/* <NavPanelLink to="/">Home</NavPanelLink>
                 {/* <NavPanelLink> */}
-                <NavLink
+                {/* <NavLink
                 className={classes.NavLink}
                 to="/selectTeam"
                 activeClassName={classes.active}>
                 Select Team
-            </NavLink>
-                {/* </NavPanelLink> */}
-                <NavPanelLink NavClicked={() => this.props.navItemClicked("AddTeam")}>Add Team</NavPanelLink>
+            </NavLink> 
+                </NavPanelLink>
+                <NavPanelLink NavClicked={() => this.props.navItemClicked("AddTeam")}>Add Team</NavPanelLink> */}
                 <NavPanelLink NavClicked={() => this.props.navItemClicked("AddPlayer")}>Add New Player</NavPanelLink>
                 <NavPanelLink NavClicked={() => this.logout()}>Logout</NavPanelLink>
             </div>

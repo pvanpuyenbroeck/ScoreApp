@@ -24,8 +24,12 @@ class matchCenter extends Component {
     // componentWillMount(){
 
     // }
-    componentDidMount() {
-        this.setInitialPlayers();
+    componentWillMount() {
+        if(typeof this.props.team.teamName === 'undefined'){
+            this.props.history.push('/selectTeam');
+        }else{
+            this.setInitialPlayers();
+        }
     }
 
     setInitialPlayers = () => {
@@ -149,7 +153,7 @@ class matchCenter extends Component {
         }
 
         let players = [];
-        if (Object.keys(this.props.match.selectedMatch).length === 0) {
+        if (this.props.match.selectedMatch === null) {
             this.props.history.replace("/selectTeam");
             redirect = <Redirect to="/selectTeam" />
         }
@@ -159,7 +163,7 @@ class matchCenter extends Component {
                 players.push(this.state.teamMembers[key]);
             }
         }
-        if (Object.keys(this.props.match.selectedMatch).length !== 0) {
+        if (this.props.match.selectedMatch !== null) {
             if (players.length > 0) {
                 PlayerFrames = players.map(playerInfo => {
                     console.log(playerInfo);

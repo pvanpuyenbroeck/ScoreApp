@@ -13,7 +13,7 @@ const Match = (props) => {
                 {/* <div>Afbeelding komt hier</div> */}
                 <div>
                     <div>{props.team.teamName}</div>
-                    <div className={classes.OpponentName}>{props.team.teamName} - {props.match.gameData.opponent}</div>
+                    <div className={classes.OpponentName}>{props.team.teamName} - {typeof props.match.gameData.opponent === 'undefined' ? null : props.match.gameData.opponent}</div>
                     <div className={classes.Score}>{homeGoals} - {props.match.oponentGoals}</div>
                 </div>
             </div>

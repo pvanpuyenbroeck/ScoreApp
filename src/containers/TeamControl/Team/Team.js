@@ -77,7 +77,7 @@ class Team extends Component {
         } else {
             teamControl = (
                 <Aux>
-                    <Toggle toggleClicked={() => this.props.showFunctionMenu()} classtheme="TeamButton">MY TEAM</Toggle>
+                    {/*}<Toggle toggleClicked={() => this.props.showFunctionMenu()} classtheme="TeamButton">MY TEAM</Toggle>*/}
                     <TeamFunctionMenu 
                     team={this.props.team} 
                     showFunctionMenu={this.props.showfunctionMenu} 

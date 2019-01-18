@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import classes from './PlayerButton.css';
 // import profilePic from '../../../assets/Images/profilePic.jpg';
 import firebase from '../../../firebase-scoreapp';
+import Avatar from '@material-ui/core/Avatar';
 
 class playerButton extends Component {
     state = {
@@ -31,6 +32,12 @@ class playerButton extends Component {
         }
     }
 
+    getInitials(){
+        let initials = this.props.name.match(/\b\w/g) || [];
+        initials = ((initials.shift() || '') + (initials.pop() || '')).toUpperCase();
+        return <Avatar className={classes.Avatar}>{initials}</Avatar>;
+    }
+
     render() {
         // const pathReference = storageRef.ref('images/IMG_1099.JPG')
         let attachedClasses = [classes.PlayerButton];
@@ -43,7 +50,7 @@ class playerButton extends Component {
             }
         }
 
-        let image = null;
+        let image = this.getInitials();
         if(this.state.image){
             image = this.state.image;
         }

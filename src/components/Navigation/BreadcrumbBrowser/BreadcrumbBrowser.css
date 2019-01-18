@@ -1,12 +1,13 @@
 .Breadcrumb{
     display: block;
-    margin-left:100px;
+    width: 100%;
+    margin: 5px;
 }
 
 .Breadcrumb ul{
 	list-style: none;
 	margin: 0;
-	padding-left: 0;
+    padding-left: 0;
 }
 
 .Breadcrumb li{
@@ -16,4 +17,10 @@
 
 .Arrow{
     display: inline-block;
+}
+
+@media(min-width:600px){
+    .Breadcrumb{
+     margin-left:100px;   
+    }
 }

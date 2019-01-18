@@ -17,9 +17,11 @@ li a{
     text-decoration: none;
     background: #F0F1D5;
     color:#C33325;
-    min-width: 70px;
+    min-width: 25px;
     opacity: 0.5;
     z-index: 106;
+    margin-top: 2px;
+    
 }
 
 .Breadcrumb:hover,
@@ -55,8 +57,8 @@ li ul {
 
   .Active,
   .Active li ul .Breadcrumb{
-    background:#105187;
-    color:#F0F1D5;
+    /* background:#105187;
+    color:#F0F1D5; */
     opacity: 1;
   }
   
@@ -65,3 +67,8 @@ li ul {
     width: 100%;
     margin-top:0.5rem;
   } */
+
+  @media(min-width:600px){
+    .Breadcrumb ul li{
+    }
+  }

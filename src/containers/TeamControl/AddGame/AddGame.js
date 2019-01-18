@@ -5,13 +5,13 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import firebase from '../../../firebase-scoreapp';
 import {connect} from 'react-redux';
 import * as actions from '../../../store/actions/index';
-
+import TextField from '@material-ui/core/TextField';
 
 class AddGame extends Component {
     state = {
         gameForm: {
             opponent: {
-                elementType: 'input',
+                elementType: 'standard-required',
                 elementConfig: {
                     type: 'text',
                     placeholder: 'Naam tegenstander',
@@ -23,11 +23,12 @@ class AddGame extends Component {
                 valid: false,
             },
             date: {
-                elementType: 'date',
+                elementType: 'datetime-local',
                 elementConfig: {
                     type: 'date',
+                    placeholder: null,
                 },
-                value: '',
+                value: '2019-01-24T10:30',
                 validation: {
                     required: true,
                 },
@@ -37,7 +38,7 @@ class AddGame extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'input',
-                    placeholder: 'Naam sporthal',
+                    placeholder: 'Sporthal',
                 },
                 value: '',
                 validation: {
@@ -146,12 +147,15 @@ class AddGame extends Component {
         let form = (
             <form onSubmit={this.gameSubmitHandler}>
                 {formElementArray.map(formElement => (
-                    <Input
+                    <TextField
                         key={formElement.id}
-                        elementType={formElement.config.elementType}
+                        id={formElement.config.elementType}
+                        type={formElement.config.elementType}
+                        label={typeof formElement.config.elementConfig.placeholder === 'undefined' ? null : formElement.config.elementConfig.placeholder}
                         elementConfig={formElement.config.elementConfig}
                         value={formElement.config.value}
-                        changed={(event) => this.inputChangedHandler(event, formElement.id)}
+                        defaultValue={formElement.config.value}
+                        onChange={(event) => this.inputChangedHandler(event, formElement.id)}
                     />
                 ))}
                 <button type="submit" >Toevoegen</button>

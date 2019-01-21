@@ -3,11 +3,14 @@ import classes from './AddGame.css';
 import Input from '../../../components/UI/Input/Input';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import firebase from '../../../firebase-scoreapp';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
-import TextField from '@material-ui/core/TextField';
+import TextInput from '@material-ui/core/TextField';
+import styled from 'styled-components';
 
 class AddGame extends Component {
+
+
     state = {
         gameForm: {
             opponent: {
@@ -62,7 +65,7 @@ class AddGame extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'input',
-                    placeholder:'Straat + huisnummer'
+                    placeholder: 'Straat + huisnummer'
                 },
                 value: '',
                 validation: {
@@ -73,7 +76,6 @@ class AddGame extends Component {
         },
         loading: false,
     }
-
 
     inputChangedHandler = (event, inputIdentifier) => {
         const updatedGameForm = {
@@ -101,7 +103,7 @@ class AddGame extends Component {
         for (let formElementIdentifier in this.state.gameForm) {
             formData[formElementIdentifier] = this.state.gameForm[formElementIdentifier].value
         }
-        formData["teamId"] = this.props.team.teamId ;
+        formData["teamId"] = this.props.team.teamId;
         const gameInfo = {
             gameData: formData,
             oponentGoals: 0,
@@ -111,13 +113,13 @@ class AddGame extends Component {
                 this.setState({ loading: false, });
                 // this.props.history.push({
                 //     // pathname: '/Team/' + gameInfo.gameData.teamId,
-                   
+
                 // });
             })
             .catch(error => {
                 this.setState({ loading: false });
             })
-            this.props.CloseModal();
+        this.props.CloseModal();
     }
 
     checkValidity(value, rules) {
@@ -137,6 +139,9 @@ class AddGame extends Component {
     }
 
     render() {
+        const StyledTextField = styled(TextInput)`
+        width:100%;
+      `;
         const formElementArray = [];
         for (let key in this.state.gameForm) {
             formElementArray.push({
@@ -147,7 +152,7 @@ class AddGame extends Component {
         let form = (
             <form onSubmit={this.gameSubmitHandler}>
                 {formElementArray.map(formElement => (
-                    <TextField
+                    <StyledTextField
                         key={formElement.id}
                         id={formElement.config.elementType}
                         type={formElement.config.elementType}
@@ -166,7 +171,7 @@ class AddGame extends Component {
         }
         return (
             <div className={classes.AddGame}>
-            <h1>Voeg een match toe aan de agenda</h1>
+                <h1>Voeg een match toe aan de agenda</h1>
                 {form}
             </div>
 
@@ -175,14 +180,15 @@ class AddGame extends Component {
 }
 
 const mapStateToProps = state => {
-    return{
+    return {
         team: state.team.selectedTeam,
     }
 }
 
 const mapDispatchToProps = dispatch => {
-    return{
-    CloseModal: () => dispatch(actions.closeModal())}
+    return {
+        CloseModal: () => dispatch(actions.closeModal())
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddGame);

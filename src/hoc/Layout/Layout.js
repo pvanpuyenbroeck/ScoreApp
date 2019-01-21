@@ -12,6 +12,9 @@ import SidePanel from '../../components/Navigation/SidePanel/SidePanel';
 class Layout extends Component {
 
     breadcrumClicked = (clickedItem) => {
+        if(clickedItem.navItem === 3){
+            
+        }
         if (typeof clickedItem.navItem !== 'undefined') {
             this.props.navItemClicked(clickedItem.navItem);
         }

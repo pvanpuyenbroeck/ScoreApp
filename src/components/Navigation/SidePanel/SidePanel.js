@@ -37,7 +37,7 @@ class sidePanel extends Component {
         if (this.props.isAuthenticated) {
             navPanels = (
                 <div className={attachedClasses.join(' ')}>
-                    <NavPanelLink>
+                    {/* <NavPanelLink>
                         <NavLink
                             onClick={() => this.props.closeSidePanel()}
                             className={classes.NavLink}
@@ -45,9 +45,9 @@ class sidePanel extends Component {
                             activeClassName={classes.active}>
                             Select Team
             </NavLink>
-                    </NavPanelLink>
+                    </NavPanelLink> */}
                     {/* <NavPanelLink NavClicked={() => this.props.navItemClicked("AddTeam")}>Add Team</NavPanelLink> */}
-                    <NavPanelLink NavClicked={() => this.props.navItemClicked("AddPlayer")}>Add New Player</NavPanelLink>
+                    {/* <NavPanelLink NavClicked={() => this.props.navItemClicked("AddPlayer")}>Add New Player</NavPanelLink> */}
                     <NavPanelLink NavClicked={() => this.logout()}>Logout</NavPanelLink>
                     <NavPanelLink NavClicked={() => this.props.navItemClicked("Profile")}>My Profile</NavPanelLink>                    
                 </div>

@@ -10,13 +10,15 @@ const breadcrumbBrowser = (props) => {
             location={"/"}
             navClicked={() => props.navClicked({ navNumber: 1 })}
             navActive={props.breadcrumbLocation >= 1 ? true : false}
+            breadCrumbHide={false}
             // breadcrumbLocation={props.breadcrumbLocation}
         >Home</Breadcrumb>,
         <Breadcrumb
             location={"/selectTeam"}
             dropdown={[{ text: 'Add team', id: 'AddTeam' }]}
             navClicked={() => props.navClicked({ navNumber: 2 })}
-            navActive={props.breadcrumbLocation >= 2 ? true : false}            
+            navActive={props.breadcrumbLocation >= 2 ? true : false} 
+            breadCrumbHide={false}           
             // breadcrumbLocation={props.breadcrumbLocation}
         >Teams</Breadcrumb>];
     for (let key in props.navigation.names) {
@@ -29,6 +31,8 @@ const breadcrumbBrowser = (props) => {
                         dropdown={dropdown}
                         navClicked={(navItem) => props.navClicked({ navNumber: 3, navItem: navItem })}
                         navActive={props.breadcrumbLocation >= 3 ? true : false}
+                        breadCrumbHide={false}
+
                         // breadcrumbLocation={props.breadcrumbLocation}
                     >{props.navigation.names[key]}
                     </Breadcrumb>)
@@ -39,6 +43,7 @@ const breadcrumbBrowser = (props) => {
                         location={"/Team/" + props.navigation.id.teamId + "/Match/" + props.navigation.id.matchId}
                         navClicked={(navItem) => props.navClicked({ navNumber: 4, navItem: navItem })}
                         navActive={props.breadcrumbLocation >= 4 ? true : false}
+                        breadCrumbHide={props.breadcrumbLocation < 3 ? true : false}
                         // breadcrumbLocation={props.breadcrumbLocation}
                     >{props.navigation.names[key]}
                     </Breadcrumb>)

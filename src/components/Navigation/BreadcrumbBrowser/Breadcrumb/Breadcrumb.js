@@ -9,6 +9,9 @@ const breadcrumb = (props) => {
     if(props.navActive){
         breadCrumbClass.push(classes.Active);
     }
+    if(props.breadCrumbHide){
+        breadCrumbClass.push(classes.Hide);
+    }
     return (
       <NavLink 
         to={props.location} 

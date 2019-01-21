@@ -61,6 +61,10 @@ li ul {
     color:#F0F1D5; */
     opacity: 1;
   }
+
+  .Hide{
+      visibility: hidden;
+  }
   
 /* li ul li {
     clear: both;

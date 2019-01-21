@@ -68,7 +68,7 @@ class matchCenter extends Component {
             }
         }
         console.log(this.props);
-        this.props.setSelectedPlayers(updateFilteredPlayer, this.props.team.teamId, this.props.match.selectedMatch.matchId)
+        // this.props.setSelectedPlayers(updateFilteredPlayer, this.props.team.teamId, this.props.match.selectedMatch.matchId)
         this.setState({
             teamMembers: updateFilteredPlayer,
             matchStats: {

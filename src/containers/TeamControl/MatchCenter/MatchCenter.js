@@ -240,7 +240,7 @@ class matchCenter extends Component {
                     addPlayers={() => this.settingSelectedPlayers(MatchPlayers, this.props.team.teamId, this.props.match.selectedMatch.matchId)}
                     visible={this.state.showAddPlayersWindow}
                 />
-                <Button btnType='Success' clicked={() => this.backToTeamViewHandler()}>Team view</Button>
+                {/* <Button btnType='Success' clicked={() => this.backToTeamViewHandler()}>Team view</Button> */}
                 {matchCenter}
             </Aux>
         )

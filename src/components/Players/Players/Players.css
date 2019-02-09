@@ -9,7 +9,8 @@
 
 .Players{
     width:100%;
-
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
 @media(min-width: 650px){

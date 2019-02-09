@@ -25,7 +25,7 @@ li a{
 }
 
 .Breadcrumb:hover,
-.Breadcrumb li:hover{
+.Breadcrumb li div:hover{
     cursor:pointer;
     background:#105187;
     color:#F0F1D5;

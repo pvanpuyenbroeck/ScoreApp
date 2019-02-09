@@ -1,14 +1,18 @@
-.Games{
+.Games {
     width: 50%;
-    margin:0 auto;
+    margin: 0 auto;
+    padding-left: 5px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
-h1{
-    font-size:1.1rem;
+h1 {
+    font-size: 1.1rem;
 }
 
-@media(min-width: 650px){
-    .Games{
+@media(min-width: 650px) {
+    .Games {
         display: inline-block;
+        max-width: 300px;
     }
 }

@@ -6,6 +6,13 @@
 
 }
 
+.GameDate{
+    background-color:#105187;
+    color:white;
+    border: solid #105187;
+    border-width: 0 3px 0 3px;
+}
+
 .Match:hover{
     cursor: pointer;
 }

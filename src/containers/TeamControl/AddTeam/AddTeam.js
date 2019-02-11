@@ -3,6 +3,7 @@ import TeamForm from '../Team/TeamForm/TeamForm';
 import { Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
 import * as actions from '../../../store/actions/index';
+import classes from './AddTeam';
 
 class AddTeam extends Component {
     state = {
@@ -52,6 +53,7 @@ class AddTeam extends Component {
         } else {
             formOrRedirect = (
                 <TeamForm
+                    className={classes.AddTeam}
                     addTeam={this.onSubmitHandler}
                     change={this.inputChangeHandler}
                 />

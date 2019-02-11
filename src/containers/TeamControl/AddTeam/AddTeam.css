@@ -1,0 +1,16 @@
+.AddTeam{
+    margin: 0 auto;
+    background-color: #bfbfad;
+    padding:20px;
+    border-radius: 5px;
+    height: 100%;
+}
+
+.AddGame form div{
+    margin-bottom:10px;
+}
+
+.InputFields{
+    width:100%;
+    margin-bottom: 10px;
+}

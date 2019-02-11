@@ -14,6 +14,7 @@ class AddGame extends Component {
     state = {
         gameForm: {
             opponent: {
+                id: 'opponent',
                 elementType: 'standard-required',
                 elementConfig: {
                     type: 'text',
@@ -26,6 +27,7 @@ class AddGame extends Component {
                 valid: false,
             },
             date: {
+                id:'date',
                 elementType: 'datetime-local',
                 elementConfig: {
                     type: 'date',
@@ -38,6 +40,7 @@ class AddGame extends Component {
                 valid: false,
             },
             sporthal: {
+                id:'sporthal',
                 elementType: 'input',
                 elementConfig: {
                     type: 'input',
@@ -50,6 +53,7 @@ class AddGame extends Component {
                 valid: false,
             },
             postcode: {
+                id:'sporthal',
                 elementType: 'input',
                 elementConfig: {
                     type: 'input',
@@ -62,6 +66,7 @@ class AddGame extends Component {
                 valid: false,
             },
             straat: {
+                id:'straat',
                 elementType: 'input',
                 elementConfig: {
                     type: 'input',
@@ -139,9 +144,6 @@ class AddGame extends Component {
     }
 
     render() {
-        const StyledTextField = styled(TextInput)`
-        width:100%;
-      `;
         const formElementArray = [];
         for (let key in this.state.gameForm) {
             formElementArray.push({
@@ -152,15 +154,17 @@ class AddGame extends Component {
         let form = (
             <form onSubmit={this.gameSubmitHandler}>
                 {formElementArray.map(formElement => (
-                    <StyledTextField
+                    <TextInput
+                        className={classes.InputFields}
                         key={formElement.id}
-                        id={formElement.config.elementType}
+                        id={formElement.id}
                         type={formElement.config.elementType}
                         label={typeof formElement.config.elementConfig.placeholder === 'undefined' ? null : formElement.config.elementConfig.placeholder}
-                        elementConfig={formElement.config.elementConfig}
+                        // elementConfig={formElement.config.elementConfig}
                         value={formElement.config.value}
                         defaultValue={formElement.config.value}
                         onChange={(event) => this.inputChangedHandler(event, formElement.id)}
+                        autoFocus = {false}
                     />
                 ))}
                 <button type="submit" >Toevoegen</button>

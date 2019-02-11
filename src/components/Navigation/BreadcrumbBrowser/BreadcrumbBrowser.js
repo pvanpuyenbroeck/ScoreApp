@@ -16,7 +16,7 @@ const breadcrumbBrowser = (props) => {
         <Breadcrumb
             location={"/selectTeam"}
             dropdown={[{ text: 'Add team', id: 'AddTeam' }]}
-            navClicked={() => props.navClicked({ navNumber: 2 })}
+            navClicked={(navItem) => props.navClicked({ navNumber: 2 , navItem: navItem})}
             navActive={props.breadcrumbLocation >= 2 ? true : false} 
             breadCrumbHide={false}           
             // breadcrumbLocation={props.breadcrumbLocation}

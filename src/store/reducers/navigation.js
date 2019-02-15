@@ -7,7 +7,7 @@ const initialState = {
     showModal: false,
     showFunctionMenu: false,
     // location: 'home',
-    breadcrumbLocation:0,
+    breadcrumbLocation:1,
 }
 
 const reducer = (state = initialState, action) => {

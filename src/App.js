@@ -50,7 +50,7 @@ class App extends Component {
     let routes = (
       <div>
       <Route path="/" exact component={Landingpage} />
-      <Route path="/Teams" component={TeamControl} />
+      <Route path="/Team" component={TeamControl} />
       <Route path="/AddNewPlayer" exact component={AddNewPlayer} />
       </div>
     )
@@ -78,7 +78,10 @@ class App extends Component {
       showToggleNav={this.state.showToggle}
       showSidePanel={this.props.toggleSidePanel}
       showFlexBox={this.state.showFlexbox}
-      navToggleClicked={() => this.props.sidePanelToggle()}>
+      navToggleClicked={() => this.props.sidePanelToggle()}
+      location={this.props.location}
+      // showBackgroundImage={}
+      >      
         <Flexbox show={this.props.showFlexbox} navItem={this.props.navItem}>{flexItem}</Flexbox>
         {routes}
       </Layout>
@@ -101,6 +104,7 @@ const mapStateToProps = state => {
     toggleSidePanel: state.navigation.ToggleSidePanel,
     showFlexbox: state.navigation.showFlexItem,
     showModal: state.navigation.showModal,
+    location: state.navigation.breadcrumbLocation,
     team: state.team.team,
     isAuthenticated: state.auth.user !== null,
     user: state.auth.user,

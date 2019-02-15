@@ -7,10 +7,11 @@ import { connect } from 'react-redux';
 import NavPanel from '../../components/Navigation/NavPanel/NavPanel';
 import * as actions from '../../store/actions/index';
 import SidePanel from '../../components/Navigation/SidePanel/SidePanel';
+import {Backgroundimage} from './layoutstyling';
+import image from '../../assets/Images/ardennen.jpg';
 
 
 class Layout extends Component {
-
     breadcrumClicked = (clickedItem) => {
         if(clickedItem.navItem === 3){
             
@@ -22,6 +23,19 @@ class Layout extends Component {
     }
     render() {
         console.log(this.props);
+        
+        const backgroundStyle = {
+            // backgroundImage: `url(${image})`,
+            // backgroundColor: '#ccc',
+            height: '850px',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover',
+            position: 'relative',
+            backgroundImage: this.props.location === 1 ? `url(${image})` : 'none', 
+        }
+
+        
         const navigation = {
             names: {
                 teamName: (typeof this.props.team.teamName) !== 'undefined' ? this.props.team.teamName : null,
@@ -34,19 +48,21 @@ class Layout extends Component {
         }
         return (
             <Aux>
-                <Header isAuthenticated={this.props.isAuthenticated} />
-                <NavPanel toggleClicked={() => this.props.navToggleClicked()} showToggle={this.props.showToggleNav} />
-                <SidePanel showToggle={this.props.showSidePanel} showFlexbox={this.props.showFlexBox} />
-                <div className={classes.BreadcrumbBrowser}>
-                    <BreadcrumbBrowser
-                        navigation={navigation}
-                        navClicked={(navItem) => this.breadcrumClicked(navItem)}
-                        breadcrumbLocation={this.props.navigation.breadcrumbLocation}
-                    />
+                <div style={backgroundStyle}>
+                    <Header isAuthenticated={this.props.isAuthenticated} />
+                    <NavPanel toggleClicked={() => this.props.navToggleClicked()} showToggle={this.props.showToggleNav} />
+                    <SidePanel showToggle={this.props.showSidePanel} showFlexbox={this.props.showFlexBox} />
+                    <div className={classes.BreadcrumbBrowser}>
+                        <BreadcrumbBrowser
+                            navigation={navigation}
+                            navClicked={(navItem) => this.breadcrumClicked(navItem)}
+                            breadcrumbLocation={this.props.navigation.breadcrumbLocation}
+                        />
+                    </div>
+                    <main className={classes.Layout}>
+                        {this.props.children}
+                    </main>
                 </div>
-                <main className={classes.Layout}>
-                    {this.props.children}
-                </main>
             </Aux>
         );
     }

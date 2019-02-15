@@ -49,7 +49,7 @@ class App extends Component {
     let flexItem = "";
     let routes = (
       <div>
-      <Route path="/" exact component={Landingpage} />
+      <Route path="/" exact render={(props) => <Landingpage {...props} user={this.props.user}/>}/>
       <Route path="/Team" component={TeamControl} />
       <Route path="/AddNewPlayer" exact component={AddNewPlayer} />
       </div>

@@ -1,12 +1,13 @@
 import React from 'react';
-import classes from './landingspage.css';
+import classes from './landingpage.css';
+
 
 export const landingpage = props => {
 
     return(
-        <React.Fragment className={classes.LandingPage}>
-        <div className={classes.BackgroundImage}></div>
-        </React.Fragment>
+        <div className={classes.LandingPage}>
+            <h1>Welkom {props.user.displayName}</h1>
+        </div>
     )
 }
 

@@ -20,6 +20,12 @@ export const addTeamStart = () => {
     }
 }
 
+export const closeModal = () => {
+    return{
+        type:actionTypes.CLOSE_MODAL,
+    }
+}
+
 
 
 export const addTeam = (teamData) => {
@@ -27,6 +33,7 @@ export const addTeam = (teamData) => {
         dispatch(addTeamStart());
         firebase.database().ref("/Teams/").push(teamData).then(res => {
             dispatch(addTeamSuccess());
+            dispatch(closeModal());
         }).catch(
             error => {
                 dispatch(addTeamFail(error))
@@ -140,6 +147,7 @@ export const addPlayerToTeam = (teamId, updatedTeamMembers) => {
             .then(response => {
                 dispatch(addPlayerToTeamSuccess());
                 dispatch(closeFunctionModal());
+                dispatch(getAllTeams());
             })
             .catch(error => {
                 dispatch(addPlayerToTeamFail(error));
@@ -171,7 +179,7 @@ export const getAllTeamStart = () => {
     }
 }
 
-export const getAllTeams = (userId, token) => {
+export const getAllTeams = (userId = null, token = null) => {
     return dispatch => {
         dispatch(getAllTeamStart());
         firebase.database().ref('/Teams').once('value')

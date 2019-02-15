@@ -6,6 +6,9 @@ import Input from '../../components/UI/Input/Input';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import { Redirect } from 'react-router';
 import Button from '../../components/UI/Button/Button/Button';
+import firebase from '../../firebase-scoreapp';
+import * as firebaseui from 'firebaseui';
+import Authenticators from '../../components/Auth/authenticators';
 
 class Auth extends Component {
     state = {
@@ -165,6 +168,7 @@ class Auth extends Component {
         });
     }
 
+
     render() {
         const formElementsArray = [];
         for (let key in this.state.controls) {
@@ -230,6 +234,7 @@ class Auth extends Component {
                     clicked={this.switchAuthModeHandler}
                     btnType="Danger">SWITCH TO {this.state.isSignup ? 'SIGNIN' : 'SIGNUP'}
                 </Button>
+                <Authenticators/>
             </div>
         );
     }

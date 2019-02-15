@@ -12,6 +12,7 @@ import authReducer from './store/reducers/auth';
 import navigationReducer from './store/reducers/navigation';
 import thunk from 'redux-thunk';
 
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({

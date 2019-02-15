@@ -8,7 +8,6 @@ import classes from './AddTeam';
 class AddTeam extends Component {
     state = {
         teamToAdd: {
-            teamId: '',
             teamName: '',
             admin: '',
         },
@@ -38,9 +37,9 @@ class AddTeam extends Component {
         const name = target.name;
         const value = target.value;
         const teamToAdd = this.state.teamToAdd;
-        teamToAdd.teamName = name === 'teamName' ? value : this.state.teamToAdd.teamName;
+        teamToAdd.teamName = name === '' ? value : this.state.teamToAdd.teamName;
         // teamToAdd.season = name === 'season' ? value : this.state.teamToAdd.season;
-        teamToAdd.admin = this.props.uid;
+        teamToAdd.admin = this.props.adminUid;
         this.setState({
             teamToAdd: teamToAdd,
 
@@ -72,7 +71,7 @@ const mapStateToProps = state => {
     return{
         loading: state.team.loading,
         submitted: state.team.submitted,
-        adminUid: state.auth.uid,
+        adminUid: state.auth.user.uid,
     }
 }
 

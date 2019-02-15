@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
 import { Route } from 'react-router-dom';
 import Layout from './hoc/Layout/Layout';
 import TeamControl from './containers/TeamControl/TeamControl';
@@ -8,7 +8,7 @@ import "./components/Navigation/SidePanel/SidePanel.css";
 import Aux from './hoc/_Aux/_Aux';
 import Flexbox from './components/UI/Flexbox/Flexbox';
 import {connect} from 'react-redux';
-import AddTeam from './containers/TeamControl/AddTeam/AddTeam';
+// import AddTeam from './containers/TeamControl/AddTeam/AddTeam';
 import AddPlayer from './containers/TeamControl/AddPlayer/AddPlayer';
 import SelectPlayer from './containers/TeamControl/SelectPlayers/SelectPlayers';
 import AddMatch from './containers/TeamControl/AddGame/AddGame';
@@ -17,7 +17,9 @@ import { withRouter } from 'react-router-dom';
 import Auth from './containers/Auth/Auth';
 import firebase from './firebase-scoreapp';
 import Profile from './components/Registration/ProfileInfo';
+import Landingpage from './components/Navigation/LandingPage/landingpage';
 
+const AddTeam = React.lazy(() => import('./containers/TeamControl/AddTeam/AddTeam'));
 
 class App extends Component {
   state = {
@@ -47,7 +49,8 @@ class App extends Component {
     let flexItem = "";
     let routes = (
       <div>
-      <Route path="/" component={TeamControl} />
+      <Route path="/" exact component={Landingpage} />
+      <Route path="/Teams" component={TeamControl} />
       <Route path="/AddNewPlayer" exact component={AddNewPlayer} />
       </div>
     )
@@ -60,7 +63,7 @@ class App extends Component {
     }
 
 
-    if(this.props.navItem === "AddTeam"){flexItem = <AddTeam uid={this.props.user.uid}/>};
+    if(this.props.navItem === "AddTeam"){flexItem = <Suspense fallback={<div>...loading</div>}><AddTeam uid={this.props.user.uid}/></Suspense>};
     if(this.props.navItem === "AddPlayer"){flexItem = <AddPlayer/>};
     if(this.props.navItem === "SelectPlayer"){flexItem = <SelectPlayer team={this.props.team}/>};
     if(this.props.navItem === "AddMatch"){flexItem = <AddMatch team={this.props.team}/>};

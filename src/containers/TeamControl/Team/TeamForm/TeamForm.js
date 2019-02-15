@@ -14,6 +14,7 @@ const teamForm = (props) => {
                     defaultValue=""
                     className={classes.textField}
                     margin="normal"
+                    onChange={props.change}
                 />
                 {/* <label>Team name
                 <input type="text" name="teamName" id="teamname" onChange={props.change} />

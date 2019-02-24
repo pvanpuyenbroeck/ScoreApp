@@ -84,7 +84,7 @@ class Team extends Component {
                     showComponent={(component) => this.props.showComponent(component)}
                     />
                     <Modal show={this.props.showModal} modalClosed={() => this.props.closeModal()} />
-                    <Players team={this.props.team} playerDetails={this.props.team.filteredPlayers} />
+                    <Players team={this.props.team} playerDetails={this.props.team.filteredPlayers} user={this.props.user}/>
                     <Games 
                     matches={this.props.team.Matches} 
                     teamId={this.props.team.teamId} 
@@ -123,6 +123,7 @@ const mapStateToProps = state => {
         loading: state.team.loading,
         token: state.auth.token,
         userId: state.auth.userId,
+        user:state.auth.user,
     }
 }
 

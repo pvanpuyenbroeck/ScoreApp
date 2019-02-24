@@ -50,9 +50,9 @@ class playerButton extends Component {
             }
         }
 
-        let image = this.getInitials();
+        let image = <img src={this.props.user.photoURL} alt="User"/>;
         if(this.state.image){
-            image = this.state.image;
+            image = this.getInitials();
         }
         return (
             <div className={attachedClasses.join(' ')} onClick={this.props.clicked}>

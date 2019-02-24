@@ -8,7 +8,7 @@ import NavPanel from '../../components/Navigation/NavPanel/NavPanel';
 import * as actions from '../../store/actions/index';
 import SidePanel from '../../components/Navigation/SidePanel/SidePanel';
 import {Backgroundimage} from './layoutstyling';
-import image from '../../assets/Images/ardennen.jpg';
+import image from '../../assets/Images/background_1.jpg';
 
 
 class Layout extends Component {

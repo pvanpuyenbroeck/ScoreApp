@@ -4,6 +4,8 @@
     z-index: 105;
     position: absolute;
     display: inline-block;
+    max-width: 650px;
+    margin: 0 auto;
 }
 
 .Header{

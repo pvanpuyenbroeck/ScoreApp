@@ -49,9 +49,9 @@ export const fileUpload = (newPlayerId, file) => {
             console.log('Upload progress: ' + Math.round(ProgressEvent.loaded / ProgressEvent.total * 100) + '%');
         }
     })
-    .then(res => {
-        console.log(res);   
-    })
+        .then(res => {
+            console.log(res);
+        })
 }
 
 
@@ -86,7 +86,7 @@ export const authFirebaseSignup = (email, password, username, voornaam, familien
                 user.user.updateProfile({
                     displayName: username,
                     firstName: voornaam,
-                    lastName:familienaam,
+                    lastName: familienaam,
                 }).then(response => {
                     console.log(response);
                 })
@@ -123,14 +123,19 @@ export const setAuthRedirectPath = (path) => {
 //     };
 // };
 
-export const addUser = (userid, username, voornaam, familienaam, email) => {
+export const addUser = (userid, username, voornaam = 'don', familienaam = 'corleone', email) => {
     return dispatch => {
         firebase.database().ref('/Players/' + userid).set({
             userid: userid,
             username: username,
             voornaam: voornaam,
             familienaam: familienaam,
-            email:email,
+            email: email,
+        }).then(res => {
+            console.log(res);
+        })
+        .catch(err => {
+            console.log(err);
         })
     }
 }
@@ -148,3 +153,4 @@ export const fileUploadHandler = (selectedFile, PlayerId) => {
             console.log(res);
         })
 }
+

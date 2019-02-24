@@ -7,8 +7,10 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import { Redirect } from 'react-router';
 import Button from '../../components/UI/Button/Button/Button';
 import firebase from '../../firebase-scoreapp';
-import * as firebaseui from 'firebaseui';
-import Authenticators from '../../components/Auth/authenticators';
+import GoogleButton from 'react-google-button';
+import firebaseNew from 'firebase';
+
+
 
 class Auth extends Component {
     state = {
@@ -87,7 +89,7 @@ class Auth extends Component {
             },
         },
         isSignup: true,
-        selectedFile:null,
+        selectedFile: null,
     }
 
     componentDidMount() {
@@ -168,6 +170,29 @@ class Auth extends Component {
         });
     }
 
+    googleAuthenticate = () => {
+        const provider = new firebaseNew.auth.GoogleAuthProvider();
+        firebase.auth().signInWithPopup(provider).then((result) => {
+            //google access token
+            const token = result.credential.accessToken;
+            console.log(token);
+            //signed in user info
+            const user = result.user;
+            console.log(user);
+            this.props.onGoogleAuthenticate(user.uid, user.displayName, null, null, user.email);
+    
+            //...
+        }).catch((error) => {
+            //Handle error here
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            //the email of the user's account used.
+            const email = error.email;
+            //the firebase.auth.AuthCredential type that was used.
+            const credential = error.credential;
+        })
+    }
+
 
     render() {
         const formElementsArray = [];
@@ -234,7 +259,7 @@ class Auth extends Component {
                     clicked={this.switchAuthModeHandler}
                     btnType="Danger">SWITCH TO {this.state.isSignup ? 'SIGNIN' : 'SIGNUP'}
                 </Button>
-                <Authenticators/>
+                <GoogleButton onClick={() => this.googleAuthenticate()} />
             </div>
         );
     }
@@ -254,7 +279,8 @@ const mapDispatchToProps = dispatch => {
         onAuthLogin: (email, password) => dispatch(actions.authFirebaseLogin(email, password)),
         onAuthSignup: (email, password, userName, voornaam, familienaam) => dispatch(actions.authFirebaseSignup(email, password, userName, voornaam, familienaam)),
         onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/selectTeam')),
-        onFileUpload: () => dispatch(actions.fileUploadHandler(this.state.selectedFile,)),
+        onFileUpload: () => dispatch(actions.fileUploadHandler(this.state.selectedFile)),
+        onGoogleAuthenticate: (userid,displayname, voornaam, familienaam, email) => dispatch(actions.addUser(userid,displayname,voornaam,familienaam,email)),
     };
 };
 

@@ -12,7 +12,7 @@
 /* General sidebar styles */
 .SidePanel {
   background: #2C8693;
-  padding: 2.5em 1.5em 0;
+  padding: 0 1.5em 0;
   font-size: 1.15em;
   width: 200px;
   z-index: 110;

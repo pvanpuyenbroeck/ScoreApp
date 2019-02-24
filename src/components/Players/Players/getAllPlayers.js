@@ -23,6 +23,7 @@ const getAllPlayers = (team) => {
                         key={player.userid}
                         name={player.voornaam + " " + player.familienaam}
                         number={player.playerNumber}
+                        user={team.user}
                     />
                 )})
     } else {

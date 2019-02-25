@@ -65,9 +65,13 @@ class Team extends Component {
             showModal: !this.state.showModal,
         })
     }
+
+    removePlayerClickedHandler(playerId) {
+        console.log(playerId);
+
+    }
     render() {
         let teamControl = "";
-        console.log(this.props.team);
         if(this.props.loading){
             teamControl = <Spinner/>;
         }
@@ -84,7 +88,12 @@ class Team extends Component {
                     showComponent={(component) => this.props.showComponent(component)}
                     />
                     <Modal show={this.props.showModal} modalClosed={() => this.props.closeModal()} />
-                    <Players team={this.props.team} playerDetails={this.props.team.filteredPlayers} user={this.props.user}/>
+                    <Players 
+                    team={this.props.team} 
+                    playerDetails={this.props.team.filteredPlayers} 
+                    user={this.props.user}
+                    removePlayerClicked={(uid) =>this.removePlayerClickedHandler(uid)}
+                    />
                     <Games 
                     matches={this.props.team.Matches} 
                     teamId={this.props.team.teamId} 

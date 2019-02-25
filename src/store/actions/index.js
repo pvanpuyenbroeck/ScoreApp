@@ -36,4 +36,5 @@ export{
     authSuccess,
     fileUploadHandler,
     addUser,
+    googleAuthenticate
 }from './auth';

@@ -1,12 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import classes from './PlayerButton.css';
 // import profilePic from '../../../assets/Images/profilePic.jpg';
 import firebase from '../../../firebase-scoreapp';
 import Avatar from '@material-ui/core/Avatar';
+import CloseButton from '../../../assets/Images/delete-30.png';
 
 class playerButton extends Component {
     state = {
         image: null,
+        closeButton: 'hidden',
     }
     // onClickHandler() {
     //     console.log(this.props.playerid);
@@ -15,6 +17,8 @@ class playerButton extends Component {
     //     }
 
     // }
+
+    // const [showCloseButton, setCloseButton] = useState('hidden');
 
     componentWillMount() {
         if (this.props.playerid) {
@@ -32,7 +36,18 @@ class playerButton extends Component {
         }
     }
 
-    getInitials(){
+    showCloseButtonHandler = () => {
+        this.setState({
+            closeButton: 'visible',
+        })
+    }
+    hideCloseButtonHandler = () => {
+        this.setState({
+            closeButton: 'hidden',
+        })
+    }
+
+    getInitials() {
         let initials = this.props.name.match(/\b\w/g) || [];
         initials = ((initials.shift() || '') + (initials.pop() || '')).toUpperCase();
         return <Avatar className={classes.Avatar}>{initials}</Avatar>;
@@ -50,22 +65,49 @@ class playerButton extends Component {
             }
         }
 
-        let image = <img src={this.props.user.photoURL} alt="User"/>;
-        if(this.state.image){
-            image = this.getInitials();
+        let playerButtonFunctionsClasses = [classes.HoverOptions]
+        playerButtonFunctionsClasses.push(this.state.closeButton === 'hidden' ? classes.HideCloseButton : classes.ShowCloseButton)
+
+        let image = this.getInitials();
+
+        const closeButtonStyle = {
+            backgroundImage: `url(${CloseButton})`,
+            // visibility: `${this.state.closeButton}`
         }
+        // if(typeof this.props.user.photoURL !== "undefined"){
+        //     image = <img src={this.props.user.avatar} alt="User"/>;
+        // }
+        // else{
+        //     image = this.getInitials();
+        // }
         return (
-            <div className={attachedClasses.join(' ')} onClick={this.props.clicked}>
-                <div className={classes.Image}>
-                    {image}
+            <React.Fragment>
+                <div className={playerButtonFunctionsClasses.join(' ')}>
+                    <div
+                        style={closeButtonStyle}
+                        className={classes.CloseButton}
+                        onMouseEnter={this.showCloseButtonHandler}
+                        onMouseLeave={this.hideCloseButtonHandler}
+                        onClick={() => this.props.removePlayerClicked(this.props.user.userid)}
+                    ></div>
                 </div>
-                <div className={classes.Name}>
-                    {this.props.name}
+                <div
+                    className={attachedClasses.join(' ')}
+                    onClick={this.props.clicked}
+                    onMouseEnter={this.showCloseButtonHandler}
+                    onMouseLeave={this.hideCloseButtonHandler}
+                >
+                    <div className={classes.Image}>
+                        {image}
+                    </div>
+                    <div className={classes.Name}>
+                        {this.props.name}
+                    </div>
+                    <div className={classes.PlayerNumber}>
+                        <h1>{this.props.number}</h1>
+                    </div>
                 </div>
-                <div className={classes.PlayerNumber}>
-                    <h1>{this.props.number}</h1>
-                </div>
-            </div>
+            </React.Fragment>
         )
     }
 

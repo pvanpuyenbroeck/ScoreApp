@@ -21,7 +21,15 @@ const Match = (props) => {
         font-size:1.5rem;
         font-weight: bold;
     `
-
+    const dateFormat = () => {
+        let date = new Date(props.match.gameData.date);
+        const day = date.getDate();
+        const month = date.getMonth() + 1
+        const year = date.getFullYear();
+        const hour = date.getHours();
+        const minutes = date.getMinutes();
+        return `${day}-${month}-${year}  ${hour}:${minutes}`
+    }
 
     return (
         <Link to={"/Team/" + props.team.teamId + "/Match/" + props.match.matchId} style={{ textDecoration: 'none' }}>
@@ -33,7 +41,7 @@ const Match = (props) => {
                         <div>{typeof props.match.gameData.opponent === 'undefined' ? null : props.match.gameData.opponent}</div>
                     </OponentName>
                     <div className={classes.Score}>{homeGoals} - {props.match.oponentGoals}</div>
-                    <div className={classes.GameDate}>{props.match.gameData.date}</div>
+                    <div className={classes.GameDate}>{dateFormat()}</div>
                 </div>
             </StyledLink>
         </Link>

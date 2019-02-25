@@ -4,13 +4,34 @@
     color: #F0F1D5;
     background-color: #105187;
     border-radius: 5px;
-    margin: 5px 2px;
+    /* margin: 5px 2px; */
     display: table;
     box-sizing: border-box;
     font-size:1em;
     vertical-align: middle;
     float:right;
     margin-right:0;
+}
+
+.CloseButton{
+    height: 20px;
+    width: 20px;
+    position: relative;
+    display: inline-block;
+    float: right;
+    z-index: 1;
+    background-position: center;
+    background-size: contain;
+    margin-top: 8px;
+}
+
+.HideCloseButton{
+    opacity:0;
+}
+
+.ShowCloseButton{
+    opacity: 1;
+    transition: opacity 1s;
 }
 
 .PlayerButton .Image{
@@ -41,6 +62,7 @@
 
 .PlayerNumber{
     height: 50%;
+    width: 10%;
     text-align: center;
     display: table-cell;
     vertical-align: middle;
@@ -61,4 +83,20 @@
 
 .Avatar{
     margin-left: 5px;
+}
+
+.HoverOptions{
+    width: 300px;
+    height: 30px;
+    display: inline-block;
+}
+
+@media(min-width: 650px){
+    .PlayerButton{
+        width: 400px;
+    }
+
+    .HoverOptions{
+        width: 400px;
+    }
 }

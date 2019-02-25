@@ -171,6 +171,7 @@ class SelectPlayers extends Component {
                             key={player.userid}
                             playerid={player.userid}
                             clicked={() => this.onPlayerButtonClickedHandler(player.userid)}
+                            user={this.props.user}
                         />
                     )
                 }
@@ -197,6 +198,7 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
     return{
         team: state.team.selectedTeam,
+        user: state.auth.user,
     }
 }
 

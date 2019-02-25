@@ -8,7 +8,6 @@ import { Redirect } from 'react-router';
 import Button from '../../components/UI/Button/Button/Button';
 import firebase from '../../firebase-scoreapp';
 import GoogleButton from 'react-google-button';
-import firebaseNew from 'firebase';
 
 
 
@@ -170,28 +169,28 @@ class Auth extends Component {
         });
     }
 
-    googleAuthenticate = () => {
-        const provider = new firebaseNew.auth.GoogleAuthProvider();
-        firebase.auth().signInWithPopup(provider).then((result) => {
-            //google access token
-            const token = result.credential.accessToken;
-            console.log(token);
-            //signed in user info
-            const user = result.user;
-            console.log(user);
-            this.props.onGoogleAuthenticate(user.uid, user.displayName, null, null, user.email);
+    // googleAuthenticate = () => {
+    //     const provider = new firebaseNew.auth.GoogleAuthProvider();
+    //     firebase.auth().signInWithPopup(provider).then((result) => {
+    //         //google access token
+    //         const token = result.credential.accessToken;
+    //         console.log(token);
+    //         //signed in user info
+    //         const user = result.user;
+    //         console.log(user);
+    //         this.props.onGoogleAuthenticate(user.uid, user.displayName, null, null, user.email);
     
-            //...
-        }).catch((error) => {
-            //Handle error here
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            //the email of the user's account used.
-            const email = error.email;
-            //the firebase.auth.AuthCredential type that was used.
-            const credential = error.credential;
-        })
-    }
+    //         //...
+    //     }).catch((error) => {
+    //         //Handle error here
+    //         const errorCode = error.code;
+    //         const errorMessage = error.message;
+    //         //the email of the user's account used.
+    //         const email = error.email;
+    //         //the firebase.auth.AuthCredential type that was used.
+    //         const credential = error.credential;
+    //     })
+    // }
 
 
     render() {
@@ -259,7 +258,7 @@ class Auth extends Component {
                     clicked={this.switchAuthModeHandler}
                     btnType="Danger">SWITCH TO {this.state.isSignup ? 'SIGNIN' : 'SIGNUP'}
                 </Button>
-                <GoogleButton onClick={() => this.googleAuthenticate()} />
+                <GoogleButton onClick={() => this.props.onGoogleAuthenticate()} />
             </div>
         );
     }
@@ -280,7 +279,7 @@ const mapDispatchToProps = dispatch => {
         onAuthSignup: (email, password, userName, voornaam, familienaam) => dispatch(actions.authFirebaseSignup(email, password, userName, voornaam, familienaam)),
         onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/selectTeam')),
         onFileUpload: () => dispatch(actions.fileUploadHandler(this.state.selectedFile)),
-        onGoogleAuthenticate: (userid,displayname, voornaam, familienaam, email) => dispatch(actions.addUser(userid,displayname,voornaam,familienaam,email)),
+        onGoogleAuthenticate: () => dispatch(actions.googleAuthenticate()),
     };
 };
 

@@ -1,6 +1,7 @@
 import * as actionTypes from './actionTypes';
 import firebase from '../../firebase-scoreapp';
 import axios from '../../axios-scoreapp';
+import firebaseNew from 'firebase';
 
 export const authStart = () => {
     return {
@@ -123,21 +124,82 @@ export const setAuthRedirectPath = (path) => {
 //     };
 // };
 
-export const addUser = (userid, username, voornaam = 'don', familienaam = 'corleone', email) => {
+export const googleAuthStart = (path) => {
+    return {
+        type: actionTypes.GOOGLE_AUTH_START,
+    };
+};
+export const googleAuthSuccess = (path) => {
+    return {
+        type: actionTypes.GOOGLE_AUTH_SUCCESS,
+    };
+};
+export const googleAuthFail = (error) => {
+    return {
+        type: actionTypes.GOOGLE_AUTH_FAIL,
+        error: error,
+    };
+};
+
+export const googleAuthenticate = () => {
+    const splitFirstAndLastName = (fullName) => {
+        const nameArray = fullName.split(" ");
+        const name = {
+            voornaam: nameArray.shift(),
+            familienaam: nameArray.join(' '),
+        }
+        return name;
+    }
     return dispatch => {
-        firebase.database().ref('/Players/' + userid).set({
-            userid: userid,
-            username: username,
-            voornaam: voornaam,
-            familienaam: familienaam,
-            email: email,
-        }).then(res => {
-            console.log(res);
+        dispatch(googleAuthStart());
+        const provider = new firebaseNew.auth.GoogleAuthProvider();
+        firebase.auth().signInWithPopup(provider).then((result) => {
+            //google access token
+            const token = result.credential.accessToken;
+            console.log(token);
+            //signed in user info
+            const user = result.user;
+            console.log(user);
+            dispatch(googleAuthSuccess());
+            // dispatch(addUser(user.uid, user.displayName, null, null, user.email));
+            firebase.database().ref('/Players/' + user.uid).set({
+                userid: user.uid,
+                username: user.displayName,
+                voornaam: splitFirstAndLastName(user.displayName).voornaam,
+                familienaam: splitFirstAndLastName(user.displayName).familienaam,
+                email: user.email,
+                avatar: user.photoURL,
+            }).then(res => {
+                console.log(res);
+            })
+                .catch(err => {
+                    console.log(err);
+                })
+
+            //...
+        }).catch((error) => {
+            dispatch(googleAuthFail(error));
+            console.log(error);
         })
+    }
+}
+
+export const addUser = (userid, username, voornaam = 'don', familienaam = 'corleone', email) => {
+    // return dispatch => {
+    // dispatch();
+    firebase.database().ref('/Players/' + userid).set({
+        userid: userid,
+        username: username,
+        voornaam: voornaam,
+        familienaam: familienaam,
+        email: email,
+    }).then(res => {
+        console.log(res);
+    })
         .catch(err => {
             console.log(err);
         })
-    }
+    // }
 }
 
 export const fileUploadHandler = (selectedFile, PlayerId) => {

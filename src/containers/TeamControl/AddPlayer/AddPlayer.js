@@ -113,7 +113,7 @@ class AddPlayer extends Component {
             this.setState({ loading: false });
         });
         // const playerId = playerRef.key;
-        console.log(playersRef.key);       
+        // console.log(playersRef.key);         
         // axios.post('/Players.json', playerInfo)
         //     .then(response => {
         //         this.setState({ loading: false, });

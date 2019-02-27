@@ -13,10 +13,12 @@ const Players = (props) => {
     if (props.playerDetails) {
         for (let key in props.playerDetails) {
             console.log(key);
-            allPlayers.push({
-                playerId: key,
-                ...props.playerDetails[key]
-            })
+            if (props.team.TeamMembers[key].active) {
+                allPlayers.push({
+                    playerId: key,
+                    ...props.playerDetails[key]
+                })
+            }
         }
         const playersArray = Object.values(allPlayers)
         players = <Spinner />;

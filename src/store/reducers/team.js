@@ -1,5 +1,6 @@
 
 import * as actionTypes from '../actions/actionTypes';
+// import { removePlayerStart } from '../actions/team';
 const initialState = {
     loading: true,
     submitted: false,
@@ -8,6 +9,7 @@ const initialState = {
     sidePanelOpen: false,
     playerDetails:{},
     teams:{},
+    removingPlayer: false,
 }
 
 const addTeam = (state,action) => {
@@ -80,6 +82,7 @@ const addPlayerToTeamFail = (state, action) => {
     return{
         ...state,
         loading:false,
+        error: action.error,
     }
 }
 
@@ -87,6 +90,7 @@ const addPlayerToTeamStart = (state, action) => {
     return{
         ...state,
         loading:true,
+        selectedTeam: action.updatedTeam,   
     }
 }
 
@@ -112,6 +116,28 @@ const getTeamsSuccess = (state, action) => {
     }
 }
 
+const removePlayerStart = (state, action) => {
+    return{
+        ...state,
+        removingPlayer: true,
+    }
+}
+
+const removePlayerSuccess = (state, action) => {
+    return{
+        ...state,
+        removingPlayer: false,
+    }
+}
+
+const removePlayerFail = (state, action) => {
+    return{
+        ...state,
+        removingPlayer: false,
+        error: action.error,
+    }
+} 
+
 
 const reducer = (state = initialState, action) => {
     switch(action.type){
@@ -132,6 +158,11 @@ const reducer = (state = initialState, action) => {
         case actionTypes.GET_ALL_TEAMS_START: return getTeamsStart(state,action);
         case actionTypes.GET_ALL_TEAMS_FAIL: return getTeamsfail(state,action);
         case actionTypes.GET_ALL_TEAMS_SUCCESS: return getTeamsSuccess(state,action);
+
+        case actionTypes.REMOVE_PLAYER_START: return removePlayerStart(state,action);
+        case actionTypes.REMOVE_PLAYER_SUCCESS: return removePlayerSuccess(state,action);
+        case actionTypes.REMOVE_PLAYER_FAIL: return removePlayerFail(state,action);
+        
         default: return state;
 }
 }

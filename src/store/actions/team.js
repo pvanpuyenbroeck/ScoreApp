@@ -111,10 +111,11 @@ export const getTeam = (teamId, token, userId) => {
     }
 }
 
-export const addPlayerToTeamStart = () => {
+export const addPlayerToTeamStart = (updatedTeam) => {
     return {
         type: actionTypes.ADD_PLAYER_TO_TEAM_START,
         loading: true,
+        updatedTeam: updatedTeam,
     }
 }
 
@@ -139,21 +140,56 @@ export const closeFunctionModal = () => {
     }
 }
 
-export const addPlayerToTeam = (teamId, updatedTeamMembers) => {
-    console.log(updatedTeamMembers);
+export const addPlayerToTeam = (team, updatedTeamMembers) => {
+    const updatedTeam = {...team};
+    updatedTeam.TeamMembers = updatedTeamMembers;
     return dispatch => {
-        dispatch(addPlayerToTeamStart());
-        firebase.database().ref('/Teams/' + teamId + '/TeamMembers/').set(updatedTeamMembers)
+        dispatch(addPlayerToTeamStart(updatedTeam));
+        firebase.database().ref('/Teams/' + team.teamId + '/TeamMembers/').set(updatedTeamMembers)
             .then(response => {
                 dispatch(addPlayerToTeamSuccess());
                 dispatch(closeFunctionModal());
-                dispatch(getAllTeams());
+                // dispatch(getAllTeams());
             })
             .catch(error => {
                 dispatch(addPlayerToTeamFail(error));
             })
         // window.location.reload()
         // this.props.closeModal(); 
+    }
+}
+
+export const removePlayerStart = () => {
+    return{
+        type: actionTypes.REMOVE_PLAYER_START
+    }
+}
+
+export const removePlayerSuccess = () => {
+    return{
+        type: actionTypes.REMOVE_PLAYER_SUCCESS
+    }
+}
+export const removePlayerFail = (err) => {
+    return{
+        type: actionTypes.REMOVE_PLAYER_FAIL,
+        error: err,
+    }
+}
+export const removePlayerFromTeam = (playerid, teamid, activePlayers) => {
+    let updatedTeamMembers = {...activePlayers};
+    updatedTeamMembers[playerid] = {
+        ...updatedTeamMembers[playerid],
+        active: false,
+    }
+    return dispatch => {
+        dispatch(removePlayerStart());
+        firebase.database().ref('/Teams/' + teamid + "/TeamMembers/").set(updatedTeamMembers)
+        .then(response => {
+            dispatch(removePlayerSuccess());
+        }).catch(err => {
+            dispatch(removePlayerFail(err));
+        }) 
     }
 }
 

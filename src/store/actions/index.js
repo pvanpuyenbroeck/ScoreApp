@@ -3,6 +3,7 @@ export{
     getTeam,
     addPlayerToTeam,
     getAllTeams,
+    removePlayerFromTeam,
 } from './team';
 
 export{

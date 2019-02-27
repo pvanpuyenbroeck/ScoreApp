@@ -25,6 +25,10 @@
     margin-top: 8px;
 }
 
+.CloseButton:hover{
+    cursor:pointer;
+}
+
 .HideCloseButton{
     opacity:0;
 }

@@ -74,6 +74,12 @@ class playerButton extends Component {
             backgroundImage: `url(${CloseButton})`,
             // visibility: `${this.state.closeButton}`
         }
+
+        const adminStyle = {
+            color: 'blue',
+        }
+
+
         // if(typeof this.props.user.photoURL !== "undefined"){
         //     image = <img src={this.props.user.avatar} alt="User"/>;
         // }

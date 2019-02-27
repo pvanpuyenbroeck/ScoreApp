@@ -37,6 +37,7 @@ class Team extends Component {
         showToggle: false,
         showMatchControl: false,
         selectedMatch:{},
+        teamMembers:{},
     }
     // pick(obj, keys) {
     //     return keys.map(k => k in obj ? { [k]: obj[k] } : {})
@@ -67,8 +68,9 @@ class Team extends Component {
     }
 
     removePlayerClickedHandler(playerId) {
-        console.log(playerId);
-
+        // alert('Wil je deze speler verwijderen uit uw team?');    
+        this.props.removePlayerFromTeam(playerId, this.props.team.teamId, this.props.team.TeamMembers)
+        this.props.selectedTeam(this.props.team.teamId, this.props.token, this.props.userId);
     }
     render() {
         let teamControl = "";
@@ -121,6 +123,7 @@ const mapDispatchToProps = dispatch => {
         showComponent: (component) => dispatch(actions.showComponent(component)),
         matchSelected: (match) => dispatch(actions.setSelectedMatchInfo(match)),
         changeLocation: (location) => dispatch(actions.locationChange(location)),
+        removePlayerFromTeam: (playerid, teamid, teamMembers) => dispatch(actions.removePlayerFromTeam(playerid,teamid,teamMembers))
     }
 }
 

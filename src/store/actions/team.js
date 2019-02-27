@@ -68,8 +68,8 @@ const pick = (obj, keys) => {
         .reduce((res, o) => Object.assign(res, o), {});
 }
 
-export const getTeam = (teamId, token, userId) => {
-    console.log(token);
+export const getTeam = (teamId) => {
+    // console.log(token);
     return dispatch => {
         dispatch(getTeamStart());
         console.log(firebase);

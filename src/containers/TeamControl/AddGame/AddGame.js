@@ -100,7 +100,7 @@ class AddGame extends Component {
     gameSubmitHandler = (event) => {
         event.preventDefault();
         console.log(this.props);
-        const refTeamPlayers = firebase.database().ref('/Teams/' + this.props.team.teamId + '/Matches');
+        // const refTeamPlayers = firebase.database().ref('/Teams/' + this.props.team.teamId + '/Matches');
         // this.setState({
         //     loading: true,
         // })
@@ -113,17 +113,18 @@ class AddGame extends Component {
             gameData: formData,
             oponentGoals: 0,
         }
-        refTeamPlayers.push(gameInfo)
-            .then(response => {
-                this.setState({ loading: false, });
-                // this.props.history.push({
-                //     // pathname: '/Team/' + gameInfo.gameData.teamId,
+        // refTeamPlayers.push(gameInfo)
+        //     .then(response => {
+        //         this.setState({ loading: false, });
+        //         // this.props.history.push({
+        //         //     // pathname: '/Team/' + gameInfo.gameData.teamId,
 
-                // });
-            })
-            .catch(error => {
-                this.setState({ loading: false });
-            })
+        //         // });
+        //     })
+        //     .catch(error => {
+        //         this.setState({ loading: false });
+        //     })
+        this.props.AddMatchtoTeam(gameInfo, this.props.team);
         this.props.CloseModal();
     }
 
@@ -191,7 +192,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        CloseModal: () => dispatch(actions.closeModal())
+        CloseModal: () => dispatch(actions.closeModal()),
+        AddMatchtoTeam: (gamedata, team) => dispatch(actions.addMatch(gamedata, team))
     }
 }
 

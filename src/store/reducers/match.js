@@ -7,6 +7,8 @@ const initialState = {
     loading: true,
     oponentGoals: 0,
     matchSaved: true,
+    matchAddStarted: false,
+    error:"",
 }
 
 const setSelectedMatch = (state, action) => {
@@ -84,6 +86,28 @@ const setFalseSaveState = (state,action) => {
     }
 }
 
+const addMatchStart = (state,action) => {
+    return{
+        ...state,
+        matchAddStarted: true,
+    }
+}
+
+const addMatchFail = (state,action) => {
+    return{
+        ...state,
+        matchAddStarted: false,
+        error:action.error,
+    }
+}
+
+const addMatchSuccess = (state,action) => {
+    return{
+        ...state,
+        matchAddStarted: false,
+    }
+}
+
 const reducer = (state = initialState, action) => {
     switch(action.type){
         case actionTypes.SET_SELECTED_MATCH:
@@ -106,6 +130,12 @@ const reducer = (state = initialState, action) => {
         return saveMatchStatsFail(state,action);
         case actionTypes.SET_FALSE_SAVE_STATE:
         return setFalseSaveState(state,action);
+        case actionTypes.ADD_MATCH_START:
+        return addMatchStart(state,action)
+        case actionTypes.ADD_MATCH_FAIL:
+        return addMatchFail(state, action);
+        case actionTypes.ADD_MATCH_SUCCESS:
+        return addMatchSuccess(state, action);
         // return setMatchInfo(state,action);
         default: return state;
     }

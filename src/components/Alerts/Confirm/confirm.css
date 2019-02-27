@@ -1,19 +1,50 @@
 .ConfirmContainer{
-
+    width: 400px;
+    height: 200px;
+    position: absolute;
+    display: inline-block;
+    z-index: 100;
+    border: 1px solid #C33325;
+    border-radius: 5px;
+    background-color: white;
 }
 
 .Message{
+    margin-top: 20px;
+    text-align:center;
+    font-weight: bold;
+}
 
+.ButtonContainer{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 80%;
 }
 
 .Button{
+    width: 100px;
+    height: 50px;
+    display: inline-block;
+    text-align:center;
+    vertical-align: middle;
+    color:white;
+    align-items: center;
+    border-radius: 5px;
+}
 
+.Button h3{
+    margin-top: 15px;
+}
+
+.Button:hover{
+    cursor: pointer;
 }
 
 .Button1{
-
+    background-color: #2C8693;
 }
 
 .Button2{
-    
+    background-color:#C33325;
 }

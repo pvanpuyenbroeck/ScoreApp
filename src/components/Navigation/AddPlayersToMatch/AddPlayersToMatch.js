@@ -11,22 +11,21 @@ const addPlayersToMatch = props => {
     if (!props.visible) {
         classessArray.push(classes.Hide);
     }
-    console.log(props);
     if (props.playerDetails) {
         for (let key in props.playerDetails) {
-            console.log(key);
             allPlayers.push({
                 playerId: key,
+                key: key,
                 ...props.playerDetails[key]
             })
         }
         const playersArray = Object.values(allPlayers)
         players = <Spinner />;
         players = playersArray.map(player => {
-            console.log(player);
+            if(player.active){
             return (
                 <PlayerButton
-                    key={player.userId}
+                    key={player.userid}
                     playerid={player.userid}
                     name={player.voornaam + " " + player.familienaam}
                     number={player.playerNumber}
@@ -34,7 +33,9 @@ const addPlayersToMatch = props => {
                     attending={player.attending}
                     playerSelect={true}
                 />
-            )
+            )}else{
+                return null;
+            }
         })
     } else {
         players = <h2>Voeg spelers toe</h2>

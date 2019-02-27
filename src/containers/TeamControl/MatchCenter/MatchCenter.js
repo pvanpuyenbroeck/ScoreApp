@@ -7,7 +7,7 @@ import AddPlayerstoMatch from '../../../components/Navigation/AddPlayersToMatch/
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import { Redirect } from 'react-router';
 import Aux from '../../../hoc/_Aux/_Aux';
-import Button from '../../../components/UI/Button/Button/Button';
+// import Button from '../../../components/UI/Button/Button/Button';
 
 
 class matchCenter extends Component {
@@ -25,9 +25,9 @@ class matchCenter extends Component {
 
     // }
     componentWillMount() {
-        if(typeof this.props.team.teamName === 'undefined'){
+        if (typeof this.props.team.teamName === 'undefined') {
             this.props.history.push('/selectTeam');
-        }else{
+        } else {
             this.setInitialPlayers();
         }
     }
@@ -54,11 +54,14 @@ class matchCenter extends Component {
                     ...this.props.team.filteredPlayers[key],
                     goals: goals,
                     attending: attending,
+                    active: this.props.team.TeamMembers[key].active
                 }
             } else (updateFilteredPlayer[key] = {
                 ...this.props.team.filteredPlayers[key],
                 goals: goals,
                 attending: attending,
+                //toevoegen van de actieve status
+                active: this.props.team.TeamMembers[key].active
             })
         }
         let homeGoals = 0;
@@ -67,7 +70,6 @@ class matchCenter extends Component {
                 homeGoals = homeGoals + participants[player].goals;
             }
         }
-        console.log(this.props);
         // this.props.setSelectedPlayers(updateFilteredPlayer, this.props.team.teamId, this.props.match.selectedMatch.matchId)
         this.setState({
             teamMembers: updateFilteredPlayer,
@@ -79,7 +81,6 @@ class matchCenter extends Component {
     }
 
     playerButtonClicked(playerId) {
-        console.log(playerId);
         let updatedTeamMembers = { ...this.state.teamMembers };
         updatedTeamMembers[playerId].attending = !updatedTeamMembers[playerId].attending;
         this.props.setSelectedPlayers(updatedTeamMembers, this.props.team.teamId, this.props.match.selectedMatch.matchId)
@@ -166,13 +167,13 @@ class matchCenter extends Component {
         if (this.props.match.selectedMatch !== null) {
             if (players.length > 0) {
                 PlayerFrames = players.map(playerInfo => {
-                    console.log(playerInfo);
                     let playerName = playerInfo.username;
-                    if(typeof playerName === 'undefined'){
+                    if (typeof playerName === 'undefined') {
                         playerName = playerInfo.voornaam + ' ' + playerInfo.familienaam;
                     }
                     return (
                         <MatchPlayerFrame
+                            key={playerInfo.userid}
                             username={playerName}
                             plusClicked={() => this.goalHandler(playerInfo.userid, 'add')}
                             minClicked={() => this.goalHandler(playerInfo.userid, 'min')}

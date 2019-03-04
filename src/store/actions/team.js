@@ -1,5 +1,4 @@
 import * as actionTypes from './actionTypes';
-import axios from '../../axios-scoreapp';
 import firebase from '../../firebase-scoreapp';
 
 export const addTeamSuccess = () => {
@@ -44,7 +43,6 @@ export const addTeam = (teamData) => {
 
 
 export const getTeamSuccess = (selectedTeam) => {
-    console.log(selectedTeam);
     return {
         type: actionTypes.GET_TEAM_SUCCESS,
         selectedTeam: selectedTeam,
@@ -69,22 +67,16 @@ const pick = (obj, keys) => {
 }
 
 export const getTeam = (teamId) => {
-    // console.log(token);
     return dispatch => {
         dispatch(getTeamStart());
-        console.log(firebase);
         firebase.database().ref('/Teams/' + teamId).once('value').then(res => {
             const team = res.val();
-            console.log(res.val());
             if (team.TeamMembers) {
                 const players = Object.keys(team.TeamMembers);
                 firebase.database().ref('/Players').once('value').then(allPlayers => {
                     const allTeamMembers = allPlayers.val();
-                    console.log(allTeamMembers);
                     const filteredPlayers = pick(allTeamMembers, players);
-                    console.log(filteredPlayers);
                     for (let key in filteredPlayers) {
-                        console.log(key);
                         filteredPlayers[key] = {
                             ...filteredPlayers[key],
                             playerNumber: team.TeamMembers[key].number,
@@ -95,7 +87,6 @@ export const getTeam = (teamId) => {
                         teamId: teamId,
                         filteredPlayers: filteredPlayers,
                     }));
-                    console.log(filteredPlayers);
                 })
             } else {
                 dispatch(getTeamSuccess({
@@ -228,7 +219,6 @@ export const getAllTeams = (userId = null, token = null) => {
                         id: key,
                     });
                 }
-                console.log(fetchedTeams);
                 dispatch(getAllTeamSuccess(fetchedTeams));
             }).catch(error => {
                 dispatch(getAllTeamFail(error));

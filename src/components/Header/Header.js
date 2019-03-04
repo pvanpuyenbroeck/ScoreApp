@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import classes from './Header.css';
 import { connect } from 'react-redux';
 import NavPanelLink from '../Navigation/NavPanel/NavPanelLink/NavPanelLink';
-import { NavLink } from 'react-router-dom';
 import * as actions from '../../store/actions/index';
 
 class header extends Component {
@@ -26,7 +25,7 @@ class header extends Component {
             </NavLink> 
                 </NavPanelLink>
                 <NavPanelLink NavClicked={() => this.props.navItemClicked("AddTeam")}>Add Team</NavPanelLink> */}
-                <NavPanelLink NavClicked={() => this.props.navItemClicked("AddPlayer")}>Add New Player</NavPanelLink>
+                {/* <NavPanelLink NavClicked={() => this.props.navItemClicked("AddPlayer")}>Add New Player</NavPanelLink> */}
                 <NavPanelLink NavClicked={() => this.logout()}>Logout</NavPanelLink>
             </div>
             )

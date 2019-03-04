@@ -4,7 +4,6 @@ import SelectedTeamButton from '../../../components/Team/SelectTeamButton/Select
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
-import teamIcon from '../../../assets/Images/team.png';
 
 class TeamsOverview extends Component {
     state = {

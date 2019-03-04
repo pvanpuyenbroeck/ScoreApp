@@ -1,6 +1,5 @@
 import React from 'react';
 import classes from './Players.css';
-import GetAllPlayers from './getAllPlayers';
 import Spinner from '../../UI/Spinner/Spinner';
 import PlayerButton from '../PlayerButton/PlayerButton';
 
@@ -9,10 +8,8 @@ const Players = (props) => {
     // let players = GetAllPlayers(props);
     let players = "";
     let allPlayers = [];
-    console.log(props);
     if (props.playerDetails) {
         for (let key in props.playerDetails) {
-            console.log(key);
             if (props.team.TeamMembers[key].active) {
                 allPlayers.push({
                     playerId: key,
@@ -23,7 +20,6 @@ const Players = (props) => {
         const playersArray = Object.values(allPlayers)
         players = <Spinner />;
         players = playersArray.map(player => {
-            console.log(player);
             return (
                 <PlayerButton
                     key={player.userid}

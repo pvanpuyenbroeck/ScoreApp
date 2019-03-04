@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import NavPanel from '../../components/Navigation/NavPanel/NavPanel';
 import * as actions from '../../store/actions/index';
 import SidePanel from '../../components/Navigation/SidePanel/SidePanel';
-import {Backgroundimage} from './layoutstyling';
 import image from '../../assets/Images/background_1.jpg';
 
 
@@ -21,9 +20,7 @@ class Layout extends Component {
         }
         this.props.breadcrumbClicked(clickedItem.navNumber);
     }
-    render() {
-        console.log(this.props);
-        
+    render() {        
         const backgroundStyle = {
             // backgroundImage: `url(${image})`,
             // backgroundColor: '#ccc',

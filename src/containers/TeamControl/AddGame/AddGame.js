@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import classes from './AddGame.css';
-import Input from '../../../components/UI/Input/Input';
 import Spinner from '../../../components/UI/Spinner/Spinner';
-import firebase from '../../../firebase-scoreapp';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
 import TextInput from '@material-ui/core/TextField';
-import styled from 'styled-components';
 
 class AddGame extends Component {
 

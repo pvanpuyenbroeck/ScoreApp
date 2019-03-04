@@ -19,7 +19,6 @@ class sidePanel extends Component {
         if (this.props.showToggle) {
             attachedClasses.push(classes.SidePanelOpen)
         }
-        console.log(this.props);
         const flexComponent = <AddPlayer />;
 
         let navPanels = (

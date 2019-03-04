@@ -3,7 +3,6 @@ import Players from '../../../components/Players/Players/Players';
 import Games from '../../../components/Games/Games';
 import Modal from '../../../components/UI/Modal/Modal';
 import TeamFunctionMenu from '../../../components/Navigation/TeamFunctionMenu/TeamFunctionMenu';
-import Toggle from '../../../components/UI/Toggle/Toggle';
 import { connect } from 'react-redux';
 import MatchCenter from '../MatchCenter/MatchCenter';
 import * as actions from '../../../store/actions/index';

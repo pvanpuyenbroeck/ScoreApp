@@ -3,8 +3,6 @@ import classes from './Breadcrumb.css';
 import { NavLink } from 'react-router-dom';
 
 const breadcrumb = (props) => {
-    console.log(props);
-
     let breadCrumbClass = [classes.Breadcrumb];
     if(props.navActive){
         breadCrumbClass.push(classes.Active);
@@ -22,7 +20,7 @@ const breadcrumb = (props) => {
                 {typeof props.dropdown !== 'undefined' &&
                     <ul>
                         {props.dropdown.map(item => {
-                            return (<li><div className={classes.Breadcrumb} onClick={() => props.navClicked(item.id)}>{item.text}</div></li>)
+                            return (<li key={item.id}><div className={classes.Breadcrumb} onClick={() => props.navClicked(item.id)}>{item.text}</div></li>)
                         })}
                     </ul>
                 }

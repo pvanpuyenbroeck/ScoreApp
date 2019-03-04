@@ -11,7 +11,7 @@ import {connect} from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import MatchCenter from '../TeamControl/MatchCenter/MatchCenter';
 import Auth from '../Auth/Auth';
-import Aux from '../../hoc/_Aux/_Aux';
+
 
 class TeamControl extends Component {
     render() {

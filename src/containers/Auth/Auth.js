@@ -6,7 +6,6 @@ import Input from '../../components/UI/Input/Input';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import { Redirect } from 'react-router';
 import Button from '../../components/UI/Button/Button/Button';
-import firebase from '../../firebase-scoreapp';
 import GoogleButton from 'react-google-button';
 
 

@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import classes from './PlayerButton.css';
 // import profilePic from '../../../assets/Images/profilePic.jpg';
 import firebase from '../../../firebase-scoreapp';
@@ -75,9 +75,9 @@ class playerButton extends Component {
             // visibility: `${this.state.closeButton}`
         }
 
-        const adminStyle = {
-            color: 'blue',
-        }
+        // const adminStyle = {
+        //     color: 'blue',
+        // }
 
 
         // if(typeof this.props.user.photoURL !== "undefined"){

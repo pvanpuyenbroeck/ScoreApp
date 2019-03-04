@@ -3,7 +3,6 @@ import classes from './Games.css';
 import Match from '../Games/Match/Match';
 
 const games = (props) => {
-    console.log(props);
     let gameArray = [];
     for(let key in props.matches){
         gameArray.push({
@@ -11,11 +10,9 @@ const games = (props) => {
             matchId:key,
         });
     }
-    console.log(gameArray);
     let allGames = <h1>Er zijn geen geplande matches</h1>
     if (props.matches) {
         allGames = gameArray.map((game) => {
-            console.log(game);
             return (
                 <Match 
                 key={game.matchId} 
@@ -28,7 +25,7 @@ const games = (props) => {
     }
     return (
         <div className={classes.Games}>
-        <h1>Matches:</h1>
+        <h1>Matches</h1>
         {allGames}            
         </div>
     )

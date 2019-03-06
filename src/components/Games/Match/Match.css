@@ -2,9 +2,40 @@
     margin-bottom: 5px;
 }
 
+.ShowOptions, .CloseButton{
+    max-height: 30px;
+    opacity: 1;
+    width: 100%;
+    overflow: hidden;
+    transition: max-height 1s;
+
+}
+
+.HideOptions, .CloseButton{
+    max-height: O;
+    width: 100%;
+    overflow: hidden;
+    transition: max-height 1s;
+}
+
 .OpponentName{
 
 }
+
+.CloseButton{
+    height: 20px;
+    width: 20px;
+    position: relative;
+    display: inline-block;
+    float: right;
+    background-position: center;
+    background-size: contain;
+    margin-top: 8px;
+}
+
+/* .OptionField{
+    height: 50px;
+} */
 
 .GameDate{
     background-color:#105187;

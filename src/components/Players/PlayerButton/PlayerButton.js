@@ -87,7 +87,7 @@ class playerButton extends Component {
         //     image = this.getInitials();
         // }
         return (
-            <React.Fragment>
+            <div className={classes.PlayerButtonContainer}>
                 <div className={playerButtonFunctionsClasses.join(' ')}>
                     <div
                         style={closeButtonStyle}
@@ -107,13 +107,13 @@ class playerButton extends Component {
                         {image}
                     </div>
                     <div className={classes.Name}>
-                        {this.props.name}
+                        <div>{this.props.name}</div>
                     </div>
                     <div className={classes.PlayerNumber}>
                         <h1>{this.props.number}</h1>
                     </div>
                 </div>
-            </React.Fragment>
+            </div>
         )
     }
 

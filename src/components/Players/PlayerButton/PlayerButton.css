@@ -1,19 +1,23 @@
-.PlayerButton{
+.PlayerButton {
     width: 300px;
     height: 100px;
     color: #F0F1D5;
     background-color: #105187;
     border-radius: 5px;
-    /* margin: 5px 2px; */
-    display: table;
+    display: flex;
     box-sizing: border-box;
-    font-size:1em;
-    vertical-align: middle;
-    float:right;
-    margin-right:0;
+    font-size: 1em;
+    align-content: stretch;
+    align-items: stretch;
+    margin-right: 1rem;
 }
 
-.CloseButton{
+.PlayerButtonContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+.CloseButton {
     height: 20px;
     width: 20px;
     position: relative;
@@ -25,82 +29,84 @@
     margin-top: 8px;
 }
 
-.CloseButton:hover{
-    cursor:pointer;
+.CloseButton:hover {
+    cursor: pointer;
 }
 
-.HideCloseButton{
-    opacity:0;
+.HideCloseButton {
+    opacity: 0;
 }
 
-.ShowCloseButton{
+.ShowCloseButton {
     opacity: 1;
     transition: opacity 1s;
 }
 
-.PlayerButton .Image{
-    display: table-cell;
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
+.PlayerButton .Image {
+    display: flex;
     vertical-align: middle;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.PlayerButton img{
+.PlayerButton img {
     width: 50px;
     height: 50px;
-    display: table-cell;
+    display: flex;
     margin: 5px;
-    left:0;
+    left: 0;
     border: 1px solid white;
     border-radius: 50%;
 }
 
-.PlayerButton .Name{
-    display:table-cell;
-    height: 35px;
-    width:200px;
+.PlayerButton .Name {
+    display: flex;
     padding-top: 3px;
-    vertical-align: middle;
+    flex-grow: 2;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-.PlayerNumber{
-    height: 50%;
+.PlayerNumber {
     width: 10%;
     text-align: center;
-    display: table-cell;
+    display: flex;
     vertical-align: middle;
     color: #C33325;
     background-color: #F0F1D5;
     border-radius: 0 5px 5px 0;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
-.Red{
-    background-color:#C33325;
+.Red {
+    background-color: #C33325;
     border: 1px solid #C33325;
 }
 
-.Green{
-    background-color:#2C8693;
-    border:1px solid #2C8693;
+.Green {
+    background-color: #2C8693;
+    border: 1px solid #2C8693;
 }
 
-.Avatar{
+.Avatar {
     margin-left: 5px;
 }
 
-.HoverOptions{
+.HoverOptions {
     width: 300px;
     height: 30px;
     display: inline-block;
 }
 
-@media(min-width: 650px){
-    .PlayerButton{
-        width: 400px;
+@media(min-width: 650px) {
+    .PlayerButton {
+        width: 300px;
     }
-
-    .HoverOptions{
-        width: 400px;
+    .HoverOptions {
+        width: 300px;
     }
 }

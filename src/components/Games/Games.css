@@ -1,15 +1,18 @@
 .GamesContainer {
     width: 80%;
+    margin: 0 auto;
 }
 
-.Matches{
+.Matches {
     font-family: 'Poppins', sans-serif;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 
-.Match{
+.Match {
     min-width: 200px;
+    margin-right: 5px;
 }
 
 h1 {
@@ -17,7 +20,5 @@ h1 {
 }
 
 @media(min-width: 650px) {
-    .Games {
-
-    }
+    .Games {}
 }

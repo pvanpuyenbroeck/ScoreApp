@@ -14,9 +14,9 @@ const games = (props) => {
     if (props.matches) {
         allGames = gameArray.map((game) => {
             return (
-                <div className={classes.Match}>
+                <div className={classes.Match}
+                    key={game.matchId}>
                     <Match
-                        key={game.matchId}
                         match={game}
                         matchButtonClicked={(match) => props.matchClicked(match)}
                         team={props.team}

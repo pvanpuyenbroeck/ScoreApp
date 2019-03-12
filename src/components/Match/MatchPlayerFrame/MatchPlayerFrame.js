@@ -19,11 +19,11 @@ const matchPlayerFrame = props => {
                 </div>
             </div>
             <div className={classes.Scoring}>
-                <div className={plusClasses.join(' ')} onClick={props.plusClicked}><img alt="plus" src={plus}/></div>
+                <div className={minusClasses.join(' ')} onClick={props.minClicked}><img alt="minus" src={minus} /></div>
                 <div className={classes.GoalsScored}>{props.goals}</div>
-                <div className={minusClasses.join(' ')} onClick={props.minClicked}><img alt="minus" src={minus}/></div>
+                <div className={plusClasses.join(' ')} onClick={props.plusClicked}><img alt="plus" src={plus} /></div>
             </div>
-            <div className={classes.MoreButton}><img alt="more button" src={moreButton}/></div>
+            <div className={classes.MoreButton}><img alt="more button" src={moreButton} /></div>
         </div>
     )
 }

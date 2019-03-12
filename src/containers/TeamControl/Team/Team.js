@@ -13,25 +13,6 @@ import Confirm from '../../../components/Alerts/Confirm/confirm';
 class Team extends Component {
 
     state = {
-        team: {
-            teamId: '',
-            players: {},
-            teamName: '',
-            matches: [{
-                matchId: '',
-                season: '',
-                date: '',
-                opponent: '',
-                homeGoals: 0,
-                opponentGoals: 0,
-                matchImage: '',
-                participatingPlayers: [{
-                    playerId: '',
-                    goalsScored: 0,
-                }]
-            }],
-            admin: '',
-        },
         playerDetails: {},
         showModal: false,
         showToggle: false,
@@ -82,6 +63,12 @@ class Team extends Component {
         this.setState({showConfirm:false, playeridToRemove:""});
     }
 
+    removeMatchHandler(matchId){
+        let updatedMatches = {...this.props.team.Matches}
+        delete updatedMatches[matchId];
+        this.props.removeMatchFromTeam(updatedMatches, this.props.team.teamId);
+    }
+
     render() {
         let teamControl = "";
         if (this.props.loading) {
@@ -95,7 +82,7 @@ class Team extends Component {
                     <Aux>
                         {/*}<Toggle toggleClicked={() => this.props.showFunctionMenu()} classtheme="TeamButton">MY TEAM</Toggle>*/}
                         <Confirm
-                            message={"Weet je zeker dat je deze speler wil verwijderen?"}
+                            message={"Weet je zeker dat je deze speler wilt verwijderen?"}
                             label1={"YES"}
                             label2={"NO"}
                             label1Clicked={() => this.confirmHandler(true)}
@@ -119,6 +106,7 @@ class Team extends Component {
                             teamId={this.props.team.teamId}
                             matchClicked={(match) => this.matchSelected(match)}
                             team={this.props.team}
+                            removeMatchClicked={(matchId) => this.removeMatchHandler(matchId)}
                         />
                     </Aux>
                 )
@@ -141,7 +129,8 @@ const mapDispatchToProps = dispatch => {
         showComponent: (component) => dispatch(actions.showComponent(component)),
         matchSelected: (match) => dispatch(actions.setSelectedMatchInfo(match)),
         changeLocation: (location) => dispatch(actions.locationChange(location)),
-        removePlayerFromTeam: (playerid, teamid, teamMembers) => dispatch(actions.removePlayerFromTeam(playerid, teamid, teamMembers))
+        removePlayerFromTeam: (playerid, teamid, teamMembers) => dispatch(actions.removePlayerFromTeam(playerid, teamid, teamMembers)),
+        removeMatchFromTeam: (updatedMatches, teamId) => dispatch(actions.removeMatchFromTeam(updatedMatches, teamId)),
     }
 }
 

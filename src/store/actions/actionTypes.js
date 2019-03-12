@@ -2,6 +2,9 @@ export const ADD_TEAM = 'ADD_TEAM';
 export const ADD_TEAM_SUCCESS = 'ADD_TEAM_SUCCESS';
 export const ADD_TEAM_FAIL = 'ADD_TEAM_FAIL';
 export const ADD_TEAM_START = 'ADD_TEAM_START';
+export const REMOVE_MATCH_START = 'REMOVE_MATCH_START';
+export const REMOVE_MATCH_FAIL = 'REMOVE_MATCH_FAIL';
+export const REMOVE_MATCH_SUCCESS = 'REMOVE_MATCH_SUCCESS';
 
 export const GET_TEAM = 'GET_TEAM';
 export const GET_TEAM_START = 'GET_TEAM_START';

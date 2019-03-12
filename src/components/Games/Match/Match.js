@@ -47,10 +47,13 @@ const Match = (props) => {
 
     return (
         <React.Fragment>
-            <div className={showOptions}>
+            <div className={showOptions}
+                    onMouseEnter={() => setShowHideOptionsHandler(classes.ShowOptions)}
+                    onMouseLeave={() => setShowHideOptionsHandler(classes.HideOptions)} >
                 <div
                     style={closeButtonStyle} 
-                    className={classes.CloseButton} 
+                    className={classes.CloseButton}
+                    onClick={(teamId) => props.removeMatchClicked(teamId)}
                 ></div>
             </div>
             <Link to={"/Team/" + props.team.teamId + "/Match/" + props.match.matchId} style={{ textDecoration: 'none' }}>

@@ -19,6 +19,7 @@ const games = (props) => {
                 match={game} 
                 matchButtonClicked={(match) => props.matchClicked(match)} 
                 team={props.team}
+                removeMatchClicked={(matchId) => props.removeMatchClicked(game.matchId)}
                 />
             )
         })

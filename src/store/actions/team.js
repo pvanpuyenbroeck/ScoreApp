@@ -225,3 +225,35 @@ export const getAllTeams = (userId = null, token = null) => {
             })
     }
 }
+
+export const removeMatchFromTeam = (updatedMatches, teamId) => {
+    return dispatch => {
+        dispatch(removeMatchStart());
+        firebase.database().ref('/Teams/' + teamId + '/Matches/').set(updatedMatches)
+        .then(response => {
+            dispatch(removeMatchSuccess(updatedMatches));
+        }).catch(err => {
+            dispatch(removeMatchFail(err));
+        })
+    }
+}
+
+export const removeMatchStart = () => {
+    return {
+        type: actionTypes.REMOVE_MATCH_START,
+    }
+}
+
+export const removeMatchFail = (error) => {
+    return {
+        type: actionTypes.REMOVE_MATCH_FAIL,
+        error: error,
+    }
+}
+
+export const removeMatchSuccess = (updatedMatches) => {
+    return {
+        type: actionTypes.REMOVE_MATCH_SUCCESS,
+        updatedMatches: updatedMatches,
+    }
+}

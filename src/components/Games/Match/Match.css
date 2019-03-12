@@ -2,19 +2,18 @@
     margin-bottom: 5px;
 }
 
-.ShowOptions, .CloseButton{
+.ShowOptions{
     max-height: 30px;
-    opacity: 1;
     width: 100%;
     overflow: hidden;
     transition: max-height 1s;
-
+    cursor: pointer;
 }
 
-.HideOptions, .CloseButton{
-    max-height: O;
-    width: 100%;
+.HideOptions{
+    max-height: 0px;
     overflow: hidden;
+    width: 100%;
     transition: max-height 1s;
 }
 

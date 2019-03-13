@@ -14,24 +14,23 @@ const Match = (props) => {
     for (let key in props.match.Participants) {
         homeGoals += props.match.Participants[key].goals;
     }
-    const TeamName = styled.div`
-        width:100%;
-        color: ${colors.blue};
-        ${'' /* background-color: ${colors.beige}; */}
-        text-align:left;
-    `
-    const OponentName = styled.div`
-        font-size:1.5rem;
-        font-weight: bold;
-    `
     const dateFormat = () => {
         let date = new Date(props.match.gameData.date);
         const day = date.getDate();
-        const month = date.getMonth() + 1
+        const month = date.getMonth();
         const year = date.getFullYear();
         const hour = date.getHours();
         const minutes = date.getMinutes();
-        return `${day}-${month}-${year}  ${hour}:${minutes}`
+        const months = ['Januari', 'Februari','Maart','April','Mei','Juni','Juli','Augustus','September','Oktober','November','December'];
+        return (
+            <React.Fragment>
+                <div>{day}</div>
+                <div>{months[month]}</div>
+                <div>{hour}:{minutes}</div>
+                <div>{year}</div>
+            </React.Fragment>
+        )
+        // `${day}-${month}-${year}  ${hour}:${minutes}`
     }
 
     const setShowHideOptionsHandler = (showClass) => {
@@ -57,22 +56,20 @@ const Match = (props) => {
                 ></div>
             </div>
             <Link to={"/Team/" + props.team.teamId + "/Match/" + props.match.matchId} style={{ textDecoration: 'none' }}>
-                <StyledLink
+                <div
                     className={classes.Match}
                     onClick={() => props.matchButtonClicked(props.match)}
                     onMouseEnter={() => setShowHideOptionsHandler(classes.ShowOptions)}
                     onMouseLeave={() => setShowHideOptionsHandler(classes.HideOptions)}
                 >
                     {/* <div>Afbeelding komt hier</div> */}
-                    <div>
-                        <TeamName>{props.team.teamName}</TeamName>
-                        <OponentName>
+                    <div className={classes.GameDate}>{dateFormat()}</div>
+                        <div className={classes.TeamName}><h1>{props.team.teamName}</h1></div>
+                        <div className={classes.OpponentName}>
                             <div>{typeof props.match.gameData.opponent === 'undefined' ? null : props.match.gameData.opponent}</div>
-                        </OponentName>
+                        </div>
                         <div className={classes.Score}>{homeGoals} - {props.match.oponentGoals}</div>
-                        <div className={classes.GameDate}>{dateFormat()}</div>
-                    </div>
-                </StyledLink>
+                </div>
             </Link>
         </React.Fragment>
     )

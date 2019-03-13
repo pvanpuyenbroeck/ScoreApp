@@ -19,6 +19,19 @@ h1 {
     font-size: 1.1rem;
 }
 
-@media(min-width: 650px) {
-    .Games {}
+@supports(grid-area: auto) {
+    @media(min-width: 650px) {
+        .Matches {
+            display: grid;
+            grid-template-columns: repeat(2, 15em);
+            grid-template-rows: 165px;
+            grid-gap: 1em;
+        }
+    }
+
+    @media(min-width: 900px) {
+        .Matches {
+            grid-template-columns: repeat(3, 15em);
+        }
+    }
 }

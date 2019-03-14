@@ -76,3 +76,11 @@ li ul {
     .Breadcrumb ul li{
     }
   }
+
+  @supports(grid-area: auto){
+    @media screen and (min-width: 600px){
+      .Breadcrumb{
+        grid-area: left-side;
+      }
+    }
+  }

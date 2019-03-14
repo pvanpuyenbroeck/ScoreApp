@@ -2,15 +2,18 @@
     /* height: 500px;    */
     width: 400px;
     box-shadow: 1px 1px black;
-    position:fixed;
     z-index: 106;
-    top:50%;
-    left: 50%;
-    margin-top: -250px;
-    margin-left: -200px;
     background-color: rgba(255, 255, 255, 0.8);
 }
 
 .Hide{
     display: none;
+}
+
+@supports(grid-area: auto){
+    @media screen and (min-width: 650px){
+        .Flexbox{
+            grid-area: main-content;
+        }
+    }
 }

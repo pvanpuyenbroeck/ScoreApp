@@ -25,19 +25,39 @@
     width: 100%;
     transition: max-height 1s;
 }
-.TeamName{
+.MoreOptions{
     width:100%;
     color:  #105187;
     text-align:left;
+    display: flex;
+    flex-direction: row-reverse;
 }
 
-.TeamName h1{
-    margin: 2px auto auto 5px;
+.MoreButton{
+    height: 100%;
+    width: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    margin-right: 2px;
+}
+
+.Opponent{
+    color: #105187;
+}
+
+.OpponentName:hover,
+.GameDate:hover,
+.Score:hover{
+    cursor: pointer;
 }
 .OpponentName {
     font-size:1rem;
     font-weight: bold;
 }
+
+
+
 
 .CloseButton {
     height: 20px;
@@ -67,9 +87,9 @@
     font-size: 1.5rem;
 }
 
-.Match:hover {
+/* .Match:hover {
     cursor: pointer;
-}
+} */
 
 .Score{
     font-size: 1.5rem;

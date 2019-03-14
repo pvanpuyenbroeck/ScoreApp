@@ -11,3 +11,32 @@
   font-family: 'Fira Sans', sans-serif;
 
 }
+
+@supports(grid-area: auto){
+  @media screen and (min-width: 600px){
+    .Layout{
+      display: grid;
+      grid-template-columns: 5em auto 5em;
+      grid-template-rows: 5em 3em auto 5em;
+      grid-template-areas:
+      "header header header"
+      "left-side breadcrumb right-side"
+      "left-side main-content right-side"
+    }
+
+    .BreadcrumbBrowser{
+      grid-area: breadcrumb;
+    }
+
+    main{
+      grid-area: main-content;
+      display: flex;
+    }
+
+    .Flexbox{
+      grid-column: 1/4;
+      grid-row: 2/3;
+      /* justify-content: center; */
+    }
+  }
+}

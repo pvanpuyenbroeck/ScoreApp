@@ -22,9 +22,7 @@
     }
 
     .Players{
-        width:80%;
-        margin: 0 auto;
+        grid-area: players;
         display: inline-block;
-        vertical-align: top;
     }
 }

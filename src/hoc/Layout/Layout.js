@@ -45,10 +45,10 @@ class Layout extends Component {
         }
         return (
             <Aux>
-                <div style={backgroundStyle}>
+                <div style={backgroundStyle} className={classes.Layout}>
                     <Header isAuthenticated={this.props.isAuthenticated} />
-                    <NavPanel toggleClicked={() => this.props.navToggleClicked()} showToggle={this.props.showToggleNav} />
-                    <SidePanel showToggle={this.props.showSidePanel} showFlexbox={this.props.showFlexBox} />
+                    <NavPanel className={classes.NavPanel} toggleClicked={() => this.props.navToggleClicked()} showToggle={this.props.showToggleNav} />
+                    <SidePanel className={classes.SidePanel} showToggle={this.props.showSidePanel} showFlexbox={this.props.showFlexBox} />
                     <div className={classes.BreadcrumbBrowser}>
                         <BreadcrumbBrowser
                             navigation={navigation}
@@ -56,7 +56,7 @@ class Layout extends Component {
                             breadcrumbLocation={this.props.navigation.breadcrumbLocation}
                         />
                     </div>
-                    <main className={classes.Layout}>
+                    <main>
                         {this.props.children}
                     </main>
                 </div>

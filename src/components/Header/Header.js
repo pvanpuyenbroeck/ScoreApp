@@ -37,12 +37,10 @@ class header extends Component {
             )
         }
         return (
-            <div>
                 <div className={classes.Header}>
                     <div className={classes.TeamName}>{this.props.team.teamName}</div>
                     {NavLinks}
                 </div>
-            </div>
         )
     }
 }

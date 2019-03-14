@@ -47,17 +47,17 @@ class App extends Component {
   render() {
     let flexItem = "";
     let routes = (
-      <div>
+      <React.Fragment>
       <Route path="/" exact render={(props) => <Landingpage {...props} user={this.props.user}/>}/>
       <Route path="/Team" component={TeamControl} />
       <Route path="/AddNewPlayer" exact component={AddNewPlayer} />
-      </div>
+      </React.Fragment>
     )
     if(!this.props.isAuthenticated){
       routes = (
-        <div>
+        <React.Fragment>
         <Route path="/" component={Auth} />
-        </div>
+        </React.Fragment>
       )
     }
 
@@ -70,7 +70,7 @@ class App extends Component {
 
 
     return (
-      <Aux>
+      <React.Fragment>
       <Modal modalClosed={() => this.props.ModalClicked()} show={this.props.showModal}/>
       <Layout 
       isAuthenticated={this.props.isAuthenticated}
@@ -84,7 +84,7 @@ class App extends Component {
         <Flexbox show={this.props.showFlexbox} navItem={this.props.navItem}>{flexItem}</Flexbox>
         {routes}
       </Layout>
-      </Aux>
+      </React.Fragment>
     );
   }
 }

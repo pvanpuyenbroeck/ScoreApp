@@ -24,13 +24,13 @@ class AddGame extends Component {
                 valid: false,
             },
             date: {
-                id:'date',
+                id:'datetime-local',
                 elementType: 'datetime-local',
                 elementConfig: {
-                    type: 'date',
+                    type: 'datetime-local',
                     placeholder: null,
                 },
-                value: '2019-01-24T10:30',
+                value: "2017-05-24T10:30",
                 validation: {
                     required: true,
                 },
@@ -159,7 +159,7 @@ class AddGame extends Component {
                         type={formElement.config.elementType}
                         label={typeof formElement.config.elementConfig.placeholder === 'undefined' ? null : formElement.config.elementConfig.placeholder}
                         // elementConfig={formElement.config.elementConfig}
-                        value={formElement.config.value}
+                        // value={formElement.config.value}
                         defaultValue={formElement.config.value}
                         onChange={(event) => this.inputChangedHandler(event, formElement.id)}
                         autoFocus = {false}

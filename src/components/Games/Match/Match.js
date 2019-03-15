@@ -22,12 +22,12 @@ const Match = (props) => {
         const year = date.getFullYear();
         const hour = date.getHours();
         const minutes = date.getMinutes();
-        const months = ['Januari', 'Februari','Maart','April','Mei','Juni','Juli','Augustus','September','Oktober','November','December'];
+        const months = ['Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni', 'Juli', 'Augustus', 'September', 'Oktober', 'November', 'December'];
         return (
             <React.Fragment>
                 <div>{day}</div>
                 <div>{months[month]}</div>
-                <div>{hour}{minutes === 0 ? "u" : ":" + minutes}</div>
+                <div>{hour}{minutes === 0 ? "u" : "u" + minutes}</div>
                 <div>{year}</div>
             </React.Fragment>
         )
@@ -51,42 +51,42 @@ const Match = (props) => {
 
     return (
         <React.Fragment>
-            <div className={showOptions === true ? classes.ShowOptions : classes.HideOptions}
-                    // onMouseEnter={() => setShowHideOptionsHandler(classes.ShowOptions)}
-                    // onMouseLeave={() => setShowHideOptionsHandler(classes.ShowOptions)} 
-                    >
+            <div className={classes.Options}
+            // onMouseEnter={() => setShowHideOptionsHandler(classes.ShowOptions)}
+            // onMouseLeave={() => setShowHideOptionsHandler(classes.ShowOptions)} 
+            >
                 <div
-                    style={closeButtonStyle} 
-                    className={classes.CloseButton}
+                    style={closeButtonStyle}
+                    className={showOptions === true ? classes.ShowOptions : classes.HideOptions}
                     onClick={(teamId) => props.removeMatchClicked(teamId)}
                 ></div>
             </div>
-            
-                <div
-                    className={classes.Match}
-                    onClick={() => props.matchButtonClicked(props.match)}
-                    // onMouseEnter={() => setShowHideOptionsHandler(classes.ShowOptions)}
-                    // onMouseLeave={() => setShowHideOptionsHandler(classes.HideOptions)}
-                >
-                    {/* <div>Afbeelding komt hier</div> */}
-                    <div className={classes.GameDate}>{dateFormat()}</div>
-                        <div className={classes.MoreOptions}>
-                        <div 
-                        style={moreButtonStyle} 
+
+            <div
+                className={classes.Match}
+                onClick={() => props.matchButtonClicked(props.match)}
+            // onMouseEnter={() => setShowHideOptionsHandler(classes.ShowOptions)}
+            // onMouseLeave={() => setShowHideOptionsHandler(classes.HideOptions)}
+            >
+                {/* <div>Afbeelding komt hier</div> */}
+                <div className={classes.GameDate}>{dateFormat()}</div>
+                <div className={classes.MoreOptions}>
+                    <div
+                        style={moreButtonStyle}
                         className={classes.MoreButton}
                         onClick={() => setShowHideOptionsHandler()}
-                        />
-                        </div>
-                        
-                        <div className={classes.OpponentName}>
-                        <Link to={"/Team/" + props.team.teamId + "/Match/" + props.match.matchId} style={{ textDecoration: 'none' }}>
-                            <div className={classes.Opponent}>{typeof props.match.gameData.opponent === 'undefined' ? null : props.match.gameData.opponent}</div>
-                        </Link>
-                        </div>
-                        <div className={classes.Score}>{homeGoals} - {props.match.oponentGoals}</div>
-                        
+                    />
                 </div>
-            
+
+                <div className={classes.OpponentName}>
+                    <Link to={"/Team/" + props.team.teamId + "/Match/" + props.match.matchId} style={{ textDecoration: 'none' }}>
+                        <div className={classes.Opponent}>{typeof props.match.gameData.opponent === 'undefined' ? null : props.match.gameData.opponent}</div>
+                    </Link>
+                </div>
+                <div className={classes.Score}>{homeGoals} - {props.match.oponentGoals}</div>
+
+            </div>
+
         </React.Fragment>
     )
 }

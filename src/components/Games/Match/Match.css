@@ -12,15 +12,22 @@
 }
 
 .ShowOptions {
-    max-height: 30px;
+    height: 30px;
     width: 100%;
     overflow: hidden;
-    transition: max-height 1s;
+    transition: height 1s;
     cursor: pointer;
+    background-repeat: no-repeat;
+}
+
+.Options{
+    height: 30px;
+    width: 100%;
+    overflow: hidden;
 }
 
 .HideOptions {
-    max-height: 0px;
+    height: 0px;
     overflow: hidden;
     width: 100%;
     transition: max-height 1s;

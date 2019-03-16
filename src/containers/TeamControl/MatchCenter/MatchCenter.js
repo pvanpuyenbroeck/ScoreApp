@@ -183,38 +183,31 @@ class matchCenter extends Component {
                 })
             }
             if (typeof this.props.team.teamId !== 'undefined') {
-                let saveGame = [classes.MenuButtons];
+                let saveGame = [classes.SaveGame];
                 if (this.props.matchSaved) {
                     saveGame.push(classes.Hide);
                 }
                 matchCenter = (
                     <div className={classes.MatchCenter}>
                         {/* <Button btnType="RedButton" clicked={() => this.showPlayerSelectWindow()}>Selecteer spelers</Button> */}
-                        <div className={classes.PlayersField}>
-                            <div className={classes.Menu}>
-                                <div className={classes.MenuButtons} onClick={() => this.showPlayerSelectWindow()}>
-                                    <div>Selecteer Speler</div>
-                                </div>
+                        <div className={classes.MenuButtons} onClick={() => this.showPlayerSelectWindow()}>
+                            <div>Selecteer Speler</div>
+                        </div>
 
-                                <div className={saveGame.join(' ')}>
-                                    <div onClick={() => this.props.saveGameStats(this.props.team.teamId, this.props.match.selectedMatch.matchId, this.props.match.selectedMatch)}>Opslaan</div>
-                                </div>
-                                <div className={classes.MenuButtons}>
-                                    <div></div>
-                                    <div onClick={() => this.oponentGoalHandler("add")}><div className={classes.Center}>+</div></div>
-                                    <div onClick={() => this.oponentGoalHandler("minus")}><div className={classes.Center}>-</div></div>
-                                </div>
-                            </div>
-                            <div className={classes.PlayersFieldTitle}>
-                                <div>
-                                    <div className={classes.Score}>{this.state.matchStats.homeScore}</div>
-                                    <div className={classes.MatchTitle}><h2>{this.props.team.teamName} - {this.props.match.selectedMatch.gameData.opponent}</h2></div>
-                                    <div className={classes.Score}>{this.state.matchStats.oponentScore}</div>
-                                </div>
-                            </div>
-                            <div className={classes.PlayersFieldNames}>
-                                {PlayerFrames}
-                            </div>
+                        <div className={saveGame.join(' ')}>
+                            <div onClick={() => this.props.saveGameStats(this.props.team.teamId, this.props.match.selectedMatch.matchId, this.props.match.selectedMatch)}>Opslaan</div>
+                        </div>
+                        <div className={classes.OpponentGoal}>
+                            <div onClick={() => this.oponentGoalHandler("minus")}><div className={classes.Center}>-</div></div>
+                            <div onClick={() => this.oponentGoalHandler("add")}><div className={classes.Center}>+</div></div>
+                        </div>
+                        <div className={classes.PlayersFieldTitle}>
+                            <div className={classes.Score}>{this.state.matchStats.homeScore}</div>
+                            <div className={classes.MatchTitle}><h2>{this.props.team.teamName} - {this.props.match.selectedMatch.gameData.opponent}</h2></div>
+                            <div className={classes.Score}>{this.state.matchStats.oponentScore}</div>
+                        </div>
+                        <div className={classes.PlayersFieldNames}>
+                            {PlayerFrames}
                         </div>
                     </div>
                 )

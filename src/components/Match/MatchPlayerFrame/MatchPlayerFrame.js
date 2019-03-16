@@ -23,7 +23,9 @@ const matchPlayerFrame = props => {
                 <div className={classes.GoalsScored}>{props.goals}</div>
                 <div className={plusClasses.join(' ')} onClick={props.plusClicked}><img alt="plus" src={plus} /></div>
             </div>
-            <div className={classes.MoreButton}><img alt="more button" src={moreButton} /></div>
+            <div className={classes.MoreButton}>
+                <div><img alt="more button" src={moreButton} /></div>
+            </div>
         </div>
     )
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import classes from './Games.css';
 import Match from '../Games/Match/Match';
+import { Link } from 'react-router-dom';
 
 const games = (props) => {
     let gameArray = [];
@@ -16,12 +17,15 @@ const games = (props) => {
             return (
                 <div className={classes.Match}
                     key={game.matchId}>
+
                     <Match
                         match={game}
                         matchButtonClicked={(match) => props.matchClicked(match)}
                         team={props.team}
                         removeMatchClicked={(matchId) => props.removeMatchClicked(game.matchId)}
+                        history={props.history}
                     />
+
                 </div>
             )
         })

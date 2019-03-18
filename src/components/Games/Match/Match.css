@@ -51,6 +51,10 @@
     margin-right: 2px;
 }
 
+.MoreButton:hover{
+    cursor: pointer;
+}
+
 .Opponent{
     color: #105187;
 }
@@ -109,13 +113,29 @@
 
     .Match{
         display: grid;
-        grid-template-columns: 30% 70%;
+        grid-template-columns: 30% 60% 10%;
         grid-template-rows: 3;
     }
 
     .GameDate{
         grid-column: 1;
         grid-row: 1/4;
+    }
+
+    .OpponentName{
+        grid-column: 2/4;
+        grid-row:2/3;
+    }
+
+    .Score{
+        grid-column: 2/4;
+        grid-row: 3/4;
+
+    }
+
+    .MoreOptions{
+        grid-column: 3/4;
+        grid-row:1/2;
     }
     @media(min-width: 650px) {
         .Match {

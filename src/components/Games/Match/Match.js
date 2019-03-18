@@ -34,6 +34,10 @@ const Match = (props) => {
         // `${day}-${month}-${year}  ${hour}:${minutes}`
     }
 
+    const goToMatchPageHandler = () => {
+        props.history.replace("/Team/" + props.team.teamId + "/Match/" + props.match.matchId);
+    }
+
     const setShowHideOptionsHandler = () => {
         setShowOptions(!showOptions);
     }
@@ -69,7 +73,7 @@ const Match = (props) => {
             // onMouseLeave={() => setShowHideOptionsHandler(classes.HideOptions)}
             >
                 {/* <div>Afbeelding komt hier</div> */}
-                <div className={classes.GameDate}>{dateFormat()}</div>
+                <div className={classes.GameDate} onClick={() =>    goToMatchPageHandler()}>{dateFormat()}</div>
                 <div className={classes.MoreOptions}>
                     <div
                         style={moreButtonStyle}
@@ -78,12 +82,12 @@ const Match = (props) => {
                     />
                 </div>
 
-                <div className={classes.OpponentName}>
-                    <Link to={"/Team/" + props.team.teamId + "/Match/" + props.match.matchId} style={{ textDecoration: 'none' }}>
+                <div className={classes.OpponentName} onClick={() =>    goToMatchPageHandler()}>
+                    {/* <Link to={"/Team/" + props.team.teamId + "/Match/" + props.match.matchId} style={{ textDecoration: 'none' }}> */}
                         <div className={classes.Opponent}>{typeof props.match.gameData.opponent === 'undefined' ? null : props.match.gameData.opponent}</div>
-                    </Link>
+                    {/* </Link> */}
                 </div>
-                <div className={classes.Score}>{homeGoals} - {props.match.oponentGoals}</div>
+                <div className={classes.Score} onClick={() =>    goToMatchPageHandler()}>{homeGoals} - {props.match.oponentGoals}</div>
 
             </div>
 

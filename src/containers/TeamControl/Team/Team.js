@@ -107,6 +107,7 @@ class Team extends Component {
                             matchClicked={(match) => this.matchSelected(match)}
                             team={this.props.team}
                             removeMatchClicked={(matchId) => this.removeMatchHandler(matchId)}
+                            history={this.props.history}
                         />
                     </Aux>
                 )

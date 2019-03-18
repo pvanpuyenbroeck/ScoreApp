@@ -46,8 +46,7 @@
     display: flex;
     vertical-align: middle;
     align-items: center;
-    flex-direction: column;
-    justify-content: center;
+    margin-right: 5px;
 }
 
 .PlayerButton img {
@@ -64,9 +63,7 @@
     display: flex;
     padding-top: 3px;
     flex-grow: 2;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
 }
 
 .PlayerNumber {

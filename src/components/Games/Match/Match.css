@@ -28,6 +28,9 @@
     align-items: flex-end;
 }
 
+year{
+    font-size:0.5em;
+}
 .HideOptions {
     height: 0px;
     overflow: hidden;

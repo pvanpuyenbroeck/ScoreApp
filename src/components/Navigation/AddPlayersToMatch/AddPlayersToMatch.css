@@ -2,8 +2,6 @@
     width: 80%;
     background-color: #F0F1D5;
     z-index: 105;
-    position: absolute;
-    display: inline-block;
     max-width: 650px;
     margin: 0 auto;
 }
@@ -32,4 +30,20 @@
 
 .Hide{
     display: none;
+}
+
+@supports(grid-area: auto){
+    .AddPlayersToMatch{
+        grid-column: 2;
+    }
+
+    @media screen and (min-width: 600px){
+
+    }
+    
+    @media screen and (min-width: 1100px){
+        .AddPlayersToMatch{
+            grid-column: players/matches;
+        }
+    }
 }

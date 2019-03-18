@@ -27,8 +27,8 @@ const Match = (props) => {
             <React.Fragment>
                 <div>{day}</div>
                 <div>{months[month]}</div>
+                <year>{year}</year>
                 <div>{hour}{minutes === 0 ? "u" : "u" + minutes}</div>
-                <div>{year}</div>
             </React.Fragment>
         )
         // `${day}-${month}-${year}  ${hour}:${minutes}`

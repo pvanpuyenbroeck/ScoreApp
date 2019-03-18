@@ -5,6 +5,7 @@
     box-sizing: border-box;
     font-size: 1.3rem;
     color: #F0F1D5;
+    display: flex;
 }
 
 .MatchPlayerFrame p {
@@ -33,12 +34,14 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    width: 50%;
 }
 
 .Scoring {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 40%;
 }
 
 .Scoring div {
@@ -56,11 +59,9 @@
 }
 
 .AddMinusSymbol {
-    display: inline-block;
     margin: 0px 9px 0px 9px;
     /* background-color: #F0F1D5;
     border: 2px solid #2C8693; */
-    box-sizing: border-box;
 }
 
 .AddMinusSymbol:hover {
@@ -88,9 +89,10 @@
 }
 
 .MoreButton {
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
+    width:10%;
 }
 
 .MoreButton div {

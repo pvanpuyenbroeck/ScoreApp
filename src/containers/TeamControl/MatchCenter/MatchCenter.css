@@ -15,13 +15,8 @@
 
 .MenuButtons {
     position: relative;
-<<<<<<< HEAD
-    height: 100%;
-    display: inline-flex;
-=======
     height: 2rem;
     display: flex;
->>>>>>> 907c15a588eb55db8ae420d8205ce4147b2d6ad6
     flex-direction: column;
     justify-content: center;
     vertical-align: top;

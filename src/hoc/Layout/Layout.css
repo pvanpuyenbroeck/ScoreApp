@@ -12,6 +12,11 @@
 
 }
 
+main{
+  display: flex;
+  justify-content: center;
+}
+
 @supports(grid-area: auto){
   @media screen and (min-width: 600px){
     .Layout{
@@ -31,6 +36,7 @@
     main{
       grid-area: main-content;
       display: flex;
+      justify-content: center;
     }
 
     .Flexbox{

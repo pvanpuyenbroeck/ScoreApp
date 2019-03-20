@@ -123,11 +123,12 @@ class matchCenter extends Component {
         this.setState({
             teamMembers: updatedTeamMembers,
         })
-        this.props.setFalseSaveState();
+        // this.props.setFalseSaveState();
     }
 
     oponentGoalHandler(addOrDetract) {
         let updatedMatchStats = { ...this.state.matchStats }
+        let updatedMatch = {...this.props.match.selectedMatch}
         if (addOrDetract === 'add') {
             updatedMatchStats.oponentScore++
         } else {
@@ -139,6 +140,8 @@ class matchCenter extends Component {
         this.setState({
             matchStats: updatedMatchStats,
         })
+        updatedMatch.oponentGoals = updatedMatchStats.oponentScore;
+        this.props.saveGameStats(this.props.team.teamId, this.props.match.selectedMatch.matchId, updatedMatch)
     }
 
     backToTeamViewHandler() {

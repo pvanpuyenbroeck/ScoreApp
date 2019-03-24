@@ -84,7 +84,6 @@ year{
     width: 20px;
     position: relative;
     display: inline-block;
-    float: right;
     background-position: center;
     background-size: contain;
     margin-top: 8px;
@@ -120,7 +119,7 @@ year{
 
     .Match{
         display: grid;
-        grid-template-columns: 30% 60% 10%;
+        grid-template-columns: 100px 5fr 1fr;
         grid-template-rows: 3;
     }
 

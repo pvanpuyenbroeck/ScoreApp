@@ -4,45 +4,49 @@
     height: 150px;
     display: inline-block;
     box-sizing:border-box;
-    border: 2px solid #105187;
+    border: 2px solid #326087;
     border-radius: 5px;
     text-decoration: none;
-    color:#105187;
+    color:#326087;
     text-align: center;
 }
 
 .ShowOptions {
-    height: 30px;
-    width: 100%;
+    opacity: 1;
+    width: 20px;
     overflow: hidden;
-    transition: height 1s;
+    transition: opacity 1s;
     cursor: pointer;
     background-repeat: no-repeat;
+    background-size: contain;
+    height: 20px;
 }
 
 .Options{
-    height: 30px;
     width: 100%;
     overflow: hidden;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
 }
 
 year{
     font-size:0.5em;
 }
 .HideOptions {
-    height: 0px;
+    opacity: 0;
     overflow: hidden;
-    width: 100%;
-    transition: max-height 1s;
+    transition: opacity 1s;
+    height: 20px;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 .MoreOptions{
-    width:100%;
-    color:  #105187;
+    /* width:20px; */
+    color:  #326087;
     text-align:left;
     display: flex;
     flex-direction: row-reverse;
+    display: block;
 }
 
 .MoreButton{
@@ -59,7 +63,7 @@ year{
 }
 
 .Opponent{
-    color: #105187;
+    color: #326087;
 }
 
 .OpponentName:hover,
@@ -91,9 +95,9 @@ year{
 } */
 
 .GameDate {
-    background-color: #105187;
+    background-color: #326087;
     color: white;
-    border: solid #105187;
+    border: solid #326087;
     display: flex;
     flex-direction:column;
     justify-content: space-between;
@@ -139,6 +143,11 @@ year{
     .MoreOptions{
         grid-column: 3/4;
         grid-row:1/2;
+    }
+
+    .Options{
+        grid-column: 2/3;
+        grid-row: 1;
     }
     @media(min-width: 650px) {
         .Match {

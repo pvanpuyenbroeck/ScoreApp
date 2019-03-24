@@ -3,7 +3,7 @@
 */
 export const colors = {
     beige:'#bfbfad',
-    blue: '#105187',
+    blue: '#326087',
     orange:'#F19722',
     green: '#2C8693',
     shadows: {

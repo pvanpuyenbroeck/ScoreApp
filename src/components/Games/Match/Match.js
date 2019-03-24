@@ -55,6 +55,13 @@ const Match = (props) => {
 
     return (
         <React.Fragment>
+
+            <div
+                className={classes.Match}
+                onClick={() => props.matchButtonClicked(props.match)}
+            // onMouseEnter={() => setShowHideOptionsHandler(classes.ShowOptions)}
+            // onMouseLeave={() => setShowHideOptionsHandler(classes.HideOptions)}
+            >
             <div className={classes.Options}
             // onMouseEnter={() => setShowHideOptionsHandler(classes.ShowOptions)}
             // onMouseLeave={() => setShowHideOptionsHandler(classes.ShowOptions)} 
@@ -65,13 +72,6 @@ const Match = (props) => {
                     onClick={(teamId) => props.removeMatchClicked(teamId)}
                 ></div>
             </div>
-
-            <div
-                className={classes.Match}
-                onClick={() => props.matchButtonClicked(props.match)}
-            // onMouseEnter={() => setShowHideOptionsHandler(classes.ShowOptions)}
-            // onMouseLeave={() => setShowHideOptionsHandler(classes.HideOptions)}
-            >
                 {/* <div>Afbeelding komt hier</div> */}
                 <div className={classes.GameDate} onClick={() =>    goToMatchPageHandler()}>{dateFormat()}</div>
                 <div className={classes.MoreOptions}>

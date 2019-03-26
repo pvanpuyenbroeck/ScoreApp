@@ -1,8 +1,7 @@
 .GamesContainer {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     border-radius: 5px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-    padding: 1rem;
+    /* box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23); */
 }
 
 .Matches {
@@ -23,7 +22,7 @@ h1 {
 }
 
 @supports(grid-area: auto) {
-    @media(min-width: 600px) {
+    @media(min-width: 650px) {
         .GamesContainer{
             grid-area: matches;
         }
@@ -44,9 +43,9 @@ h1 {
         }
     }
 
-    /* @media screen and (min-width: 1100px){
+    @media screen and (min-width: 1300px){
         .Matches{
-            grid-template-columns: repeat(2, 340px);
+            grid-template-columns: repeat(3, 1fr);
         }
-    } */
+    }
 }

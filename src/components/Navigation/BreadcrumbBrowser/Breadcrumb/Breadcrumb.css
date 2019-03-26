@@ -20,7 +20,7 @@ li a{
     min-width: 25px;
     opacity: 0.5;
     margin-top: 2px;
-    z-index: 100;
+    /* z-index: 100; */
 }
 
 .Breadcrumb:hover,
@@ -44,6 +44,7 @@ li ul {
     margin-top: 1.6rem;
     left: 0;
     display: none;
+    z-index:100;
   }
   
 .Active:hover li > ul,

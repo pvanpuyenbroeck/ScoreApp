@@ -20,8 +20,8 @@ export const addTeamStart = () => {
 }
 
 export const closeModal = () => {
-    return{
-        type:actionTypes.CLOSE_MODAL,
+    return {
+        type: actionTypes.CLOSE_MODAL,
     }
 }
 
@@ -132,7 +132,7 @@ export const closeFunctionModal = () => {
 }
 
 export const addPlayerToTeam = (team, updatedTeamMembers) => {
-    const updatedTeam = {...team};
+    const updatedTeam = { ...team };
     updatedTeam.TeamMembers = updatedTeamMembers;
     return dispatch => {
         dispatch(addPlayerToTeamStart(updatedTeam));
@@ -151,24 +151,24 @@ export const addPlayerToTeam = (team, updatedTeamMembers) => {
 }
 
 export const removePlayerStart = () => {
-    return{
+    return {
         type: actionTypes.REMOVE_PLAYER_START
     }
 }
 
 export const removePlayerSuccess = () => {
-    return{
+    return {
         type: actionTypes.REMOVE_PLAYER_SUCCESS
     }
 }
 export const removePlayerFail = (err) => {
-    return{
+    return {
         type: actionTypes.REMOVE_PLAYER_FAIL,
         error: err,
     }
 }
 export const removePlayerFromTeam = (playerid, teamid, activePlayers) => {
-    let updatedTeamMembers = {...activePlayers};
+    let updatedTeamMembers = { ...activePlayers };
     updatedTeamMembers[playerid] = {
         ...updatedTeamMembers[playerid],
         active: false,
@@ -176,11 +176,11 @@ export const removePlayerFromTeam = (playerid, teamid, activePlayers) => {
     return dispatch => {
         dispatch(removePlayerStart());
         firebase.database().ref('/Teams/' + teamid + "/TeamMembers/").set(updatedTeamMembers)
-        .then(response => {
-            dispatch(removePlayerSuccess());
-        }).catch(err => {
-            dispatch(removePlayerFail(err));
-        }) 
+            .then(response => {
+                dispatch(removePlayerSuccess());
+            }).catch(err => {
+                dispatch(removePlayerFail(err));
+            })
     }
 }
 
@@ -230,11 +230,11 @@ export const removeMatchFromTeam = (updatedMatches, teamId) => {
     return dispatch => {
         dispatch(removeMatchStart());
         firebase.database().ref('/Teams/' + teamId + '/Matches/').set(updatedMatches)
-        .then(response => {
-            dispatch(removeMatchSuccess(updatedMatches));
-        }).catch(err => {
-            dispatch(removeMatchFail(err));
-        })
+            .then(response => {
+                dispatch(removeMatchSuccess(updatedMatches));
+            }).catch(err => {
+                dispatch(removeMatchFail(err));
+            })
     }
 }
 
@@ -255,5 +255,21 @@ export const removeMatchSuccess = (updatedMatches) => {
     return {
         type: actionTypes.REMOVE_MATCH_SUCCESS,
         updatedMatches: updatedMatches,
+    }
+}
+
+export const getSeasons = () => {
+    return dispatch => {
+        firebase.database.ref('/Seasons').once('value')
+            .then(response => {
+                
+            })
+    }
+}
+
+export const setSeason = (season) => {
+    return{
+        type:actionTypes.SET_SEASON,
+        season: season,
     }
 }

@@ -19,6 +19,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             grid-template-areas:
+            "season season season"
             "players players players"
             "matches matches matches"
         }
@@ -28,6 +29,7 @@
         .TeamControl{
         grid-template-columns: 30% auto;
         grid-template-areas:
+        "season season"
         "players matches"
         "players matches"
         }

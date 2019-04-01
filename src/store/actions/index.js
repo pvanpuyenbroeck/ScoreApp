@@ -5,6 +5,7 @@ export{
     getAllTeams,
     removePlayerFromTeam,
     removeMatchFromTeam,
+    setSeason,
 } from './team';
 
 export{

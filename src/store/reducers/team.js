@@ -11,6 +11,11 @@ const initialState = {
     teams: {},
     removingPlayer: false,
     removingMatch: false,
+    seasons: {
+        "2018-2019": "2018-2019",
+        "2019-2020": "2019-2020",
+    },
+    selectedSeason: "2018-2019",
 }
 
 const addTeam = (state, action) => {
@@ -165,6 +170,13 @@ const removeMatchFail = (state, action) => {
     }
 }
 
+const setSeason = (state, action) => {
+    return{
+        ...state,
+        selectedSeason: action.season,
+    }
+}
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.ADD_TEAM: return addTeam(state, action);
@@ -192,7 +204,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.REMOVE_MATCH_START: return removeMatchStart(state, action);
         case actionTypes.REMOVE_MATCH_SUCCESS: return removeMatchSuccess(state, action);
         case actionTypes.REMOVE_MATCH_FAIL: return removeMatchFail(state, action);
-
+        case actionTypes.SET_SEASON: return setSeason(state,action);
         default: return state;
     }
 }

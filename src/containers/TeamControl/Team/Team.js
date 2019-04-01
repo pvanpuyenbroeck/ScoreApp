@@ -9,6 +9,7 @@ import * as actions from '../../../store/actions/index';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Aux from '../../../hoc/_Aux/_Aux';
 import Confirm from '../../../components/Alerts/Confirm/confirm';
+import SeasonSelection from '../../../components/Team/SeasonSelection/SeasonSelection';
 
 class Team extends Component {
 
@@ -21,6 +22,7 @@ class Team extends Component {
         teamMembers: {},
         showConfirm: false,
         playeridToRemove: "",
+        selectedSeason: null,
     }
     // pick(obj, keys) {
     //     return keys.map(k => k in obj ? { [k]: obj[k] } : {})
@@ -69,6 +71,14 @@ class Team extends Component {
         this.props.removeMatchFromTeam(updatedMatches, this.props.team.teamId);
     }
 
+    seasonChangedHandler(season){
+        this.setState({
+            selectedSeason:season,
+        })
+
+        this.props.setSeasonState(season);
+    }
+
     render() {
         let teamControl = "";
         if (this.props.loading) {
@@ -95,6 +105,7 @@ class Team extends Component {
                             showComponent={(component) => this.props.showComponent(component)}
                         />
                         <Modal show={this.props.showModal} modalClosed={() => this.props.closeModal()} />
+                        <SeasonSelection seasons={this.props.seasons} seasonChanged={season => this.seasonChangedHandler(season)}/>
                         <Players
                             team={this.props.team}
                             playerDetails={this.props.team.filteredPlayers}
@@ -132,6 +143,7 @@ const mapDispatchToProps = dispatch => {
         changeLocation: (location) => dispatch(actions.locationChange(location)),
         removePlayerFromTeam: (playerid, teamid, teamMembers) => dispatch(actions.removePlayerFromTeam(playerid, teamid, teamMembers)),
         removeMatchFromTeam: (updatedMatches, teamId) => dispatch(actions.removeMatchFromTeam(updatedMatches, teamId)),
+        setSeasonState: (season) => dispatch(actions.setSeason(season)),
     }
 }
 
@@ -144,6 +156,7 @@ const mapStateToProps = state => {
         token: state.auth.token,
         userId: state.auth.userId,
         user: state.auth.user,
+        seasons: state.team.seasons,
     }
 }
 

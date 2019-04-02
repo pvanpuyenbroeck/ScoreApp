@@ -71,13 +71,14 @@ class Team extends Component {
         this.props.removeMatchFromTeam(updatedMatches, this.props.team.teamId);
     }
 
-    seasonChangedHandler(season){
-        this.setState({
-            selectedSeason:season,
-        })
+    // seasonChangedHandler(season){
+    //     this.setState({
+    //         selectedSeason:season,
+    //     })
+    //     this.props.selectedTeam(this.props.team.teamId, season);
+    //     this.props.setSeasonState(season);
 
-        this.props.setSeasonState(season);
-    }
+    // }
 
     render() {
         let teamControl = "";
@@ -105,7 +106,7 @@ class Team extends Component {
                             showComponent={(component) => this.props.showComponent(component)}
                         />
                         <Modal show={this.props.showModal} modalClosed={() => this.props.closeModal()} />
-                        <SeasonSelection/>
+                        <SeasonSelection />
                         <Players
                             team={typeof this.props.team[this.props.selectedSeason] !== 'undefined' ? this.props.team[this.props.selectedSeason] : null}
                             playerDetails={typeof this.props.team[this.props.selectedSeason] !== 'undefined' ? this.props.team[this.props.selectedSeason].filteredPlayers : null}

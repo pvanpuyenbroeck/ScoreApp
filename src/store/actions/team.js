@@ -134,7 +134,7 @@ export const closeFunctionModal = () => {
 
 export const addPlayerToTeam = (team, updatedTeamMembers, season) => {
     const updatedTeam = { ...team };
-    updatedTeam.TeamMembers = updatedTeamMembers;
+    updatedTeam[season].TeamMembers = updatedTeamMembers;
     return dispatch => {
         dispatch(addPlayerToTeamStart(updatedTeam));
         firebase.database().ref('/Teams/' + team.teamId + '/' + season  + '/TeamMembers/').set(updatedTeamMembers)

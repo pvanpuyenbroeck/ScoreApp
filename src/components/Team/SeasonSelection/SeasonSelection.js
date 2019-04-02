@@ -22,6 +22,7 @@ class SeasonSelection extends Component {
     seasonChanged = event => {
         const selectedSeason = event.target.value;
         this.props.setSeasonState(selectedSeason);
+        this.props.selectedTeam(this.props.teamId, selectedSeason);
     }
     render(){
         const availableSeasons = this.state.seasons.map(season =>{
@@ -32,7 +33,7 @@ class SeasonSelection extends Component {
         return (
             <div className={classes.SeasonSelection}>
             <div className={classes.Title}>Seizoen</div>
-                <select onChange={this.seasonChanged}>
+                <select onChange={this.seasonChanged} value={this.props.selectedSeason}>
                     {availableSeasons}
                 </select>
             </div>
@@ -44,12 +45,16 @@ class SeasonSelection extends Component {
 const mapStateToProps = state => {
     return{
         seasons: state.team.seasons,
+        selectedSeason: state.team.selectedSeason,
+        teamId: state.team.selectedTeam.teamId,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return{
         setSeasonState: (season) => dispatch(actions.setSeason(season)),
+        selectedTeam: (teamId, season) => dispatch(actions.getTeam(teamId, season)),
+
     }
 }
 

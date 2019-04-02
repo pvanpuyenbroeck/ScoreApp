@@ -140,12 +140,12 @@ export const addMatchFail = (error) => {
     }
 }
 
-export const addMatch = (newMatch, team) => {
+export const addMatch = (newMatch, team, season) => {
     // const updatedTeam = { ...team };
     // team.Matches = { ...team.Matches, newMatch };
     return dispatch => {    
         dispatch(addMatchStart());
-        firebase.database().ref('/Teams/' + team.teamId + '/Matches').push(newMatch).then(response => {
+        firebase.database().ref('/Teams/' + team.teamId + '/' + season + '/' +'/Matches').push(newMatch).then(response => {
             dispatch(addMatchSuccess());
             dispatch(getTeam(team.teamId));
         }).catch(error => {

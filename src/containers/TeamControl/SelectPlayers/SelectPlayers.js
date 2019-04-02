@@ -80,7 +80,7 @@ class SelectPlayers extends Component {
                 active: true,
             }
         }; 
-        this.props.addPlayerToTeam(this.props.team, updatedTeamMembers)  
+        this.props.addPlayerToTeam(this.props.team, updatedTeamMembers, this.props.selectedSeason)  
     }
     checkValidity(value, rules) {
         let isValid = true;
@@ -189,10 +189,10 @@ class SelectPlayers extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
     return{
         // closeModal: () => dispatch({type:"closeModal"}),
-        addPlayerToTeam: (team, updatedTeamMembers) => dispatch(actions.addPlayerToTeam(team, updatedTeamMembers)),
+        addPlayerToTeam: (team, updatedTeamMembers, season) => dispatch(actions.addPlayerToTeam(team, updatedTeamMembers, season)),
     }
 }
 
@@ -200,6 +200,7 @@ const mapStateToProps = state => {
     return{
         team: state.team.selectedTeam,
         user: state.auth.user,
+        selectedSeason: state.team.selectedSeason,
     }
 }
 

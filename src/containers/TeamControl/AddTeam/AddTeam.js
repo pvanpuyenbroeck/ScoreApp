@@ -9,6 +9,7 @@ class AddTeam extends Component {
     state = {
         teamToAdd: {
             teamName: '',
+            season: '',
             admin: '',
         },
         submitted: false,
@@ -40,6 +41,7 @@ class AddTeam extends Component {
         teamToAdd.teamName = name === '' ? value : this.state.teamToAdd.teamName;
         // teamToAdd.season = name === 'season' ? value : this.state.teamToAdd.season;
         teamToAdd.admin = this.props.adminUid;
+        teamToAdd.season = this.props.selectedSeason;
         this.setState({
             teamToAdd: teamToAdd,
 
@@ -55,6 +57,7 @@ class AddTeam extends Component {
                     className={classes.AddTeam}
                     addTeam={this.onSubmitHandler}
                     change={this.inputChangeHandler}
+                    seasons={this.props.seasons}
                 />
             )
         }
@@ -72,6 +75,8 @@ const mapStateToProps = state => {
         loading: state.team.loading,
         submitted: state.team.submitted,
         adminUid: state.auth.user.uid,
+        seasons: state.team.seasons,
+        selectedSeason: state.team.selectedSeason,
     }
 }
 

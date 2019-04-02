@@ -10,6 +10,7 @@ select option{
 .SeasonSelection{
     display: flex;
     align-items: center;
+    margin: 0 0 5px 0;
 }
 
 @supports(grid-area: auto){

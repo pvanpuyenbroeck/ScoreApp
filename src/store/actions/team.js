@@ -131,12 +131,12 @@ export const closeFunctionModal = () => {
     }
 }
 
-export const addPlayerToTeam = (team, updatedTeamMembers) => {
+export const addPlayerToTeam = (team, updatedTeamMembers, season) => {
     const updatedTeam = { ...team };
     updatedTeam.TeamMembers = updatedTeamMembers;
     return dispatch => {
         dispatch(addPlayerToTeamStart(updatedTeam));
-        firebase.database().ref('/Teams/' + team.teamId + '/TeamMembers/').set(updatedTeamMembers)
+        firebase.database().ref('/Teams/' + team.teamId + '/' + season  + '/TeamMembers/').set(updatedTeamMembers)
             .then(response => {
                 dispatch(addPlayerToTeamSuccess());
                 dispatch(closeFunctionModal());

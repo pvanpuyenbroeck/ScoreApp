@@ -105,16 +105,16 @@ class Team extends Component {
                             showComponent={(component) => this.props.showComponent(component)}
                         />
                         <Modal show={this.props.showModal} modalClosed={() => this.props.closeModal()} />
-                        <SeasonSelection seasons={this.props.seasons} seasonChanged={season => this.seasonChangedHandler(season)}/>
+                        <SeasonSelection/>
                         <Players
-                            team={this.props.team}
-                            playerDetails={this.props.team.filteredPlayers}
+                            team={typeof this.props.team[this.props.selectedSeason] !== 'undefined' ? this.props.team[this.props.selectedSeason] : null}
+                            playerDetails={typeof this.props.team[this.props.selectedSeason] !== 'undefined' ? this.props.team[this.props.selectedSeason].filteredPlayers : null}
                             user={this.props.user}
                             removePlayerClicked={(uid) => this.removePlayerClickedHandler(uid)}
                         />
                         <Games
-                            matches={this.props.team.Matches}
-                            teamId={this.props.team.teamId}
+                            matches={typeof this.props.team[this.props.selectedSeason] !== 'undefined' ? this.props.team[this.props.selectedSeason].Matches : null}
+                            teamId={typeof this.props.team[this.props.selectedSeason] !== 'undefined' ? this.props.team[this.props.selectedSeason].teamId : null}
                             matchClicked={(match) => this.matchSelected(match)}
                             team={this.props.team}
                             removeMatchClicked={(matchId) => this.removeMatchHandler(matchId)}
@@ -143,7 +143,6 @@ const mapDispatchToProps = dispatch => {
         changeLocation: (location) => dispatch(actions.locationChange(location)),
         removePlayerFromTeam: (playerid, teamid, teamMembers) => dispatch(actions.removePlayerFromTeam(playerid, teamid, teamMembers)),
         removeMatchFromTeam: (updatedMatches, teamId) => dispatch(actions.removeMatchFromTeam(updatedMatches, teamId)),
-        setSeasonState: (season) => dispatch(actions.setSeason(season)),
     }
 }
 
@@ -156,7 +155,7 @@ const mapStateToProps = state => {
         token: state.auth.token,
         userId: state.auth.userId,
         user: state.auth.user,
-        seasons: state.team.seasons,
+        selectedSeason: state.team.selectedSeason,
     }
 }
 

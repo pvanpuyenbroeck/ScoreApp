@@ -67,12 +67,13 @@ const mapStateToProps = state => {
         teams: state.team.teams,
         loading: state.team.loading,
         isAuthenticated: state.auth.user != null,
+        season: state.team.selectedSeason,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        teamSelectedHandler: (teamId) => dispatch(actions.getTeam(teamId)),
+        teamSelectedHandler: (teamId, season) => dispatch(actions.getTeam(teamId, season)),
         getAllTeams: (userId, token) => dispatch(actions.getAllTeams(userId, token)),
         changeLocation: () => dispatch(actions.locationChange(2)),
     }

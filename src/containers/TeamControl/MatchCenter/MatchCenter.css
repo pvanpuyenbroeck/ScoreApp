@@ -135,6 +135,7 @@
     @media screen and (min-width: 600px) {
         .MatchCenter {
             grid-column: 2/3;
+            grid-row: 1;
             display: grid;
             width: 500px;
             grid-template-columns: 10rem repeat(3, 1fr) 10rem;

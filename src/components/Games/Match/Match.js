@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
 import classes from './Match.css';
-import { Link } from 'react-router-dom';
-import { StyledLink } from './MatchStyle';
-import styled from 'styled-components';
-import { colors } from '../../../utils/styles/helpers';
 import CloseButton from '../../../assets/Images/delete-30.png';
 import MoreButton from '../../../assets/Images/MoreButton.png';
 
@@ -35,6 +31,7 @@ const Match = (props) => {
     }
 
     const goToMatchPageHandler = () => {
+        props.matchButtonClicked(props.match)
         props.history.replace("/Team/" + props.team.teamId + "/Match/" + props.match.matchId);
     }
 
@@ -58,7 +55,7 @@ const Match = (props) => {
 
             <div
                 className={classes.Match}
-                onClick={() => props.matchButtonClicked(props.match)}
+                // onClick={() => props.matchButtonClicked(props.match)}
             // onMouseEnter={() => setShowHideOptionsHandler(classes.ShowOptions)}
             // onMouseLeave={() => setShowHideOptionsHandler(classes.HideOptions)}
             >
@@ -74,7 +71,7 @@ const Match = (props) => {
             </div>
                 {/* <div>Afbeelding komt hier</div> */}
                 <div className={classes.GameDate} onClick={() =>    goToMatchPageHandler()}>{dateFormat()}</div>
-                <div className={classes.MoreOptions}>
+                <div className={classes.MoreOptions} >
                     <div
                         style={moreButtonStyle}
                         className={classes.MoreButton}

@@ -3,8 +3,9 @@ import firebase from '../../../firebase-scoreapp';
 import PlayerButton from '../../../components/Players/PlayerButton/PlayerButton';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
+import NumberSelection from '../../../components/UI/NumberSelection/NumberSelection';
 
 class SelectPlayers extends Component {
     state = {
@@ -21,25 +22,27 @@ class SelectPlayers extends Component {
                 },
                 valid: false,
             },
-            playerNumber: {
-                elementType: 'number',
-                elementConfig: {
-                    type: 'number',
-                    placeholder: 'playerNumber',
-                },
-                value: '',
-                validation: {
-                    required: true,
-                },
-                valid: false,
-            },
+            // playerNumber: {
+            //     elementType: 'number',
+            //     elementConfig: {
+            //         type: 'number',
+            //         placeholder: 'playerNumber',
+            //     },
+            //     value: '',
+            //     validation: {
+            //         required: true,
+            //     },
+            //     valid: false,
+            // },
         },
         loading: true,
         teamId: '',
         players: null,
         teamMembers: [],
         selectedPlayerId: '',
-        selectedName:'',
+        numbersTaken: null,
+        playerNumbers: null,
+        playerNumberSelected:null,
     }
     componentDidMount() {
         firebase.database().ref('/Players').once('value').then(res => {
@@ -48,14 +51,14 @@ class SelectPlayers extends Component {
                 const player = {
                     ...res.val()[key],
                 }
-            players.push(player);
-            console.log(players);
-        }
-        this.setState({
-            players: players,
-            loading: false,
-        })
-    });
+                players.push(player);
+                console.log(players);
+            }
+            this.setState({
+                players: players,
+                loading: false,
+            })
+        });
     }
 
     playerSubmitHandler = (event) => {
@@ -76,13 +79,21 @@ class SelectPlayers extends Component {
         let updatedTeamMembers = {
             ...this.props.team[this.props.selectedSeason].TeamMembers,
             [this.state.selectedPlayerId]: {
-                number: playerInfo.playerNumber,
+                number: this.state.playerNumberSelected,
                 active: true,
             }
-        }; 
+        };
         this.props.addPlayerToTeam(this.props.team, updatedTeamMembers, this.props.selectedSeason)
         this.props.selectedTeam(this.props.team.teamId, this.props.selectedSeason);
 
+        let updatedPlayerForm = {...this.state.playerForm};
+        updatedPlayerForm.name.value = '';
+        this.setState({
+            loading: false,
+            selectedPlayerId: '',
+            playerNumberSelected: null,
+            playerForm: updatedPlayerForm,
+        })
     }
     checkValidity(value, rules) {
         let isValid = true;
@@ -117,22 +128,26 @@ class SelectPlayers extends Component {
 
     onPlayerButtonClickedHandler = (playerId) => {
         console.log(playerId);
-        this.setState({ selectedPlayerId: playerId})
-        const updatedform = {...this.state.playerForm};
-        const name = {...updatedform.name};
-        
+        this.setState({ selectedPlayerId: playerId })
+        const updatedform = { ...this.state.playerForm };
+        const name = { ...updatedform.name };
+
         this.state.players.map(res => {
             console.log(res);
-            if(res.userid === playerId){
-                name.value= res.voornaam + " " + res.familienaam;
+            if (res.userid === playerId) {
+                name.value = res.voornaam + " " + res.familienaam;
             }
             return null;
         })
         console.log(name);
         updatedform.name = name;
         this.setState({
-            playerForm:updatedform,
+            playerForm: updatedform,
         })
+    }
+
+    onNumberClickedButton = (number) => {
+        this.setState({ playerNumberSelected: number, })
     }
 
     render() {
@@ -146,7 +161,7 @@ class SelectPlayers extends Component {
         let allPlayers = <div></div>
         let form = <Spinner />
         if (!this.state.loading) {
-             form = (
+            form = (
                 <form onSubmit={this.playerSubmitHandler}>
                     {formElementArray.map(formElement => (
                         <Input
@@ -157,17 +172,23 @@ class SelectPlayers extends Component {
                             changed={(event) => this.inputChangedHandler(event, formElement.id)}
                         />
                     ))}
+                    <NumberSelection 
+                    numbers={20} 
+                    numberClicked={(number) => this.onNumberClickedButton(number)} 
+                    numbersTaken={this.state.numbersTaken} 
+                    teamMembers={this.props.team[this.props.selectedSeason].TeamMembers}
+                    numberSelected={this.state.playerNumberSelected}
+                    />
                     <button type="submit">Toevoegen</button>
                 </form>
             );
-
 
             allPlayers = this.state.players.map(player => {
                 const playerfirstnameLowercase = player.voornaam.toLowerCase();
                 const playerlastnamLowercase = player.familienaam.toLowerCase();
                 const playernamePropsLowercase = this.state.playerForm.name.value.toLowerCase();
                 if ((playerfirstnameLowercase.startsWith(playernamePropsLowercase) && playernamePropsLowercase !== "") ||
-                (playerlastnamLowercase.startsWith(playernamePropsLowercase) && playernamePropsLowercase !== "")) {
+                    (playerlastnamLowercase.startsWith(playernamePropsLowercase) && playernamePropsLowercase !== "")) {
                     return (
                         <PlayerButton
                             name={player.voornaam + " " + player.familienaam}
@@ -181,7 +202,6 @@ class SelectPlayers extends Component {
                 return null;
             })
         }
-
         return (
             <div>
                 {form}
@@ -192,7 +212,7 @@ class SelectPlayers extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return{
+    return {
         // closeModal: () => dispatch({type:"closeModal"}),
         addPlayerToTeam: (team, updatedTeamMembers, season) => dispatch(actions.addPlayerToTeam(team, updatedTeamMembers, season)),
         selectedTeam: (teamId, season) => dispatch(actions.getTeam(teamId, season)),
@@ -200,11 +220,11 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = state => {
-    return{
+    return {
         team: state.team.selectedTeam,
         user: state.auth.user,
         selectedSeason: state.team.selectedSeason,
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(SelectPlayers);
+export default connect(mapStateToProps, mapDispatchToProps)(SelectPlayers);

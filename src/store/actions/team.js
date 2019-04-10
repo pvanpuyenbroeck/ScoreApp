@@ -157,9 +157,10 @@ export const removePlayerStart = () => {
     }
 }
 
-export const removePlayerSuccess = () => {
+export const removePlayerSuccess = (updatedTeam) => {
     return {
-        type: actionTypes.REMOVE_PLAYER_SUCCESS
+        type: actionTypes.REMOVE_PLAYER_SUCCESS,
+        updatedTeam: updatedTeam,
     }
 }
 export const removePlayerFail = (err) => {
@@ -168,17 +169,19 @@ export const removePlayerFail = (err) => {
         error: err,
     }
 }
-export const removePlayerFromTeam = (playerid, teamid, activePlayers, season) => {
+export const removePlayerFromTeam = (playerid, teamid, activePlayers, season, team) => {
     let updatedTeamMembers = { ...activePlayers };
     updatedTeamMembers[playerid] = {
         ...updatedTeamMembers[playerid],
         active: false,
     }
+    const updatedTeam = {...team};
+    updatedTeam[season].TeamMembers = updatedTeamMembers;
     return dispatch => {
         dispatch(removePlayerStart());
         firebase.database().ref('/Teams/' + teamid + "/" + season + "/TeamMembers/").set(updatedTeamMembers)
             .then(response => {
-                dispatch(removePlayerSuccess());
+                dispatch(removePlayerSuccess(updatedTeam));
             }).catch(err => {
                 dispatch(removePlayerFail(err));
             })

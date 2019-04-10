@@ -133,6 +133,7 @@ const removePlayerSuccess = (state, action) => {
     return {
         ...state,
         removingPlayer: false,
+        selectedTeam: action.updatedTeam,
     }
 }
 

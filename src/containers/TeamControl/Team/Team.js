@@ -59,7 +59,8 @@ class Team extends Component {
 
     confirmHandler(value) {
         if (value) {
-            this.props.removePlayerFromTeam(this.state.playeridToRemove, this.props.team.teamId, this.props.team.TeamMembers, this.props.selectedSeason)
+            this.props.removePlayerFromTeam(this.state.playeridToRemove, this.props.team.teamId, 
+                this.props.team[this.props.selectedSeason].TeamMembers, this.props.selectedSeason, this.props.team)
             this.props.selectedTeam(this.props.team.teamId, this.props.token, this.props.userId);
         }
         this.setState({showConfirm:false, playeridToRemove:""});
@@ -142,7 +143,7 @@ const mapDispatchToProps = dispatch => {
         showComponent: (component) => dispatch(actions.showComponent(component)),
         matchSelected: (match) => dispatch(actions.setSelectedMatchInfo(match)),
         changeLocation: (location) => dispatch(actions.locationChange(location)),
-        removePlayerFromTeam: (playerid, teamid, teamMembers, season) => dispatch(actions.removePlayerFromTeam(playerid, teamid, teamMembers, season)),
+        removePlayerFromTeam: (playerid, teamid, teamMembers, season, team) => dispatch(actions.removePlayerFromTeam(playerid, teamid, teamMembers, season, team)),
         removeMatchFromTeam: (updatedMatches, teamId) => dispatch(actions.removeMatchFromTeam(updatedMatches, teamId)),
     }
 }

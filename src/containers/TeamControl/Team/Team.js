@@ -101,11 +101,12 @@ class Team extends Component {
                             label2Clicked={() => this.confirmHandler(false)}
                             showConfirm={this.state.showConfirm}
                         />
-                        <TeamFunctionMenu
+                        {this.props.adminLoggedIn ? <TeamFunctionMenu
                             team={this.props.team}
                             showFunctionMenu={this.props.showfunctionMenu}
                             showComponent={(component) => this.props.showComponent(component)}
-                        />
+                        /> : null}
+                        
                         <Modal show={this.props.showModal} modalClosed={() => this.props.closeModal()} />
                         <SeasonSelection />
                         <Players
@@ -158,6 +159,7 @@ const mapStateToProps = state => {
         userId: state.auth.userId,
         user: state.auth.user,
         selectedSeason: state.team.selectedSeason,
+        adminLoggedIn: state.team.selectedTeam.admin === state.auth.user.uid,
     }
 }
 

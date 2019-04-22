@@ -28,6 +28,7 @@ export const closeModal = () => {
 
 
 export const addTeam = (teamData) => {
+    
     return dispatch => {
         dispatch(addTeamStart());
         firebase.database().ref("/Teams/").push(teamData).then(res => {
@@ -71,7 +72,8 @@ export const getTeam = (teamId, season) => {
         dispatch(getTeamStart());
         firebase.database().ref('/Teams/' + teamId).once('value').then(res => {
             const team = res.val();
-            if (team[season].TeamMembers) {
+            // const TeamMembersAvailable = team[season].TeamMembers === undefined;
+            if (season in team) {
                 const players = Object.keys(team[season].TeamMembers);
                 firebase.database().ref('/Players').once('value').then(allPlayers => {
                     const allTeamMembers = allPlayers.val();
@@ -133,8 +135,15 @@ export const closeFunctionModal = () => {
 }
 
 export const addPlayerToTeam = (team, updatedTeamMembers, season) => {
-    const updatedTeam = { ...team };
-    updatedTeam[season].TeamMembers = updatedTeamMembers;
+    let updatedTeam = { ...team };
+    updatedTeam = {
+        ...updatedTeam,
+        [season]:{
+            ...season,
+            TeamMembers: updatedTeamMembers
+        }
+    }
+    // updatedTeam[season].TeamMembers = updatedTeamMembers;
     return dispatch => {
         dispatch(addPlayerToTeamStart(updatedTeam));
         firebase.database().ref('/Teams/' + team.teamId + '/' + season  + '/TeamMembers/').set(updatedTeamMembers)

@@ -27,6 +27,14 @@ export const logout = () => {
     firebase.auth().signOut()
         .then(response => {
             console.log('logged out');
+        }).catch(error => {
+            console.log(error);
+        });
+    firebaseNew.auth().signOut()
+        .then(response => {
+            console.log('logged out');
+        }).catch(error => {
+            console.log(error);
         });
     return {
         type: actionTypes.AUTH_LOGOUT

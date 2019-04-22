@@ -1,50 +1,67 @@
-.ConfirmContainer{
-    width: 400px;
+.ConfirmContainer {
+    width: 300px;
     height: 200px;
-    position: absolute;
     display: inline-block;
     z-index: 100;
     border: 1px solid #C33325;
     border-radius: 5px;
     background-color: white;
+    position: absolute;
 }
 
-.Message{
+.Message {
     margin-top: 20px;
-    text-align:center;
+    text-align: center;
     font-weight: bold;
 }
 
-.ButtonContainer{
+.ButtonContainer {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     height: 80%;
 }
 
-.Button{
+.Button {
     width: 100px;
     height: 50px;
     display: inline-block;
-    text-align:center;
+    text-align: center;
     vertical-align: middle;
-    color:white;
-    align-items: center;
+    color: white;
     border-radius: 5px;
 }
 
-.Button h3{
+.Button h3 {
     margin-top: 15px;
 }
 
-.Button:hover{
+.Button:hover {
     cursor: pointer;
 }
 
-.Button1{
+.Button1 {
     background-color: #2C8693;
 }
 
-.Button2{
-    background-color:#C33325;
+.Button2 {
+    background-color: #C33325;
+}
+
+@supports(grid-area: auto) {
+    @media screen and (min-width: 650px) {
+        .ConfirmContainer {
+            grid-column:1/3;
+            justify-content: center;
+            align-items: center;
+            grid-row: 2;
+        }
+    }
+    @media screen and (min-width: 376px) {
+        .ConfirmContainer {
+            width: 400px;
+            height: 200px;
+            margin: 0 auto;
+        }
+    }
 }

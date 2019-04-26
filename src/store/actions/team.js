@@ -1,9 +1,10 @@
 import * as actionTypes from './actionTypes';
 import firebase from '../../firebase-scoreapp';
 
-export const addTeamSuccess = () => {
+export const addTeamSuccess = (teamData) => {
     return {
         type: actionTypes.ADD_TEAM_SUCCESS,
+        newTeam:teamData,
     }
 }
 
@@ -32,7 +33,7 @@ export const addTeam = (teamData) => {
     return dispatch => {
         dispatch(addTeamStart());
         firebase.database().ref("/Teams/").push(teamData).then(res => {
-            dispatch(addTeamSuccess());
+            dispatch(addTeamSuccess(teamData));
             dispatch(closeModal());
         }).catch(
             error => {

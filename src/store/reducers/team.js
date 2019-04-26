@@ -27,6 +27,7 @@ const addTeam = (state, action) => {
 };
 
 const addTeamSuccess = (state, action) => {
+    state.teams.push(action.newTeam);
     return {
         ...state,
         loading: false,
@@ -107,7 +108,7 @@ const getTeamsStart = (state, action) => {
     }
 }
 
-const getTeamsfail = (state, action) => {
+const getTeamsFail = (state, action) => {
     return {
         ...state,
         loading: false,
@@ -195,7 +196,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.ADD_PLAYER_TO_TEAM_FAIL: return addPlayerToTeamFail(state, action);
 
         case actionTypes.GET_ALL_TEAMS_START: return getTeamsStart(state, action);
-        case actionTypes.GET_ALL_TEAMS_FAIL: return getTeamsfail(state, action);
+        case actionTypes.GET_ALL_TEAMS_FAIL: return getTeamsFail(state, action);
         case actionTypes.GET_ALL_TEAMS_SUCCESS: return getTeamsSuccess(state, action);
 
         case actionTypes.REMOVE_PLAYER_START: return removePlayerStart(state, action);

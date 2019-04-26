@@ -52,7 +52,7 @@ class AddTeam extends Component {
     render() {
         let formOrRedirect = null;
         if (this.props.submitted) {
-            formOrRedirect = <Redirect to="/selectedTeam" />
+            formOrRedirect = <Redirect to="/Team" />
         } else {
             formOrRedirect = (
                 <TeamForm

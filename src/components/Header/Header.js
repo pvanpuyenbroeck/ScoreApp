@@ -7,8 +7,8 @@ import * as actions from '../../store/actions/index';
 class header extends Component {
     logout = () => {
         this.props.logout();
-        this.props.closeSidePanel();
-        window.location.reload();
+        // this.props.closeSidePanel();
+        // window.location.reload();
     }
     render() {
         let NavLinks = null;

@@ -41,6 +41,7 @@ const authLogout = (state, action) => {
     return updateObject(state, { 
         token: null, 
         userId: null, 
+        user:null,
         isAuthenticated:false,
         authRedirectPath: '/auth',
     });

@@ -5,7 +5,6 @@ import TeamControl from './containers/TeamControl/TeamControl';
 import AddNewPlayer from './containers/TeamControl/AddPlayer/AddPlayer';
 import Modal from './components/UI/Modal/Modal';
 import "./components/Navigation/SidePanel/SidePanel.css";
-import Aux from './hoc/_Aux/_Aux';
 import Flexbox from './components/UI/Flexbox/Flexbox';
 import {connect} from 'react-redux';
 // import AddTeam from './containers/TeamControl/AddTeam/AddTeam';

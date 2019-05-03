@@ -109,6 +109,7 @@ class AddGame extends Component {
         const gameInfo = {
             gameData: formData,
             oponentGoals: 0,
+            Participants:[],
         }
         // refTeamPlayers.push(gameInfo)
         //     .then(response => {

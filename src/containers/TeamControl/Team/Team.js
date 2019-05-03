@@ -67,9 +67,9 @@ class Team extends Component {
     }
 
     removeMatchHandler(matchId){
-        let updatedMatches = {...this.props.team.Matches}
+        let updatedMatches = {...this.props.team[this.props.selectedSeason].Matches}
         delete updatedMatches[matchId];
-        this.props.removeMatchFromTeam(updatedMatches, this.props.team.teamId);
+        this.props.removeMatchFromTeam(updatedMatches, this.props.team.teamId, this.props.selectedSeason);
     }
 
     // seasonChangedHandler(season){
@@ -145,7 +145,7 @@ const mapDispatchToProps = dispatch => {
         matchSelected: (match) => dispatch(actions.setSelectedMatchInfo(match)),
         changeLocation: (location) => dispatch(actions.locationChange(location)),
         removePlayerFromTeam: (playerid, teamid, teamMembers, season, team) => dispatch(actions.removePlayerFromTeam(playerid, teamid, teamMembers, season, team)),
-        removeMatchFromTeam: (updatedMatches, teamId) => dispatch(actions.removeMatchFromTeam(updatedMatches, teamId)),
+        removeMatchFromTeam: (updatedMatches, teamId, selectedSeason) => dispatch(actions.removeMatchFromTeam(updatedMatches, teamId, selectedSeason)),
     }
 }
 

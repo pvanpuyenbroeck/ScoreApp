@@ -37,12 +37,12 @@ class matchCenter extends Component {
             this.props.history.push('/selectTeam');
         }
         //get all the players from the team
-        let updateFilteredPlayer = { ...this.props.team.filteredPlayers };
+        let updateFilteredPlayer = { ...this.props.team[this.props.selectedSeason].filteredPlayers };
         //Get all known participants of the match
         const participants = { ...this.props.match.selectedMatch.Participants };
 
         //Go over all the team players and check there availability
-        for (let key in this.props.team.filteredPlayers) {
+        for (let key in this.props.team[this.props.selectedSeason].filteredPlayers) {
             let attending = false;
             let goals = 0;
             if (typeof participants[key] !== 'undefined') {
@@ -250,6 +250,7 @@ const mapStateToProps = state => {
         team: state.team.selectedTeam,
         loading: state.match.loading,
         matchSaved: state.match.matchSaved,
+        selectedSeason: state.team.selectedSeason,
     }
 }
 

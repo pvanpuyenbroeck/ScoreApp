@@ -145,7 +145,7 @@ export const addMatch = (newMatch, team, season) => {
     // team.Matches = { ...team.Matches, newMatch };
     return dispatch => {    
         dispatch(addMatchStart());
-        firebase.database().ref('/Teams/' + team.teamId + '/' + season + '/' +'/Matches').push(newMatch).then(response => {
+        firebase.database().ref('/Teams/' + team.teamId + '/' + season + '/Matches').push(newMatch).then(response => {
             dispatch(addMatchSuccess());
             dispatch(getTeam(team.teamId));
         }).catch(error => {

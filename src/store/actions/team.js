@@ -240,10 +240,10 @@ export const getAllTeams = (userId = null, token = null) => {
     }
 }
 
-export const removeMatchFromTeam = (updatedMatches, teamId) => {
+export const removeMatchFromTeam = (updatedMatches, teamId, selectedSeason) => {
     return dispatch => {
         dispatch(removeMatchStart());
-        firebase.database().ref('/Teams/' + teamId + '/Matches/').set(updatedMatches)
+        firebase.database().ref('/Teams/' + teamId + '/' + selectedSeason + '/Matches/').set(updatedMatches)
             .then(response => {
                 dispatch(removeMatchSuccess(updatedMatches));
             }).catch(err => {

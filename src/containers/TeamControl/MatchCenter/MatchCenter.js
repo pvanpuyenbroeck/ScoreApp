@@ -51,17 +51,17 @@ class matchCenter extends Component {
                 }
                 attending = participants[key].attending;
                 updateFilteredPlayer[key] = {
-                    ...this.props.team.filteredPlayers[key],
+                    ...this.props.team[this.props.selectedSeason].filteredPlayers[key],
                     goals: goals,
                     attending: attending,
-                    active: this.props.team.TeamMembers[key].active
+                    active: this.props.team[this.props.selectedSeason].TeamMembers[key].active
                 }
             } else (updateFilteredPlayer[key] = {
-                ...this.props.team.filteredPlayers[key],
+                ...this.props.team[this.props.selectedSeason].filteredPlayers[key],
                 goals: goals,
                 attending: attending,
                 //toevoegen van de actieve status
-                active: this.props.team.TeamMembers[key].active
+                active: this.props.team[this.props.selectedSeason].TeamMembers[key].active
             })
         }
         let homeGoals = 0;
@@ -83,7 +83,7 @@ class matchCenter extends Component {
     playerButtonClicked(playerId) {
         let updatedTeamMembers = { ...this.state.teamMembers };
         updatedTeamMembers[playerId].attending = !updatedTeamMembers[playerId].attending;
-        this.props.setSelectedPlayers(updatedTeamMembers, this.props.team.teamId, this.props.match.selectedMatch.matchId)
+        this.props.setSelectedPlayers(updatedTeamMembers, this.props.team.teamId, this.props.match.selectedMatch.matchId, this.props.selectedSeason)
         this.setState({
             teamMembers: updatedTeamMembers,
         })
@@ -95,7 +95,7 @@ class matchCenter extends Component {
     }
 
     settingSelectedPlayers(MatchPlayers, teamId, matchId) {
-        this.props.setSelectedPlayers(MatchPlayers, teamId, matchId);
+        this.props.setSelectedPlayers(MatchPlayers, teamId, matchId, this.props.selectedSeason);
         this.setInitialPlayers();
         this.setState({
             showAddPlayersWindow: false,
@@ -119,7 +119,7 @@ class matchCenter extends Component {
                 this.setState({ matchStats: updatedMatchStats });
             }
         }
-        this.props.setSelectedPlayers(updatedTeamMembers, this.props.team.teamId, this.props.match.selectedMatch.matchId)
+        this.props.setSelectedPlayers(updatedTeamMembers, this.props.team.teamId, this.props.match.selectedMatch.matchId, this.props.selectedSeason)
         this.setState({
             teamMembers: updatedTeamMembers,
         })
@@ -256,7 +256,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        setSelectedPlayers: (teamMembersMatch, teamId, matchId) => dispatch(actions.setMatchPlayers(teamMembersMatch, teamId, matchId)),
+        setSelectedPlayers: (teamMembersMatch, teamId, matchId, selectedSeason) => dispatch(actions.setMatchPlayers(teamMembersMatch, teamId, matchId, selectedSeason)),
         // getSelectedPlayers: (teamId,matchId) => dispatch(actions.getMatchPlayers(teamId,matchId)), 
         getTeam: (teamId) => dispatch(actions.getTeam(teamId, null, null)),
         saveGameStats: (teamId, matchId, match) => dispatch(actions.saveMatch(teamId, matchId, match)),

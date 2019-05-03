@@ -33,7 +33,7 @@ const setMatchPlayersSuccess = (state, action) =>{
     return{
         ...state,
         loading: false,
-        // MatchPlayers:action.players,
+        MatchPlayers:action.players,
     }
 }
 const setMatchPlayersFail = (state, action) =>{

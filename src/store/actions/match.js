@@ -43,11 +43,11 @@ export const setMatchPlayersStart = () => {
     }
 }
 
-export const setMatchPlayers = (players, teamId, matchId) => {
+export const setMatchPlayers = (players, teamId, matchId, selectedSeason) => {
     return dispatch => {
         dispatch(setPlayersMatch(players));
         dispatch(setMatchPlayersStart());
-        firebase.database().ref('/Teams/' + teamId + '/Matches/' + matchId + '/Participants').set(players)
+        firebase.database().ref('/Teams/' + teamId + '/' + selectedSeason + '/Matches/'  + matchId + '/Participants').set(players)
             .then(response => {
                 dispatch(setMatchPlayersSuccess());
                 console.log(response);

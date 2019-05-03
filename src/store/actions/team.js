@@ -73,6 +73,7 @@ export const getTeam = (teamId, season) => {
         dispatch(getTeamStart());
         firebase.database().ref('/Teams/' + teamId).once('value').then(res => {
             const team = res.val();
+            console.log(team);
             // const TeamMembersAvailable = team[season].TeamMembers === undefined;
             if (season in team) {
                 const players = Object.keys(team[season].TeamMembers);
@@ -245,7 +246,7 @@ export const removeMatchFromTeam = (updatedMatches, teamId, selectedSeason) => {
         dispatch(removeMatchStart());
         firebase.database().ref('/Teams/' + teamId + '/' + selectedSeason + '/Matches/').set(updatedMatches)
             .then(response => {
-                dispatch(removeMatchSuccess(updatedMatches));
+                dispatch(removeMatchSuccess(updatedMatches, selectedSeason));
             }).catch(err => {
                 dispatch(removeMatchFail(err));
             })
@@ -265,10 +266,11 @@ export const removeMatchFail = (error) => {
     }
 }
 
-export const removeMatchSuccess = (updatedMatches) => {
+export const removeMatchSuccess = (updatedMatches, selectedSeason) => {
     return {
         type: actionTypes.REMOVE_MATCH_SUCCESS,
         updatedMatches: updatedMatches,
+        selectedSeason: selectedSeason,
     }
 }
 

@@ -61,7 +61,7 @@ class Team extends Component {
         if (value) {
             this.props.removePlayerFromTeam(this.state.playeridToRemove, this.props.team.teamId, 
                 this.props.team[this.props.selectedSeason].TeamMembers, this.props.selectedSeason, this.props.team)
-            this.props.selectedTeam(this.props.team.teamId, this.props.token, this.props.userId);
+                this.props.selectedTeam(this.props.match.params.teamId, this.props.selectedSeason);
         }
         this.setState({showConfirm:false, playeridToRemove:""});
     }
@@ -137,7 +137,7 @@ class Team extends Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        getTeam: (team) => dispatch(actions.getTeam(team)),
+        // getTeam: (team) => dispatch(actions.getTeam(team)),
         closeModal: () => dispatch(actions.closeModal()),
         showFunctionMenu: () => dispatch(actions.showFunctionMenu()),
         selectedTeam: (teamId, season) => dispatch(actions.getTeam(teamId, season)),

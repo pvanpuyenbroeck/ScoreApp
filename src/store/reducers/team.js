@@ -156,7 +156,7 @@ const removeMatchStart = (state, action) => {
 
 const removeMatchSuccess = (state, action) => {
     let updatedTeam = {...state.selectedTeam};
-    updatedTeam.Matches = action.updatedMatches;
+    updatedTeam[action.selectedSeason].Matches = action.updatedMatches;
     return {
         ...state,
         removingMatch: false,

@@ -10,6 +10,7 @@ class AddTeam extends Component {
         teamToAdd: {
             teamName: '',
             admin: '',
+            Seasons: {},
         },
         submitted: false,
     }
@@ -40,7 +41,7 @@ class AddTeam extends Component {
         teamToAdd.teamName = name === '' ? value : this.state.teamToAdd.teamName;
         // teamToAdd.season = name === 'season' ? value : this.state.teamToAdd.season;
         teamToAdd.admin = this.props.adminUid;
-        teamToAdd[this.props.selectedSeason] = {
+        teamToAdd.Seasons[this.props.selectedSeason] = {
             Matches:false,
             TeamMembers:false, 
         };

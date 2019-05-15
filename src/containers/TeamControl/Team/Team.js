@@ -60,14 +60,14 @@ class Team extends Component {
     confirmHandler(value) {
         if (value) {
             this.props.removePlayerFromTeam(this.state.playeridToRemove, this.props.team.teamId, 
-                this.props.team[this.props.selectedSeason].TeamMembers, this.props.selectedSeason, this.props.team)
+                this.props.team.Seasons[this.props.selectedSeason].TeamMembers, this.props.selectedSeason, this.props.team)
                 this.props.selectedTeam(this.props.match.params.teamId, this.props.selectedSeason);
         }
         this.setState({showConfirm:false, playeridToRemove:""});
     }
 
     removeMatchHandler(matchId){
-        let updatedMatches = {...this.props.team[this.props.selectedSeason].Matches}
+        let updatedMatches = {...this.props.team.Seasons[this.props.selectedSeason].Matches}
         delete updatedMatches[matchId];
         this.props.removeMatchFromTeam(updatedMatches, this.props.team.teamId, this.props.selectedSeason);
     }
@@ -110,14 +110,14 @@ class Team extends Component {
                         <Modal show={this.props.showModal} modalClosed={() => this.props.closeModal()} />
                         <SeasonSelection />
                         <Players
-                            team={typeof this.props.team[this.props.selectedSeason] !== 'undefined' ? this.props.team[this.props.selectedSeason] : null}
-                            playerDetails={typeof this.props.team[this.props.selectedSeason] !== 'undefined' ? this.props.team[this.props.selectedSeason].filteredPlayers : null}
+                            team={typeof this.props.team.Seasons[this.props.selectedSeason] !== 'undefined' ? this.props.team.Seasons[this.props.selectedSeason] : null}
+                            playerDetails={typeof this.props.team.Seasons[this.props.selectedSeason] !== 'undefined' ? this.props.team.Seasons[this.props.selectedSeason].filteredPlayers : null}
                             user={this.props.user}
                             removePlayerClicked={(uid) => this.removePlayerClickedHandler(uid)}
                         />
                         <Games
-                            matches={typeof this.props.team[this.props.selectedSeason] !== 'undefined' ? this.props.team[this.props.selectedSeason].Matches : null}
-                            teamId={typeof this.props.team[this.props.selectedSeason] !== 'undefined' ? this.props.team[this.props.selectedSeason].teamId : null}
+                            matches={typeof this.props.team.Seasons[this.props.selectedSeason] !== 'undefined' ? this.props.team.Seasons[this.props.selectedSeason].Matches : null}
+                            teamId={typeof this.props.team.Seasons[this.props.selectedSeason] !== 'undefined' ? this.props.team.Seasons[this.props.selectedSeason].teamId : null}
                             matchClicked={(match) => this.matchSelected(match)}
                             team={this.props.team}
                             removeMatchClicked={(matchId) => this.removeMatchHandler(matchId)}

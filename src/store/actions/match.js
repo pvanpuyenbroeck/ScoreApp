@@ -47,7 +47,7 @@ export const setMatchPlayers = (players, teamId, matchId, selectedSeason) => {
     return dispatch => {
         dispatch(setPlayersMatch(players));
         dispatch(setMatchPlayersStart());
-        firebase.database().ref('/Teams/' + teamId + '/' + selectedSeason + '/Matches/'  + matchId + '/Participants').set(players)
+        firebase.database().ref('/Teams/' + teamId + '/Seasons/' + selectedSeason + '/Matches/'  + matchId + '/Participants').set(players)
             .then(response => {
                 dispatch(setMatchPlayersSuccess());
                 console.log(response);
@@ -145,7 +145,7 @@ export const addMatch = (newMatch, team, season) => {
     // team.Matches = { ...team.Matches, newMatch };
     return dispatch => {    
         dispatch(addMatchStart());
-        firebase.database().ref('/Teams/' + team.teamId + '/' + season + '/Matches').push(newMatch).then(response => {
+        firebase.database().ref('/Teams/' + team.teamId + '/Seasons/' + season + '/Matches').push(newMatch).then(response => {
             dispatch(addMatchSuccess());
             dispatch(getTeam(team.teamId, season));
         }).catch(error => {

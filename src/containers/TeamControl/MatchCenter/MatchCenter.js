@@ -37,12 +37,12 @@ class matchCenter extends Component {
             this.props.history.push('/selectTeam');
         }
         //get all the players from the team
-        let updateFilteredPlayer = { ...this.props.team[this.props.selectedSeason].filteredPlayers };
+        let updateFilteredPlayer = { ...this.props.team.Seasons[this.props.selectedSeason].filteredPlayers };
         //Get all known participants of the match
         const participants = { ...this.props.match.selectedMatch.Participants };
 
         //Go over all the team players and check there availability
-        for (let key in this.props.team[this.props.selectedSeason].filteredPlayers) {
+        for (let key in this.props.team.Seasons[this.props.selectedSeason].filteredPlayers) {
             let attending = false;
             let goals = 0;
             if (typeof participants[key] !== 'undefined') {
@@ -51,17 +51,17 @@ class matchCenter extends Component {
                 }
                 attending = participants[key].attending;
                 updateFilteredPlayer[key] = {
-                    ...this.props.team[this.props.selectedSeason].filteredPlayers[key],
+                    ...this.props.team.Seasons[this.props.selectedSeason].filteredPlayers[key],
                     goals: goals,
                     attending: attending,
-                    active: this.props.team[this.props.selectedSeason].TeamMembers[key].active
+                    active: this.props.team.Seasons[this.props.selectedSeason].TeamMembers[key].active
                 }
             } else (updateFilteredPlayer[key] = {
-                ...this.props.team[this.props.selectedSeason].filteredPlayers[key],
+                ...this.props.team.Seasons[this.props.selectedSeason].filteredPlayers[key],
                 goals: goals,
                 attending: attending,
                 //toevoegen van de actieve status
-                active: this.props.team[this.props.selectedSeason].TeamMembers[key].active
+                active: this.props.team.Seasons[this.props.selectedSeason].TeamMembers[key].active
             })
         }
         let homeGoals = 0;

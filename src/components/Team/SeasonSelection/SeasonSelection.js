@@ -27,7 +27,7 @@ class SeasonSelection extends Component {
     render(){
         const availableSeasons = this.state.seasons.map(season =>{
             return(
-                <option value={season}>{season}</option>
+                <option value={season} key={season}>{season}</option>
             )
         })
         return (

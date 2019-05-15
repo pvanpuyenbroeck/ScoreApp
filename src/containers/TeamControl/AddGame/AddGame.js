@@ -30,7 +30,7 @@ class AddGame extends Component {
                     type: 'datetime-local',
                     placeholder: null,
                 },
-                value: "2017-05-24T10:30",
+                value: "2019-05-24T22:00",
                 validation: {
                     required: true,
                 },

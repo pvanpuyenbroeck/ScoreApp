@@ -27,12 +27,13 @@ class TeamsOverview extends Component {
     }
 
     render() {
-        let teams = <Spinner />;
+        let participantTeams = <Spinner/>;
+        let managedteams = <Spinner />;
         if (!this.props.loading) {
             console.log(this.props);
             const teamArray = this.props.teams;
             if(teamArray.length > 0){
-                teams = teamArray.map(team => {
+                managedteams = teamArray.map(team => {
                     if (team.admin === this.props.userId) {
                         return (
                             <SelectedTeamButton
@@ -46,13 +47,33 @@ class TeamsOverview extends Component {
                         return null;
                     }
                 })
+                participantTeams = teamArray.map(team => {
+                    for(let season in team.Seasons){
+                        for(let teamMemberId in team.Seasons[season].TeamMembers){
+                            if(teamMemberId === this.props.userId){
+                                return(
+                                    <SelectedTeamButton
+                                        key={team.id}
+                                        teamName={team.teamName}
+                                        id={team.id}
+                                    />
+                                )
+                            }
+                        }
+                    }
+                })
             }
         }
+
         return (
             <div className={classes.TeamsOverview}>
                 <div className={classes.Teams}>
-                    <h1>Teams:</h1>
-                    {teams}
+                    <h1>Managed teams:</h1>
+                    {managedteams}
+                </div>
+                <div className={classes.Teams}>
+                    <h1>Team:</h1>
+                    {participantTeams}
                 </div>
             </div>
         );

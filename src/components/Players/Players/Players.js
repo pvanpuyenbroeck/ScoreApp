@@ -31,7 +31,7 @@ const Players = (props) => {
             )
         })
     } else {
-        players = <h2>Voeg spelers toe</h2>
+        players = <h1>Voeg spelers toe</h1>
     }
     return (
         <div className={classes.Players}>

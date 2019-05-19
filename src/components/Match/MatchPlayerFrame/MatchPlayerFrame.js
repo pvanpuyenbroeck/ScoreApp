@@ -19,9 +19,9 @@ const matchPlayerFrame = props => {
                 </div>
             </div>
             <div className={classes.Scoring}>
-                <div className={minusClasses.join(' ')} onClick={props.minClicked}><img alt="minus" src={minus} /></div>
+                {props.adminLoggedIn ? <div className={minusClasses.join(' ')} onClick={props.minClicked}><img alt="minus" src={minus} /></div> : null}
                 <div className={classes.GoalsScored}>{props.goals}</div>
-                <div className={plusClasses.join(' ')} onClick={props.plusClicked}><img alt="plus" src={plus} /></div>
+                {props.adminLoggedIn ? <div className={plusClasses.join(' ')} onClick={props.plusClicked}><img alt="plus" src={plus} /></div> : null}
             </div>
             <div className={classes.MoreButton}>
                 <div><img alt="more button" src={moreButton} /></div>

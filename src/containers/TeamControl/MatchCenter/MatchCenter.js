@@ -128,7 +128,7 @@ class matchCenter extends Component {
 
     oponentGoalHandler(addOrDetract) {
         let updatedMatchStats = { ...this.state.matchStats }
-        let updatedMatch = {...this.props.match.selectedMatch}
+        let updatedMatch = { ...this.props.match.selectedMatch }
         if (addOrDetract === 'add') {
             updatedMatchStats.oponentScore++
         } else {
@@ -181,29 +181,39 @@ class matchCenter extends Component {
                             plusClicked={() => this.goalHandler(playerInfo.userid, 'add')}
                             minClicked={() => this.goalHandler(playerInfo.userid, 'min')}
                             goals={this.props.match.selectedMatch.Participants[playerInfo.userid].goals}
+                            adminLoggedIn = {this.props.adminLoggedIn}
                         />
                     )
                 })
             }
+
             if (typeof this.props.team.teamId !== 'undefined') {
                 let saveGame = [classes.SaveGame];
                 if (this.props.matchSaved) {
                     saveGame.push(classes.Hide);
                 }
+                let adminOptions = null;
+
+                if (this.props.adminLoggedIn) {
+                    adminOptions = (
+                        <div>
+                            <div className={classes.MenuButtons} onClick={() => this.showPlayerSelectWindow()}>
+                                <div>Selecteer Speler</div>
+                            </div>
+                            <div className={saveGame.join(' ')}>
+                                <div onClick={() => this.props.saveGameStats(this.props.team.teamId, this.props.match.selectedMatch.matchId, this.props.match.selectedMatch)}>Opslaan</div>
+                            </div>
+                            <div className={classes.OpponentGoal}>
+                                <div onClick={() => this.oponentGoalHandler("minus")}><div className={classes.Center}>-</div></div>
+                                <div onClick={() => this.oponentGoalHandler("add")}><div className={classes.Center}>+</div></div>
+                            </div>
+                        </div>
+                    )
+                }
                 matchCenter = (
                     <div className={classes.MatchCenter}>
                         {/* <Button btnType="RedButton" clicked={() => this.showPlayerSelectWindow()}>Selecteer spelers</Button> */}
-                        <div className={classes.MenuButtons} onClick={() => this.showPlayerSelectWindow()}>
-                            <div>Selecteer Speler</div>
-                        </div>
-
-                        <div className={saveGame.join(' ')}>
-                            <div onClick={() => this.props.saveGameStats(this.props.team.teamId, this.props.match.selectedMatch.matchId, this.props.match.selectedMatch)}>Opslaan</div>
-                        </div>
-                        <div className={classes.OpponentGoal}>
-                            <div onClick={() => this.oponentGoalHandler("minus")}><div className={classes.Center}>-</div></div>
-                            <div onClick={() => this.oponentGoalHandler("add")}><div className={classes.Center}>+</div></div>
-                        </div>
+                        {adminOptions}
                         <div className={classes.PlayersFieldTitle}>
                             <div className={classes.Score}>{this.state.matchStats.homeScore}</div>
                             <div className={classes.MatchTitle}><h2>{this.props.team.teamName} - {this.props.match.selectedMatch.gameData.opponent}</h2></div>
@@ -251,6 +261,7 @@ const mapStateToProps = state => {
         loading: state.match.loading,
         matchSaved: state.match.matchSaved,
         selectedSeason: state.team.selectedSeason,
+        adminLoggedIn: state.team.selectedTeam.admin === state.auth.user.uid,
     }
 }
 

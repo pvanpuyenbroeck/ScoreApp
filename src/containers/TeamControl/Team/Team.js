@@ -114,6 +114,7 @@ class Team extends Component {
                             playerDetails={typeof this.props.team.Seasons[this.props.selectedSeason] !== 'undefined' ? this.props.team.Seasons[this.props.selectedSeason].filteredPlayers : null}
                             user={this.props.user}
                             removePlayerClicked={(uid) => this.removePlayerClickedHandler(uid)}
+                            admin={this.props.adminLoggedIn}
                         />
                         <Games
                             matches={typeof this.props.team.Seasons[this.props.selectedSeason] !== 'undefined' ? this.props.team.Seasons[this.props.selectedSeason].Matches : null}

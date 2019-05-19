@@ -92,7 +92,7 @@ class playerButton extends Component {
                     <div
                         style={closeButtonStyle}
                         className={classes.CloseButton}
-                        onMouseEnter={this.showCloseButtonHandler}
+                        onMouseEnter={this.props.admin ? this.showCloseButtonHandler : this.hideCloseButtonHandler}
                         onMouseLeave={this.hideCloseButtonHandler}
                         onClick={() => this.props.removePlayerClicked(this.props.user.userid)}
                     ></div>
@@ -100,7 +100,7 @@ class playerButton extends Component {
                 <div
                     className={attachedClasses.join(' ')}
                     onClick={this.props.clicked}
-                    onMouseEnter={this.showCloseButtonHandler}
+                    onMouseEnter={this.props.admin ? this.showCloseButtonHandler : this.hideCloseButtonHandler}
                     onMouseLeave={this.hideCloseButtonHandler}
                 >
                     <div className={classes.Image}>

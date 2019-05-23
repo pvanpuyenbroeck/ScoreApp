@@ -54,6 +54,7 @@ class Layout extends Component {
                             navigation={navigation}
                             navClicked={(navItem) => this.breadcrumClicked(navItem)}
                             breadcrumbLocation={this.props.navigation.breadcrumbLocation}
+                            adminLoggedIn = {this.props.adminLoggedIn}
                         />
                     </div>
                     <main>
@@ -66,10 +67,13 @@ class Layout extends Component {
 }
 
 const mapStateToProps = state => {
+    const selectedTeamAdmin = state.team.selectedTeam !== null ? state.team.selectedTeam.admin : 0;
+    const userId = state.auth.user !== null ? state.auth.user.uid : 1;
     return {
         team: state.team.selectedTeam,
         match: state.match.selectedMatch,
         navigation: state.navigation,
+        adminLoggedIn: selectedTeamAdmin === userId,
         // match: state.
     }
 }

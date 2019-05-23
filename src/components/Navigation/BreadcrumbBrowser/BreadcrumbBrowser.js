@@ -29,7 +29,7 @@ const breadcrumbBrowser = (props) => {
                     <Breadcrumb
                         key={3}
                         location={"/Team/" + props.navigation.id.teamId}
-                        dropdown={dropdown}
+                        dropdown={props.adminLoggedIn ? dropdown : []}
                         navClicked={(navItem) => props.navClicked({ navNumber: 3, navItem: navItem })}
                         navActive={props.breadcrumbLocation >= 3 ? true : false}
                         breadCrumbHide={false}

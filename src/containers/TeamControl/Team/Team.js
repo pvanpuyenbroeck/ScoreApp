@@ -72,6 +72,38 @@ class Team extends Component {
         this.props.removeMatchFromTeam(updatedMatches, this.props.team.teamId, this.props.selectedSeason);
     }
 
+    getTeamId(){
+        if(typeof this.props.team.Seasons !== 'undefined'){
+            return typeof this.props.team.Seasons[this.props.selectedSeason] !== 'undefined' ? this.props.team.Seasons[this.props.selectedSeason].teamId : null
+        }else{
+            return null;
+        }
+    }
+
+    getMatches(){
+        if(typeof this.props.team.Seasons !== 'undefined'){
+            return typeof this.props.team.Seasons[this.props.selectedSeason] !== 'undefined' ? this.props.team.Seasons[this.props.selectedSeason].Matches : null
+        }else{
+            return null;
+        }
+    }
+
+    getPlayerDetails(){
+        if(typeof this.props.team.Seasons !== 'undefined'){
+            return typeof this.props.team.Seasons[this.props.selectedSeason] !== 'undefined' ? this.props.team.Seasons[this.props.selectedSeason].filteredPlayers : null
+        }else{
+            return null;
+        }
+    }
+
+    getTeam(){
+        if(typeof this.props.team.Seasons !== 'undefined'){
+            return typeof this.props.team.Seasons[this.props.selectedSeason] !== 'undefined' ? this.props.team.Seasons[this.props.selectedSeason] : null 
+        }else{
+            return null;
+        }
+    }
+
     // seasonChangedHandler(season){
     //     this.setState({
     //         selectedSeason:season,
@@ -110,15 +142,15 @@ class Team extends Component {
                         <Modal show={this.props.showModal} modalClosed={() => this.props.closeModal()} />
                         <SeasonSelection />
                         <Players
-                            team={typeof this.props.team.Seasons[this.props.selectedSeason] !== 'undefined' ? this.props.team.Seasons[this.props.selectedSeason] : null}
-                            playerDetails={typeof this.props.team.Seasons[this.props.selectedSeason] !== 'undefined' ? this.props.team.Seasons[this.props.selectedSeason].filteredPlayers : null}
+                            team={this.getTeam()}
+                            playerDetails={this.getPlayerDetails()}
                             user={this.props.user}
                             removePlayerClicked={(uid) => this.removePlayerClickedHandler(uid)}
                             admin={this.props.adminLoggedIn}
                         />
                         <Games
-                            matches={typeof this.props.team.Seasons[this.props.selectedSeason] !== 'undefined' ? this.props.team.Seasons[this.props.selectedSeason].Matches : null}
-                            teamId={typeof this.props.team.Seasons[this.props.selectedSeason] !== 'undefined' ? this.props.team.Seasons[this.props.selectedSeason].teamId : null}
+                            matches={this.getMatches()}
+                            teamId={this.getTeamId()}
                             matchClicked={(match) => this.matchSelected(match)}
                             team={this.props.team}
                             removeMatchClicked={(matchId) => this.removeMatchHandler(matchId)}

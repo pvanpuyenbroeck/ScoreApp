@@ -158,7 +158,7 @@ class Team extends Component {
                             history={this.props.history}
                         />
                         <PlayerRanking
-                            team={this.props.team.Seasons[this.props.selectedSeason]}
+                            team={typeof this.props.team.Seasons[this.props.selectedSeason] !== "undefined" ? this.props.team.Seasons[this.props.selectedSeason] : false}
                         />
                     </Aux>
                 )

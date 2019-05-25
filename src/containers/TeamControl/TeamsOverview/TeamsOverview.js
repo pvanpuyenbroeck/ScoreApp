@@ -22,17 +22,17 @@ class TeamsOverview extends Component {
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.changeLocation();
     }
 
     render() {
-        let participantTeams = <Spinner/>;
+        let participantTeams = <Spinner />;
         let managedteams = <Spinner />;
         if (!this.props.loading) {
             console.log(this.props);
             const teamArray = this.props.teams;
-            if(teamArray.length > 0){
+            if (teamArray.length > 0) {
                 managedteams = teamArray.map(team => {
                     if (team.admin === this.props.userId) {
                         return (
@@ -40,7 +40,7 @@ class TeamsOverview extends Component {
                                 key={team.id}
                                 teamName={team.teamName}
                                 id={team.id}
-                            // buttonClicked={() => this.props.teamSelectedHandler(team.id)} 
+                                buttonClicked={() => this.props.teamSelectedHandler(team.id, this.props.season)}
                             />
                         );
                     } else {
@@ -48,10 +48,10 @@ class TeamsOverview extends Component {
                     }
                 })
                 participantTeams = teamArray.map(team => {
-                    for(let season in team.Seasons){
-                        for(let teamMemberId in team.Seasons[season].TeamMembers){
-                            if(teamMemberId === this.props.userId){
-                                return(
+                    for (let season in team.Seasons) {
+                        for (let teamMemberId in team.Seasons[season].TeamMembers) {
+                            if (teamMemberId === this.props.userId) {
+                                return (
                                     <SelectedTeamButton
                                         key={team.id}
                                         teamName={team.teamName}

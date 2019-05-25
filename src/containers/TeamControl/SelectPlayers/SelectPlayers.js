@@ -40,7 +40,6 @@ class SelectPlayers extends Component {
         players: null,
         teamMembers: [],
         selectedPlayerId: '',
-        numbersTaken: null,
         playerNumbers: null,
         playerNumberSelected:null,
     }
@@ -76,7 +75,7 @@ class SelectPlayers extends Component {
         formData["playerId"] = this.state.selectedPlayerId;
         const playerInfo = formData;
         console.log(playerInfo);
-        const TeamMembers = typeof this.props.team[this.props.selectedSeason] !== 'undefined' ? this.props.team[this.props.selectedSeason].TeamMembers : null;
+        const TeamMembers = typeof this.props.team.Seasons[this.props.selectedSeason] !== 'undefined' ? this.props.team.Seasons[this.props.selectedSeason].TeamMembers : null;
         let updatedTeamMembers =  {
             ...TeamMembers,
             [this.state.selectedPlayerId]: {
@@ -176,8 +175,7 @@ class SelectPlayers extends Component {
                     <NumberSelection 
                     numbers={20} 
                     numberClicked={(number) => this.onNumberClickedButton(number)} 
-                    numbersTaken={this.state.numbersTaken} 
-                    teamMembers={typeof this.props.team[this.props.selectedSeason] !== 'undefined' ?  this.props.team[this.props.selectedSeason].TeamMembers : null}
+                    teamMembers={typeof this.props.team.Seasons[this.props.selectedSeason] !== 'undefined' ?  this.props.team.Seasons[this.props.selectedSeason].TeamMembers : null}
                     numberSelected={this.state.playerNumberSelected}
                     />
                     <button type="submit">Toevoegen</button>

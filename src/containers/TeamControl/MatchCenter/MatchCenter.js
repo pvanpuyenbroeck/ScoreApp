@@ -196,7 +196,7 @@ class matchCenter extends Component {
 
                 if (this.props.adminLoggedIn) {
                     adminOptions = (
-                        <div>
+                        <React.Fragment>
                             <div className={classes.MenuButtons} onClick={() => this.showPlayerSelectWindow()}>
                                 <div>Selecteer Speler</div>
                             </div>
@@ -207,7 +207,7 @@ class matchCenter extends Component {
                                 <div onClick={() => this.oponentGoalHandler("minus")}><div className={classes.Center}>-</div></div>
                                 <div onClick={() => this.oponentGoalHandler("add")}><div className={classes.Center}>+</div></div>
                             </div>
-                        </div>
+                        </React.Fragment>
                     )
                 }
                 matchCenter = (

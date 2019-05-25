@@ -1,0 +1,29 @@
+.RankingContainer{
+    max-width: 300px;
+    margin: 5px;
+    display: grid;
+}
+
+.Header{
+    font-weight: bold;
+}
+
+@supports(grid-area: auto){
+    @media screen and (min-width: 200px){
+        .RankingContainer{
+            grid-column: 1;
+            grid-column-gap: 1em;
+            grid-row-gap: 1em;
+            grid-template-columns: 6em 2fr 2em;
+        }
+        .PlaceColumn{
+            grid-column: 1/2;
+        }
+        .NameColumn{
+            grid-column: 2/3;
+        }
+        .GoalsColumn{
+            grid-column:3/4;
+        }
+    }
+}

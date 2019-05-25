@@ -10,6 +10,7 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import Aux from '../../../hoc/_Aux/_Aux';
 import Confirm from '../../../components/Alerts/Confirm/confirm';
 import SeasonSelection from '../../../components/Team/SeasonSelection/SeasonSelection';
+import PlayerRanking from '../../../components/PlayerRanking/PlayerRanking';
 
 class Team extends Component {
 
@@ -155,6 +156,9 @@ class Team extends Component {
                             team={this.props.team}
                             removeMatchClicked={(matchId) => this.removeMatchHandler(matchId)}
                             history={this.props.history}
+                        />
+                        <PlayerRanking
+                            team={this.props.team.Seasons[this.props.selectedSeason]}
                         />
                     </Aux>
                 )

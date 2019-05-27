@@ -38,13 +38,14 @@ const authFail = (state, action) => {
 };
 
 const authLogout = (state, action) => {
-    return updateObject(state, { 
-        token: null, 
-        userId: null, 
-        user:null,
-        isAuthenticated:false,
-        authRedirectPath: '/auth',
-    });
+    return initialState
+    // return updateObject(state, { 
+    //     token: null, 
+    //     userId: null, 
+    //     user:null,
+    //     isAuthenticated:false,
+    //     authRedirectPath: '/auth',
+    // });
 };
 
 const googleAuthStart = (state, action) => {

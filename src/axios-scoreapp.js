@@ -1,7 +1,11 @@
 import axios from 'axios';
 
-const instance = axios.create({
+const instanceTest = axios.create({
     baseURL:'https://score-app-b69dc.firebaseio.com/'
 });
 
-export default instance;
+const instanceLive = axios.create({
+    baseURL:'https://mvcscorelive.firebaseio.com'
+});
+
+export default instanceTest;

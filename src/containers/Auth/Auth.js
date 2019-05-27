@@ -151,6 +151,7 @@ class Auth extends Component {
                 this.state.controls.familienaam.value,
                 this.state.isSignup);
         } else {
+            this.history.push("/");
             this.props.onAuthLogin(this.state.controls.email.value, this.state.controls.password.value);
         }
 
@@ -167,31 +168,6 @@ class Auth extends Component {
             return { isSignup: !prevState.isSignup };
         });
     }
-
-    // googleAuthenticate = () => {
-    //     const provider = new firebaseNew.auth.GoogleAuthProvider();
-    //     firebase.auth().signInWithPopup(provider).then((result) => {
-    //         //google access token
-    //         const token = result.credential.accessToken;
-    //         console.log(token);
-    //         //signed in user info
-    //         const user = result.user;
-    //         console.log(user);
-    //         this.props.onGoogleAuthenticate(user.uid, user.displayName, null, null, user.email);
-    
-    //         //...
-    //     }).catch((error) => {
-    //         //Handle error here
-    //         const errorCode = error.code;
-    //         const errorMessage = error.message;
-    //         //the email of the user's account used.
-    //         const email = error.email;
-    //         //the firebase.auth.AuthCredential type that was used.
-    //         const credential = error.credential;
-    //     })
-    // }
-
-
     render() {
         const formElementsArray = [];
         for (let key in this.state.controls) {
@@ -235,14 +211,14 @@ class Auth extends Component {
             );
         }
 
-        let authRedirect = null;
-        if (this.props.isAuthenticated) {
-            authRedirect = <Redirect to={this.props.authRedirectPath} />
-        }
+        // let authRedirect = null;
+        // if (this.props.isAuthenticated) {
+        //     authRedirect = <Redirect to={this.props.authRedirectPath} />
+        // }
 
         return (
             <div className={classes.Auth}>
-                {authRedirect}
+                {/* {authRedirect} */}
                 {errorMessage}
                 <form onSubmit={this.submitHandler}>
                     {form}

@@ -24,6 +24,7 @@ const games = (props) => {
                         team={props.team}
                         removeMatchClicked={(matchId) => props.removeMatchClicked(game.matchId)}
                         history={props.history}
+                        admin={props.admin}
                     />
 
                 </div>

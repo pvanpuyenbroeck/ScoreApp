@@ -156,6 +156,7 @@ class Team extends Component {
                             team={this.props.team}
                             removeMatchClicked={(matchId) => this.removeMatchHandler(matchId)}
                             history={this.props.history}
+                            admin={this.props.adminLoggedIn}
                         />
                         <PlayerRanking
                             team={typeof this.props.team.Seasons[this.props.selectedSeason] !== "undefined" ? this.props.team.Seasons[this.props.selectedSeason] : false}

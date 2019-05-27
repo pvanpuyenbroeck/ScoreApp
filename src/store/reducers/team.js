@@ -179,6 +179,12 @@ const setSeason = (state, action) => {
     }
 }
 
+const authLogout = (state, action) => {
+    return{
+        ...initialState
+    }
+}
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.ADD_TEAM: return addTeam(state, action);
@@ -207,6 +213,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.REMOVE_MATCH_SUCCESS: return removeMatchSuccess(state, action);
         case actionTypes.REMOVE_MATCH_FAIL: return removeMatchFail(state, action);
         case actionTypes.SET_SEASON: return setSeason(state,action);
+        case actionTypes.AUTH_LOGOUT: return authLogout(state, action);
         default: return state;
     }
 }

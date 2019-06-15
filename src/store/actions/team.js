@@ -4,7 +4,7 @@ import firebase from '../../firebase-scoreapp';
 export const addTeamSuccess = (teamData) => {
     return {
         type: actionTypes.ADD_TEAM_SUCCESS,
-        newTeam:teamData,
+        newTeam: teamData,
     }
 }
 
@@ -29,12 +29,14 @@ export const closeModal = () => {
 
 
 export const addTeam = (teamData) => {
-    
+
     return dispatch => {
         dispatch(addTeamStart());
         firebase.database().ref("/Teams/").push(teamData).then(res => {
+            // console.log(res.val());
             dispatch(addTeamSuccess(teamData));
             dispatch(closeModal());
+            dispatch(getAllTeams());
         }).catch(
             error => {
                 dispatch(addTeamFail(error))
@@ -87,7 +89,7 @@ export const getTeam = (teamId, season) => {
                             playerNumber: team.Seasons[season].TeamMembers[key].number,
                         }
                     }
-                    const updatedTeam = {...team};
+                    const updatedTeam = { ...team };
                     updatedTeam.Seasons[season].filteredPlayers = filteredPlayers;
                     dispatch(getTeamSuccess({
                         ...updatedTeam,
@@ -141,7 +143,7 @@ export const addPlayerToTeam = (team, updatedTeamMembers, season) => {
     let updatedTeam = { ...team };
     updatedTeam = {
         ...updatedTeam,
-        [season]:{
+        [season]: {
             ...season,
             TeamMembers: updatedTeamMembers
         }
@@ -149,7 +151,7 @@ export const addPlayerToTeam = (team, updatedTeamMembers, season) => {
     // updatedTeam[season].TeamMembers = updatedTeamMembers;
     return dispatch => {
         dispatch(addPlayerToTeamStart(updatedTeam));
-        firebase.database().ref('/Teams/' + team.teamId + '/Seasons/' + season  + '/TeamMembers/').set(updatedTeamMembers)
+        firebase.database().ref('/Teams/' + team.teamId + '/Seasons/' + season + '/TeamMembers/').set(updatedTeamMembers)
             .then(response => {
                 dispatch(addPlayerToTeamSuccess());
                 dispatch(closeFunctionModal());
@@ -187,7 +189,7 @@ export const removePlayerFromTeam = (playerid, teamid, activePlayers, season, te
         ...updatedTeamMembers[playerid],
         active: false,
     }
-    const updatedTeam = {...team};
+    const updatedTeam = { ...team };
     updatedTeam[season].TeamMembers = updatedTeamMembers;
     return dispatch => {
         dispatch(removePlayerStart());
@@ -222,7 +224,7 @@ export const getAllTeamStart = () => {
     }
 }
 
-export const getAllTeams = (userId = null, token = null) => {
+export const getAllTeams = (userId = null) => {
     return dispatch => {
         dispatch(getAllTeamStart());
         firebase.database().ref('/Teams').once('value')
@@ -279,14 +281,14 @@ export const getSeasons = () => {
     return dispatch => {
         firebase.database.ref('/Seasons').once('value')
             .then(response => {
-                
+
             })
     }
 }
 
 export const setSeason = (season) => {
-    return{
-        type:actionTypes.SET_SEASON,
+    return {
+        type: actionTypes.SET_SEASON,
         season: season,
     }
 }

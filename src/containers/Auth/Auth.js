@@ -151,7 +151,7 @@ class Auth extends Component {
                 this.state.controls.familienaam.value,
                 this.state.isSignup);
         } else {
-            this.history.push("/");
+            // this.history.push("/");
             this.props.onAuthLogin(this.state.controls.email.value, this.state.controls.password.value);
         }
 

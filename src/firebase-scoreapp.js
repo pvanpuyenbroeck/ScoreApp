@@ -20,5 +20,5 @@ import firebase from 'firebase';
     appId: "1:940642416708:web:49ca937e6b5f8db5"
   };
 
-  const firebasedb = firebase.initializeApp(configTest);
+  const firebasedb = firebase.initializeApp(configLive);
   export default firebasedb;

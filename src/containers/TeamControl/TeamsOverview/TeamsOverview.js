@@ -13,16 +13,18 @@ class TeamsOverview extends Component {
             season: '',
         },
         loading: true,
+        uid: null,
 
     }
 
     componentWillMount() {
-        if (this.props.isAuthenticated) {
-            this.props.getAllTeams(this.props.userId, this.props.token);
-        }
+        // if (this.props.isAuthenticated) {
+            
+        // }
     }
 
     componentDidMount() {
+        this.props.getAllTeams(this.props.userId);
         this.props.changeLocation();
     }
 
@@ -30,10 +32,10 @@ class TeamsOverview extends Component {
         let participantTeams = <Spinner />;
         let managedteams = <Spinner />;
         if (!this.props.loading) {
-            console.log(this.props);
             const teamArray = this.props.teams;
             if (teamArray.length > 0) {
                 managedteams = teamArray.map(team => {
+                    console.log(this.props);
                     if (team.admin === this.props.userId) {
                         return (
                             <SelectedTeamButton
@@ -56,6 +58,7 @@ class TeamsOverview extends Component {
                                         key={team.id}
                                         teamName={team.teamName}
                                         id={team.id}
+                                        buttonClicked={() => this.props.teamSelectedHandler(team.id, this.props.season)}
                                     />
                                 )
                             }
@@ -87,7 +90,7 @@ const mapStateToProps = state => {
         userId: state.auth.user.uid,
         teams: state.team.teams,
         loading: state.team.loading,
-        isAuthenticated: state.auth.user != null,
+        isAuthenticated: state.auth.user.uid != null,
         season: state.team.selectedSeason,
     };
 };
@@ -95,7 +98,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         teamSelectedHandler: (teamId, season) => dispatch(actions.getTeam(teamId, season)),
-        getAllTeams: (userId, token) => dispatch(actions.getAllTeams(userId, token)),
+        getAllTeams: (userId) => dispatch(actions.getAllTeams(userId)),
         changeLocation: () => dispatch(actions.locationChange(2)),
     }
 };

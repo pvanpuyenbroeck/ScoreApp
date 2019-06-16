@@ -33,7 +33,6 @@ const games = (props) => {
     }
     return (
         <div className={classes.GamesContainer}>
-            <h1>Matches</h1>
             <div className={classes.Matches}>
                 {allGames}
             </div>

@@ -28,8 +28,8 @@ class Team extends Component {
         selectedSeason: null,
         tabs: [
             { title: "Spelers", selected: false },
-            { title: "Matchen", selected: false },
-            { title: "Ranking", selected: true }]
+            { title: "Matchen", selected: true },
+            { title: "Ranking", selected: false }]
 
     }
     // pick(obj, keys) {

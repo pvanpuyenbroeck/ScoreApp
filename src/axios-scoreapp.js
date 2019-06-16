@@ -8,4 +8,4 @@ const instanceLive = axios.create({
     baseURL:'https://mvcscorelive.firebaseio.com'
 });
 
-export default instanceLive;
+export default instanceTest;

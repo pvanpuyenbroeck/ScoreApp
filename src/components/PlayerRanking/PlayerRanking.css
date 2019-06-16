@@ -1,11 +1,19 @@
-.RankingContainer{
-    max-width: 300px;
+.RankingBox{
+    /* max-width: 300px; */
     margin: 5px;
     display: grid;
     border: 3px solid #326087;
     color: #326087;
     border-radius: 5px;
+    width: 375px;
 }
+
+.RankingContainer{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
 
 .PlaceColumn, .GoalsColumn{
     text-align: center;
@@ -18,7 +26,7 @@
 }
 
 @supports(grid-area: auto){
-    .RankingContainer{
+    .RankingBox{
         grid-column: 1/3;
         grid-column-gap: 1em;
         grid-row-gap: 1em;
@@ -35,7 +43,7 @@
         grid-column:3/4;
     }
     @media screen and (min-width: 600px){
-        .RankingContainer{
+        .RankingBox{
             max-width: 400px;
         }
     }

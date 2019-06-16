@@ -36,7 +36,6 @@ const Players = (props) => {
     }
     return (
         <div className={classes.Players}>
-            <h1>Spelers</h1>
             <div className={classes.PlayersBlock}>
                 {players}
             </div>

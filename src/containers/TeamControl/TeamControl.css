@@ -9,8 +9,8 @@
 }
 
 @supports(grid-area: auto){
-    @media screen and (min-width:376px){
-        
+    .TeamControl{
+        grid-template-rows: 55px 55px auto auto;
     }
     @media(min-width: 650px){
         .TeamControl{

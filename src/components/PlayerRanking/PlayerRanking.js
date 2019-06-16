@@ -46,14 +46,14 @@ const PlayerRanking = (props) => {
     const goalsHeaderClass = [classes.GoalsColumn, classes.Header];
 
     return (
-        <React.Fragment>
-            <div className={classes.RankingContainer}>
+        <div className={classes.RankingContainer}>
+            <div className={classes.RankingBox}>
                 <div className={placeHeaderClass.join(" ")}>Ranking</div>
                 <div className={nameHeaderClass.join(" ")}>Naam</div>
                 <div className={goalsHeaderClass.join(" ")}>Goals</div>
                 {playerRankingGrid}
             </div>
-        </React.Fragment>
+        </div>
     )
 }
 

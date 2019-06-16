@@ -23,8 +23,8 @@
             grid-template-columns: repeat(3, 1fr);
             grid-template-areas:
             "season season season"
-            "players players players"
-            "matches matches matches"
+            "tabs tabs tabs"
+            "selectedTab selectedTab selectedTab"
         }
     }
 
@@ -32,9 +32,9 @@
         .TeamControl{
         grid-template-columns: 30% auto;
         grid-template-areas:
-        "season season"
-        "players matches"
-        "players matches"
+        "season season season"
+        "tabs tabs tabs"
+        "selectedTab selectedTab selectedTab"
         }
     }
 }

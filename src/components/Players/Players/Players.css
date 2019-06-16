@@ -22,7 +22,7 @@
     }
 
     .Players{
-        grid-area: players;
+        grid-area: selectedTab;
         display: inline-block;
     }
 }

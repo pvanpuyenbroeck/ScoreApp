@@ -24,7 +24,7 @@ h1 {
 @supports(grid-area: auto) {
     @media(min-width: 650px) {
         .GamesContainer{
-            grid-area: matches;
+            grid-area: selectedTab;
         }
         .Games{
             

@@ -23,6 +23,7 @@
         grid-column-gap: 1em;
         grid-row-gap: 1em;
         grid-template-columns: 6em 2fr 4em;
+        grid-area: selectedTab;
     }
     .PlaceColumn{
         grid-column: 1/2;

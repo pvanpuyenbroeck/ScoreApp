@@ -1,0 +1,17 @@
+
+
+    .Tabs{
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        max-width: 500px;
+    }
+    
+    @supports(grid-area: auto){
+        .Tabs{
+            grid-area: tabs;
+        }
+        @media screen and (min-width: 600px){
+        }
+    }
+    

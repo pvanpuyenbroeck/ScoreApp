@@ -89,6 +89,7 @@ class matchCenter extends Component {
         })
     }
     showPlayerSelectWindow() {
+        this.props.showModal();
         this.setState({
             showAddPlayersWindow: true,
         })
@@ -97,6 +98,7 @@ class matchCenter extends Component {
     settingSelectedPlayers(MatchPlayers, teamId, matchId) {
         this.props.setSelectedPlayers(MatchPlayers, teamId, matchId, this.props.selectedSeason);
         this.setInitialPlayers();
+        this.props.closeModal();
         this.setState({
             showAddPlayersWindow: false,
         })
@@ -273,6 +275,8 @@ const mapDispatchToProps = dispatch => {
         saveGameStats: (teamId, matchId, match) => dispatch(actions.saveMatch(teamId, matchId, match)),
         oponentGoal: (oponentGoals) => dispatch(actions.updateOponentGoals(oponentGoals)),
         setFalseSaveState: () => dispatch(actions.setFalseSaveState()),
+        closeModal: () => dispatch(actions.closeModal()),
+        showModal: () => dispatch(actions.showModal())
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(matchCenter);

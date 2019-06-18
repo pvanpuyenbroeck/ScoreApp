@@ -20,6 +20,12 @@ export const closeModal = () => {
     }
 }
 
+export const showModal = () => {
+    return{
+        type: actionTypes.SHOW_MODAL,
+    }
+}
+
 export const showComponent = (component) => {
     return{
         type: actionTypes.SHOW_COMPONENT,

@@ -141,6 +141,7 @@ class Team extends Component {
                         />;
                     case "Matchen":
                         return <Games
+                            key={tab.title}
                             matches={this.getMatches()}
                             teamId={this.getTeamId()}
                             matchClicked={(match) => this.matchSelected(match)}
@@ -183,6 +184,7 @@ class Team extends Component {
                 teamControl = (
                     <Aux>
                         {/*}<Toggle toggleClicked={() => this.props.showFunctionMenu()} classtheme="TeamButton">MY TEAM</Toggle>*/}
+                        <SeasonSelection />
                         <Tabs
                             tabs={
                                 this.state.tabs
@@ -205,7 +207,6 @@ class Team extends Component {
                         /> : null}
 
                         <Modal show={this.props.showModal} modalClosed={() => this.props.closeModal()} />
-                        <SeasonSelection />
                         {selectedTab}
                     </Aux>
                 )

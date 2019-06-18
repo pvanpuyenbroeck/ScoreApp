@@ -6,6 +6,7 @@ const tabs = (props) => {
     const tabs = props.tabs.map(tab => {
         return (
             <Tab
+                key={tab.title}
                 title={tab.title}
                 selected={tab.selected}
                 tabClicked={() => props.tabClicked(tab.title)}

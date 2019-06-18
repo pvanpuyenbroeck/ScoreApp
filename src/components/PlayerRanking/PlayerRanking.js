@@ -34,7 +34,7 @@ const PlayerRanking = (props) => {
     })
     const playerRankingGrid = sortedPlayerArray.map((player, index) => {
         return (
-            <React.Fragment>
+            <React.Fragment key={index}>
                 <div className={classes.PlaceColumn}>{index + 1}</div>
                 <div className={classes.NameColumn}>{player.name}</div>
                 <div className={classes.GoalsColumn}>{player.goals}</div>

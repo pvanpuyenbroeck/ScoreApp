@@ -54,6 +54,11 @@ const reducer = (state = initialState, action) => {
             ...state,
             breadcrumbLocation: action.location,
         }
+        case actionTypes.SHOW_MODAL:
+        return{
+            ...state,
+            showModal:true,
+        }
         default: return state;
     }
 };

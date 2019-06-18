@@ -12,6 +12,7 @@ export{
     navpanelSelection,
     sidepanelToggle,
     closeModal,
+    showModal,
     showComponent,
     showFunctionMenu,
     showPlayerSelectWindow,

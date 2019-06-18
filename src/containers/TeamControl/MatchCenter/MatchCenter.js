@@ -143,7 +143,7 @@ class matchCenter extends Component {
             matchStats: updatedMatchStats,
         })
         updatedMatch.oponentGoals = updatedMatchStats.oponentScore;
-        this.props.saveGameStats(this.props.team.teamId, this.props.match.selectedMatch.matchId, updatedMatch)
+        this.props.saveGameStats(this.props.team.teamId, this.props.match.selectedMatch.matchId, updatedMatch, this.props.selectedSeason)
     }
 
     backToTeamViewHandler() {
@@ -272,7 +272,7 @@ const mapDispatchToProps = dispatch => {
         setSelectedPlayers: (teamMembersMatch, teamId, matchId, selectedSeason) => dispatch(actions.setMatchPlayers(teamMembersMatch, teamId, matchId, selectedSeason)),
         // getSelectedPlayers: (teamId,matchId) => dispatch(actions.getMatchPlayers(teamId,matchId)), 
         getTeam: (teamId) => dispatch(actions.getTeam(teamId, null, null)),
-        saveGameStats: (teamId, matchId, match) => dispatch(actions.saveMatch(teamId, matchId, match)),
+        saveGameStats: (teamId, matchId, match, selectedSeason) => dispatch(actions.saveMatch(teamId, matchId, match, selectedSeason)),
         oponentGoal: (oponentGoals) => dispatch(actions.updateOponentGoals(oponentGoals)),
         setFalseSaveState: () => dispatch(actions.setFalseSaveState()),
         closeModal: () => dispatch(actions.closeModal()),

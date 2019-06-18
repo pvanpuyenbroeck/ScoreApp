@@ -23,7 +23,7 @@ const numberSelection = (props) => {
             noClick = true;
         }
         return (
-            <div className={numberClasses.join(' ')} onClick={!noClick ? () => props.numberClicked(number) : null}>{number}</div>
+            <div key={number} className={numberClasses.join(' ')} onClick={!noClick ? () => props.numberClicked(number) : null}>{number}</div>
         )
     })
 

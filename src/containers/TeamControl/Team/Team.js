@@ -133,6 +133,7 @@ class Team extends Component {
                 switch (tab.title) {
                     case "Spelers":
                         return <Players
+                            key={tab.title}
                             team={this.getTeam()}
                             playerDetails={this.getPlayerDetails()}
                             user={this.props.user}
@@ -152,6 +153,7 @@ class Team extends Component {
                         />;
                     case "Ranking":
                         return <PlayerRanking
+                            key={tab.title}
                             team={typeof mainProps.team.Seasons[mainProps.selectedSeason] !== "undefined" ? mainProps.team.Seasons[mainProps.selectedSeason] : false}
                         />;
                     default: return null;

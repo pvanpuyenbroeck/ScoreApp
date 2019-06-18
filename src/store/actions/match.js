@@ -87,11 +87,11 @@ export const saveMatchStatsFail = () => {
         type: actionTypes.SAVE_MATCHSTATS_FAIL,
     }
 }
-export const saveMatch = (teamId, matchId, match) => {
+export const saveMatch = (teamId, matchId, match, season) => {
     return dispatch => {
         //start save matchStats
         dispatch(saveMatchStatsStart())
-        firebase.database().ref('/Teams/' + teamId + '/Matches/' + matchId).set(match)
+        firebase.database().ref('/Teams/' + teamId + '/Seasons/' + season + '/Matches/' + matchId).set(match)
             .then(response => {
                 //save succesfull
                 console.log(response);

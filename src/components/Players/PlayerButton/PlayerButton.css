@@ -65,6 +65,10 @@
     align-items: center;
 }
 
+.PlayerButton:hover{
+    cursor:pointer;
+}
+
 .PlayerNumber {
     width: 10%;
     text-align: center;

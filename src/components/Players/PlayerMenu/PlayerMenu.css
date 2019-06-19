@@ -1,0 +1,32 @@
+.PlayerMenuContainer{
+    height: 500px;
+    width: 500px;
+    background-color: white;
+    z-index: 101;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.Name{
+    width: 80%;
+}
+
+.NameAndNumber{
+    display: flex;
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 15px;
+}
+
+.PlayerNumber{
+    width: 20%;
+}
+
+@supports(grid-area: auto){
+    .PlayerMenuContainer{
+        grid-area: season;
+        justify-self:center;
+    }
+}

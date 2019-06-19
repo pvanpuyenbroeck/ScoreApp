@@ -12,7 +12,7 @@ import Confirm from '../../../components/Alerts/Confirm/confirm';
 import SeasonSelection from '../../../components/Team/SeasonSelection/SeasonSelection';
 import PlayerRanking from '../../../components/PlayerRanking/PlayerRanking';
 import Tabs from '../../../components/UI/Tabs/Tabs';
-
+import PlayerMenu from '../../../components/Players/PlayerMenu/PlayerMenu';
 
 class Team extends Component {
 
@@ -29,7 +29,9 @@ class Team extends Component {
         tabs: [
             { title: "Spelers", selected: false },
             { title: "Matchen", selected: true },
-            { title: "Ranking", selected: false }]
+            { title: "Ranking", selected: false }],
+        showPlayerMenu: false,
+        selectedPlayerId:"",
 
     }
     // pick(obj, keys) {
@@ -63,6 +65,22 @@ class Team extends Component {
     removePlayerClickedHandler(playerId) {
         // alert('Wil je deze speler verwijderen uit uw team?');    
         this.setState({ showConfirm: true, playeridToRemove: playerId });
+    }
+
+    playerClickedHandler(playerId){
+        this.props.showModalHandler();
+        console.log(playerId);
+        this.setState({
+            showPlayerMenu: true,
+            selectedPlayerId: playerId,
+        })
+    }
+
+    closePlayerMenu(){
+        this.props.closeModal();
+        this.setState({
+            showPlayerMenu:false,
+        })
     }
 
     confirmHandler(value) {
@@ -138,6 +156,7 @@ class Team extends Component {
                             playerDetails={this.getPlayerDetails()}
                             user={this.props.user}
                             removePlayerClicked={(uid) => this.removePlayerClickedHandler(uid)}
+                            playerClicked = {(uid) => this.playerClickedHandler(uid)}
                             admin={this.props.adminLoggedIn}
                         />;
                     case "Matchen":
@@ -175,6 +194,13 @@ class Team extends Component {
     render() {
         let teamControl = "";
         let selectedTab = "";
+        let playerMenu = null;
+        if (this.state.showPlayerMenu) {
+           playerMenu =  <PlayerMenu 
+               player={this.props.team.Seasons[this.props.selectedSeason].filteredPlayers[this.state.selectedPlayerId]}
+               adminLoggedIn={this.props.adminLoggedIn}
+           />
+        }
         if (this.props.loading) {
             teamControl = <Spinner />;
         }
@@ -186,6 +212,7 @@ class Team extends Component {
                 teamControl = (
                     <Aux>
                         {/*}<Toggle toggleClicked={() => this.props.showFunctionMenu()} classtheme="TeamButton">MY TEAM</Toggle>*/}
+                        {playerMenu}
                         <SeasonSelection />
                         <Tabs
                             tabs={
@@ -208,7 +235,7 @@ class Team extends Component {
                             showComponent={(component) => this.props.showComponent(component)}
                         /> : null}
 
-                        <Modal show={this.props.showModal} modalClosed={() => this.props.closeModal()} />
+                        <Modal show={this.props.showModal} modalClosed={() => this.closePlayerMenu()} />
                         {selectedTab}
                     </Aux>
                 )
@@ -226,6 +253,7 @@ const mapDispatchToProps = dispatch => {
     return {
         // getTeam: (team) => dispatch(actions.getTeam(team)),
         closeModal: () => dispatch(actions.closeModal()),
+        showModalHandler: () => dispatch(actions.showModal()),
         showFunctionMenu: () => dispatch(actions.showFunctionMenu()),
         selectedTeam: (teamId, season) => dispatch(actions.getTeam(teamId, season)),
         showComponent: (component) => dispatch(actions.showComponent(component)),

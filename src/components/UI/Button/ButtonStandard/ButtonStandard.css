@@ -1,0 +1,21 @@
+.Button{
+    width: 250px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    margin: 5px 0 5px 0;
+}
+
+.Button:hover{
+    cursor: pointer;
+}
+
+.Green{
+    background-color: #2C8693;
+}
+
+.Red{
+    background-color: #F19722;
+}

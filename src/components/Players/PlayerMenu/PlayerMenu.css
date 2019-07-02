@@ -1,16 +1,17 @@
 .PlayerMenuContainer{
-    height: 500px;
-    width: 500px;
+    width: 300px;
     background-color: white;
     z-index: 101;
     border: 1px solid black;
     display: flex;
     align-items: center;
     flex-direction: column;
+    padding: 2rem;
 }
 
 .Name{
     width: 80%;
+    text-align:center;
 }
 
 .NameAndNumber{
@@ -18,6 +19,7 @@
     font-size: 2rem;
     font-weight: bold;
     margin: 15px;
+    width:100%;
 }
 
 .PlayerNumber{
@@ -26,7 +28,14 @@
 
 @supports(grid-area: auto){
     .PlayerMenuContainer{
-        grid-area: season;
+        grid-row: 1/4;
+        grid-column: 2/3;
         justify-self:center;
+    }
+
+    @media screen and (max-width: 600px) {
+        .PlayerMenuContainer{
+            justify-content: center;
+        }
     }
 }

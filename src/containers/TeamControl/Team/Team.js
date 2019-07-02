@@ -64,7 +64,7 @@ class Team extends Component {
 
     removePlayerClickedHandler(playerId) {
         // alert('Wil je deze speler verwijderen uit uw team?');    
-        this.setState({ showConfirm: true, playeridToRemove: playerId });
+        this.setState({ showConfirm: true, playeridToRemove: playerId, showPlayerMenu:false });
     }
 
     playerClickedHandler(playerId){
@@ -89,6 +89,7 @@ class Team extends Component {
                 this.props.team.Seasons[this.props.selectedSeason].TeamMembers, this.props.selectedSeason, this.props.team)
             this.props.selectedTeam(this.props.match.params.teamId, this.props.selectedSeason);
         }
+        this.props.closeModal();
         this.setState({ showConfirm: false, playeridToRemove: "" });
     }
 
@@ -155,7 +156,7 @@ class Team extends Component {
                             team={this.getTeam()}
                             playerDetails={this.getPlayerDetails()}
                             user={this.props.user}
-                            removePlayerClicked={(uid) => this.removePlayerClickedHandler(uid)}
+                            // removePlayerClicked={(uid) => this.removePlayerClickedHandler(uid)}
                             playerClicked = {(uid) => this.playerClickedHandler(uid)}
                             admin={this.props.adminLoggedIn}
                         />;
@@ -199,6 +200,7 @@ class Team extends Component {
            playerMenu =  <PlayerMenu 
                player={this.props.team.Seasons[this.props.selectedSeason].filteredPlayers[this.state.selectedPlayerId]}
                adminLoggedIn={this.props.adminLoggedIn}
+               deletePlayer={(uid) => this.removePlayerClickedHandler(uid)}
            />
         }
         if (this.props.loading) {

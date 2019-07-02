@@ -89,13 +89,13 @@ class playerButton extends Component {
         return (
             <div className={classes.PlayerButtonContainer}>
                 <div className={playerButtonFunctionsClasses.join(' ')}>
-                    <div
+                    {/* <div
                         style={closeButtonStyle}
                         className={classes.CloseButton}
                         onMouseEnter={this.props.admin ? this.showCloseButtonHandler : this.hideCloseButtonHandler}
                         onMouseLeave={this.hideCloseButtonHandler}
                         onClick={() => this.props.removePlayerClicked(this.props.user.userid)}
-                    ></div>
+                    ></div> */}
                 </div>
                 <div
                     className={attachedClasses.join(' ')}

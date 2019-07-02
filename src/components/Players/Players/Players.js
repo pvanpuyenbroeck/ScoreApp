@@ -26,7 +26,7 @@ const Players = (props) => {
                     name={player.voornaam + " " + player.familienaam}
                     number={player.playerNumber}
                     user={props.user}
-                    removePlayerClicked={() => props.removePlayerClicked(player.userid)}
+                    // removePlayerClicked={() => props.removePlayerClicked(player.userid)}
                     clicked={() => props.playerClicked(player.userid)}
                     admin={props.admin}
                 />

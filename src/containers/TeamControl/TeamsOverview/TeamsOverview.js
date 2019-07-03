@@ -42,7 +42,7 @@ class TeamsOverview extends Component {
                                 key={team.id}
                                 teamName={team.teamName}
                                 id={team.id}
-                                buttonClicked={() => this.props.teamSelectedHandler(team.id, this.props.season)}
+                                buttonClicked={() => this.props.teamSelectedHandler(team.id, this.props.season, this.props.userId)}
                             />
                         );
                     } else {
@@ -97,7 +97,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        teamSelectedHandler: (teamId, season) => dispatch(actions.getTeam(teamId, season)),
+        teamSelectedHandler: (teamId, season, uid) => dispatch(actions.getTeam(teamId, season, uid)),
         getAllTeams: (userId) => dispatch(actions.getAllTeams(userId)),
         changeLocation: () => dispatch(actions.locationChange(2)),
     }

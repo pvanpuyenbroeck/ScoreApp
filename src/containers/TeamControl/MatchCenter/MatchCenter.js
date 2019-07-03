@@ -263,7 +263,7 @@ const mapStateToProps = state => {
         loading: state.match.loading,
         matchSaved: state.match.matchSaved,
         selectedSeason: state.team.selectedSeason,
-        adminLoggedIn: state.team.selectedTeam.admin === state.auth.user.uid,
+        adminLoggedIn: state.team.selectedTeam.isAdmin,
     }
 }
 

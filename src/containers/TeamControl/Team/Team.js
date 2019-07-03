@@ -40,7 +40,7 @@ class Team extends Component {
     // }
     componentDidMount() {
         const teamId = this.props.match.params.teamId;
-        this.props.selectedTeam(teamId, this.props.selectedSeason);
+        this.props.selectedTeam(this.props.match.params.teamId, this.props.selectedSeason, this.props.user.uid);
         this.props.changeLocation(3);
     }
 
@@ -99,7 +99,7 @@ class Team extends Component {
         if (value) {
             this.props.removePlayerFromTeam(this.state.playeridToRemove, this.props.team.teamId,
                 this.props.team.Seasons[this.props.selectedSeason].TeamMembers, this.props.selectedSeason, this.props.team)
-            this.props.selectedTeam(this.props.match.params.teamId, this.props.selectedSeason);
+            this.props.selectedTeam(this.props.match.params.teamId, this.props.selectedSeason, this.props.user.uid);
         }
         this.props.closeModal();
         this.setState({ showConfirm: false, playeridToRemove: "" });
@@ -271,7 +271,7 @@ const mapDispatchToProps = dispatch => {
         closeModal: () => dispatch(actions.closeModal()),
         showModalHandler: () => dispatch(actions.showModal()),
         showFunctionMenu: () => dispatch(actions.showFunctionMenu()),
-        selectedTeam: (teamId, season) => dispatch(actions.getTeam(teamId, season)),
+        selectedTeam: (teamId, season, uid) => dispatch(actions.getTeam(teamId, season, uid)),
         showComponent: (component) => dispatch(actions.showComponent(component)),
         matchSelected: (match) => dispatch(actions.setSelectedMatchInfo(match)),
         changeLocation: (location) => dispatch(actions.locationChange(location)),
@@ -290,7 +290,7 @@ const mapStateToProps = state => {
         userId: state.auth.userId,
         user: state.auth.user,
         selectedSeason: state.team.selectedSeason,
-        adminLoggedIn: state.team.selectedTeam.admin === state.auth.user.uid,
+        adminLoggedIn: state.team.selectedTeam.isAdmin,
     }
 }
 

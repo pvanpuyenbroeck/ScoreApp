@@ -1,5 +1,7 @@
 import * as actionTypes from './actionTypes';
 import firebase from '../../firebase-scoreapp';
+import {checkIfAdmin} from '../utility';
+
 
 export const addTeamSuccess = (teamData) => {
     return {
@@ -70,7 +72,7 @@ const pick = (obj, keys) => {
         .reduce((res, o) => Object.assign(res, o), {});
 }
 
-export const getTeam = (teamId, season) => {
+export const getTeam = (teamId, season, uid) => {
     return dispatch => {
         dispatch(getTeamStart());
         firebase.database().ref('/Teams/' + teamId).once('value').then(res => {
@@ -91,6 +93,7 @@ export const getTeam = (teamId, season) => {
                     }
                     const updatedTeam = { ...team };
                     updatedTeam.Seasons[season].filteredPlayers = filteredPlayers;
+                    updatedTeam['isAdmin'] = checkIfAdmin(updatedTeam.admins, uid, updatedTeam.admin);
                     dispatch(getTeamSuccess({
                         ...updatedTeam,
                         teamId: teamId,

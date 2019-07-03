@@ -55,6 +55,7 @@ const getTeamSuccess = (state, action) => {
         ...state,
         selectedTeam: action.selectedTeam,
         loading: false,
+
     }
 }
 const getTeamStart = (state, action) => {

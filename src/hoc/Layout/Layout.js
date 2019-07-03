@@ -73,7 +73,7 @@ const mapStateToProps = state => {
         team: state.team.selectedTeam,
         match: state.match.selectedMatch,
         navigation: state.navigation,
-        adminLoggedIn: selectedTeamAdmin === userId,
+        adminLoggedIn: state.team.selectedTeam.isAdmin,
         // match: state.
     }
 }

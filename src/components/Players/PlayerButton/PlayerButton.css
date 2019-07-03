@@ -28,18 +28,18 @@
     background-size: contain;
 }
 
-.CloseButton:hover {
+/* .CloseButton:hover {
     cursor: pointer;
-}
+} */
 
-.HideCloseButton {
+/* .HideCloseButton {
     opacity: 0;
 }
 
 .ShowCloseButton {
     opacity: 1;
     transition: opacity 1s;
-}
+} */
 
 .PlayerButton .Image {
     display: flex;
@@ -96,11 +96,11 @@
     margin-left: 5px;
 }
 
-.HoverOptions {
+/* .HoverOptions {
     width: 300px;
     height: 20px;
     display: inline-block;
-}
+} */
 
 @media(min-width: 650px) {
     .PlayerButton {

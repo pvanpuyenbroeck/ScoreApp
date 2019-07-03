@@ -67,6 +67,18 @@ class Team extends Component {
         this.setState({ showConfirm: true, playeridToRemove: playerId, showPlayerMenu:false });
     }
 
+    makePlayerAdminHandler(playerId){
+        let updatedAdmins = {...this.props.team};
+        if(!updatedAdmins.admins){
+            updatedAdmins.admins = [];
+        }
+
+        if(!updatedAdmins.admins.includes(playerId)){
+            updatedAdmins.admins.push(playerId);
+        }
+        this.props.makePlayerAdmin(updatedAdmins.teamId, updatedAdmins);
+    }
+
     playerClickedHandler(playerId){
         this.props.showModalHandler();
         console.log(playerId);
@@ -201,6 +213,7 @@ class Team extends Component {
                player={this.props.team.Seasons[this.props.selectedSeason].filteredPlayers[this.state.selectedPlayerId]}
                adminLoggedIn={this.props.adminLoggedIn}
                deletePlayer={(uid) => this.removePlayerClickedHandler(uid)}
+               makePlayerAdmin={(uid) => this.makePlayerAdminHandler(uid)}
            />
         }
         if (this.props.loading) {
@@ -254,6 +267,7 @@ class Team extends Component {
 const mapDispatchToProps = dispatch => {
     return {
         // getTeam: (team) => dispatch(actions.getTeam(team)),
+        makePlayerAdmin: (teamId, updatedAdmins) => dispatch(actions.makePlayerAdmin(teamId, updatedAdmins)),
         closeModal: () => dispatch(actions.closeModal()),
         showModalHandler: () => dispatch(actions.showModal()),
         showFunctionMenu: () => dispatch(actions.showFunctionMenu()),

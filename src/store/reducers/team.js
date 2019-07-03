@@ -16,6 +16,7 @@ const initialState = {
         "2019-2020": "2019-2020",
     },
     selectedSeason: "2018-2019",
+    makingAdmin: false,
 }
 
 const addTeam = (state, action) => {
@@ -185,6 +186,28 @@ const authLogout = (state, action) => {
     }
 }
 
+const makeAdminStart = (state, action) => {
+    return{
+        ...state,
+        makingAdmin: true,
+    }
+}
+
+const makeAdminFail = (state, action) => {
+    return{
+        ...state,
+        makingAdmin: false,
+    }
+}
+
+const makeAdminSuccess= (state, action) => {
+    return{
+        ...state,
+        makingAdmin: false,
+        selectedTeam: action.updatedTeam,
+    }
+}
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.ADD_TEAM: return addTeam(state, action);
@@ -214,6 +237,10 @@ const reducer = (state = initialState, action) => {
         case actionTypes.REMOVE_MATCH_FAIL: return removeMatchFail(state, action);
         case actionTypes.SET_SEASON: return setSeason(state,action);
         case actionTypes.AUTH_LOGOUT: return authLogout(state, action);
+
+        case actionTypes.MAKE_PLAYER_ADMIN_START: return makeAdminStart(state,action);
+        case actionTypes.MAKE_PLAYER_ADMIN_FAIL: return makeAdminFail(state,action);
+        case actionTypes.MAKE_PLAYER_ADMIN_SUCCESS: return makeAdminSuccess(state,action);
         default: return state;
     }
 }

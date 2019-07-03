@@ -10,6 +10,7 @@ class AddTeam extends Component {
         teamToAdd: {
             teamName: '',
             admin: '',
+            admins: false,
             Seasons: {},
         },
         submitted: false,

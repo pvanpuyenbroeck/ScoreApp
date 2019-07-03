@@ -12,6 +12,7 @@ const playerMenu = (props) => {
             <Button
                 color={'green'}
                 disabled={false}
+                buttonClicked = {() => props.makePlayerAdmin(props.player.userid)}
             >Maak beheerder</Button>
             <Button
                 color={'red'}

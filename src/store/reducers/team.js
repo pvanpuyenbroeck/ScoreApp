@@ -187,21 +187,21 @@ const authLogout = (state, action) => {
     }
 }
 
-const makeAdminStart = (state, action) => {
+const updateAdminStart = (state, action) => {
     return{
         ...state,
         makingAdmin: true,
     }
 }
 
-const makeAdminFail = (state, action) => {
+const updateAdminFail = (state, action) => {
     return{
         ...state,
         makingAdmin: false,
     }
 }
 
-const makeAdminSuccess= (state, action) => {
+const updateAdminSuccess= (state, action) => {
     return{
         ...state,
         makingAdmin: false,
@@ -239,9 +239,9 @@ const reducer = (state = initialState, action) => {
         case actionTypes.SET_SEASON: return setSeason(state,action);
         case actionTypes.AUTH_LOGOUT: return authLogout(state, action);
 
-        case actionTypes.MAKE_PLAYER_ADMIN_START: return makeAdminStart(state,action);
-        case actionTypes.MAKE_PLAYER_ADMIN_FAIL: return makeAdminFail(state,action);
-        case actionTypes.MAKE_PLAYER_ADMIN_SUCCESS: return makeAdminSuccess(state,action);
+        case actionTypes.UPDATE_PLAYER_ADMIN_START: return updateAdminStart(state,action);
+        case actionTypes.UPDATE_PLAYER_ADMIN_FAIL: return updateAdminFail(state,action);
+        case actionTypes.UPDATE_PLAYER_ADMIN_SUCCESS: return updateAdminSuccess(state,action);
         default: return state;
     }
 }

@@ -201,13 +201,13 @@ class matchCenter extends Component {
                         <React.Fragment>
                             <div className={classes.MenuButtons} onClick={() => this.showPlayerSelectWindow()}>
                                 <div>Selecteer Speler</div>
-                            </div>
                             <div className={saveGame.join(' ')}>
                                 <div onClick={() => this.props.saveGameStats(this.props.team.teamId, this.props.match.selectedMatch.matchId, this.props.match.selectedMatch)}>Opslaan</div>
                             </div>
                             <div className={classes.OpponentGoal}>
                                 <div onClick={() => this.oponentGoalHandler("minus")}><div className={classes.Center}>-</div></div>
                                 <div onClick={() => this.oponentGoalHandler("add")}><div className={classes.Center}>+</div></div>
+                            </div>
                             </div>
                         </React.Fragment>
                     )

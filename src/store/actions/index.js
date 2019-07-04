@@ -6,7 +6,7 @@ export{
     removePlayerFromTeam,
     removeMatchFromTeam,
     setSeason,
-    makePlayerAdmin,
+    updatePlayerAdmins,
 } from './team';
 
 export{

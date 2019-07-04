@@ -296,32 +296,32 @@ export const setSeason = (season) => {
     }
 }
 
-export const makePlayerAdminStart = () => {
+export const updatePlayerAdminStart = () => {
     return{
-        type: actionTypes.MAKE_PLAYER_ADMIN_START,
+        type: actionTypes.UPDATE_PLAYER_ADMIN_START,
     }
 }
 
-export const makePlayerAdminFail = () => {
+export const updatePlayerAdminFail = () => {
     return{
-        type: actionTypes.MAKE_PLAYER_ADMIN_FAIL,
+        type: actionTypes.UPDATE_PLAYER_ADMIN_FAIL,
     }
 }
-export const makePlayerAdminSuccess = (updatedTeam) => {
+export const updatePlayerAdminSuccess = (updatedTeam) => {
     return{
-        type: actionTypes.MAKE_PLAYER_ADMIN_SUCCESS,
+        type: actionTypes.UPDATE_PLAYER_ADMIN_SUCCESS,
         updatedTeam: updatedTeam,
     }
 }
 
-export const makePlayerAdmin = (teamId, updatedAdmins) => {
+export const updatePlayerAdmins = (teamId, updatedAdmins) => {
     return dispatch => {
-        dispatch(makePlayerAdminStart());
+        dispatch(updatePlayerAdminStart());
         firebase.database().ref('/Teams/' + teamId + '/admins/').set(updatedAdmins.admins)
             .then(response => {
-                dispatch(makePlayerAdminSuccess(updatedAdmins));
+                dispatch(updatePlayerAdminSuccess(updatedAdmins));
             }).catch(err => {
-                dispatch(makePlayerAdminFail());
+                dispatch(updatePlayerAdminFail());
             })
     }
 }

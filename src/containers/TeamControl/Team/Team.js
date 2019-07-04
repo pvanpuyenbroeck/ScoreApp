@@ -76,7 +76,23 @@ class Team extends Component {
         if(!updatedAdmins.admins.includes(playerId)){
             updatedAdmins.admins.push(playerId);
         }
-        this.props.makePlayerAdmin(updatedAdmins.teamId, updatedAdmins);
+        this.props.updatePlayerAdmins(updatedAdmins.teamId, updatedAdmins);
+    }
+
+    deletePlayerAdminHandler(uid){
+        let updatedAdmins = {...this.props.team};
+        if(!updatedAdmins.admins){
+            return null;
+        }
+        let filteredAdmins = [];
+        if(updatedAdmins.admins.includes(uid)){
+            filteredAdmins= updatedAdmins.admins.filter((updatedAdmins) => {
+                return updatedAdmins !== uid;
+            })
+        }
+        updatedAdmins.admins = filteredAdmins;
+        this.props.updatePlayerAdmins(updatedAdmins.teamId, updatedAdmins);
+
     }
 
     playerClickedHandler(playerId){
@@ -214,6 +230,9 @@ class Team extends Component {
                adminLoggedIn={this.props.adminLoggedIn}
                deletePlayer={(uid) => this.removePlayerClickedHandler(uid)}
                makePlayerAdmin={(uid) => this.makePlayerAdminHandler(uid)}
+               deletePlayerAdmin={(uid) => this.deletePlayerAdminHandler(uid)} 
+               admins={this.props.team.admins}
+               adminUid={this.props.team.admin}
            />
         }
         if (this.props.loading) {
@@ -244,6 +263,7 @@ class Team extends Component {
                             label2Clicked={() => this.confirmHandler(false)}
                             showConfirm={this.state.showConfirm}
                         />
+                        
                         {this.props.adminLoggedIn ? <TeamFunctionMenu
                             team={this.props.team}
                             showFunctionMenu={this.props.showfunctionMenu}
@@ -267,7 +287,7 @@ class Team extends Component {
 const mapDispatchToProps = dispatch => {
     return {
         // getTeam: (team) => dispatch(actions.getTeam(team)),
-        makePlayerAdmin: (teamId, updatedAdmins) => dispatch(actions.makePlayerAdmin(teamId, updatedAdmins)),
+        updatePlayerAdmins: (teamId, updatedAdmins) => dispatch(actions.updatePlayerAdmins(teamId, updatedAdmins)),
         closeModal: () => dispatch(actions.closeModal()),
         showModalHandler: () => dispatch(actions.showModal()),
         showFunctionMenu: () => dispatch(actions.showFunctionMenu()),

@@ -84,7 +84,7 @@ class SelectPlayers extends Component {
             }
         };
         this.props.addPlayerToTeam(this.props.team, updatedTeamMembers, this.props.selectedSeason)
-        this.props.selectedTeam(this.props.team.teamId, this.props.selectedSeason);
+        this.props.selectedTeam(this.props.team.teamId, this.props.selectedSeason, this.props.user.uid);
 
         let updatedPlayerForm = {...this.state.playerForm};
         updatedPlayerForm.name.value = '';
@@ -214,7 +214,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         // closeModal: () => dispatch({type:"closeModal"}),
         addPlayerToTeam: (team, updatedTeamMembers, season) => dispatch(actions.addPlayerToTeam(team, updatedTeamMembers, season)),
-        selectedTeam: (teamId, season) => dispatch(actions.getTeam(teamId, season)),
+        selectedTeam: (teamId, season, uid) => dispatch(actions.getTeam(teamId, season, uid)),
     }
 }
 

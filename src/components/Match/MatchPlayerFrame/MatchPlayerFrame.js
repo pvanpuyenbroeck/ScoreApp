@@ -23,9 +23,9 @@ const matchPlayerFrame = props => {
                 <div className={classes.GoalsScored}>{props.goals}</div>
                 {props.adminLoggedIn ? <div className={plusClasses.join(' ')} onClick={props.plusClicked}><img alt="plus" src={plus} /></div> : null}
             </div>
-            <div className={classes.MoreButton}>
+            {/* <div className={classes.MoreButton}>
                 <div><img alt="more button" src={moreButton} /></div>
-            </div>
+            </div> */}
         </div>
     )
 }

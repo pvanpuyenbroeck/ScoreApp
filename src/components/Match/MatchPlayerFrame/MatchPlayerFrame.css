@@ -35,7 +35,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    width: 50%;
+    width: 100%;
 }
 
 .Scoring {
@@ -105,7 +105,7 @@
     @media screen and (min-width: 600px) {
         .MatchPlayerFrame {
             display: grid;
-            grid-template-columns: 5em auto 5em 5em;
+            grid-template-columns: 5em auto 5em;
             grid-auto-rows: auto;
         }
         .PlayerInfo {

@@ -22,11 +22,14 @@ export const checkIfAdmin = (admins, loggedInUid, ownerId) => {
 }
 
 export const checkIfUidIsAdmin = (admins, uid) => {
-    if (admins.includes(uid)) {
-        return true;
-    } else {
-        return false;
+    if(typeof admins !== 'undefined'){
+        if (admins.includes(uid)) {
+            return true;
+        } else {
+            return false;
+        }
     }
+    return false;
 }
 
 export const checkIfOwner = (teamAdminId, uid) => {

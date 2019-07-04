@@ -199,8 +199,10 @@ class matchCenter extends Component {
                 if (this.props.adminLoggedIn) {
                     adminOptions = (
                         <React.Fragment>
-                            <div className={classes.MenuButtons} onClick={() => this.showPlayerSelectWindow()}>
+                            <div className={classes.MenuButtons}>
+                            <div className={classes.SelectPlayer} onClick={() => this.showPlayerSelectWindow()}>
                                 <div>Selecteer Speler</div>
+                            </div>
                             <div className={saveGame.join(' ')}>
                                 <div onClick={() => this.props.saveGameStats(this.props.team.teamId, this.props.match.selectedMatch.matchId, this.props.match.selectedMatch)}>Opslaan</div>
                             </div>

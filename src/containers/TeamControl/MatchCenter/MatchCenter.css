@@ -33,6 +33,7 @@
     font-size: 2rem;
     background-color: #C33325;
     justify-content: space-around;
+    width: 30%;
 }
 
 .OpponentGoal div {
@@ -40,11 +41,11 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width:100%
+    width: 100%;
 }
 
 .OpponentGoal div:hover,
-.MenuButtons:hover,
+.SelectPlayer:hover,
 .SaveGame:hover {
     background: rgb(191, 103, 92);
     cursor: pointer;
@@ -131,6 +132,13 @@
     opacity: 0;
 }
 
+.SelectPlayer{
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 @supports(grid-area: auto) {
     @media screen and (min-width: 600px) {
         .MatchCenter {
@@ -160,7 +168,6 @@
             grid-row: 2/3;
         }
         .OpponentGoal {
-            grid-column: 5/6;
         }
     }
 

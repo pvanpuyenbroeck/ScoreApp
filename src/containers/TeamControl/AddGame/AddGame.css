@@ -1,9 +1,10 @@
 .AddGame{
     margin: 0 auto;
-    background-color: #bfbfad;
+    background-color: #326087;
     padding:20px;
     border-radius: 5px;
     height: 100%;
+    color:#bfbfad;
 }
 
 .AddGame form div{
@@ -13,6 +14,7 @@
 .InputFields{
     width:100%;
     margin-bottom: 10px;
+    color: #bfbfad;
 }
 
 @media(min-width: 650px){

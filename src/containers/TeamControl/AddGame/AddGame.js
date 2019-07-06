@@ -4,6 +4,7 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
 import TextInput from '@material-ui/core/TextField';
+import DateTimePicker from 'react-datetime-picker';
 
 class AddGame extends Component {
 
@@ -24,20 +25,20 @@ class AddGame extends Component {
                 valid: false,
             },
             date: {
-                id:'datetime-local',
+                id: 'datetime-local',
                 elementType: 'datetime-local',
                 elementConfig: {
                     type: 'datetime-local',
                     placeholder: null,
                 },
-                value: "2019-05-24T22:00",
+                value: new Date(),
                 validation: {
                     required: true,
                 },
                 valid: false,
             },
             sporthal: {
-                id:'sporthal',
+                id: 'sporthal',
                 elementType: 'input',
                 elementConfig: {
                     type: 'input',
@@ -50,7 +51,7 @@ class AddGame extends Component {
                 valid: false,
             },
             postcode: {
-                id:'sporthal',
+                id: 'sporthal',
                 elementType: 'input',
                 elementConfig: {
                     type: 'input',
@@ -63,7 +64,7 @@ class AddGame extends Component {
                 valid: false,
             },
             straat: {
-                id:'straat',
+                id: 'straat',
                 elementType: 'input',
                 elementConfig: {
                     type: 'input',
@@ -77,6 +78,16 @@ class AddGame extends Component {
             },
         },
         loading: false,
+    }
+
+    onChange = value => {
+        const updatedGameForm = { ...this.state.gameForm };
+        const updatedDateForm = { ...updatedGameForm.date };
+        updatedDateForm.value = value
+        updatedGameForm.date = updatedDateForm;
+        this.setState({
+            gameForm: updatedGameForm,
+        })
     }
 
     inputChangedHandler = (event, inputIdentifier) => {
@@ -109,7 +120,7 @@ class AddGame extends Component {
         const gameInfo = {
             gameData: formData,
             oponentGoals: 0,
-            Participants:[],
+            Participants: [],
         }
         // refTeamPlayers.push(gameInfo)
         //     .then(response => {
@@ -152,20 +163,27 @@ class AddGame extends Component {
         }
         let form = (
             <form onSubmit={this.gameSubmitHandler}>
-                {formElementArray.map(formElement => (
-                    <TextInput
-                        className={classes.InputFields}
-                        key={formElement.id}
-                        id={formElement.id}
-                        type={formElement.config.elementType}
-                        label={typeof formElement.config.elementConfig.placeholder === 'undefined' ? null : formElement.config.elementConfig.placeholder}
-                        // elementConfig={formElement.config.elementConfig}
-                        // value={formElement.config.value}
-                        defaultValue={formElement.config.value}
-                        onChange={(event) => this.inputChangedHandler(event, formElement.id)}
-                        autoFocus = {false}
-                    />
-                ))}
+                {formElementArray.map(formElement => {
+                    if (formElement.id === 'date') {
+                        return <DateTimePicker 
+                            value={this.state.gameForm.date.value}
+                            onChange={this.onChange}
+                        />
+                    } else {
+                        return (<TextInput
+                            className={classes.InputFields}
+                            key={formElement.id}
+                            id={formElement.id}
+                            type={formElement.config.elementType}
+                            label={typeof formElement.config.elementConfig.placeholder === 'undefined' ? null : formElement.config.elementConfig.placeholder}
+                            // elementConfig={formElement.config.elementConfig}
+                            // value={formElement.config.value}
+                            defaultValue={formElement.config.value}
+                            onChange={(event) => this.inputChangedHandler(event, formElement.id)}
+                            autoFocus={false}
+                        />)
+                    }
+                })}
                 <button type="submit" >Toevoegen</button>
             </form>
         );

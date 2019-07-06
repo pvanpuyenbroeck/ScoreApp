@@ -14,6 +14,7 @@ import PlayerRanking from '../../../components/PlayerRanking/PlayerRanking';
 import Tabs from '../../../components/UI/Tabs/Tabs';
 import PlayerMenu from '../../../components/Players/PlayerMenu/PlayerMenu';
 
+
 class Team extends Component {
 
     state = {

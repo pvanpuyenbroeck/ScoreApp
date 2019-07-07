@@ -40,7 +40,6 @@ class Team extends Component {
     //         .reduce((res, o) => Object.assign(res, o), {});
     // }
     componentDidMount() {
-        const teamId = this.props.match.params.teamId;
         this.props.selectedTeam(this.props.match.params.teamId, this.props.selectedSeason, this.props.user.uid);
         this.props.changeLocation(3);
     }
@@ -255,7 +254,6 @@ class Team extends Component {
                             }
                             tabClicked={(titel) => this.tabSelectedHandler(titel)}
                         />
-
                         <Confirm
                             message={"Weet je zeker dat je deze speler wilt verwijderen?"}
                             label1={"YES"}

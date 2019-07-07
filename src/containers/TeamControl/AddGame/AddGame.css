@@ -17,6 +17,10 @@
     color: #bfbfad;
 }
 
+.InputFields label{
+    color: #bfbfad;
+}
+
 @media(min-width: 650px){
     .AddGame{
         /* width:400px; */

@@ -4,7 +4,8 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
 import TextInput from '@material-ui/core/TextField';
-import DateTimePicker from 'react-datetime-picker';
+// import DateTimePicker from 'react-datetime-picker';
+import DateTimePicker from 'react-datetime';
 
 class AddGame extends Component {
 
@@ -83,7 +84,7 @@ class AddGame extends Component {
     onChange = value => {
         const updatedGameForm = { ...this.state.gameForm };
         const updatedDateForm = { ...updatedGameForm.date };
-        updatedDateForm.value = value
+        updatedDateForm.value = value;
         updatedGameForm.date = updatedDateForm;
         this.setState({
             gameForm: updatedGameForm,
@@ -117,6 +118,7 @@ class AddGame extends Component {
             formData[formElementIdentifier] = this.state.gameForm[formElementIdentifier].value
         }
         formData["teamId"] = this.props.team.teamId;
+        formData.date = formData.date.format();
         const gameInfo = {
             gameData: formData,
             oponentGoals: 0,
@@ -168,6 +170,7 @@ class AddGame extends Component {
                         return <DateTimePicker 
                             value={this.state.gameForm.date.value}
                             onChange={this.onChange}
+                            timeFormat={"H : m"}
                         />
                     } else {
                         return (<TextInput

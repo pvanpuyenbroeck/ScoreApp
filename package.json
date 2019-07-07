@@ -41,7 +41,10 @@
     "raf": "3.4.0",
     "react": "^16.8.2",
     "react-burger-menu": "^2.6.5",
+<<<<<<< HEAD
     "react-datetime": "^2.16.3",
+=======
+>>>>>>> c44a7eef7fb5755eea57a367496738a392c9727f
     "react-datetime-picker": "^2.4.0",
     "react-dev-utils": "^5.0.3",
     "react-dom": "^16.8.2",

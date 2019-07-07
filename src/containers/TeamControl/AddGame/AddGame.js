@@ -4,8 +4,12 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
 import TextInput from '@material-ui/core/TextField';
+<<<<<<< HEAD
 // import DateTimePicker from 'react-datetime-picker';
 import DateTimePicker from 'react-datetime';
+=======
+import DateTimePicker from 'react-datetime-picker';
+>>>>>>> c44a7eef7fb5755eea57a367496738a392c9727f
 
 class AddGame extends Component {
 
@@ -84,7 +88,11 @@ class AddGame extends Component {
     onChange = value => {
         const updatedGameForm = { ...this.state.gameForm };
         const updatedDateForm = { ...updatedGameForm.date };
+<<<<<<< HEAD
         updatedDateForm.value = value;
+=======
+        updatedDateForm.value = value
+>>>>>>> c44a7eef7fb5755eea57a367496738a392c9727f
         updatedGameForm.date = updatedDateForm;
         this.setState({
             gameForm: updatedGameForm,

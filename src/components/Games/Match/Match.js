@@ -64,11 +64,11 @@ const Match = (props) => {
             // onMouseEnter={() => setShowHideOptionsHandler(classes.ShowOptions)}
             // onMouseLeave={() => setShowHideOptionsHandler(classes.ShowOptions)} 
             >
-                <div
+                {/* <div
                     style={closeButtonStyle}
                     className={showOptions === true ? classes.ShowOptions : classes.HideOptions}
-                    onClick={(teamId) => props.removeMatchClicked(teamId)}
-                ></div>
+                    onClick={(teamId) => props.showMatchDetailsClicked(teamId)}
+                ></div> */}
             </div>
                 {/* <div>Afbeelding komt hier</div> */}
                 <div className={classes.GameDate} onClick={() =>    goToMatchPageHandler()}>{dateFormat()}</div>
@@ -76,7 +76,7 @@ const Match = (props) => {
                     <div
                         style={moreButtonStyle}
                         className={classes.MoreButton}
-                        onClick={() => setShowHideOptionsHandler()}
+                        onClick={(teamId) => props.showMatchDetailsClicked(teamId)}
                     />
                 </div> : null}
                 <div className={classes.OpponentName} onClick={() =>    goToMatchPageHandler()}>

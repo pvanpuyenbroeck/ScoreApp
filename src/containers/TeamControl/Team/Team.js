@@ -13,6 +13,7 @@ import SeasonSelection from '../../../components/Team/SeasonSelection/SeasonSele
 import PlayerRanking from '../../../components/PlayerRanking/PlayerRanking';
 import Tabs from '../../../components/UI/Tabs/Tabs';
 import PlayerMenu from '../../../components/Players/PlayerMenu/PlayerMenu';
+import MatchDetails from '../../../components/Games/MatchDetails/MatchDetails';
 
 
 class Team extends Component {
@@ -32,7 +33,9 @@ class Team extends Component {
             { title: "Matchen", selected: true },
             { title: "Ranking", selected: false }],
         showPlayerMenu: false,
-        selectedPlayerId:"",
+        showMatchMenu: false,
+        selectedPlayerId: "",
+        selectedMatchId: ""
 
     }
     // pick(obj, keys) {
@@ -55,6 +58,21 @@ class Team extends Component {
         //     })
     }
 
+    removeMatchClickedHandler = (matchId) => {
+        //removing a match
+        let updatedMatches = { ...this.props.team.Seasons[this.props.selectedSeason].Matches }
+        delete updatedMatches[matchId];
+        this.props.removeMatchFromTeam(updatedMatches, this.props.team.teamId, this.props.selectedSeason);
+    }
+
+    showMatchDetailsHandler(matchId) {
+        this.setState({
+            selectedMatchId: matchId,
+            showMatchMenu: true,
+        })
+
+    }
+
     showToggle() {
         this.setState({
             showToggle: !this.state.showToggle,
@@ -64,29 +82,29 @@ class Team extends Component {
 
     removePlayerClickedHandler(playerId) {
         // alert('Wil je deze speler verwijderen uit uw team?');    
-        this.setState({ showConfirm: true, playeridToRemove: playerId, showPlayerMenu:false });
+        this.setState({ showConfirm: true, playeridToRemove: playerId, showPlayerMenu: false });
     }
 
-    makePlayerAdminHandler(playerId){
-        let updatedAdmins = {...this.props.team};
-        if(!updatedAdmins.admins){
+    makePlayerAdminHandler(playerId) {
+        let updatedAdmins = { ...this.props.team };
+        if (!updatedAdmins.admins) {
             updatedAdmins.admins = [];
         }
 
-        if(!updatedAdmins.admins.includes(playerId)){
+        if (!updatedAdmins.admins.includes(playerId)) {
             updatedAdmins.admins.push(playerId);
         }
         this.props.updatePlayerAdmins(updatedAdmins.teamId, updatedAdmins);
     }
 
-    deletePlayerAdminHandler(uid){
-        let updatedAdmins = {...this.props.team};
-        if(!updatedAdmins.admins){
+    deletePlayerAdminHandler(uid) {
+        let updatedAdmins = { ...this.props.team };
+        if (!updatedAdmins.admins) {
             return null;
         }
         let filteredAdmins = [];
-        if(updatedAdmins.admins.includes(uid)){
-            filteredAdmins= updatedAdmins.admins.filter((updatedAdmins) => {
+        if (updatedAdmins.admins.includes(uid)) {
+            filteredAdmins = updatedAdmins.admins.filter((updatedAdmins) => {
                 return updatedAdmins !== uid;
             })
         }
@@ -95,7 +113,7 @@ class Team extends Component {
 
     }
 
-    playerClickedHandler(playerId){
+    playerClickedHandler(playerId) {
         this.props.showModalHandler();
         console.log(playerId);
         this.setState({
@@ -104,10 +122,10 @@ class Team extends Component {
         })
     }
 
-    closePlayerMenu(){
+    closePlayerMenu() {
         this.props.closeModal();
         this.setState({
-            showPlayerMenu:false,
+            showPlayerMenu: false,
         })
     }
 
@@ -121,11 +139,7 @@ class Team extends Component {
         this.setState({ showConfirm: false, playeridToRemove: "" });
     }
 
-    removeMatchHandler(matchId) {
-        let updatedMatches = { ...this.props.team.Seasons[this.props.selectedSeason].Matches }
-        delete updatedMatches[matchId];
-        this.props.removeMatchFromTeam(updatedMatches, this.props.team.teamId, this.props.selectedSeason);
-    }
+
 
     getTeamId() {
         if (typeof this.props.team.Seasons !== 'undefined') {
@@ -185,7 +199,7 @@ class Team extends Component {
                             playerDetails={this.getPlayerDetails()}
                             user={this.props.user}
                             // removePlayerClicked={(uid) => this.removePlayerClickedHandler(uid)}
-                            playerClicked = {(uid) => this.playerClickedHandler(uid)}
+                            playerClicked={(uid) => this.playerClickedHandler(uid)}
                             admin={this.props.adminLoggedIn}
                         />;
                     case "Matchen":
@@ -195,7 +209,7 @@ class Team extends Component {
                             teamId={this.getTeamId()}
                             matchClicked={(match) => this.matchSelected(match)}
                             team={this.props.team}
-                            removeMatchClicked={(matchId) => this.removeMatchHandler(matchId)}
+                            showMatchDetailsClicked={(matchId) => this.showMatchDetailsHandler(matchId)}
                             history={this.props.history}
                             admin={this.props.adminLoggedIn}
                         />;
@@ -209,6 +223,21 @@ class Team extends Component {
             }
         })
     )
+
+    GetMatchDetailsMenu = () => {
+        if(this.state.showMatchMenu){
+            if (typeof this.props.team.Seasons !== 'undefined') {
+                return <MatchDetails
+                    removeMatchClicked={(matchId) => this.removeMatchClickedHandler(matchId)}
+                    matches={typeof this.props.team.Seasons !== 'undefined' ? this.props.team.Seasons[this.props.selectedSeason].Matches[this.state.selectedMatchId] : null}
+                />
+            }
+            else{
+                return null;
+            } 
+        }
+        return null;  
+    }
 
 
     // seasonChangedHandler(season){
@@ -225,15 +254,15 @@ class Team extends Component {
         let selectedTab = "";
         let playerMenu = null;
         if (this.state.showPlayerMenu) {
-           playerMenu =  <PlayerMenu 
-               player={this.props.team.Seasons[this.props.selectedSeason].filteredPlayers[this.state.selectedPlayerId]}
-               adminLoggedIn={this.props.adminLoggedIn}
-               deletePlayer={(uid) => this.removePlayerClickedHandler(uid)}
-               makePlayerAdmin={(uid) => this.makePlayerAdminHandler(uid)}
-               deletePlayerAdmin={(uid) => this.deletePlayerAdminHandler(uid)} 
-               admins={this.props.team.admins}
-               adminUid={this.props.team.admin}
-           />
+            playerMenu = <PlayerMenu
+                player={this.props.team.Seasons[this.props.selectedSeason].filteredPlayers[this.state.selectedPlayerId]}
+                adminLoggedIn={this.props.adminLoggedIn}
+                deletePlayer={(uid) => this.removePlayerClickedHandler(uid)}
+                makePlayerAdmin={(uid) => this.makePlayerAdminHandler(uid)}
+                deletePlayerAdmin={(uid) => this.deletePlayerAdminHandler(uid)}
+                admins={this.props.team.admins}
+                adminUid={this.props.team.admin}
+            />
         }
         if (this.props.loading) {
             teamControl = <Spinner />;
@@ -262,7 +291,7 @@ class Team extends Component {
                             label2Clicked={() => this.confirmHandler(false)}
                             showConfirm={this.state.showConfirm}
                         />
-                        
+
                         {this.props.adminLoggedIn ? <TeamFunctionMenu
                             team={this.props.team}
                             showFunctionMenu={this.props.showfunctionMenu}
@@ -275,9 +304,11 @@ class Team extends Component {
                 )
             }
         }
+        const MatchDetailsMenu = () => this.GetMatchDetailsMenu();
         return (
             <Aux>
                 {teamControl}
+                <MatchDetailsMenu/>
             </Aux>
         )
     }

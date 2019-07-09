@@ -51,13 +51,13 @@ export const dateFormatToString = (datum) => {
 
 export const countDownClock = (datum) => {
     const date = new Date(datum);
-    const now = Date.now;
+    const now = new Date(Date.now());
     const yearDif = date.getFullYear() - now.getFullYear();
     const monthDif = date.getMonth() - now.getMonth();
     const dayDif = date.getDate() - now.getDate();
     const hourDif = date.getHours() - now.getHours();
-    const minutesDif = date.getMinutes() - now.getMinutes();
-    const secondsDif = date.getSeconds() - 60;
+    const minutesDif = 60 - now.getMinutes();
+    const secondsDif = 60 - now.getSeconds();
 
     return {yearDif,monthDif,dayDif,hourDif,minutesDif,secondsDif}
 }

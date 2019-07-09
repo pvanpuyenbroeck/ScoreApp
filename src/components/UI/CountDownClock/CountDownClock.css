@@ -1,0 +1,51 @@
+.Countdown{
+    width: 100%;
+}
+
+.TimeBlock{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+
+@supports(grid-area: auto){
+    .Countdown{
+        display: grid;
+        /* grid-template-columns: auto auto auto auto auto auto;
+        grid-template-rows: 3; */
+        grid-template-areas: 
+        "year month" 
+        "year month" 
+        "day hour" 
+        "day hour" 
+        "minutes seconds"
+        "minutes seconds"
+    }
+
+    .Year{
+        grid-area: year;
+    }
+    .Month{
+        grid-area: month;
+    }
+    .Day{
+        grid-area: day;
+    }
+    .Hour{
+        grid-area:hour;
+    }
+    .Minutes{
+        grid-area:minutes;
+    }
+    .Seconds{
+        grid-area:seconds;
+    }
+
+    @media screen and (min-width: 650px) {
+        .MatchDetailsContainer{
+            /* justify-content: center; */
+            position: initial;
+        }
+    }
+}

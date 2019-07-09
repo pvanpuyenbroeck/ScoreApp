@@ -1,45 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classes from './MatchDetails.css';
 import Button from '../../UI/Button/ButtonStandard/ButtonStandard';
 import DetailsContainer from '../../UI/DetailsContainer/DetailsContainer';
-import {dateFormatToString, countDownClock} from '../../../store/utility';
+import { dateFormatToString } from '../../../store/utility';
+import CountDown from '../../UI/CountDownClock/CountDownClock';
 
 const MatchDetails = (props) => {
-    const Section = ({CSSclass, label, value}) => {
+    const Section = ({ CSSclass, label, value }) => {
         const SectionStyle = [CSSclass, classes.Section];
-        return(
+        return (
             <div className={SectionStyle.join(' ')}>
-            <div>{label}</div>
-            <div>{value}</div>
-        </div>
+                <div>{label}</div>
+                <div>{value}</div>
+            </div>
         )
     }
 
-    const CountDownTime = (setInterval(() => {
-        const countDown = countDownClock(props.matches.gameData.date);  
-        return countDown;
-    }, 1000));
-
-    return(
+    return (
         <DetailsContainer closeContainer={props.closeContainer} >
             <h1>Matchdetails</h1>
             <div className={[classes.GameData, classes.LabelContainer].join(' ')}>
-                <Section label={"Tegenstander: "} value={props.matches.gameData.opponent}/>
+                <Section label={"Tegenstander: "} value={props.matches.gameData.opponent} />
                 <div className={classes.Location}>
-                    <Section label={"Sporthal: "} value={props.matches.gameData.sporthal}/>
-                    <Section label={"Postcode: "} value={props.matches.gameData.postcode}/>
-                    <Section label={"Straat: "} value={props.matches.gameData.straat}/>
+                    <Section label={"Sporthal: "} value={props.matches.gameData.sporthal} />
+                    <Section label={"Postcode: "} value={props.matches.gameData.postcode} />
+                    <Section label={"Straat: "} value={props.matches.gameData.straat} />
                 </div>
                 <div className={classes.MatchDate}>
-                    <Section label={"Speeldatum: "} value={dateFormatToString(props.matches.gameData.date)}/>
+                    <Section label={"Speeldatum: "} value={dateFormatToString(props.matches.gameData.date)} />
                 </div>
-                <div className={classes.Countdown}>
-                {CountDownTime.minutesDif} : {CountDownTime.secondsDif}
-                </div>
+                <CountDown dateTime={props.matches.gameData.date} />
             </div>
             <Button
-            color="red"
-            buttonClicked={() => props.removeMatchClicked(props.matches.matchId)}
+                color="red"
+                buttonClicked={() => props.removeMatchClicked(props.matches.matchId)}
             >
                 Match verwijderen
             </Button>

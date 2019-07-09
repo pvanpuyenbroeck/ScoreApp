@@ -70,7 +70,7 @@ class Team extends Component {
             selectedMatchId: matchId,
             showMatchMenu: true,
         })
-
+        this.props.showModalHandler();
     }
 
     showToggle() {
@@ -122,10 +122,11 @@ class Team extends Component {
         })
     }
 
-    closePlayerMenu() {
+    closeAllContainers() {
         this.props.closeModal();
         this.setState({
             showPlayerMenu: false,
+            showMatchMenu: false,
         })
     }
 
@@ -230,7 +231,8 @@ class Team extends Component {
                 return <MatchDetails
                     removeMatchClicked={(matchId) => this.removeMatchClickedHandler(matchId)}
                     matches={typeof this.props.team.Seasons !== 'undefined' ? this.props.team.Seasons[this.props.selectedSeason].Matches[this.state.selectedMatchId] : null}
-                />
+                    closeContainer={() => this.closeAllContainers()}
+                    />
             }
             else{
                 return null;
@@ -262,6 +264,7 @@ class Team extends Component {
                 deletePlayerAdmin={(uid) => this.deletePlayerAdminHandler(uid)}
                 admins={this.props.team.admins}
                 adminUid={this.props.team.admin}
+                closeContainer={() => this.closeAllContainers()}
             />
         }
         if (this.props.loading) {
@@ -298,7 +301,7 @@ class Team extends Component {
                             showComponent={(component) => this.props.showComponent(component)}
                         /> : null}
 
-                        <Modal show={this.props.showModal} modalClosed={() => this.closePlayerMenu()} />
+                        <Modal show={this.props.showModal} modalClosed={() => this.closeAllContainers()} />
                         {selectedTab}
                     </Aux>
                 )

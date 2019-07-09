@@ -6,6 +6,7 @@ export const colors = {
     blue: '#326087',
     orange:'#F19722',
     green: '#2C8693',
+    red:'#C33325',
     shadows: {
       base: '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)',
       light: '0px 0px 11px rgba(45, 45, 45, 0.11)'

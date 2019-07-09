@@ -2,6 +2,7 @@ import React from 'react';
 import classes from './PlayerMenu.css';
 import Button from '../../UI/Button/ButtonStandard/ButtonStandard';
 import { checkIfUidIsAdmin, checkIfOwner } from '../../../store/utility';
+import DetailsContainer from '../../UI/DetailsContainer/DetailsContainer';
 
 const playerMenu = (props) => {
     const AdminButton = () => {
@@ -28,18 +29,18 @@ const playerMenu = (props) => {
         }
     }
     return (
-        <div className={classes.PlayerMenuContainer}>
+        <DetailsContainer closeContainer={props.closeContainer}>
             <div className={classes.NameAndNumber}>
                 <div className={classes.Name}>{props.player.voornaam} {props.player.familienaam}</div>
                 <div className={classes.PlayerNumber}>{props.player.playerNumber}</div>
             </div>
-            <AdminButton />
-            <Button
+            {props.adminLoggedIn ? <AdminButton /> : null}
+            {props.adminLoggedIn ? <Button
                 color={'red'}
                 disabled={false}
                 buttonClicked={() => props.deletePlayer(props.player.userid)}
-            >Verwijderen</Button>
-        </div>
+            >Verwijderen</Button> : null}
+        </DetailsContainer>
     )
 }
 

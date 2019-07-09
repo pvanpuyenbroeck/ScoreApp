@@ -1,7 +1,19 @@
 score-app-b69dc-firebase-adminsdk-8xbui-8ee62dd3f5.json
 
-node_modules
-
+node_modules/*
+/node_modules/.bin
 Cloud Functions/functions/score-app-b69dc-firebase-adminsdk-8xbui-8ee62dd3f5.json
 
 src/firebase-scoreapp.js
+node_modules/.bin/he
+node_modules/.bin/sshpk-verify
+node_modules/.bin/acorn
+node_modules/.bin/handlebars
+node_modules/.bin/he
+node_modules/.bin/html-minifier
+node_modules/.bin/is-ci
+node_modules/.bin/rimraf
+node_modules/.bin/semver
+node_modules/.bin/sshpk-conv
+node_modules/.bin/sshpk-sign
+node_modules/.bin/uglifyjs

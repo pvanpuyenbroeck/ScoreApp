@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './MatchDetails.css';
 import Button from '../../UI/Button/ButtonStandard/ButtonStandard';
 import DetailsContainer from '../../UI/DetailsContainer/DetailsContainer';
-import {dateFormatToString} from '../../../store/utility';
+import {dateFormatToString, countDownClock} from '../../../store/utility';
 
 const MatchDetails = (props) => {
     const Section = ({CSSclass, label, value}) => {
@@ -14,6 +14,11 @@ const MatchDetails = (props) => {
         </div>
         )
     }
+
+    const CountDownTime = (setInterval(() => {
+        const countDown = countDownClock(props.matches.gameData.date);  
+        return countDown;
+    }, 1000));
 
     return(
         <DetailsContainer closeContainer={props.closeContainer} >
@@ -27,6 +32,9 @@ const MatchDetails = (props) => {
                 </div>
                 <div className={classes.MatchDate}>
                     <Section label={"Speeldatum: "} value={dateFormatToString(props.matches.gameData.date)}/>
+                </div>
+                <div className={classes.Countdown}>
+                {CountDownTime.minutesDif} : {CountDownTime.secondsDif}
                 </div>
             </div>
             <Button

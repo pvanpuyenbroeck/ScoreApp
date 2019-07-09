@@ -135,7 +135,7 @@ class AddGame extends Component {
         //     .catch(error => {
         //         this.setState({ loading: false });
         //     })
-        this.props.AddMatchtoTeam(gameInfo, this.props.team, this.props.selectedSeason);
+        this.props.AddMatchtoTeam(gameInfo, this.props.team, this.props.selectedSeason, this.props.userid);
         this.props.CloseModal();
     }
 
@@ -207,13 +207,14 @@ const mapStateToProps = state => {
     return {
         team: state.team.selectedTeam,
         selectedSeason: state.team.selectedSeason,
+        userid: state.auth.user.uid,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         CloseModal: () => dispatch(actions.closeModal()),
-        AddMatchtoTeam: (gamedata, team, season) => dispatch(actions.addMatch(gamedata, team, season))
+        AddMatchtoTeam: (gamedata, team, season, uid) => dispatch(actions.addMatch(gamedata, team, season, uid))
     }
 }
 

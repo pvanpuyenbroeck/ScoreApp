@@ -11,6 +11,26 @@
     position: absolute;
 }
 
+.OpponentName{
+    font-size: 1.2rem;
+}
+
+.Section{
+    display: flex;
+    justify-content: space-between;
+}
+
+.Location{
+
+}
+
+.GameData{
+    
+}
+
+.LabelContainer{
+    width: 80%;
+}
 @supports(grid-area: auto){
     .MatchDetailsContainer{
         grid-row: 1/4;

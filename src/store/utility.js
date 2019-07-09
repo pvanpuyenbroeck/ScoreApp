@@ -37,3 +37,14 @@ export const checkIfOwner = (teamAdminId, uid) => {
         return true;
     }
 }
+
+export const dateFormatToString = (datum) => {
+    let date = new Date(datum);
+    const day = date.getDate();
+    const month = date.getMonth();
+    const year = date.getFullYear();
+    const hour = date.getHours();
+    const minutes = date.getMinutes();
+    const months = ['Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni', 'Juli', 'Augustus', 'September', 'Oktober', 'November', 'December'];
+    return `${day}-${months[month + 1]}-${year}  ${hour}u${minutes}m`
+}

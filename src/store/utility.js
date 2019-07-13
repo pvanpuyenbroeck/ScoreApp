@@ -22,7 +22,7 @@ export const checkIfAdmin = (admins, loggedInUid, ownerId) => {
 }
 
 export const checkIfUidIsAdmin = (admins, uid) => {
-    if(typeof admins !== 'undefined'){
+    if (typeof admins !== 'undefined') {
         if (admins.includes(uid)) {
             return true;
         } else {
@@ -46,18 +46,34 @@ export const dateFormatToString = (datum) => {
     const hour = date.getHours();
     const minutes = date.getMinutes();
     const months = ['Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni', 'Juli', 'Augustus', 'September', 'Oktober', 'November', 'December'];
-    return `${day} ${months[month + 1]} ${year}  ${hour}u${minutes}m`
+    return `${day} ${months[month]} ${year}  ${hour}u${minutes}m`
 }
+
+// const calculateWeeks = (date, now) => {
+//     let diff = (date.getTime() - now.getTime()) / 1000;
+//     diff /= (60 * 60 * 24 * 7);
+//     const days = Math.floor(7 * diff%Math.floor(diff));
+//     return Math.abs(Math.floor(diff));
+// }
 
 export const countDownClock = (datum) => {
     const date = new Date(datum);
     const now = new Date(Date.now());
-    const yearDif = date.getFullYear() - now.getFullYear();
-    const monthDif = date.getMonth() - now.getMonth();
-    const dayDif = date.getDate() - now.getDate();
-    const hourDif = date.getHours() - now.getHours();
-    const minutesDif = 60 - now.getMinutes();
-    const secondsDif = 60 - now.getSeconds();
+    const result = { weekDif: 0, dayDif: 0, hourDif: 0, minutesDif: 0, secondsDif: 0 }
+    let diff = (date.getTime() - now.getTime()) / 1000;
+    diff /= (60 * 60 * 24 * 7);
+    if (diff <= 0) {
+        return result
+    }
+    const dayDifAbso = 7 * (Math.floor(diff) === 0 ? diff : diff % (Math.floor(diff)));
+    result.dayDif = Math.floor(dayDifAbso);
+    result.weekDif = Math.abs(Math.floor(diff));
+    const hourDifAbso = 24 * (Math.floor(dayDifAbso) === 0 ? dayDifAbso : dayDifAbso % result.dayDif);
+    result.hourDif = Math.floor(hourDifAbso);
+    const minutesDifAbso = 60 * (Math.floor(hourDifAbso) === 0 ? hourDifAbso : hourDifAbso % result.hourDif);
+    result.minutesDif = Math.floor(minutesDifAbso);
+    const secondsDifAbso = 60 * (result.minutesDif === 0 ? minutesDifAbso : minutesDifAbso % result.minutesDif);
+    result.secondsDif = Math.floor(secondsDifAbso);
 
-    return {yearDif,monthDif,dayDif,hourDif,minutesDif,secondsDif}
+    return result
 }

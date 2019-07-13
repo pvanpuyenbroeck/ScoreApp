@@ -5,7 +5,7 @@ import { countDownClock } from '../../../store/utility';
 
 const countDown = (props) => {
 
-    const [dateTime, setDateTime] = useState({ minutesDif: 0, secondsDif: 0, yearDif: 0, monthDif: 0, dayDif: 0, hourDif: 0 });
+    const [dateTime, setDateTime] = useState({ weekDif: 0, yearDif: 0, monthDif: 0, dayDif: 0, hourDif: 0 });
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -18,32 +18,27 @@ const countDown = (props) => {
         }
     });
 
+    const TimeBlock = ({ date, timeDisplayClass, titel }) => {
+        if((date === 0 && titel !== "Seconden") || (titel === "Seconden" && date < 0)){
+            return null;
+        }
+        else {
+            return (
+                <div className={[timeDisplayClass, classes.TimeBlock].join(' ')}>
+                    <div>{titel}</div>
+                    <div>{date}</div>
+                </div>
+            )
+        }
+    }
+
     return (
-        <div className={[classes.Countdown, classes.TimeBlock].join(' ')}>
-            <div className={[classes.Year, classes.TimeBlock].join(' ')}>
-                <div>Jaren</div>
-                <div>{dateTime.yearDif}</div>
-            </div>
-            <div className={[classes.Month, classes.TimeBlock].join(' ')}>
-                <div>Maanden</div>
-                <div>{dateTime.monthDif}</div>
-            </div>
-            <div className={[classes.Day, classes.TimeBlock].join(' ')}>
-                <div>Dagen</div>
-                <div>{dateTime.dayDif}</div>
-            </div>
-            <div className={[classes.Hour, classes.TimeBlock].join(' ')}>
-                <div>Uren</div>
-                <div>{dateTime.hourDif}</div>
-            </div>
-            <div className={[classes.Minutes, classes.TimeBlock].join(' ')}>
-                <div>Minuten</div>
-                <div>{dateTime.minutesDif}</div>
-            </div>
-            <div className={[classes.Seconds, classes.TimeBlock].join(' ')}>
-                <div>Seconden</div>
-                <div>{dateTime.secondsDif}</div>
-            </div>
+        <div className={[classes.Countdown].join(' ')}>
+            <TimeBlock date={dateTime.weekDif} titel={"Weken"} timeDisplayClass={classes.Weeks} />
+            <TimeBlock date={dateTime.dayDif} titel={"Dagen"} timeDisplayClass={classes.Day} />
+            <TimeBlock date={dateTime.hourDif} titel={"Uren"} timeDisplayClass={classes.Hour} />
+            <TimeBlock date={dateTime.minutesDif} titel={"Minuten"} timeDisplayClass={classes.Minutes} />
+            <TimeBlock date={dateTime.secondsDif} titel={"Seconden"} timeDisplayClass={classes.Seconds} />
         </div>
     )
 }

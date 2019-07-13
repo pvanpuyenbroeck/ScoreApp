@@ -1,19 +1,24 @@
 .Countdown{
     width: 100%;
+    max-width: 300px;
 }
 
 .TimeBlock{
     display: flex;
     flex-flow: column;
     align-items: center;
+    height: 50px;
+    background-color: #326087;
+    color:#bfbfad;
+    justify-content: center;
+    border-radius:3px;
 }
 
 
 @supports(grid-area: auto){
     .Countdown{
         display: grid;
-        /* grid-template-columns: auto auto auto auto auto auto;
-        grid-template-rows: 3; */
+        grid-gap:0.5rem;
         grid-template-areas: 
         "year month" 
         "year month" 
@@ -23,22 +28,22 @@
         "minutes seconds"
     }
 
-    .Year{
+    .TimeBlock:nth-child(1){
         grid-area: year;
     }
-    .Month{
+    .TimeBlock:nth-child(2){
         grid-area: month;
     }
-    .Day{
+    .TimeBlock:nth-child(3){
         grid-area: day;
     }
-    .Hour{
+    .TimeBlock:nth-child(4){
         grid-area:hour;
     }
-    .Minutes{
+    .TimeBlock:nth-child(5){
         grid-area:minutes;
     }
-    .Seconds{
+    .TimeBlock:nth-child(6){
         grid-area:seconds;
     }
 

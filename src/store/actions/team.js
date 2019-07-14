@@ -31,7 +31,6 @@ export const closeModal = () => {
 
 
 export const addTeam = (teamData) => {
-
     return dispatch => {
         dispatch(addTeamStart());
         firebase.database().ref("/Teams/").push(teamData).then(res => {
@@ -47,8 +46,43 @@ export const addTeam = (teamData) => {
     }
 }
 
+export const setLastSelectedTeamSuccess = (selectedTeam) => {
+    // selectedTeam(selectedTeam);
+    return {
+        type: actionTypes.SET_LAST_SELECTED_TEAM_SUCCESS,
+        selectedTeam: selectedTeam,
+    }
+}
 
-export const getTeamSuccess = (selectedTeam) => {
+export const setLastSelectedTeamFail = (error) => {
+    return {
+        type: actionTypes.SET_LAST_SELECTED_TEAM_FAIL,
+        error: error
+    }
+}
+export const setLastSelectedTeamStart = () => {
+    return {
+        type: actionTypes.SET_LAST_SELECTED_TEAM_START,
+    }
+}
+
+const setLastSelectedTeam = (selectedTeamId, uid) => {
+        setLastSelectedTeamStart();
+        firebase.database().ref('/Players/' + uid + "/lastSelectedTeam/").set({
+            teamId: selectedTeamId,
+        }).then(response => {
+            console.log("Succes lastselectedTeam")
+            setLastSelectedTeamSuccess();
+        })
+        .catch(
+            console.log("Fail lastselectedTeam")
+            // dispatch(setLastSelectedTeamFail())
+        )
+}
+
+
+export const getTeamSuccess = (selectedTeam, uid) => {
+    setLastSelectedTeam(selectedTeam.teamId, uid);
     return {
         type: actionTypes.GET_TEAM_SUCCESS,
         selectedTeam: selectedTeam,
@@ -97,13 +131,14 @@ export const getTeam = (teamId, season, uid) => {
                     dispatch(getTeamSuccess({
                         ...updatedTeam,
                         teamId: teamId,
-                    }));
+                    },
+                uid));
                 })
             } else {
                 dispatch(getTeamSuccess({
                     ...team,
                     teamId: teamId,
-                }));
+                }, uid));
             }
         }).catch(
             error => {

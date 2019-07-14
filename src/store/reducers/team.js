@@ -17,6 +17,7 @@ const initialState = {
     },
     selectedSeason: "2018-2019",
     makingAdmin: false,
+    lastSelectedTeam: {},
 }
 
 const addTeam = (state, action) => {
@@ -209,6 +210,26 @@ const updateAdminSuccess= (state, action) => {
     }
 }
 
+const setLastSelectedTeamStart = (state, action) => {
+    return{
+        ...state,
+
+    }
+}
+
+const setLastSelectedTeamFail = (state, action) => {
+    return{
+        ...state,
+    }
+}
+
+const setLastSelectedTeamSuccess = (state, action) => {
+    return{
+        ...state,
+        lastSelectedTeam: action.selectedTeam,
+    }
+}
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.ADD_TEAM: return addTeam(state, action);
@@ -242,6 +263,10 @@ const reducer = (state = initialState, action) => {
         case actionTypes.UPDATE_PLAYER_ADMIN_START: return updateAdminStart(state,action);
         case actionTypes.UPDATE_PLAYER_ADMIN_FAIL: return updateAdminFail(state,action);
         case actionTypes.UPDATE_PLAYER_ADMIN_SUCCESS: return updateAdminSuccess(state,action);
+
+        case actionTypes.SET_LAST_SELECTED_TEAM_START: return setLastSelectedTeamStart(state,action);
+        case actionTypes.SET_LAST_SELECTED_TEAM_FAIL: return setLastSelectedTeamFail(state,action);
+        case actionTypes.SET_LAST_SELECTED_TEAM_SUCCESS: return setLastSelectedTeamSuccess(state,action);
         default: return state;
     }
 }

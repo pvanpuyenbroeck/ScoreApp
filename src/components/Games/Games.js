@@ -11,9 +11,19 @@ const games = (props) => {
             matchId: key,
         });
     }
+
+    const sortedMatchArray = gameArray.sort((a,b) => {
+        if(a.gameData.date < b.gameData.date){
+            return -1;
+        }
+        if(a.gameData.date > b.gameData.date){
+            return 1;
+        }
+        return 0;
+    })
     let allGames = <h1>Er zijn geen geplande matches</h1>
     if (props.matches) {
-        allGames = gameArray.map((game) => {
+        allGames = sortedMatchArray.map((game) => {
             return (
                 <div className={classes.Match}
                     key={game.matchId}>

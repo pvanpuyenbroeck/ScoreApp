@@ -14,6 +14,10 @@
     border-radius:3px;
 }
 
+.TimeBlock div:first-child{
+    font-size: 1.5rem;
+}
+
 
 @supports(grid-area: auto){
     .Countdown{

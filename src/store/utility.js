@@ -59,7 +59,7 @@ export const dateFormatToString = (datum) => {
 export const countDownClock = (datum) => {
     const date = new Date(datum);
     const now = new Date(Date.now());
-    const result = { weekDif: 0, dayDif: 0, hourDif: 0, minutesDif: 0, secondsDif: 0 }
+    const result = { weekDif: 0, dayDif: 0, hourDif: 0, minutesDif: 0, secondsDif: 0, initiated: true }
     let diff = (date.getTime() - now.getTime()) / 1000;
     diff /= (60 * 60 * 24 * 7);
     if (diff <= 0) {

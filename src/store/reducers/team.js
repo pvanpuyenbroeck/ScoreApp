@@ -230,6 +230,26 @@ const setLastSelectedTeamSuccess = (state, action) => {
     }
 }
 
+const getLastSelectedTeamStart = (state, action) => {
+    return{
+        ...state,
+
+    }
+}
+
+const getLastSelectedTeamFail = (state, action) => {
+    return{
+        ...state,
+    }
+}
+
+const getLastSelectedTeamSuccess = (state, action) => {
+    return{
+        ...state,
+        lastSelectedTeam: action.selectedTeam,
+    }
+}
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.ADD_TEAM: return addTeam(state, action);
@@ -267,6 +287,10 @@ const reducer = (state = initialState, action) => {
         case actionTypes.SET_LAST_SELECTED_TEAM_START: return setLastSelectedTeamStart(state,action);
         case actionTypes.SET_LAST_SELECTED_TEAM_FAIL: return setLastSelectedTeamFail(state,action);
         case actionTypes.SET_LAST_SELECTED_TEAM_SUCCESS: return setLastSelectedTeamSuccess(state,action);
+
+        case actionTypes.GET_LAST_SELECTED_TEAM_START: return getLastSelectedTeamStart(state,action);
+        case actionTypes.GET_LAST_SELECTED_TEAM_FAIL: return getLastSelectedTeamFail(state,action);
+        case actionTypes.GET_LAST_SELECTED_TEAM_SUCCESS: return getLastSelectedTeamSuccess(state,action);
         default: return state;
     }
 }

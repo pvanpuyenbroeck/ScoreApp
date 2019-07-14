@@ -30,6 +30,7 @@ class App extends Component {
     firebase.auth().onAuthStateChanged(user => {
       if(user){
         this.props.authSuccess(user);
+        this.props.getLastSelectedTeam(user.uid, this.props.team.selectedSeason);
       }
     })
   }
@@ -93,6 +94,7 @@ const mapDispatchToProps = dispatch => {
       sidePanelToggle: () => dispatch(actions.sidepanelToggle()),
       ModalClicked: () => dispatch(actions.closeModal()),
       authSuccess: (user) => dispatch(actions.authSuccess(user)),
+      getLastSelectedTeam: (userId, selectedSeason) => dispatch(actions.getLastSelectedTeam(userId, selectedSeason)), 
   }
 };
 
@@ -103,7 +105,7 @@ const mapStateToProps = state => {
     showFlexbox: state.navigation.showFlexItem,
     showModal: state.navigation.showModal,
     location: state.navigation.breadcrumbLocation,
-    team: state.team.team,
+    team: state.team,
     isAuthenticated: state.auth.user !== null,
     user: state.auth.user,
   }

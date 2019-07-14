@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './SelectTeamButton.css';
+import classes from './SelectedMatchButton.css';
 import {NavLink} from 'react-router-dom';
 
 const SelectMatchButton = (props) => (

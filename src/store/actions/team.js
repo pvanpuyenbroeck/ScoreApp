@@ -1,6 +1,6 @@
 import * as actionTypes from './actionTypes';
 import firebase from '../../firebase-scoreapp';
-import {checkIfAdmin} from '../utility';
+import { checkIfAdmin } from '../utility';
 
 
 export const addTeamSuccess = (teamData) => {
@@ -66,14 +66,14 @@ export const setLastSelectedTeamStart = () => {
     }
 }
 
-const setLastSelectedTeam = (selectedTeamId, uid) => {
-        setLastSelectedTeamStart();
-        firebase.database().ref('/Players/' + uid + "/lastSelectedTeam/").set({
-            teamId: selectedTeamId,
-        }).then(response => {
-            console.log("Succes lastselectedTeam")
-            setLastSelectedTeamSuccess();
-        })
+const setLastSelectedTeam = (selectedTeamId, uid, season) => {
+    setLastSelectedTeamStart();
+    firebase.database().ref('/Players/' + uid + "/lastSelectedTeam/").set({
+        teamId: selectedTeamId,
+    }).then(response => {
+        console.log("Succes lastselectedTeam")
+        setLastSelectedTeamSuccess();
+    })
         .catch(
             console.log("Fail lastselectedTeam")
             // dispatch(setLastSelectedTeamFail())
@@ -132,7 +132,7 @@ export const getTeam = (teamId, season, uid) => {
                         ...updatedTeam,
                         teamId: teamId,
                     },
-                uid));
+                        uid));
                 })
             } else {
                 dispatch(getTeamSuccess({
@@ -145,6 +145,38 @@ export const getTeam = (teamId, season, uid) => {
                 dispatch(getTeamFail(error))
             }
         )
+    }
+}
+
+export const getLastSelectedTeamStart = () => {
+    return {
+        type: actionTypes.GET_LAST_SELECTED_TEAM_START,
+    }
+}
+export const getLastSelectedTeamFail = () => {
+    return {
+        type: actionTypes.GET_LAST_SELECTED_TEAM_FAIL,
+    }
+}
+export const getLastSelectedTeamSuccess = () => {
+    return {
+        type: actionTypes.GET_LAST_SELECTED_TEAM_SUCCESS,
+    }
+}
+
+export const getLastSelectedTeam = (userId, lastSelectedSeason) => {
+    return dispatch => {
+        dispatch(getLastSelectedTeamStart());
+        firebase.database().ref("/Players/" + userId + "/lastSelectedTeam/").once('value')
+            .then(teamId => {
+                dispatch(getTeam(teamId.val().teamId, lastSelectedSeason, userId));
+                dispatch(getLastSelectedTeamSuccess());
+            })
+            .catch(error => {
+                console.log(error);
+                dispatch(getLastSelectedTeamFail());
+            }
+            )
     }
 }
 
@@ -332,18 +364,18 @@ export const setSeason = (season) => {
 }
 
 export const updatePlayerAdminStart = () => {
-    return{
+    return {
         type: actionTypes.UPDATE_PLAYER_ADMIN_START,
     }
 }
 
 export const updatePlayerAdminFail = () => {
-    return{
+    return {
         type: actionTypes.UPDATE_PLAYER_ADMIN_FAIL,
     }
 }
 export const updatePlayerAdminSuccess = (updatedTeam) => {
-    return{
+    return {
         type: actionTypes.UPDATE_PLAYER_ADMIN_SUCCESS,
         updatedTeam: updatedTeam,
     }

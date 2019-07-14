@@ -7,6 +7,7 @@ export{
     removeMatchFromTeam,
     setSeason,
     updatePlayerAdmins,
+    getLastSelectedTeam,
 } from './team';
 
 export{

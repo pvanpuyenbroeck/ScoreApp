@@ -108,6 +108,7 @@ const mapStateToProps = state => {
     team: state.team,
     isAuthenticated: state.auth.user !== null,
     user: state.auth.user,
+    selectedSeason:state.team.selectedTeam
   }
 }
 

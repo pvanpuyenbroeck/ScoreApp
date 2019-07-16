@@ -1,26 +1,46 @@
 import React, { Component } from 'react';
 import classes from './landingpage.css';
 import MatchButton from '../../Team/SelectedMatchButton/SelectedMatchButton';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
+import { countDownClock, sortOnDate } from '../../../store/utility';
+import MatchDetails from '../../Games/MatchDetails/MatchDetails';
 
 
 class landingpage extends Component {
     state = {
 
     }
+
+    getNextMatch() {
+        if (typeof this.props.team.Seasons !== 'undefined') {
+            let allteamMatches = { ...this.props.team.Seasons[this.props.selectedSeason].Matches };
+
+            const allMatchIds = Object.values(allteamMatches);
+
+            const allComingMatches = allMatchIds.filter(match => {
+                let lastMatch = countDownClock(match.gameData.date);
+                return (lastMatch.weekDif !== 0 || lastMatch.dayDif !== 0 || lastMatch.minutesDif !== 0 || lastMatch.secondsDif !== 0 || lastMatch.hourDif !== 0)
+            })
+
+            const sortedMatches = sortOnDate(allComingMatches);
+
+            return (
+                <div className={classes.MatchDetails}>
+                    <MatchDetails
+                        closeContainer={this.props.closeModal}
+                        matches={sortedMatches[0]}
+                        width={"100%"}
+                    />
+            </div>
+            )
+        }
+    }
     // const getNextMatch = (props.)
     render() {
         return (<div className={classes.LandingPage}>
-            <h1>Welkom {this.props.user.displayName}</h1>
-            {/* <MatchButton
-                match={this.props.game}
-                matchButtonClicked={(match) => this.props.matchClicked(match)}
-                team={this.props.team}
-                showMatchDetailsClicked={(matchId) => this.props.showMatchDetailsClicked(game.matchId)}
-                history={props.history}
-                admin={props.admin}
-            /> */}
+            <div className={classes.Titel}><h1>Welkom {this.props.user.displayName}</h1></div>
+            {this.getNextMatch()}
         </div>)
     }
 }
@@ -52,4 +72,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(landingpage);
+export default connect(mapStateToProps, mapDispatchToProps)(landingpage);

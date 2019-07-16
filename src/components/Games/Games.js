@@ -2,6 +2,7 @@ import React from 'react';
 import classes from './Games.css';
 import Match from '../Games/Match/Match';
 import { Link } from 'react-router-dom';
+import {sortOnDate} from '../../store/utility';
 
 const games = (props) => {
     let gameArray = [];
@@ -12,15 +13,8 @@ const games = (props) => {
         });
     }
 
-    const sortedMatchArray = gameArray.sort((a,b) => {
-        if(a.gameData.date < b.gameData.date){
-            return -1;
-        }
-        if(a.gameData.date > b.gameData.date){
-            return 1;
-        }
-        return 0;
-    })
+    const sortedMatchArray = sortOnDate(gameArray);
+    
     let allGames = <h1>Er zijn geen geplande matches</h1>
     if (props.matches) {
         allGames = sortedMatchArray.map((game) => {

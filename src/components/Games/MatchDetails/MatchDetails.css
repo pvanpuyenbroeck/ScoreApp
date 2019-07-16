@@ -9,6 +9,7 @@
     padding: 2rem;
     margin: 0 auto;
     position: absolute;
+    color:black;
 }
 
 .OpponentName{
@@ -29,7 +30,7 @@
 }
 
 .LabelContainer{
-    width: 80%;
+    /* width: 80%; */
 }
 @supports(grid-area: auto){
     .MatchDetailsContainer{

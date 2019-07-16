@@ -77,3 +77,13 @@ export const countDownClock = (datum) => {
 
     return result
 }
+
+export const sortOnDate = (dateArray) => dateArray.sort((a,b) => {
+    if(a.gameData.date < b.gameData.date){
+        return -1;
+    }
+    if(a.gameData.date > b.gameData.date){
+        return 1;
+    }
+    return 0;
+})

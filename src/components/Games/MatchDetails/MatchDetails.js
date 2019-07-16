@@ -16,10 +16,14 @@ const MatchDetails = (props) => {
         )
     }
 
+    const style = {
+        width:props.width,
+    }
+
     return (
-        <DetailsContainer closeContainer={props.closeContainer} >
+        <React.Fragment>
             <h1>Matchdetails</h1>
-            <div className={[classes.GameData, classes.LabelContainer].join(' ')}>
+            <div className={[classes.GameData, classes.LabelContainer].join(' ')} style={style}>
                 <Section label={"Tegenstander: "} value={props.matches.gameData.opponent} />
                 <div className={classes.Location}>
                     <Section label={"Sporthal: "} value={props.matches.gameData.sporthal} />
@@ -37,7 +41,7 @@ const MatchDetails = (props) => {
             >
                 Match verwijderen
             </Button>
-        </DetailsContainer>
+        </React.Fragment>
     )
 }
 

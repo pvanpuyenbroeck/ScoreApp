@@ -42,7 +42,7 @@ const MatchDetails = (props) => {
             <Button
                 color="red"
                 buttonClicked={() => props.removeMatchClicked(props.matches.matchId)}
-                style={props.hideRemoveButton ? styleHide : null}
+                hide={props.hideRemoveButton}
             >
                 Match verwijderen
             </Button>

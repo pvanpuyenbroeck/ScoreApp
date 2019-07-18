@@ -32,6 +32,7 @@
 
 .LabelContainer{
     /* width: 80%; */
+    min-width: 300px;
 }
 @supports(grid-area: auto){
     .MatchDetailsContainer{

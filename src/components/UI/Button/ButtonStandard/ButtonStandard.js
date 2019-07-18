@@ -14,8 +14,10 @@ const ButtonStandard = (props) => {
         default:
             break;
     }
+
+
     return (
-        <div className={buttonClass.join(" ")} onClick={props.buttonClicked}>
+        <div className={buttonClass.join(" ")} onClick={props.buttonClicked} style={props.hide ? {display:"none" }: null}>
             <div>
                 {props.children}
             </div>

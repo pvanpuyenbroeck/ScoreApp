@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
 import { countDownClock, sortOnDate } from '../../../store/utility';
 import MatchDetails from '../../Games/MatchDetails/MatchDetails';
+import Games from '../../Games/Games';
 
 
 class landingpage extends Component {
@@ -16,9 +17,18 @@ class landingpage extends Component {
         if (typeof this.props.team.Seasons !== 'undefined') {
             let allteamMatches = { ...this.props.team.Seasons[this.props.selectedSeason].Matches };
 
-            const allMatchIds = Object.values(allteamMatches);
+            const allMatchIds = Object.keys(allteamMatches);
 
-            const allComingMatches = allMatchIds.filter(match => {
+            allMatchIds.map(key => {
+                allteamMatches[key] = {
+                    ...allteamMatches[key],
+                    matchId: [key]
+                }
+            })
+
+            let updatedMatches = Object.values(allteamMatches)
+
+            const allComingMatches = updatedMatches.filter(match => {
                 let lastMatch = countDownClock(match.gameData.date);
                 return (lastMatch.weekDif !== 0 || lastMatch.dayDif !== 0 || lastMatch.minutesDif !== 0 || lastMatch.secondsDif !== 0 || lastMatch.hourDif !== 0)
             })
@@ -27,14 +37,27 @@ class landingpage extends Component {
 
             return (
                 <div className={classes.MatchDetails}>
-                    <MatchDetails
-                        closeContainer={this.props.closeModal}
-                        matches={sortedMatches[0]}
-                        width={"100%"}
-                        title={"Volgende match van " + this.props.team.teamName + ":"}
-                        hideRemoveButton={true}
+                    {typeof sortedMatches[0] != 'undefined' ?
+                        <MatchDetails
+                            closeContainer={this.props.closeModal}
+                            matches={sortedMatches[0]}
+                            width={"100%"}
+                            title={"Volgende match van " + this.props.team.teamName + ":"}
+                            hideRemoveButton={true}
+                        /> : null
+                    }
+
+                    <Games
+                        key={this.props.team.teamId}
+                        matches={sortedMatches.slice(0,1)}
+                        teamId={this.props.team.teamId}
+                        // matchClicked={(match) => this.matchSelected(match)}
+                        team={this.props.team}
+                        // showMatchDetailsClicked={(matchId) => this.showMatchDetailsHandler(matchId)}
+                        history={this.props.history}
+                        admin={this.props.adminLoggedIn}
                     />
-            </div>
+                </div>
             )
         }
     }

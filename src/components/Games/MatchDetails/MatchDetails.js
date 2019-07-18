@@ -20,9 +20,13 @@ const MatchDetails = (props) => {
         width:props.width,
     }
 
+    const styleHide = {
+        display:'none'
+    }
+
     return (
         <React.Fragment>
-            <h1>Matchdetails</h1>
+            <h1>{props.title}</h1>
             <div className={[classes.GameData, classes.LabelContainer].join(' ')} style={style}>
                 <Section label={"Tegenstander: "} value={props.matches.gameData.opponent} />
                 <div className={classes.Location}>
@@ -38,9 +42,11 @@ const MatchDetails = (props) => {
             <Button
                 color="red"
                 buttonClicked={() => props.removeMatchClicked(props.matches.matchId)}
+                style={props.hideRemoveButton ? styleHide : null}
             >
                 Match verwijderen
             </Button>
+            {props.Button}
         </React.Fragment>
     )
 }

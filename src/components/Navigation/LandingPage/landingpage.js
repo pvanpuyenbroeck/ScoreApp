@@ -31,6 +31,8 @@ class landingpage extends Component {
                         closeContainer={this.props.closeModal}
                         matches={sortedMatches[0]}
                         width={"100%"}
+                        title={"Volgende match van " + this.props.team.teamName + ":"}
+                        hideRemoveButton={true}
                     />
             </div>
             )

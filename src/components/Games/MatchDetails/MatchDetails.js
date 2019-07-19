@@ -4,6 +4,7 @@ import Button from '../../UI/Button/ButtonStandard/ButtonStandard';
 import DetailsContainer from '../../UI/DetailsContainer/DetailsContainer';
 import { dateFormatToString } from '../../../store/utility';
 import CountDown from '../../UI/CountDownClock/CountDownClock';
+import Maps from '../../UI/Maps/maps';
 
 const MatchDetails = (props) => {
     const Section = ({ CSSclass, label, value }) => {
@@ -26,6 +27,7 @@ const MatchDetails = (props) => {
 
     return (
         <React.Fragment>
+        <div className={classes.MatchDetailsContainer}>
             <h1>{props.title}</h1>
             <div className={[classes.GameData, classes.LabelContainer].join(' ')} style={style}>
                 <Section label={"Tegenstander: "} value={props.matches.gameData.opponent} />
@@ -47,6 +49,8 @@ const MatchDetails = (props) => {
                 Match verwijderen
             </Button>
             {props.Button}
+            <Maps/>
+            </div>
         </React.Fragment>
     )
 }

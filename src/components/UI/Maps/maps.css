@@ -1,0 +1,17 @@
+.locationImage{
+    height: 100px;
+    width: 100px;
+    margin: 5px 0 10px 0;
+
+}
+
+.locationImage:hover{
+    cursor: pointer;
+}
+
+@media screen and (min-width:600px){
+    .locationImage{
+        grid-row:2/3;
+        grid-column:2/3;
+    }
+}

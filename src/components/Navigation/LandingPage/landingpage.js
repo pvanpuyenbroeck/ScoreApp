@@ -5,12 +5,21 @@ import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
 import { countDownClock, sortOnDate } from '../../../store/utility';
 import MatchDetails from '../../Games/MatchDetails/MatchDetails';
-import Games from '../../Games/Games';
+import Match from '../../Games/Match/Match';
 
 
 class landingpage extends Component {
     state = {
 
+    }
+
+    componentDidMount(){
+        this.props.selectedTeam(this.props.team.teamId, this.props.selectedSeason,this.props.user.uid);
+    }
+
+    matchSelected = (match) => {
+        this.props.changeLocation(4);
+        this.props.matchSelected(match);
     }
 
     getNextMatch() {
@@ -47,15 +56,12 @@ class landingpage extends Component {
                         /> : null
                     }
 
-                    <Games
-                        key={this.props.team.teamId}
-                        matches={sortedMatches.slice(0,1)}
-                        teamId={this.props.team.teamId}
-                        // matchClicked={(match) => this.matchSelected(match)}
-                        team={this.props.team}
-                        // showMatchDetailsClicked={(matchId) => this.showMatchDetailsHandler(matchId)}
-                        history={this.props.history}
-                        admin={this.props.adminLoggedIn}
+                    <Match
+                    match={sortedMatches[0]}
+                    history={this.props.history}
+                    matchButtonClicked={(match) => this.matchSelected(match)}
+                    team={this.props.team}
+                    admin={this.props.isAdmin}
                     />
                 </div>
             )

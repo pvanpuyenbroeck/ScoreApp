@@ -1,8 +1,7 @@
 .LandingPage{
     color: white;
-    border: 2px solid white;
+    /* border: 2px solid white; */
     border-radius: 5px;
-    width: 80%;
     margin: 0 auto;
     background-color: rgba(100,100,100,0.5);
     min-height: 400px;
@@ -17,5 +16,11 @@
 .MatchDetails div:first-child(){
     max-width: 300px;
     /* width:100%; */
+}
+
+@media screen and (min-width:600px){
+    .LandingPage{
+        width: 500px;
+    }
 }
 

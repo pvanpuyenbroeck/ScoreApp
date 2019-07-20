@@ -49,7 +49,10 @@ const MatchDetails = (props) => {
                 Match verwijderen
             </Button>
             {props.Button}
-            <Maps/>
+            <Maps
+                streetandnumber={props.matches.gameData.straat}
+                postcode={props.matches.gameData.postcode}
+            />
             </div>
         </React.Fragment>
     )

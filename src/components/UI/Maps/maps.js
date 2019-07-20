@@ -11,7 +11,8 @@ class maps extends Component {
         ((navigator.platform.indexOf("iPhone") !== -1) ||
         (navigator.platform.indexOf("iPad") !== -1) ||
             (navigator.platform.indexOf("iPod") !== -1))
-            window.open(`maps://maps.google.com/maps/search/?api=1&query=${streetandnumber}%2C${postcode}`);
+            window.open(`https://www.google.com/maps/search/?api=1&query=${streetandnumber}%2C${postcode}`);
+            // window.open(`maps://maps.google.com/maps/search/?api=1&query=${streetandnumber}%2C${postcode}`);
         else /* else use Google */
             // window.open("https://maps.google.com/maps/?api=1&query=Zuiderlaan+14%2C9000+Gent");
             window.open(`https://www.google.com/maps/search/?api=1&query=${streetandnumber}%2C${postcode}`);

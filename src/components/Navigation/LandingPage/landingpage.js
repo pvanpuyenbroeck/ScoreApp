@@ -13,8 +13,8 @@ class landingpage extends Component {
 
     }
 
-    componentDidMount(){
-        this.props.selectedTeam(this.props.team.teamId, this.props.selectedSeason,this.props.user.uid);
+    componentDidMount() {
+        this.props.selectedTeam(this.props.team.teamId, this.props.selectedSeason, this.props.user.uid);
     }
 
     matchSelected = (match) => {
@@ -46,61 +46,63 @@ class landingpage extends Component {
 
             return (
                 <div className={classes.MatchDetails}>
-                    {typeof sortedMatches[0] != 'undefined' ?
+                    {typeof sortedMatches[0] !== 'undefined' ?
                         <MatchDetails
                             closeContainer={this.props.closeModal}
                             matches={sortedMatches[0]}
                             width={"100%"}
                             title={"Volgende match van " + this.props.team.teamName + ":"}
                             hideRemoveButton={true}
-                        /> : null
+                        /> : <div>Er zijn geen toekomstige matchen.</div>
                     }
 
-                    <Match
-                    match={sortedMatches[0]}
-                    history={this.props.history}
-                    matchButtonClicked={(match) => this.matchSelected(match)}
-                    team={this.props.team}
-                    admin={this.props.isAdmin}
-                    />
+                    {typeof sortedMatches[0] !== 'undefined' ?
+                        <Match
+                            match={sortedMatches[0]}
+                            history={this.props.history}
+                            matchButtonClicked={(match) => this.matchSelected(match)}
+                            team={this.props.team}
+                            admin={this.props.isAdmin}
+                        />
+                        : null }
                 </div>
-            )
+                )
+            }
         }
-    }
-    // const getNextMatch = (props.)
+        // const getNextMatch = (props.)
     render() {
         return (<div className={classes.LandingPage}>
-            <div className={classes.Titel}><h1>Welkom {this.props.user.displayName}</h1></div>
-            {this.getNextMatch()}
-        </div>)
-    }
-}
-
+                        <div className={classes.Titel}><h1>Welkom {this.props.user.displayName}</h1></div>
+                        {this.getNextMatch()}
+                    </div>)
+                }
+            }
+            
 const mapDispatchToProps = dispatch => {
     return {
-        // getTeam: (team) => dispatch(actions.getTeam(team)),
-        updatePlayerAdmins: (teamId, updatedAdmins) => dispatch(actions.updatePlayerAdmins(teamId, updatedAdmins)),
-        closeModal: () => dispatch(actions.closeModal()),
-        showModalHandler: () => dispatch(actions.showModal()),
-        showFunctionMenu: () => dispatch(actions.showFunctionMenu()),
-        selectedTeam: (teamId, season, uid) => dispatch(actions.getTeam(teamId, season, uid)),
-        showComponent: (component) => dispatch(actions.showComponent(component)),
-        matchSelected: (match) => dispatch(actions.setSelectedMatchInfo(match)),
-        changeLocation: (location) => dispatch(actions.locationChange(location)),
-        removePlayerFromTeam: (playerid, teamid, teamMembers, season, team) => dispatch(actions.removePlayerFromTeam(playerid, teamid, teamMembers, season, team)),
-        removeMatchFromTeam: (updatedMatches, teamId, selectedSeason) => dispatch(actions.removeMatchFromTeam(updatedMatches, teamId, selectedSeason)),
-    }
-}
-
+                        // getTeam: (team) => dispatch(actions.getTeam(team)),
+                        updatePlayerAdmins: (teamId, updatedAdmins) => dispatch(actions.updatePlayerAdmins(teamId, updatedAdmins)),
+                    closeModal: () => dispatch(actions.closeModal()),
+                    showModalHandler: () => dispatch(actions.showModal()),
+                    showFunctionMenu: () => dispatch(actions.showFunctionMenu()),
+                    selectedTeam: (teamId, season, uid) => dispatch(actions.getTeam(teamId, season, uid)),
+                    showComponent: (component) => dispatch(actions.showComponent(component)),
+                    matchSelected: (match) => dispatch(actions.setSelectedMatchInfo(match)),
+                    changeLocation: (location) => dispatch(actions.locationChange(location)),
+                    removePlayerFromTeam: (playerid, teamid, teamMembers, season, team) => dispatch(actions.removePlayerFromTeam(playerid, teamid, teamMembers, season, team)),
+                    removeMatchFromTeam: (updatedMatches, teamId, selectedSeason) => dispatch(actions.removeMatchFromTeam(updatedMatches, teamId, selectedSeason)),
+                }
+            }
+            
 const mapStateToProps = state => {
     return {
-        team: state.team.selectedTeam,
-        showModal: state.navigation.showModal,
-        userId: state.auth.userId,
-        user: state.auth.user,
-        selectedSeason: state.team.selectedSeason,
-        adminLoggedIn: state.team.selectedTeam.isAdmin,
-    }
-}
-
+                        team: state.team.selectedTeam,
+                    showModal: state.navigation.showModal,
+                    userId: state.auth.userId,
+                    user: state.auth.user,
+                    selectedSeason: state.team.selectedSeason,
+                    adminLoggedIn: state.team.selectedTeam.isAdmin,
+                }
+            }
+            
 export default connect(mapStateToProps, mapDispatchToProps)(landingpage);

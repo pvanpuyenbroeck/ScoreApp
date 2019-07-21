@@ -7,7 +7,7 @@
     color:#bfbfad;
 }
 
-.AddGame form div{
+.AddGame form > div{
     margin-bottom:10px;
 }
 

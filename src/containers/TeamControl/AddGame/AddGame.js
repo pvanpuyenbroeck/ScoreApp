@@ -6,6 +6,7 @@ import * as actions from '../../../store/actions/index';
 import TextInput from '@material-ui/core/TextField';
 // import DateTimePicker from 'react-datetime-picker';
 import DateTimePicker from 'react-datetime';
+import ArenaAutocomplete from '../../../components/Arena/ArenaAutocomplete/arenaAutocomplete';
 
 class AddGame extends Component {
 
@@ -38,47 +39,12 @@ class AddGame extends Component {
                 },
                 valid: false,
             },
-            sporthal: {
-                id: 'sporthal',
-                elementType: 'input',
-                elementConfig: {
-                    type: 'input',
-                    placeholder: 'Sporthal',
-                },
-                value: '',
-                validation: {
-                    required: true,
-                },
-                valid: false,
-            },
-            postcode: {
-                id: 'sporthal',
-                elementType: 'input',
-                elementConfig: {
-                    type: 'input',
-                    placeholder: 'Postcode',
-                },
-                value: '',
-                validation: {
-                    required: true,
-                },
-                valid: false,
-            },
-            straat: {
-                id: 'straat',
-                elementType: 'input',
-                elementConfig: {
-                    type: 'input',
-                    placeholder: 'Straat + huisnummer'
-                },
-                value: '',
-                validation: {
-                    required: true,
-                },
-                valid: false,
-            },
+            sporthal:{
+                id:"sporthal",
+            }
         },
         loading: false,
+        selectedArena: "",
     }
 
     onChange = value => {
@@ -119,6 +85,8 @@ class AddGame extends Component {
         }
         formData["teamId"] = this.props.team.teamId;
         formData.date = formData.date.format();
+        formData["locatie"] = this.state.selectedArena.locatie;
+        formData["sporthal"] = this.state.selectedArena.sporthal;
         const gameInfo = {
             gameData: formData,
             oponentGoals: 0,
@@ -137,6 +105,12 @@ class AddGame extends Component {
         //     })
         this.props.AddMatchtoTeam(gameInfo, this.props.team, this.props.selectedSeason, this.props.userid);
         this.props.CloseModal();
+    }
+
+    selectedArenaHandler(arena){
+        this.setState({
+            selectedArena: arena,
+        })
     }
 
     checkValidity(value, rules) {
@@ -172,7 +146,11 @@ class AddGame extends Component {
                             onChange={this.onChange}
                             timeFormat={"H : m"}
                         />
-                    } else {
+                    }
+                    if(formElement.id === 'sporthal'){
+                        return <ArenaAutocomplete selectedArena={(arena => this.selectedArenaHandler(arena))}/>
+                    }
+                     else {
                         return (<TextInput
                             className={classes.InputFields}
                             key={formElement.id}

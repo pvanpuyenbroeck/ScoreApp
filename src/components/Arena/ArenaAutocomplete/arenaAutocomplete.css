@@ -1,0 +1,37 @@
+.AutocompleteContainer{
+    position:absolute;
+    width: 400px;
+    background-color: white;
+    z-index: 100;
+    color:black;
+}
+
+.Row{
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.Row:hover{
+    background-color: #bfbfad;
+    cursor: pointer;
+}
+
+.Row div{
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+    padding: 5px 0 5px 0;
+}
+
+.Row div:nth-child(1){
+    width: 20%;
+    padding-left: 5px;
+}
+
+.Row div:nth-child(2){
+    width: 50%;
+}
+.Row div:nth-child(3){
+    width: 30%;
+}

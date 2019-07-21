@@ -64,6 +64,7 @@ class TeamsOverview extends Component {
                             }
                         }
                     }
+                    return null;
                 })
             }
         }

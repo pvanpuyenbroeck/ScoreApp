@@ -3,7 +3,6 @@ import classes from './PlayerButton.css';
 // import profilePic from '../../../assets/Images/profilePic.jpg';
 import firebase from '../../../firebase-scoreapp';
 import Avatar from '@material-ui/core/Avatar';
-import CloseButton from '../../../assets/Images/delete-30.png';
 
 class playerButton extends Component {
     state = {
@@ -70,22 +69,6 @@ class playerButton extends Component {
 
         let image = this.getInitials();
 
-        const closeButtonStyle = {
-            backgroundImage: `url(${CloseButton})`,
-            // visibility: `${this.state.closeButton}`
-        }
-
-        // const adminStyle = {
-        //     color: 'blue',
-        // }
-
-
-        // if(typeof this.props.user.photoURL !== "undefined"){
-        //     image = <img src={this.props.user.avatar} alt="User"/>;
-        // }
-        // else{
-        //     image = this.getInitials();
-        // }
         return (
             <div className={classes.PlayerButtonContainer}>
                 <div className={playerButtonFunctionsClasses.join(' ')}>

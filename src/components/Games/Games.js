@@ -1,7 +1,6 @@
 import React from 'react';
 import classes from './Games.css';
 import Match from '../Games/Match/Match';
-import { Link } from 'react-router-dom';
 import {sortOnDate} from '../../store/utility';
 
 const games = (props) => {

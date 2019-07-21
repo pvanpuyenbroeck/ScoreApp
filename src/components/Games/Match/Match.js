@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import classes from './Match.css';
-import CloseButton from '../../../assets/Images/delete-30.png';
 import MoreButton from '../../../assets/Images/MoreButton.png';
-import moment from 'moment';
 
 
 const Match = (props) => {
-    const [showOptions, setShowOptions] = useState(false);
+    // const [showOptions, setShowOptions] = useState(false);
 
     let homeGoals = 0;
     for (let key in props.match.Participants) {
@@ -36,14 +34,10 @@ const Match = (props) => {
         props.history.replace("/Team/" + props.team.teamId + "/Match/" + props.match.matchId);
     }
 
-    const setShowHideOptionsHandler = () => {
-        setShowOptions(!showOptions);
-    }
+    // const setShowHideOptionsHandler = () => {
+    //     setShowOptions(!showOptions);
+    // }
 
-    const closeButtonStyle = {
-        backgroundImage: `url(${CloseButton})`,
-        // visibility: `${this.state.closeButton}`
-    }
 
     const moreButtonStyle = {
         backgroundImage: `url(${MoreButton})`,

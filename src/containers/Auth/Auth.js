@@ -4,7 +4,6 @@ import * as actions from '../../store/actions/index';
 import classes from './Auth.css';
 import Input from '../../components/UI/Input/Input';
 import Spinner from '../../components/UI/Spinner/Spinner';
-import { Redirect } from 'react-router';
 import Button from '../../components/UI/Button/Button/Button';
 import GoogleButton from 'react-google-button';
 
@@ -151,7 +150,7 @@ class Auth extends Component {
                 this.state.controls.familienaam.value,
                 this.state.isSignup);
         } else {
-            // this.history.push("/");
+            // this.history.push("/")
             this.props.onAuthLogin(this.state.controls.email.value, this.state.controls.password.value);
         }
 

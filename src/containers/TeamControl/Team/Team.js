@@ -183,6 +183,7 @@ class Team extends Component {
                 tab.selected = true;
             }
             updatedTabs.push(tab);
+            return null;
         })
         this.setState({
             tabs: updatedTabs,
@@ -223,6 +224,7 @@ class Team extends Component {
                     default: return null;
                 }
             }
+            return null;
         })
     )
 

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import classes from './landingpage.css';
-import MatchButton from '../../Team/SelectedMatchButton/SelectedMatchButton';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
 import { countDownClock, sortOnDate } from '../../../store/utility';
@@ -33,6 +32,7 @@ class landingpage extends Component {
                     ...allteamMatches[key],
                     matchId: [key]
                 }
+                return null;
             })
 
             let updatedMatches = Object.values(allteamMatches)
@@ -71,7 +71,7 @@ class landingpage extends Component {
         }
         // const getNextMatch = (props.)
     render() {
-        return (<div className={classes.LandingPage}>
+        return (<div className={classes.LandingPage}>  
                         <div className={classes.Titel}><h1>Welkom {this.props.user.displayName}</h1></div>
                         {this.getNextMatch()}
                     </div>)

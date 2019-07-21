@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import classes from './MatchDetails.css';
 import Button from '../../UI/Button/ButtonStandard/ButtonStandard';
-import DetailsContainer from '../../UI/DetailsContainer/DetailsContainer';
 import { dateFormatToString } from '../../../store/utility';
 import CountDown from '../../UI/CountDownClock/CountDownClock';
 import Maps from '../../UI/Maps/maps';
@@ -19,10 +18,6 @@ const MatchDetails = (props) => {
 
     const style = {
         width:props.width,
-    }
-
-    const styleHide = {
-        display:'none'
     }
 
     return (

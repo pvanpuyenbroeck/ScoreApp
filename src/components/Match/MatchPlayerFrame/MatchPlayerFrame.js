@@ -3,7 +3,6 @@ import classes from './MatchPlayerFrame.css';
 import defaultProfilePic from '../../../assets/Images/myAvatar.png';
 import plus from '../../../assets/Images/plus.png';
 import minus from '../../../assets/Images/minus.png';
-import moreButton from '../../../assets/Images/MoreButton.png';
 
 const matchPlayerFrame = props => {
     const minusClasses = [classes.AddMinusSymbol, classes.Minus];

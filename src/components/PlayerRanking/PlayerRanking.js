@@ -21,6 +21,7 @@ const PlayerRanking = (props) => {
                 }
             }
         }
+        return null;
     })
 
     const sortedPlayerArray = players.sort((a,b) => {

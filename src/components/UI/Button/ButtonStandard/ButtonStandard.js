@@ -1,6 +1,5 @@
 import React from 'react';
 import classes from './ButtonStandard.css';
-import Button from '../Button/Button';
 
 const ButtonStandard = (props) => {
     let buttonClass = [classes.Button];

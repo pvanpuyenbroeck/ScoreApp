@@ -41,6 +41,7 @@ class AddGame extends Component {
             },
             sporthal:{
                 id:"sporthal",
+                value:'',
             }
         },
         loading: false,
@@ -145,23 +146,27 @@ class AddGame extends Component {
                             value={this.state.gameForm.date.value}
                             onChange={this.onChange}
                             timeFormat={"H : m"}
+                            className={classes.InputFields}
                         />
                     }
                     if(formElement.id === 'sporthal'){
-                        return <ArenaAutocomplete selectedArena={(arena => this.selectedArenaHandler(arena))}/>
+                        return <ArenaAutocomplete 
+                        selectedArena={(arena => this.selectedArenaHandler(arena))}
+                        value={this.state.selectedArena.sporthal}
+                        />
                     }
                      else {
-                        return (<TextInput
+                        return (<input
                             className={classes.InputFields}
                             key={formElement.id}
                             id={formElement.id}
                             type={formElement.config.elementType}
-                            label={typeof formElement.config.elementConfig.placeholder === 'undefined' ? null : formElement.config.elementConfig.placeholder}
+                            placeholder={typeof formElement.config.elementConfig.placeholder === 'undefined' ? null : formElement.config.elementConfig.placeholder}
                             // elementConfig={formElement.config.elementConfig}
                             // value={formElement.config.value}
                             defaultValue={formElement.config.value}
                             onChange={(event) => this.inputChangedHandler(event, formElement.id)}
-                            autoFocus={false}
+                            // autoFocus={false}
                         />)
                     }
                 })}

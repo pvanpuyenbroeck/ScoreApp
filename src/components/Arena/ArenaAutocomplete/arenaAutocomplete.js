@@ -25,9 +25,10 @@ const checkAreaOnGemeente = (input, arenas) => {
 
 const arenaAutocomplete = (props) => {
 
-    const [arenaInputValue, setArenaInputValue] = useState("");
+    const [arenaInputValue, setArenaInputValue] = useState(props.value);
     const [allArenas, setAllArenas] = useState("");
     const [autoCompleteResults, setAutoCompleteResults] = useState("");
+    const [showAutocompleteResults, setShowAutocompleteResult] = useState(true);
 
     useEffect(() => {
         let allArenas = [];
@@ -53,14 +54,37 @@ const arenaAutocomplete = (props) => {
         setAutoCompleteResults(distinctFilteredArenas.length <= 10 ? distinctFilteredArenas : "");
     }, [arenaInputValue]);
 
+    const AutocompleteStyle = {
+        display: showAutocompleteResults ? 'block' : 'none',
+    }
+
+    const arenaSelected = (arena) => {
+        props.selectedArena(arena)
+        setArenaInputValue(arena.sporthal)
+        setShowAutocompleteResult(false)
+    }
+
+    const inputValueChanged = (value) => {
+        setArenaInputValue(value.target.value)
+        setShowAutocompleteResult(true)
+    }
+
     return (
-        <div>
-            <input type="text" onChange={(value) => setArenaInputValue(value.target.value)} />
+        <div className={classes.AutocompleteContainer}>
+            <input
+                type="text" onChange={(value) => inputValueChanged(value)}
+                placeholder={"Sporthal"}
+                value={arenaInputValue}
+                className={classes.InputField}
+            />
             {autoCompleteResults === "" ? null :
-                <div className={classes.AutocompleteContainer}>
+                <div className={classes.AutocompleteResults} style={AutocompleteStyle}>
                     {autoCompleteResults.map(result => {
                         return (
-                            <div className={classes.Row} onClick={() => props.selectedArena(result)}>
+                            <div
+                                className={classes.Row}
+                                onClick={() => arenaSelected(result)}
+                                key={result.code}>
                                 <div>{result.code}</div>
                                 <div>{result.sporthal}</div>
                                 <div>{result.locatie.gemeente}</div>

@@ -1,9 +1,17 @@
-.AutocompleteContainer{
+.AutocompleteResults{
     position:absolute;
     width: 400px;
     background-color: white;
     z-index: 100;
     color:black;
+}
+
+.InputField{
+    width: 80%;
+    min-width: 350px;
+    height: 1.5rem;
+    font-size: 1.1rem;
+    border-radius: 5px;
 }
 
 .Row{

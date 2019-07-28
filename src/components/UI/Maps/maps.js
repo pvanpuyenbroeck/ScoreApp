@@ -5,8 +5,8 @@ import GoogleMapsLogo from '../../../assets/Images/googleMapsLogo.png';
 class maps extends Component {
 
     mapsSelector = () => {
-        const streetandnumber = this.props.streetandnumber.replace(" ", "+")
-        const postcode = this.props.postcode
+        const streetandnumber = this.props.street + "+" + this.props.postnumber;
+        const postcode = this.props.postcode;
         if /* if we're on iOS, open in Apple Maps */
         ((navigator.platform.indexOf("iPhone") !== -1) ||
         (navigator.platform.indexOf("iPad") !== -1) ||

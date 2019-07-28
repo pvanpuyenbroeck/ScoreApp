@@ -45,8 +45,9 @@ const MatchDetails = (props) => {
             </Button>
             {props.Button}
             <Maps
-                streetandnumber={props.matches.gameData.straat}
-                postcode={props.matches.gameData.postcode}
+                street={props.matches.gameData.locatie.straat}
+                postcode={props.matches.gameData.locatie.postcode}
+                postnumber={props.matches.gameData.locatie.nummer}
             />
             </div>
         </React.Fragment>

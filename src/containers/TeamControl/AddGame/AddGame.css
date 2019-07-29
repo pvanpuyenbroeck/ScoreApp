@@ -1,18 +1,23 @@
 .AddGame{
     margin: 0 auto;
-    background-color: #326087;
+    background-color: #bfbfad;
     padding:20px;
     border-radius: 5px;
     height: 100%;
-    color:#bfbfad;
+    color:#326087;
+    text-align: center;
 }
 
 .AddGame form > div{
     margin-bottom:10px;
 }
 
+.ValidateWarning{
+    color: #C33325;
+    margin-bottom: 0;
+}
+
 .InputFields, .InputFields input{
-    width: 80%;
     min-width: 350px;
     height: 1.5rem;
     font-size: 1.1rem;

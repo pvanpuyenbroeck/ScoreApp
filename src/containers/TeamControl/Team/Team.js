@@ -234,9 +234,9 @@ class Team extends Component {
                 return (
                     <DetailsContainer closeContainer={() => this.closeAllContainers()} >
                         <MatchDetails
-                            removeMatchClicked={(matchId) => this.removeMatchClickedHandler(matchId)}
+                            removeMatchClicked={() => this.removeMatchClickedHandler(this.state.selectedMatchId)}
                             matches={typeof this.props.team.Seasons !== 'undefined' ? this.props.team.Seasons[this.props.selectedSeason].Matches[this.state.selectedMatchId] : null}
-                            width={"80%"}
+                            width={"100%"}
                         />
                     </DetailsContainer>
                 )

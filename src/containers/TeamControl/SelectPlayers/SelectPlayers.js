@@ -22,18 +22,6 @@ class SelectPlayers extends Component {
                 },
                 valid: false,
             },
-            // playerNumber: {
-            //     elementType: 'number',
-            //     elementConfig: {
-            //         type: 'number',
-            //         placeholder: 'playerNumber',
-            //     },
-            //     value: '',
-            //     validation: {
-            //         required: true,
-            //     },
-            //     valid: false,
-            // },
         },
         loading: true,
         teamId: '',

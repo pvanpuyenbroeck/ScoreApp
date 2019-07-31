@@ -22,7 +22,7 @@ export const checkIfAdmin = (admins, loggedInUid, ownerId) => {
 }
 
 export const checkIfUidIsAdmin = (admins, uid) => {
-    if (typeof admins !== 'undefined') {
+    if (typeof admins !== 'undefined' && admins !== false) {
         if (admins.includes(uid)) {
             return true;
         } else {

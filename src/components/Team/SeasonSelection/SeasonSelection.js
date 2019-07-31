@@ -22,7 +22,7 @@ class SeasonSelection extends Component {
     seasonChanged = event => {
         const selectedSeason = event.target.value;
         this.props.setSeasonState(selectedSeason);
-        this.props.selectedTeam(this.props.teamId, selectedSeason);
+        this.props.selectedTeam(this.props.teamId,this.props.auth.uid, selectedSeason);
     }
     render(){
         const availableSeasons = this.state.seasons.map(season =>{
@@ -47,13 +47,14 @@ const mapStateToProps = state => {
         seasons: state.team.seasons,
         selectedSeason: state.team.selectedSeason,
         teamId: state.team.selectedTeam.teamId,
+        auth:state.auth.user,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return{
         setSeasonState: (season) => dispatch(actions.setSeason(season)),
-        selectedTeam: (teamId, season) => dispatch(actions.getTeam(teamId, season)),
+        selectedTeam: (teamId,uid, season) => dispatch(actions.getTeam(teamId, season, uid)),
 
     }
 }

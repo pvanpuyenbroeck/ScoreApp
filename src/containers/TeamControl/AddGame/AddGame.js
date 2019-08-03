@@ -3,7 +3,6 @@ import classes from './AddGame.css';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
-import TextInput from '@material-ui/core/TextField';
 // import DateTimePicker from 'react-datetime-picker';
 import DateTimePicker from 'react-datetime';
 import ArenaAutocomplete from '../../../components/Arena/ArenaAutocomplete/arenaAutocomplete';

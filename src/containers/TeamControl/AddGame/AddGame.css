@@ -29,8 +29,8 @@
     color: #bfbfad;
 }
 
-@media(min-width: 650px){
+/* @media(min-width: 650px){
     .AddGame{
-        /* width:400px; */
+        width:400px;
     }
-}
+} */

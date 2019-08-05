@@ -17,3 +17,4 @@ node_modules/.bin/semver
 node_modules/.bin/sshpk-conv
 node_modules/.bin/sshpk-sign
 node_modules/.bin/uglifyjs
+src/utils/ImportExportFirebase/node_modules/*

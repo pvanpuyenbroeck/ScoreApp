@@ -81,11 +81,12 @@ const setLastSelectedTeam = (selectedTeamId, uid, season) => {
 }
 
 
-export const getTeamSuccess = (selectedTeam, uid) => {
+export const getTeamSuccess = (selectedTeam, uid, isAdmin) => {
     setLastSelectedTeam(selectedTeam.teamId, uid);
     return {
         type: actionTypes.GET_TEAM_SUCCESS,
         selectedTeam: selectedTeam,
+        isAdmin: isAdmin,
     }
 }
 
@@ -112,34 +113,31 @@ export const getTeam = (teamId, season, uid) => {
         firebase.database().ref('/Teams/' + teamId).once('value').then(res => {
             const team = res.val();
             console.log(team);
+            const isAdmin = checkIfAdmin(team.admins, uid, team.admin);
             // const TeamMembersAvailable = team[season].TeamMembers === undefined;
             if (season in team.Seasons) {
-                const players = Object.keys(team.Seasons[season].TeamMembers);
-                firebase.database().ref('/Players').once('value').then(allPlayers => {
-                    const allTeamMembers = allPlayers.val();
-                    console.log(allTeamMembers);
-                    const filteredPlayers = pick(allTeamMembers, players);
-                    for (let key in filteredPlayers) {
-                        filteredPlayers[key] = {
-                            ...filteredPlayers[key],
-                            playerNumber: team.Seasons[season].TeamMembers[key].number,
+                if (typeof team.Seasons[season].TeamMembers !== 'undefined') {
+                    const players = Object.keys(team.Seasons[season].TeamMembers);
+                    firebase.database().ref('/Players').once('value').then(allPlayers => {
+                        const allTeamMembers = allPlayers.val();
+                        console.log(allTeamMembers);
+                        const filteredPlayers = pick(allTeamMembers, players);
+                        for (let key in filteredPlayers) {
+                            filteredPlayers[key] = {
+                                ...filteredPlayers[key],
+                                playerNumber: team.Seasons[season].TeamMembers[key].number,
+                            }
                         }
-                    }
-                    const updatedTeam = { ...team };
-                    updatedTeam.Seasons[season].filteredPlayers = filteredPlayers;
-                    updatedTeam['isAdmin'] = checkIfAdmin(updatedTeam.admins, uid, updatedTeam.admin);
-                    dispatch(getTeamSuccess({
-                        ...updatedTeam,
-                        teamId: teamId,
-                    },
-                        uid));
-                })
-            } else {
+                        const updatedTeam = { ...team };
+                        updatedTeam.Seasons[season].filteredPlayers = filteredPlayers;
+                    })
+                }
+            } 
                 dispatch(getTeamSuccess({
                     ...team,
                     teamId: teamId,
+                    isAdmin: isAdmin,
                 }, uid));
-            }
         }).catch(
             error => {
                 dispatch(getTeamFail(error))

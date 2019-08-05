@@ -13,12 +13,22 @@ const checkArenasOnCode = (input, arenas) => {
     return [];
 }
 
-const checkAreaOnGemeente = (input, arenas) => {
+const checkArneaOnGemeente = (input, arenas) => {
     if (arenas !== "") {
         let filteredArenaCodes = arenas.filter(arena => {
             return arena.locatie.gemeente.toUpperCase().startsWith(input.toUpperCase());
         });
         return filteredArenaCodes;
+    }
+    return [];
+}
+
+const checkArenaOnName = (input, arenas) => {
+    if (arenas !== "") {
+        let filteredArenaNames = arenas.filter(arena => {
+            return arena.sporthal.toUpperCase().includes(input.toUpperCase());
+        });
+        return filteredArenaNames;
     }
     return [];
 }
@@ -40,6 +50,7 @@ const arenaAutocomplete = (props) => {
                 allArenas.push({
                     ...arena[code],
                 });
+                return null;
             })
             setAllArenas(allArenas);
         })
@@ -48,8 +59,10 @@ const arenaAutocomplete = (props) => {
 
     useEffect(() => {
         let filteredArenaCodes = checkArenasOnCode(arenaInputValue, allArenas);
-        let filteredArenaGemeente = checkAreaOnGemeente(arenaInputValue, allArenas);
+        let filteredArenaGemeente = checkArneaOnGemeente(arenaInputValue, allArenas);
+        let filteredArenaName = checkArenaOnName(arenaInputValue, allArenas);
         let filteredArenas = filteredArenaCodes.concat(filteredArenaGemeente);
+        filteredArenas = filteredArenas.concat(filteredArenaName);
         const distinctFilteredArenas = [...new Set(filteredArenas.map(arena => arena))];
         setAutoCompleteResults(distinctFilteredArenas.length <= 10 ? distinctFilteredArenas : "");
     }, [arenaInputValue]);

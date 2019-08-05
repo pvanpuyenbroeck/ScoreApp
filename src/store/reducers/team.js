@@ -15,7 +15,7 @@ const initialState = {
         "2018-2019": "2018-2019",
         "2019-2020": "2019-2020",
     },
-    selectedSeason: "2018-2019",
+    selectedSeason: "2019-2020",
     makingAdmin: false,
     lastSelectedTeam: {},
 }

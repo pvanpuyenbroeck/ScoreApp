@@ -5,6 +5,8 @@ import * as actions from '../../../store/actions/index';
 import { countDownClock, sortOnDate } from '../../../store/utility';
 import MatchDetails from '../../Games/MatchDetails/MatchDetails';
 import Match from '../../Games/Match/Match';
+import SelectedTeamButton from '../../../components/Team/SelectTeamButton/SelectTeamButton';
+import TeamsOverview from '../../../containers/TeamControl/TeamsOverview/TeamsOverview';
 
 
 class landingpage extends Component {
@@ -22,7 +24,7 @@ class landingpage extends Component {
     }
 
     getNextMatch() {
-        if (typeof this.props.team.Seasons !== 'undefined') {
+        if (typeof this.props.team.Seasons !== 'undefined' && typeof this.props.team.Seasons[this.props.selectedSeason] !== 'undefined') {
             let allteamMatches = { ...this.props.team.Seasons[this.props.selectedSeason].Matches };
 
             const allMatchIds = Object.keys(allteamMatches);
@@ -64,45 +66,85 @@ class landingpage extends Component {
                             team={this.props.team}
                             admin={this.props.isAdmin}
                         />
-                        : null }
+                        : null}
                 </div>
-                )
-            }
+            )
         }
-        // const getNextMatch = (props.)
-    render() {
-        return (<div className={classes.LandingPage}>  
-                        <div className={classes.Titel}><h1>Welkom {this.props.user.displayName}</h1></div>
-                        {this.getNextMatch()}
-                    </div>)
+    }
+    myTeams() {
+        const myTeamsArray = this.props.teams;
+        if (myTeamsArray.length > 0) {
+            return myTeamsArray.map(team => {
+                for (let season in team.Seasons) {
+                    for (let teamMemberId in team.Seasons[season].TeamMembers) {
+                        if (teamMemberId === this.props.userId) {
+                            return (
+                                <SelectedTeamButton
+                                    key={team.id}
+                                    teamName={team.teamName}
+                                    id={team.id}
+                                    buttonClicked={() => this.props.teamSelectedHandler(team.id, this.props.season)}
+                                />
+                            )
+                        }
+                    }
                 }
-            }
-            
+                if (team.admin === this.props.userId) {
+                    return (
+                        <SelectedTeamButton
+                            key={team.id}
+                            teamName={team.teamName}
+                            id={team.id}
+                            buttonClicked={() => this.props.teamSelectedHandler(team.id, this.props.season, this.props.userId)}
+                        />
+                    );
+                }
+            });
+        } else {
+            return null;
+        }
+    }
+    // const getNextMatch = (props.)
+    render() {
+        return (<div className={classes.LandingPage}>
+            <div>
+                <div className={classes.Titel}><h1>Welkom {this.props.user.displayName}</h1></div>
+                {this.getNextMatch()}
+            </div>
+            <div>
+                <TeamsOverview />
+            </div>
+        </div>)
+    }
+}
+
 const mapDispatchToProps = dispatch => {
     return {
-                        // getTeam: (team) => dispatch(actions.getTeam(team)),
-                        updatePlayerAdmins: (teamId, updatedAdmins) => dispatch(actions.updatePlayerAdmins(teamId, updatedAdmins)),
-                    closeModal: () => dispatch(actions.closeModal()),
-                    showModalHandler: () => dispatch(actions.showModal()),
-                    showFunctionMenu: () => dispatch(actions.showFunctionMenu()),
-                    selectedTeam: (teamId, season, uid) => dispatch(actions.getTeam(teamId, season, uid)),
-                    showComponent: (component) => dispatch(actions.showComponent(component)),
-                    matchSelected: (match) => dispatch(actions.setSelectedMatchInfo(match)),
-                    changeLocation: (location) => dispatch(actions.locationChange(location)),
-                    removePlayerFromTeam: (playerid, teamid, teamMembers, season, team) => dispatch(actions.removePlayerFromTeam(playerid, teamid, teamMembers, season, team)),
-                    removeMatchFromTeam: (updatedMatches, teamId, selectedSeason) => dispatch(actions.removeMatchFromTeam(updatedMatches, teamId, selectedSeason)),
-                }
-            }
-            
+        // getTeam: (team) => dispatch(actions.getTeam(team)),
+        teamSelectedHandler: (teamId, season, uid) => dispatch(actions.getTeam(teamId, season, uid)),
+        updatePlayerAdmins: (teamId, updatedAdmins) => dispatch(actions.updatePlayerAdmins(teamId, updatedAdmins)),
+        closeModal: () => dispatch(actions.closeModal()),
+        showModalHandler: () => dispatch(actions.showModal()),
+        showFunctionMenu: () => dispatch(actions.showFunctionMenu()),
+        selectedTeam: (teamId, season, uid) => dispatch(actions.getTeam(teamId, season, uid)),
+        showComponent: (component) => dispatch(actions.showComponent(component)),
+        matchSelected: (match) => dispatch(actions.setSelectedMatchInfo(match)),
+        changeLocation: (location) => dispatch(actions.locationChange(location)),
+        removePlayerFromTeam: (playerid, teamid, teamMembers, season, team) => dispatch(actions.removePlayerFromTeam(playerid, teamid, teamMembers, season, team)),
+        removeMatchFromTeam: (updatedMatches, teamId, selectedSeason) => dispatch(actions.removeMatchFromTeam(updatedMatches, teamId, selectedSeason)),
+    }
+}
+
 const mapStateToProps = state => {
     return {
-                        team: state.team.selectedTeam,
-                    showModal: state.navigation.showModal,
-                    userId: state.auth.userId,
-                    user: state.auth.user,
-                    selectedSeason: state.team.selectedSeason,
-                    adminLoggedIn: state.team.selectedTeam.isAdmin,
-                }
-            }
-            
+        team: state.team.selectedTeam,
+        showModal: state.navigation.showModal,
+        userId: state.auth.user.uid,
+        user: state.auth.user,
+        selectedSeason: state.team.selectedSeason,
+        adminLoggedIn: state.team.selectedTeam.isAdmin,
+        teams: state.team.teams,
+    }
+}
+
 export default connect(mapStateToProps, mapDispatchToProps)(landingpage);

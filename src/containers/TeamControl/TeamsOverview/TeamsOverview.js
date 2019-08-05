@@ -66,6 +66,8 @@ class TeamsOverview extends Component {
                     }
                     return null;
                 })
+            }else{
+                return <div className={classes.Message}>Geen team aanwezig, maak een aan of maak deel van een bestaand team.</div>
             }
         }
 

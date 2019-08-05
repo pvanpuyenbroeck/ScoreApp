@@ -7,11 +7,14 @@ import MatchDetails from '../../Games/MatchDetails/MatchDetails';
 import Match from '../../Games/Match/Match';
 import SelectedTeamButton from '../../../components/Team/SelectTeamButton/SelectTeamButton';
 import TeamsOverview from '../../../containers/TeamControl/TeamsOverview/TeamsOverview';
+import Tabs from '../../UI/Tabs/Tabs';
 
 
 class landingpage extends Component {
     state = {
-
+        tabs: [
+            { title: "Volgende match", selected: true },
+            { title: "Teams", selected: false }],
     }
 
     componentDidMount() {
@@ -21,6 +24,21 @@ class landingpage extends Component {
     matchSelected = (match) => {
         this.props.changeLocation(4);
         this.props.matchSelected(match);
+    }
+
+    tabSelectedHandler(titel) {
+        let updatedTabs = [];
+        this.state.tabs.map(tab => {
+            tab.selected = false;
+            if (tab.title === titel) {
+                tab.selected = true;
+            }
+            updatedTabs.push(tab);
+            return null;
+        })
+        this.setState({
+            tabs: updatedTabs,
+        })
     }
 
     getNextMatch() {
@@ -104,16 +122,31 @@ class landingpage extends Component {
             return null;
         }
     }
-    // const getNextMatch = (props.)
+    activeTab() {
+        return this.state.tabs.map(tab => {
+            if (tab.selected) {
+                switch (tab.title) {
+                    case "Volgende match":
+                        return this.getNextMatch();
+                    case "Teams":
+                        return <TeamsOverview />;
+                    default: return null;
+                }
+            }
+            return null;
+        });
+    }
     render() {
+        let activeTab = null;
+        activeTab = this.activeTab();
         return (<div className={classes.LandingPage}>
-            <div>
-                <div className={classes.Titel}><h1>Welkom {this.props.user.displayName}</h1></div>
-                {this.getNextMatch()}
-            </div>
-            <div>
-                <TeamsOverview />
-            </div>
+            <Tabs
+                tabs={
+                    this.state.tabs
+                }
+                tabClicked={(titel) => this.tabSelectedHandler(titel)}
+            />
+            {activeTab}
         </div>)
     }
 }

@@ -19,7 +19,7 @@ class TeamsOverview extends Component {
 
     componentWillMount() {
         // if (this.props.isAuthenticated) {
-            
+
         // }
     }
 
@@ -66,19 +66,19 @@ class TeamsOverview extends Component {
                     }
                     return null;
                 })
-            }else{
-                return <div className={classes.Message}>Geen team aanwezig, maak een aan of maak deel van een bestaand team.</div>
+            } else {
+                return <div className={classes.Message}>Geen team aanwezig, maak een aan of maak deel uit van een bestaand team.</div>
             }
         }
 
         return (
             <div className={classes.TeamsOverview}>
                 <div className={classes.Teams}>
-                    <h1>Managed teams:</h1>
+                    {managedteams[0] === null ? null : <h1>Managed teams:</h1>}
                     {managedteams}
                 </div>
                 <div className={classes.Teams}>
-                    <h1>Team:</h1>
+                    {participantTeams[0] === null ? null : <h1>Team:</h1>}
                     {participantTeams}
                 </div>
             </div>

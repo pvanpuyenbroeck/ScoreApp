@@ -17,6 +17,8 @@ import Auth from './containers/Auth/Auth';
 import firebase from './firebase-scoreapp';
 import Profile from './components/Registration/ProfileInfo';
 import Landingpage from './components/Navigation/LandingPage/landingpage';
+import Invite from './components/Invitation/invitation';
+import AcceptInvite from './components/Invitation/acceptInvite/acceptInvite';
 
 const AddTeam = React.lazy(() => import('./containers/TeamControl/AddTeam/AddTeam'));
 
@@ -51,6 +53,7 @@ class App extends Component {
       <Route path="/" exact render={(props) => <Landingpage {...props} user={this.props.user}/>}/>
       <Route path="/Team" component={TeamControl} />
       <Route path="/AddNewPlayer" exact component={AddNewPlayer} />
+      <Route path="/Invite/:teamId" exact render={(props) => <AcceptInvite team={this.props.team.SelectedTeam}/>}/>
       </React.Fragment>
     )
     if(!this.props.isAuthenticated){
@@ -67,6 +70,7 @@ class App extends Component {
     if(this.props.navItem === "SelectPlayer"){flexItem = <SelectPlayer team={this.props.team}/>};
     if(this.props.navItem === "AddMatch"){flexItem = <AddMatch team={this.props.team}/>};
     if(this.props.navItem === "Profile"){flexItem = <Profile user={this.props.user}/>}; 
+    if(this.props.navItem === "Invitation"){flexItem = <Invite team={this.props.team.selectedTeam}/>}; 
 
 
     return (

@@ -1,0 +1,76 @@
+.InvitationContainer{
+    display: flex;
+    /* width: 300px; */
+    justify-content: center;
+}
+
+.InvitationContainer form{
+    display: block;
+}
+
+.Title{
+    color:#326087;
+    font-weight: bold;
+}
+
+.Message{
+    color:#C33325;
+    font-size: 0.8rem;
+}
+
+button{
+
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+.EmailField{
+    display: block;
+    width:200px;
+    height: 1.2rem;
+    margin-bottom:5px;
+    border-radius: 5px;
+}
+
+.SubmitButton{
+    display: block;
+    margin:0 auto;
+}
+
+@supports(grid-area: auto){
+    .InvitationContainer{
+        display: grid;
+        grid-template-columns: 50% 30%;
+        grid-template-rows: 50px 50px 50px 50px;
+    }
+
+    .Title{
+        grid-column: 1/3;
+        grid-row: 1/2;
+        align-self: center;
+    }
+
+    button{
+        grid-column: 2/3;
+        grid-row: 2/3;
+    }
+    
+    .Message{
+        grid-column: 1/3;
+        grid-row:3/4;
+    }
+    
+    .EmailField{
+        grid-column:1/2;
+        grid-row: 2/3;
+        align-self: center;
+    }
+
+    .PendingContainer{
+        grid-column: 1/3;
+        grid-row: 4/5;
+    }
+
+}

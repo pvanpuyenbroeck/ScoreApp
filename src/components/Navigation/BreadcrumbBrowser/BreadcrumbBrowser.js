@@ -24,7 +24,7 @@ const breadcrumbBrowser = (props) => {
     for (let key in props.navigation.names) {
         if (props.navigation.names[key] !== null) {
             if (key === "teamName" && props.navigation.id.teamId !== null) {
-                const dropdown = [{ text: "Speler toevoegen", id: "SelectPlayer" }, { text: "Match toevoegen", id: "AddMatch" }];
+                const dropdown = [{ text: "Speler toevoegen", id: "SelectPlayer" }, { text: "Match toevoegen", id: "AddMatch" }, { text: "Uitnodiging sturen", id: "Invitation" }];
                 listItems.push(
                     <Breadcrumb
                         key={3}

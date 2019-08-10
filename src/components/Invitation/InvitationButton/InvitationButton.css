@@ -1,0 +1,12 @@
+.InvitationbuttonContainer {
+    width: 80%;
+    max-width: 250px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    color:#326087;
+    background-color: #bfbfad;
+}
+

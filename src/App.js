@@ -53,7 +53,7 @@ class App extends Component {
       <Route path="/" exact render={(props) => <Landingpage {...props} user={this.props.user}/>}/>
       <Route path="/Team" component={TeamControl} />
       <Route path="/AddNewPlayer" exact component={AddNewPlayer} />
-      <Route path="/Invite/:teamId" exact render={(props) => <AcceptInvite team={this.props.team.SelectedTeam}/>}/>
+      <Route path="/Invite/:teamId" exact render={(props) => <AcceptInvite team={this.props.team}/>}/>
       </React.Fragment>
     )
     if(!this.props.isAuthenticated){
@@ -70,7 +70,7 @@ class App extends Component {
     if(this.props.navItem === "SelectPlayer"){flexItem = <SelectPlayer team={this.props.team}/>};
     if(this.props.navItem === "AddMatch"){flexItem = <AddMatch team={this.props.team}/>};
     if(this.props.navItem === "Profile"){flexItem = <Profile user={this.props.user}/>}; 
-    if(this.props.navItem === "Invitation"){flexItem = <Invite team={this.props.team.selectedTeam}/>}; 
+    if(this.props.navItem === "Invitation"){flexItem = <Invite team={this.props.team}/>}; 
 
 
     return (

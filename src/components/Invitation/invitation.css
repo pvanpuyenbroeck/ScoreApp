@@ -8,7 +8,7 @@
     display: block;
 }
 
-.Title{
+.Title, .PendingTitle{
     color:#326087;
     font-weight: bold;
 }
@@ -24,6 +24,11 @@ button{
 
 button:hover{
     cursor: pointer;
+}
+
+.PendingContainer{
+    width: 80%;
+    margin: 10px auto;
 }
 
 .EmailField{

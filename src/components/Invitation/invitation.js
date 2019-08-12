@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import classes from './invitation.css';
 import axios from 'axios';
 import firebase from '../../firebase-scoreapp';
@@ -20,6 +20,12 @@ const invitation = (props) => {
         }
         setMessage({message:'Het emailadres is niet correct, controleer het emailadres en probeer opnieuw', visible:true});
     }
+
+    useEffect(() => {
+        setEmailValue('');
+        setMessage({message:"",visible:false});
+        setPendingInvitations([]);
+    }, props.team.selectedTeam)
 
     const sendEmailHandler = (event) => {
         event.preventDefault();

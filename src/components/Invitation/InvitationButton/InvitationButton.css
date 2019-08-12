@@ -7,6 +7,26 @@
     align-items: center;
     border: 1px solid black;
     color:#326087;
-    background-color: #bfbfad;
+    background-color: #F0F1D5;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none; 
+}
+
+.InvitationbuttonContainer div:first-child{
+    width: 80%;
+}
+
+.InvitationbuttonContainer:hover{
+    cursor: pointer;
+}
+
+.IndicationCircle{
+    width: 10px;
+    height: 10px;
+    border:1px solid black;
+    background-color:#F19722;
+    border-radius: 50%;
 }
 

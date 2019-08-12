@@ -6,7 +6,7 @@ import AddNewPlayer from './containers/TeamControl/AddPlayer/AddPlayer';
 import Modal from './components/UI/Modal/Modal';
 import "./components/Navigation/SidePanel/SidePanel.css";
 import Flexbox from './components/UI/Flexbox/Flexbox';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 // import AddTeam from './containers/TeamControl/AddTeam/AddTeam';
 import AddPlayer from './containers/TeamControl/AddPlayer/AddPlayer';
 import SelectPlayer from './containers/TeamControl/SelectPlayers/SelectPlayers';
@@ -28,9 +28,9 @@ class App extends Component {
     showFlexbox: false,
   }
 
-  componentDidMount(){
+  componentDidMount() {
     firebase.auth().onAuthStateChanged(user => {
-      if(user){
+      if (user) {
         this.props.authSuccess(user);
         this.props.getLastSelectedTeam(user.uid, this.props.team.selectedSeason);
       }
@@ -50,44 +50,48 @@ class App extends Component {
     let flexItem = "";
     let routes = (
       <React.Fragment>
-      <Route path="/" exact render={(props) => <Landingpage {...props} user={this.props.user}/>}/>
-      <Route path="/Team" component={TeamControl} />
-      <Route path="/AddNewPlayer" exact component={AddNewPlayer} />
-      <Route path="/Invite/:teamId" exact render={(props) => <AcceptInvite team={this.props.team}/>}/>
+        <Route path="/" exact render={(props) => <Landingpage {...props} user={this.props.user} />} />
+        <Route path="/Team" component={TeamControl} />
+        <Route path="/AddNewPlayer" exact component={AddNewPlayer} />
+        <Route path="/Invite/:teamId" exact render={(props) => <AcceptInvite 
+        team={this.props.team} 
+        user={this.props.user} 
+        selectedSeason={this.props.selectedSeason}
+        />} />
       </React.Fragment>
     )
-    if(!this.props.isAuthenticated){
+    if (!this.props.isAuthenticated) {
       routes = (
         <React.Fragment>
-        <Route path="/" component={Auth} />
+          <Route path="/" component={Auth} />
         </React.Fragment>
       )
     }
 
 
-    if(this.props.navItem === "AddTeam"){flexItem = <Suspense fallback={<div>...loading</div>}><AddTeam uid={this.props.user.uid}/></Suspense>};
-    if(this.props.navItem === "AddPlayer"){flexItem = <AddPlayer/>};
-    if(this.props.navItem === "SelectPlayer"){flexItem = <SelectPlayer team={this.props.team}/>};
-    if(this.props.navItem === "AddMatch"){flexItem = <AddMatch team={this.props.team}/>};
-    if(this.props.navItem === "Profile"){flexItem = <Profile user={this.props.user}/>}; 
-    if(this.props.navItem === "Invitation"){flexItem = <Invite team={this.props.team}/>}; 
+    if (this.props.navItem === "AddTeam") { flexItem = <Suspense fallback={<div>...loading</div>}><AddTeam uid={this.props.user.uid} /></Suspense> };
+    if (this.props.navItem === "AddPlayer") { flexItem = <AddPlayer /> };
+    if (this.props.navItem === "SelectPlayer") { flexItem = <SelectPlayer team={this.props.team} /> };
+    if (this.props.navItem === "AddMatch") { flexItem = <AddMatch team={this.props.team} /> };
+    if (this.props.navItem === "Profile") { flexItem = <Profile user={this.props.user} /> };
+    if (this.props.navItem === "Invitation") { flexItem = <Invite team={this.props.team} /> };
 
 
     return (
       <React.Fragment>
-      <Modal modalClosed={() => this.props.ModalClicked()} show={this.props.showModal}/>
-      <Layout 
-      isAuthenticated={this.props.isAuthenticated}
-      showToggleNav={this.state.showToggle}
-      showSidePanel={this.props.toggleSidePanel}
-      showFlexBox={this.state.showFlexbox}
-      navToggleClicked={() => this.props.sidePanelToggle()}
-      location={this.props.location}
-      // showBackgroundImage={}
-      >      
-        <Flexbox show={this.props.showFlexbox} navItem={this.props.navItem}>{flexItem}</Flexbox>
-        {routes}
-      </Layout>
+        <Modal modalClosed={() => this.props.ModalClicked()} show={this.props.showModal} />
+        <Layout
+          isAuthenticated={this.props.isAuthenticated}
+          showToggleNav={this.state.showToggle}
+          showSidePanel={this.props.toggleSidePanel}
+          showFlexBox={this.state.showFlexbox}
+          navToggleClicked={() => this.props.sidePanelToggle()}
+          location={this.props.location}
+        // showBackgroundImage={}
+        >
+          <Flexbox show={this.props.showFlexbox} navItem={this.props.navItem}>{flexItem}</Flexbox>
+          {routes}
+        </Layout>
       </React.Fragment>
     );
   }
@@ -95,10 +99,10 @@ class App extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-      sidePanelToggle: () => dispatch(actions.sidepanelToggle()),
-      ModalClicked: () => dispatch(actions.closeModal()),
-      authSuccess: (user) => dispatch(actions.authSuccess(user)),
-      getLastSelectedTeam: (userId, selectedSeason) => dispatch(actions.getLastSelectedTeam(userId, selectedSeason)), 
+    sidePanelToggle: () => dispatch(actions.sidepanelToggle()),
+    ModalClicked: () => dispatch(actions.closeModal()),
+    authSuccess: (user) => dispatch(actions.authSuccess(user)),
+    getLastSelectedTeam: (userId, selectedSeason) => dispatch(actions.getLastSelectedTeam(userId, selectedSeason)),
   }
 };
 
@@ -112,7 +116,7 @@ const mapStateToProps = state => {
     team: state.team,
     isAuthenticated: state.auth.user !== null,
     user: state.auth.user,
-    selectedSeason:state.team.selectedTeam
+    selectedSeason: state.team.selectedTeam
   }
 }
 

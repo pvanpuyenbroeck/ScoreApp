@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import classes from './invitation.css';
 import axios from 'axios';
 import firebase from '../../firebase-scoreapp';
@@ -18,12 +18,12 @@ const invitation = (props) => {
         if (email.match(mailFormat)) {
             return true
         }
-        setMessage({message:'Het emailadres is niet correct, controleer het emailadres en probeer opnieuw', visible:true});
+        setMessage({ message: 'Het emailadres is niet correct, controleer het emailadres en probeer opnieuw', visible: true });
     }
 
     useEffect(() => {
         setEmailValue('');
-        setMessage({message:"",visible:false});
+        setMessage({ message: "", visible: false });
         setPendingInvitations([]);
     }, props.team.selectedTeam)
 
@@ -40,19 +40,24 @@ const invitation = (props) => {
                     season: props.team.selectedSeason
                 }
                 if (allInvites.length === 0 || !allInvites.includes(emailKey)) {
-                    axios.get('http://localhost:9000/mail', params)
+                    axios.get('http://localhost:9000/mail', {params:params})
                         .then(res => {
-                            firebase.database().ref(`/Invites/${emailKey}`).set({
-                                ...params
-                            }).then(res => {
-                                const updatedInvitations = pendingInvitations.length !== 0 ? pendingInvitations : [];
-                                updatedInvitations.push(params);
-                                setPendingInvitations(filterTeamInvites(updatedInvitations));
-                                setMessage({ message: "Uitnodiging is succesvol verzonden.", visible: true });
+                            const result = res;
+                            if (result.status === 200) {
+                                firebase.database().ref(`/Invites/${emailKey}`).set({
+                                    ...params
+                                }).then(res => {
+                                    const updatedInvitations = pendingInvitations.length !== 0 ? pendingInvitations : [];
+                                    updatedInvitations.push(params);
+                                    setPendingInvitations(filterTeamInvites(updatedInvitations));
+                                    setMessage({ message: "Uitnodiging is succesvol verzonden.", visible: true });
+                                }
+                                ).catch(error => {
+                                    setMessage({ message: 'Uitnodiging kon niet verzonden worden, probeer later opnieuw.', visible: true });
+                                })
+                            }else{
+                                setMessage({ message: 'Uitnodiging kon niet verzonden worden, probeer later opnieuw.', visible: true });                                
                             }
-                            ).catch(error => {
-                                setMessage({ message: 'Uitnodiging kon niet verzonden worden, probeer later opnieuw.', visible: true });
-                            })
                         }).catch(error => {
                             setMessage({ message: 'Uitnodiging kon niet verzonden worden, controleer het emailadres en probeer opnieuw.', visible: true });
                         })

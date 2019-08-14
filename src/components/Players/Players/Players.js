@@ -40,7 +40,7 @@ const Players = (props) => {
         } else {
             setPlayers(<h1>Voeg spelers toe</h1>);
         }
-    }, allPlayers)
+    }, [])
 
     return (
         <div className={classes.Players}>

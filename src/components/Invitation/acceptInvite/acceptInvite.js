@@ -18,7 +18,6 @@ const acceptInvite = (props) => {
 
     useEffect(() => {
         getActiveInvites(props.user.email).then(res => setActiveInvites(res));
-        
     }, [])
 
     useEffect(() => {
@@ -33,8 +32,8 @@ const acceptInvite = (props) => {
                             teamMembers={typeof team.Seasons[selectedInvite.season].TeamMembers !== 'undefined' ? team.Seasons[selectedInvite.season].TeamMembers : null}
                             numberSelected={selectedNumber}
                         />
-                        <button onClick={() => acceptHandler(true)}>Accepteer</button>
-                        <button onClick={() => acceptHandler(false)}>Weiger</button>
+                        <button onClick={() => acceptHandler(true)} className={[classes.Button, classes.Button1].join(' ')}>Accepteer</button>
+                        <button onClick={() => acceptHandler(false)} className={[classes.Button, classes.Button2].join(' ')}>Weiger</button>
 
                     </div>)
 
@@ -42,7 +41,7 @@ const acceptInvite = (props) => {
             }).catch(err => {
                 console.log(err);
             })
-        }else{
+        } else {
             setSelectedNumberComponent(null);
         }
     }, [selectedNumber, selectedInvite]);

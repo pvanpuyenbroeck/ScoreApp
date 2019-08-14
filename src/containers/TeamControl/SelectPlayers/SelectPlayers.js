@@ -6,6 +6,7 @@ import Input from '../../../components/UI/Input/Input';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
 import NumberSelection from '../../../components/UI/NumberSelection/NumberSelection';
+import classes from './SelectPlayers.css';
 
 class SelectPlayers extends Component {
     state = {
@@ -29,7 +30,8 @@ class SelectPlayers extends Component {
         teamMembers: [],
         selectedPlayerId: '',
         playerNumbers: null,
-        playerNumberSelected:null,
+        playerNumberSelected: null,
+        showValidationMessage: 'none',
     }
     componentDidMount() {
         firebase.database().ref('/Players').once('value').then(res => {
@@ -53,35 +55,44 @@ class SelectPlayers extends Component {
         this.setState({
             loading: true,
         })
-
-        const formData = {};
-        for (let formElementIdentifier in this.state.playerForm) {
-            if (formElementIdentifier === "playerNumber") {
-                formData[formElementIdentifier] = this.state.playerForm[formElementIdentifier].value
+        if (this.state.playerNumberSelected !== null && this.state.selectedPlayerId !== '') {
+            const formData = {};
+            for (let formElementIdentifier in this.state.playerForm) {
+                if (formElementIdentifier === "playerNumber") {
+                    formData[formElementIdentifier] = this.state.playerForm[formElementIdentifier].value
+                }
             }
+            formData["playerId"] = this.state.selectedPlayerId;
+            const playerInfo = formData;
+            console.log(playerInfo);
+            const TeamMembers = typeof this.props.team.Seasons[this.props.selectedSeason] !== 'undefined' ? this.props.team.Seasons[this.props.selectedSeason].TeamMembers : null;
+            let updatedTeamMembers = {
+                ...TeamMembers,
+                [this.state.selectedPlayerId]: {
+                    number: this.state.playerNumberSelected,
+                    active: true,
+                }
+            };
+            this.props.addPlayerToTeam(this.props.team, updatedTeamMembers, this.props.selectedSeason)
+            this.props.selectedTeam(this.props.team.teamId, this.props.selectedSeason, this.props.user.uid);
+
+            let updatedPlayerForm = { ...this.state.playerForm };
+            updatedPlayerForm.name.value = '';
+            this.setState({
+                loading: false,
+                selectedPlayerId: '',
+                playerNumberSelected: null,
+                playerForm: updatedPlayerForm,
+            })
         }
-        formData["playerId"] = this.state.selectedPlayerId;
-        const playerInfo = formData;
-        console.log(playerInfo);
-        const TeamMembers = typeof this.props.team.Seasons[this.props.selectedSeason] !== 'undefined' ? this.props.team.Seasons[this.props.selectedSeason].TeamMembers : null;
-        let updatedTeamMembers =  {
-            ...TeamMembers,
-            [this.state.selectedPlayerId]: {
-                number: this.state.playerNumberSelected,
-                active: true,
-            }
-        };
-        this.props.addPlayerToTeam(this.props.team, updatedTeamMembers, this.props.selectedSeason)
-        this.props.selectedTeam(this.props.team.teamId, this.props.selectedSeason, this.props.user.uid);
-
-        let updatedPlayerForm = {...this.state.playerForm};
-        updatedPlayerForm.name.value = '';
-        this.setState({
-            loading: false,
-            selectedPlayerId: '',
-            playerNumberSelected: null,
-            playerForm: updatedPlayerForm,
-        })
+        else {
+            this.setState({
+                loading: false,
+                selectedPlayerId: '',
+                playerNumberSelected: null,
+                showValidationMessage: 'block',
+            })
+        }
     }
     checkValidity(value, rules) {
         let isValid = true;
@@ -160,13 +171,18 @@ class SelectPlayers extends Component {
                             changed={(event) => this.inputChangedHandler(event, formElement.id)}
                         />
                     ))}
-                    <NumberSelection 
-                    numbers={20} 
-                    numberClicked={(number) => this.onNumberClickedButton(number)} 
-                    teamMembers={typeof this.props.team.Seasons[this.props.selectedSeason] !== 'undefined' ?  this.props.team.Seasons[this.props.selectedSeason].TeamMembers : null}
-                    numberSelected={this.state.playerNumberSelected}
+                    <div 
+                    className={classes.Validation} 
+                    style={{ display: this.state.showValidationMessage }}
+                    
+                    >Speler en nummer aangeven is verplicht!*</div>
+                    <NumberSelection
+                        numbers={20}
+                        numberClicked={(number) => this.onNumberClickedButton(number)}
+                        teamMembers={typeof this.props.team.Seasons[this.props.selectedSeason] !== 'undefined' ? this.props.team.Seasons[this.props.selectedSeason].TeamMembers : null}
+                        numberSelected={this.state.playerNumberSelected}
                     />
-                    <button type="submit">Toevoegen</button>
+                    <button type="submit" className={classes.Button}>Toevoegen</button>
                 </form>
             );
 

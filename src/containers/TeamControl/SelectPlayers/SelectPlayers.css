@@ -1,0 +1,22 @@
+.Validation{
+    color:#C33325;
+    margin:0 auto;
+}
+
+form{
+    display: flex;
+    flex-flow:column;
+    align-items: center;
+}
+
+.Button {
+    width: 100px;
+    height: 50px;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    color: white;
+    border-radius: 5px;
+    background-color: #2C8693;
+    font-size:1.1rem;
+}

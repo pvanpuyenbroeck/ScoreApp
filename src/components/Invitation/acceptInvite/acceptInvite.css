@@ -10,3 +10,22 @@
     color:#326087;
 
 }
+
+.Button {
+    width: 100px;
+    height: 50px;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    color: white;
+    border-radius: 5px;
+    font-size:1.1rem;
+}
+
+.Button1 {
+    background-color: #2C8693;
+}
+
+.Button2 {
+    background-color: #C33325;
+}

@@ -15,7 +15,7 @@ import Tabs from '../../../components/UI/Tabs/Tabs';
 import PlayerMenu from '../../../components/Players/PlayerMenu/PlayerMenu';
 import MatchDetails from '../../../components/Games/MatchDetails/MatchDetails';
 import DetailsContainer from '../../../components/UI/DetailsContainer/DetailsContainer';
-import { getTeamFail } from '../../../store/actions/team';
+import MatchPlayersOverview from '../../../components/Match/MatchPlayersOverview/MatchPlayersOverview';
 
 
 class Team extends Component {
@@ -241,6 +241,7 @@ class Team extends Component {
                             removeMatchClicked={() => this.removeMatchClickedHandler(this.state.selectedMatchId)}
                             matches={typeof this.props.team.Seasons !== 'undefined' ? this.props.team.Seasons[this.props.selectedSeason].Matches[this.state.selectedMatchId] : null}
                             width={"100%"}
+                            // joinMatchClicked={}
                         />
                     </DetailsContainer>
                 )
@@ -323,6 +324,7 @@ class Team extends Component {
             <Aux>
                 {teamControl}
                 <MatchDetailsMenu />
+                <MatchPlayersOverview/>
             </Aux>
         )
     }

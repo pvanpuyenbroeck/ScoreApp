@@ -1,20 +1,21 @@
-.Flexbox{
+.Flexbox {
     /* height: 500px;    */
-    width: 400px;
     box-shadow: 1px 1px black;
     z-index: 106;
     background-color: rgba(255, 255, 255, 0.8);
-    position:absolute;
+    position: absolute;
+    width: 90vw;
 }
 
-.Hide{
+.Hide {
     display: none;
 }
 
-@supports(grid-area: auto){
-    @media screen and (min-width: 650px){
-        .Flexbox{
+@supports(grid-area: auto) {
+    @media screen and (min-width: 650px) {
+        .Flexbox {
             grid-area: main-content;
+            width: 400px;
         }
     }
 }

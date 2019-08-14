@@ -1,6 +1,5 @@
 .InvitationbuttonContainer {
-    width: 80%;
-    max-width: 250px;
+    /* width: 350px; */
     height: 30px;
     display: flex;
     justify-content: center;
@@ -29,4 +28,5 @@
     background-color:#F19722;
     border-radius: 50%;
 }
+
 

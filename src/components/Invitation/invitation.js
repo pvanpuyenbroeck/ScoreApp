@@ -102,7 +102,7 @@ const invitation = (props) => {
                 </div>
             </form>
             <div className={classes.PendingContainer}>
-                <div className={classes.PendingTitle}>Pending invitations</div>
+                <div className={classes.PendingTitle}>Uitstaande uitnodigingen</div>
                 {pendingInvitations.map(invite => {
                     return (
                         <InvitationButton>{invite.email}</InvitationButton>

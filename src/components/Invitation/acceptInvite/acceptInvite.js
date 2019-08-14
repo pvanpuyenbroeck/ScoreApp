@@ -3,7 +3,7 @@ import classes from './acceptInvite.css';
 import InvitationButton from '../InvitationButton/InvitationButton';
 import firebase from '../../../firebase-scoreapp';
 import NumberSelection from '../../UI/NumberSelection/NumberSelection';
-import Modal from '../../UI/Modal/Modal';
+import { getActiveInvites } from '../../../store/actions/invitation';
 
 const acceptInvite = (props) => {
     const [activeInvites, setActiveInvites] = useState([]);
@@ -12,82 +12,81 @@ const acceptInvite = (props) => {
     const [selectedInvite, setSelectedInvite] = useState(null);
 
 
-    const filterTeamInvites = (invites) => {
-        return invites.filter(invite => invite.email === props.user.email);
-    }
+    // const filterTeamInvites = (invites) => {
+    //     return invites.filter(invite => invite.email === props.user.email);
+    // }
 
     useEffect(() => {
-        firebase.database().ref('/Invites').once('value').then(res => {
-            let allInvites = [];
-            const receivedInvites = res.val();
-            for (let key in receivedInvites) {
-                allInvites.push({
-                    email: receivedInvites[key].email,
-                    teamId: receivedInvites[key].teamId,
-                    season: receivedInvites[key].season,
-                    teamName: receivedInvites[key].teamName
-                });
-                setActiveInvites(filterTeamInvites(allInvites));
-            }
-        }).catch(
-            err => {
-                console.log(err);
-            }
-        )
-    }, [])
+        getActiveInvites(props.user.email).then(res => setActiveInvites(res));
+        
+    }, activeInvites)
 
     useEffect(() => {
         if (selectedInvite !== null) {
             firebase.database().ref(`/Teams/${selectedInvite.teamId}`).once('value').then(res => {
                 const team = res.val();
                 const selectedNumberComponent =
-                    (<div>
-                            <NumberSelection
-                                numbers={20}
-                                numberClicked={(number) => setSelectedNumber(number)}
-                                teamMembers={typeof team.Seasons[selectedInvite.season].TeamMembers !== 'undefined' ? team.Seasons[selectedInvite.season].TeamMembers : null}
-                                numberSelected={selectedNumber}
-                            />
-                            <button onClick={() => acceptHandler()}>Accepteer</button>
-                        </div>)
+                    (<div className={classes.NumberSelection}>
+                        <NumberSelection
+                            numbers={20}
+                            numberClicked={(number) => setSelectedNumber(number)}
+                            teamMembers={typeof team.Seasons[selectedInvite.season].TeamMembers !== 'undefined' ? team.Seasons[selectedInvite.season].TeamMembers : null}
+                            numberSelected={selectedNumber}
+                        />
+                        <button onClick={() => acceptHandler(true)}>Accepteer</button>
+                        <button onClick={() => acceptHandler(false)}>Weiger</button>
+
+                    </div>)
 
                 setSelectedNumberComponent(selectedNumberComponent);
             }).catch(err => {
                 console.log(err);
             })
+        }else{
+            setSelectedNumberComponent(null);
         }
-    }, [selectedNumber, selectedInvite]);
+    }, [selectedInvite]);
 
-    const acceptHandler = () => {
+    const acceptHandler = (accept) => {
         const emailKey = selectedInvite.email.replace(/\./g, "");
-        const AddUserObj = {
-            active:true,
-            number: selectedNumber,
+        if (accept) {
+            const AddUserObj = {
+                active: true,
+                number: selectedNumber,
+            }
+            firebase.database().ref(`/Teams/${selectedInvite.teamId}/Seasons/${selectedInvite.season}/TeamMembers/${props.user.uid}`).set(AddUserObj)
+                .then(res => {
+                    firebase.database().ref(`/Invites/${emailKey}`).remove()
+                        .then(res => {
+                            console.log("removed succesful")
+                        })
+                        .catch(err => console.log(err));
+                }).catch(err => {
+                    console.log(err);
+                })
         }
-        firebase.database().ref(`/Teams/${selectedInvite.teamId}/Seasons/${selectedInvite.season}/TeamMembers/${props.user.uid}`).set(AddUserObj)
-        .then(res => {
-            setActiveInvites([]);
-            setSelectedInvite(null);
-            setSelectedNumber("");
-            setSelectedNumberComponent("");
+        else {
             firebase.database().ref(`/Invites/${emailKey}`).remove()
-            .then(res => {
-                console.log("removed succesful")
-            })
-            .catch(err => console.log(err));
-        }).catch(err => {
-            console.log(err);
-        })
+                .then(res => {
+                    console.log("removed succesful")
+                })
+                .catch(err => console.log(err));
+        }
+        props.actionDone();
+        setActiveInvites([]);
+        setSelectedInvite(null);
+        setSelectedNumber("");
+        setSelectedNumberComponent("");
     }
 
     return (
         <div className={classes.PendingContainer}>
             <div className={classes.PendingTitle}>Pending invitations</div>
-            {activeInvites.map(invite => {
+            {typeof activeInvites !== 'undefined' ? activeInvites.map(invite => {
                 return (
                     <InvitationButton accept={true} onAccept={() => setSelectedInvite(invite)}>{invite.teamName}</InvitationButton>
                 )
-            })}
+            }) : null}
             {selectedNumberComponent}
         </div>
     )

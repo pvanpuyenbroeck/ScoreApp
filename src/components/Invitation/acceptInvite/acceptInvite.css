@@ -3,4 +3,10 @@
     display: flex;
     align-items: center;
     flex-flow: column;
+    color: 326087;
+}
+
+.PendingTitle{
+    color:#326087;
+
 }

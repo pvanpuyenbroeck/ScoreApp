@@ -8,6 +8,9 @@ import Match from '../../Games/Match/Match';
 import SelectedTeamButton from '../../../components/Team/SelectTeamButton/SelectTeamButton';
 import TeamsOverview from '../../../containers/TeamControl/TeamsOverview/TeamsOverview';
 import Tabs from '../../UI/Tabs/Tabs';
+import Flexbox from '../../UI/Flexbox/Flexbox';
+import AcceptInvite from '../../Invitation/acceptInvite/acceptInvite';
+import { getActiveInvites } from '../../../store/actions/invitation';
 
 
 class landingpage extends Component {
@@ -15,10 +18,13 @@ class landingpage extends Component {
         tabs: [
             { title: "Volgende match", selected: true },
             { title: "Teams", selected: false }],
+        showAcceptInvite: false,
+        showInviteButton: 'none',
     }
 
     componentDidMount() {
         this.props.selectedTeam(this.props.team.teamId, this.props.selectedSeason, this.props.user.uid);
+        this.setInviteMessage();
     }
 
     matchSelected = (match) => {
@@ -122,6 +128,18 @@ class landingpage extends Component {
             return null;
         }
     }
+
+    setInviteMessage() {
+        getActiveInvites(this.props.user.email).then(res => {
+            if (res.length !== 0) {
+                this.setState({ showInviteButton: 'flex' });
+            }
+            else {
+                this.setState({ showInviteButton: 'none' });
+            }
+            this.setState({showAcceptInvite:false});
+        });
+    }
     activeTab() {
         return this.state.tabs.map(tab => {
             if (tab.selected) {
@@ -140,6 +158,24 @@ class landingpage extends Component {
         let activeTab = null;
         activeTab = this.activeTab();
         return (<div className={classes.LandingPage}>
+            <Flexbox show={this.state.showAcceptInvite} modalClicked={() => this.setState({ showAcceptInvite: !this.state.showAcceptInvite })}>
+                <AcceptInvite
+                    className={classes.AcceptInviteContainer}
+                    team={this.props.team}
+                    user={this.props.user}
+                    selectedSeason={this.props.selectedSeason}
+                    actionDone={() => this.setInviteMessage()}
+
+                />
+            </Flexbox>
+            <div
+                className={classes.AcceptInviteButton}
+                onClick={() => this.setState({ showAcceptInvite: true })}
+                style={{ "display": this.state.showInviteButton }}
+            >
+                <div>Er zijn actieve uitnodigingen!</div>
+                <div className={classes.Sphere}></div>
+            </div>
             <Tabs
                 tabs={
                     this.state.tabs

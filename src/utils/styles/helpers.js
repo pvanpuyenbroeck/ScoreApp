@@ -2,7 +2,7 @@
 * Helper styles and themes for global usage
 */
 export const colors = {
-    beige:'#bfbfad',
+    beige:'#F0F1D5',
     blue: '#326087',
     orange:'#F19722',
     green: '#2C8693',

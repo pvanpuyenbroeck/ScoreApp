@@ -130,14 +130,14 @@ export const getTeam = (teamId, season, uid) => {
                         }
                         const updatedTeam = { ...team };
                         updatedTeam.Seasons[season].filteredPlayers = filteredPlayers;
+                        dispatch(getTeamSuccess({
+                            ...updatedTeam,
+                            teamId: teamId,
+                            isAdmin: isAdmin,
+                        }, uid));
                     })
                 }
-            } 
-                dispatch(getTeamSuccess({
-                    ...team,
-                    teamId: teamId,
-                    isAdmin: isAdmin,
-                }, uid));
+            }
         }).catch(
             error => {
                 dispatch(getTeamFail(error))
@@ -186,10 +186,11 @@ export const addPlayerToTeamStart = (updatedTeam) => {
     }
 }
 
-export const addPlayerToTeamSuccess = () => {
+export const addPlayerToTeamSuccess = (updatedTeam) => {
     return {
         type: actionTypes.ADD_PLAYER_TO_TEAM_SUCCESS,
         loading: false,
+        updatedTeam: updatedTeam,
     }
 }
 
@@ -209,11 +210,26 @@ export const closeFunctionModal = () => {
 
 export const addPlayerToTeam = (team, updatedTeamMembers, season) => {
     let updatedTeam = { ...team };
+    let updatedSeason = { ...updatedTeam.Seasons }
+    let updatedFilteredPlayers = { ...updatedSeason[season].filteredPlayers }
+    for (let key in updatedFilteredPlayers) {
+        updatedFilteredPlayers[key] = {
+            ...updatedFilteredPlayers[key],
+            playerNumber: updatedTeamMembers[key].number,
+        }
+    }
     updatedTeam = {
         ...updatedTeam,
-        [season]: {
-            ...season,
-            TeamMembers: updatedTeamMembers
+        Seasons: {
+            ...updatedSeason,
+            [season]: {
+                ...updatedSeason[season],
+                TeamMembers: updatedTeamMembers,
+                filteredPlayers: {
+                    ...updatedFilteredPlayers,
+
+                }
+            }
         }
     }
     // updatedTeam[season].TeamMembers = updatedTeamMembers;
@@ -221,7 +237,7 @@ export const addPlayerToTeam = (team, updatedTeamMembers, season) => {
         dispatch(addPlayerToTeamStart(updatedTeam));
         firebase.database().ref('/Teams/' + team.teamId + '/Seasons/' + season + '/TeamMembers/').set(updatedTeamMembers)
             .then(response => {
-                dispatch(addPlayerToTeamSuccess());
+                dispatch(addPlayerToTeamSuccess(updatedTeam));
                 dispatch(closeFunctionModal());
                 // dispatch(getAllTeams());
             })
@@ -258,7 +274,7 @@ export const removePlayerFromTeam = (playerid, teamid, activePlayers, season, te
         active: false,
     }
     const updatedTeam = { ...team };
-    updatedTeam[season].TeamMembers = updatedTeamMembers;
+    updatedTeam.Seasons[season].TeamMembers = updatedTeamMembers;
     return dispatch => {
         dispatch(removePlayerStart());
         firebase.database().ref('/Teams/' + teamid + "/Seasons/" + season + "/TeamMembers/").set(updatedTeamMembers)

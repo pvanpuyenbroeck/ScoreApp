@@ -85,6 +85,7 @@ const addPlayerToTeamSuccess = (state, action) => {
     return {
         ...state,
         loading: false,
+        selectedTeam: action.updatedTeam
     }
 }
 

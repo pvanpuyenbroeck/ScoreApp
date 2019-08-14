@@ -15,6 +15,7 @@ import Tabs from '../../../components/UI/Tabs/Tabs';
 import PlayerMenu from '../../../components/Players/PlayerMenu/PlayerMenu';
 import MatchDetails from '../../../components/Games/MatchDetails/MatchDetails';
 import DetailsContainer from '../../../components/UI/DetailsContainer/DetailsContainer';
+import { getTeamFail } from '../../../store/actions/team';
 
 
 class Team extends Component {
@@ -46,6 +47,9 @@ class Team extends Component {
     componentDidMount() {
         this.props.selectedTeam(this.props.match.params.teamId, this.props.selectedSeason, this.props.user.uid);
         this.props.changeLocation(3);
+        this.setState({
+            playerDetails:this.getPlayerDetails(),
+        })
     }
 
     matchSelected = (match) => {

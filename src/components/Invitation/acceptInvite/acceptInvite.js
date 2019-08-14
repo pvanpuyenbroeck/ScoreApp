@@ -19,7 +19,7 @@ const acceptInvite = (props) => {
     useEffect(() => {
         getActiveInvites(props.user.email).then(res => setActiveInvites(res));
         
-    }, activeInvites)
+    }, [])
 
     useEffect(() => {
         if (selectedInvite !== null) {
@@ -45,7 +45,7 @@ const acceptInvite = (props) => {
         }else{
             setSelectedNumberComponent(null);
         }
-    }, [selectedInvite]);
+    }, [selectedNumber, selectedInvite]);
 
     const acceptHandler = (accept) => {
         const emailKey = selectedInvite.email.replace(/\./g, "");

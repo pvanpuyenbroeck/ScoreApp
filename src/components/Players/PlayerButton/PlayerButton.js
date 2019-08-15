@@ -20,19 +20,19 @@ class playerButton extends Component {
     // const [showCloseButton, setCloseButton] = useState('hidden');
 
     componentWillMount() {
-        if (this.props.playerid) {
-            const storage = firebase.storage().ref();
-            const storageRef = storage.child(this.props.playerid);
-            storageRef.getDownloadURL().then(url => {
-                console.log(url);
-                const image = <img src={url} alt="Profilepic"></img>;
-                this.setState({
-                    image: image,
-                })
-            }).catch(err => {
-                return err;
-            });
-        }
+        // if (this.props.playerid) {
+        //     const storage = firebase.storage().ref();
+        //     const storageRef = storage.child(this.props.playerid);
+        //     storageRef.getDownloadURL().then(url => {
+        //         console.log(url);
+        //         const image = <img src={url} alt="Profilepic"></img>;
+        //         this.setState({
+        //             image: image,
+        //         })
+        //     }).catch(err => {
+        //         return err;
+        //     });
+        // }
     }
 
     showCloseButtonHandler = () => {

@@ -182,7 +182,7 @@ class matchCenter extends Component {
                             username={playerName}
                             plusClicked={() => this.goalHandler(playerInfo.userid, 'add')}
                             minClicked={() => this.goalHandler(playerInfo.userid, 'min')}
-                            goals={this.props.match.selectedMatch.Participants[playerInfo.userid].goals}
+                            goals={playerInfo.goals}
                             adminLoggedIn = {this.props.adminLoggedIn}
                         />
                     )

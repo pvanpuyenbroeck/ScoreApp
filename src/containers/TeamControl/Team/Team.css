@@ -1,6 +1,26 @@
-.Team{
+.Team {
     width: 100%;
 }
-.ToggleButton{
+
+.ToggleButton {
     width: 100px;
+}
+
+.MatchNavButtonContainer {
+    display: flex;
+    justify-content: space-evenly;
+    width:100%;
+}
+
+.MatchNavButtonContainer div {
+    width: 100px;
+    height: 30px;
+    border: 1px solid black;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.MatchNavButtonContainer div:hover {
+    cursor: pointer;
 }

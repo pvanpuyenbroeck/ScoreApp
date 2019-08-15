@@ -48,14 +48,6 @@ const MatchDetails = (props) => {
                 >
                     Match verwijderen
             </Button>
-                <Button
-                    color="green"
-                    buttonClicked={() => props.joinMatchClicked()}
-                    hide={props.hideRemoveButton}
-                    className={classes.JoinButton}
-                >
-                    Match verwijderen
-            </Button>
                 {props.Button}
 
             </div>

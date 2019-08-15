@@ -1,0 +1,14 @@
+.Join{
+    width: 100px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border:1px solid black;
+}
+
+.MatchPlayersContainer{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}

@@ -21,9 +21,9 @@ class matchCenter extends Component {
         }
     }
 
-    // componentWillMount(){
-
-    // }
+    componentDidMount(){
+        
+    }
     componentWillMount() {
         if (typeof this.props.team.teamName === 'undefined') {
             this.props.history.push('/selectTeam');
@@ -246,6 +246,7 @@ class matchCenter extends Component {
                 {redirect}
                 <AddPlayerstoMatch
                     team={this.props.team}
+                    selectedMatch={this.props.selectedMatch}
                     playerDetails={this.state.teamMembers}
                     PlayerButtonClicked={(playerId) => this.playerButtonClicked(playerId)}
                     addPlayers={() => this.settingSelectedPlayers(MatchPlayers, this.props.team.teamId, this.props.match.selectedMatch.matchId)}
@@ -273,7 +274,6 @@ const mapDispatchToProps = dispatch => {
     return {
         setSelectedPlayers: (teamMembersMatch, teamId, matchId, selectedSeason) => dispatch(actions.setMatchPlayers(teamMembersMatch, teamId, matchId, selectedSeason)),
         // getSelectedPlayers: (teamId,matchId) => dispatch(actions.getMatchPlayers(teamId,matchId)), 
-        getTeam: (teamId) => dispatch(actions.getTeam(teamId, null, null)),
         saveGameStats: (teamId, matchId, match, selectedSeason) => dispatch(actions.saveMatch(teamId, matchId, match, selectedSeason)),
         oponentGoal: (oponentGoals) => dispatch(actions.updateOponentGoals(oponentGoals)),
         setFalseSaveState: () => dispatch(actions.setFalseSaveState()),

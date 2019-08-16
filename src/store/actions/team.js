@@ -3,6 +3,13 @@ import firebase from '../../firebase-scoreapp';
 import { checkIfAdmin } from '../utility';
 
 
+export const updateSelectedTeam = (updatedTeam) => {
+    return{
+        type: actionTypes.UPDATE_SELECTED_TEAM,
+        team:updatedTeam,
+    }
+}
+
 export const addTeamSuccess = (teamData) => {
     return {
         type: actionTypes.ADD_TEAM_SUCCESS,

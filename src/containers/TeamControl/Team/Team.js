@@ -245,6 +245,7 @@ class Team extends Component {
     joinClickedHandler(match){
         let updatedParticipants = {...match.Participants};
         let updatedMatch = {...this.props.selectedMatch};
+        let updatedTeam = {...this.props.team};
         const selectedSeason = {...this.props.team.Seasons[this.props.selectedSeason]};
         updatedParticipants[this.props.user.uid] = {
             ...selectedSeason.filteredPlayers[this.props.user.uid],
@@ -256,6 +257,9 @@ class Team extends Component {
         this.setState({
             selectedMatch: updatedMatch,
         })
+        updatedTeam.Seasons[this.props.selectedSeason].Matches[updatedMatch.matchId] = updatedMatch;
+
+        this.props.updateSelectedTeam(updatedTeam);
         this.props.setSelectedPlayers(updatedParticipants, this.props.team.teamId, this.state.selectedMatchId, this.props.selectedSeason);
     }
 
@@ -321,7 +325,7 @@ class Team extends Component {
         }
         else {
             if (this.state.showMatchControl) {
-                teamControl = <MatchCenter />
+                teamControl = <MatchCenter/>
             } else {
                 selectedTab = this.GetSelectedTab();
                 teamControl = (
@@ -369,6 +373,7 @@ class Team extends Component {
 const mapDispatchToProps = dispatch => {
     return {
         // getTeam: (team) => dispatch(actions.getTeam(team)),
+        updateSelectedTeam: (updatedTeam) => dispatch(actions.updateSelectedTeam(updatedTeam)),
         setMatchInfo: (updatedMatch) => dispatch(actions.setMatchInfo(updatedMatch)),
         setSelectedPlayers: (teamMembersMatch, teamId, matchId, selectedSeason) => dispatch(actions.setMatchPlayers(teamMembersMatch, teamId, matchId, selectedSeason)),
         updatePlayerAdmins: (teamId, updatedAdmins) => dispatch(actions.updatePlayerAdmins(teamId, updatedAdmins)),

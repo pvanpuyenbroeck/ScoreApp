@@ -5,6 +5,7 @@ import PlayerButton from '../../Players/PlayerButton/PlayerButton';
 const MatchPlayersOverview = (props) => {
 
     const [allPlayers, setAllPlayers] = useState("");
+    const [alreadyInTeam, setAlreadyInTeam] = useState(false);
 
     useEffect(() => {
         let allParticipants = []
@@ -13,11 +14,15 @@ const MatchPlayersOverview = (props) => {
         }
         const allParticipantsButtons = allParticipants.map(participant => {
             if (participant.active) {
+                if(participant.userid === props.user.uid){
+                    setAlreadyInTeam(true);
+                }
                 const name = participant.voornaam + " " + participant.familienaam;
                 return (
                     <PlayerButton
                         name={name}
                         number={participant.playerNumber}
+                        className={classes.PlayerButton}
                     />
                 )
             }
@@ -29,7 +34,8 @@ const MatchPlayersOverview = (props) => {
     return (
         <div className={classes.MatchPlayersContainer}>
             {allPlayers}
-            <div className={classes.Join} onClick={props.joinClicked}>Deelnemen</div>
+            {alreadyInTeam ? <div className={classes.Join} onClick={props.removeClicked}>Niet meer deelnemen</div> :
+            <div className={classes.Join} onClick={props.joinClicked}>Deelnemen</div>}
         </div>
     )
 }

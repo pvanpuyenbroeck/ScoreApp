@@ -159,7 +159,7 @@ const removeMatchStart = (state, action) => {
 
 
 const removeMatchSuccess = (state, action) => {
-    let updatedTeam = {...state.selectedTeam};
+    let updatedTeam = { ...state.selectedTeam };
     updatedTeam[action.selectedSeason].Matches = action.updatedMatches;
     return {
         ...state,
@@ -177,34 +177,34 @@ const removeMatchFail = (state, action) => {
 }
 
 const setSeason = (state, action) => {
-    return{
+    return {
         ...state,
         selectedSeason: action.season,
     }
 }
 
 const authLogout = (state, action) => {
-    return{
+    return {
         ...initialState
     }
 }
 
 const updateAdminStart = (state, action) => {
-    return{
+    return {
         ...state,
         makingAdmin: true,
     }
 }
 
 const updateAdminFail = (state, action) => {
-    return{
+    return {
         ...state,
         makingAdmin: false,
     }
 }
 
-const updateAdminSuccess= (state, action) => {
-    return{
+const updateAdminSuccess = (state, action) => {
+    return {
         ...state,
         makingAdmin: false,
         selectedTeam: action.updatedTeam,
@@ -212,42 +212,49 @@ const updateAdminSuccess= (state, action) => {
 }
 
 const setLastSelectedTeamStart = (state, action) => {
-    return{
+    return {
         ...state,
 
     }
 }
 
 const setLastSelectedTeamFail = (state, action) => {
-    return{
+    return {
         ...state,
     }
 }
 
 const setLastSelectedTeamSuccess = (state, action) => {
-    return{
+    return {
         ...state,
         lastSelectedTeam: action.selectedTeam,
     }
 }
 
 const getLastSelectedTeamStart = (state, action) => {
-    return{
+    return {
         ...state,
 
     }
 }
 
 const getLastSelectedTeamFail = (state, action) => {
-    return{
+    return {
         ...state,
     }
 }
 
 const getLastSelectedTeamSuccess = (state, action) => {
-    return{
+    return {
         ...state,
         lastSelectedTeam: action.selectedTeam,
+    }
+}
+
+const updateSelectedTeam = (state, action) => {
+    return{
+        ...state,
+        selectedTeam: action.team,
     }
 }
 
@@ -278,20 +285,22 @@ const reducer = (state = initialState, action) => {
         case actionTypes.REMOVE_MATCH_START: return removeMatchStart(state, action);
         case actionTypes.REMOVE_MATCH_SUCCESS: return removeMatchSuccess(state, action);
         case actionTypes.REMOVE_MATCH_FAIL: return removeMatchFail(state, action);
-        case actionTypes.SET_SEASON: return setSeason(state,action);
+        case actionTypes.SET_SEASON: return setSeason(state, action);
         case actionTypes.AUTH_LOGOUT: return authLogout(state, action);
 
-        case actionTypes.UPDATE_PLAYER_ADMIN_START: return updateAdminStart(state,action);
-        case actionTypes.UPDATE_PLAYER_ADMIN_FAIL: return updateAdminFail(state,action);
-        case actionTypes.UPDATE_PLAYER_ADMIN_SUCCESS: return updateAdminSuccess(state,action);
+        case actionTypes.UPDATE_PLAYER_ADMIN_START: return updateAdminStart(state, action);
+        case actionTypes.UPDATE_PLAYER_ADMIN_FAIL: return updateAdminFail(state, action);
+        case actionTypes.UPDATE_PLAYER_ADMIN_SUCCESS: return updateAdminSuccess(state, action);
 
-        case actionTypes.SET_LAST_SELECTED_TEAM_START: return setLastSelectedTeamStart(state,action);
-        case actionTypes.SET_LAST_SELECTED_TEAM_FAIL: return setLastSelectedTeamFail(state,action);
-        case actionTypes.SET_LAST_SELECTED_TEAM_SUCCESS: return setLastSelectedTeamSuccess(state,action);
+        case actionTypes.SET_LAST_SELECTED_TEAM_START: return setLastSelectedTeamStart(state, action);
+        case actionTypes.SET_LAST_SELECTED_TEAM_FAIL: return setLastSelectedTeamFail(state, action);
+        case actionTypes.SET_LAST_SELECTED_TEAM_SUCCESS: return setLastSelectedTeamSuccess(state, action);
 
-        case actionTypes.GET_LAST_SELECTED_TEAM_START: return getLastSelectedTeamStart(state,action);
-        case actionTypes.GET_LAST_SELECTED_TEAM_FAIL: return getLastSelectedTeamFail(state,action);
-        case actionTypes.GET_LAST_SELECTED_TEAM_SUCCESS: return getLastSelectedTeamSuccess(state,action);
+        case actionTypes.GET_LAST_SELECTED_TEAM_START: return getLastSelectedTeamStart(state, action);
+        case actionTypes.GET_LAST_SELECTED_TEAM_FAIL: return getLastSelectedTeamFail(state, action);
+        case actionTypes.GET_LAST_SELECTED_TEAM_SUCCESS: return getLastSelectedTeamSuccess(state, action);
+
+        case actionTypes.UPDATE_SELECTED_TEAM: return updateSelectedTeam(state, action);
         default: return state;
     }
 }

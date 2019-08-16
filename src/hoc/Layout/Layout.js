@@ -24,7 +24,7 @@ class Layout extends Component {
         const backgroundStyle = {
             // backgroundImage: `url(${image})`,
             // backgroundColor: '#ccc',
-            height: '850px',
+            height: '200vh',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',

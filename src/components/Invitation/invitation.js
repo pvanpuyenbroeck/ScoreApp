@@ -98,11 +98,11 @@ const invitation = (props) => {
                         placeholder={"Email adres"}
                     />
                     <div className={classes.Message} visible={message.visible}>{message.message}</div>
-                    <button className={classes.SubmitButton} type="submit">Stuur uitnodiging</button>
+                    <button className={classes.SubmitButton} type="submit">Verstuur</button>
                 </div>
             </form>
             <div className={classes.PendingContainer}>
-                <div className={classes.PendingTitle}>Uitstaande uitnodigingen</div>
+            {pendingInvitations.length !== 0 ? <div className={classes.PendingTitle}>Uitstaande uitnodigingen</div> : null}
                 {pendingInvitations.map(invite => {
                     return (
                         <InvitationButton>{invite.email}</InvitationButton>

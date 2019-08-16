@@ -49,10 +49,10 @@ button:hover {
     border-radius: 5px;
 }
 
-.SubmitButton {
+/* .SubmitButton {
     display: block;
     margin: 10px auto;
-}
+} */
 
 @supports(grid-area: auto) {
     @media screen and (min-width: 600px) {
@@ -67,8 +67,8 @@ button:hover {
             align-self: center;
         }
         button {
-            grid-column: 2/3;
-            grid-row: 2/3;
+            grid-column: 1/2;
+            grid-row: 4/5;
         }
         .Message {
             grid-column: 1/3;

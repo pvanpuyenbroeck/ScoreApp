@@ -7,7 +7,7 @@
     flex-direction: column;
     padding: 2rem;
     margin: 0 auto;
-    position: absolute;
+    position: fixed;
     color:black;
 }
 
@@ -31,7 +31,11 @@
     @media screen and (min-width: 650px) {
         .DetailsContainer{
             /* justify-content: center; */
-            position: initial;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            /* bring your own prefixes */
+            transform: translate(-50%, -50%);
         }
     }
 }

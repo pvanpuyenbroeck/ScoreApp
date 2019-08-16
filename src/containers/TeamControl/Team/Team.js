@@ -74,9 +74,9 @@ class Team extends Component {
 
     showMatchDetailsHandler(matchId) {
         let selectedMatch = {};
-        if(this.state.selectedMatch === ""){
-           selectedMatch = this.props.team.Seasons[this.props.selectedSeason].Matches[matchId];
-        }else{
+        if (this.state.selectedMatch === "") {
+            selectedMatch = this.props.team.Seasons[this.props.selectedSeason].Matches[matchId];
+        } else {
             selectedMatch = this.state.selectedMatch;
         }
         this.setState({
@@ -242,16 +242,20 @@ class Team extends Component {
         })
     )
 
-    joinClickedHandler(match){
-        let updatedParticipants = {...match.Participants};
-        let updatedMatch = {...this.props.selectedMatch};
-        let updatedTeam = {...this.props.team};
-        const selectedSeason = {...this.props.team.Seasons[this.props.selectedSeason]};
+    joinClickedHandler(match, addOrRemove) {
+        let updatedParticipants = { ...match.Participants };
+        let updatedMatch = { ...this.props.selectedMatch };
+        let updatedTeam = { ...this.props.team };
+        const selectedSeason = { ...this.props.team.Seasons[this.props.selectedSeason] };
+        if(addOrRemove === 'add'){
         updatedParticipants[this.props.user.uid] = {
             ...selectedSeason.filteredPlayers[this.props.user.uid],
-            active:true,
-            goals:0,
+            active: true,
+            goals: 0,
             attending: true,
+        }}
+        else if(addOrRemove === 'remove'){
+           delete updatedParticipants[this.props.user.uid];
         }
         updatedMatch.Participants = updatedParticipants;
         this.setState({
@@ -270,19 +274,28 @@ class Team extends Component {
                 return (
                     <DetailsContainer closeContainer={() => this.closeAllContainers()} >
                         <div className={classes.MatchNavButtonContainer}>
-                            <div onClick={() => this.setState({ matchDetailsToggle: true })}>Match</div>
-                            <div onClick={() => this.setState({ matchDetailsToggle: false })}>Deelnemers</div>
+                            <div
+                                onClick={() => this.setState({ matchDetailsToggle: false })}
+                                className={[classes.Button, classes.ButtonMatch].join(' ')}
+                                style={{opacity:this.state.matchDetailsToggle ? '0.5' : '1'}}
+                                >Match</div>
+                            <div
+                                onClick={() => this.setState({ matchDetailsToggle: true })}
+                                className={[classes.Button, classes.ButtonMembers].join(' ')}
+                                style={{opacity:!this.state.matchDetailsToggle ? '0.5' : '1'}}                                
+                                >Deelnemers</div>
                         </div>
-                        {this.state.matchDetailsToggle ? <MatchDetails
+                        {!this.state.matchDetailsToggle ? <MatchDetails
                             removeMatchClicked={() => this.removeMatchClickedHandler(this.state.selectedMatchId)}
                             matches={match}
                             width={"100%"}
-                            // joinMatchClicked={() => this.joinClickedHandler()}
+                        // joinMatchClicked={() => this.joinClickedHandler()}
                         /> : <MatchPlayersOverview
                                 user={this.props.user}
                                 match={this.state.selectedMatch}
                                 allTeamMember={this.state.selectedMatch.TeamMembers}
-                                joinClicked={() => this.joinClickedHandler(match)}
+                                joinClicked={() => this.joinClickedHandler(match, 'add')}
+                                removeClicked={() => this.joinClickedHandler(match,'remove')}
                             />}
                     </DetailsContainer>
                 )
@@ -325,7 +338,7 @@ class Team extends Component {
         }
         else {
             if (this.state.showMatchControl) {
-                teamControl = <MatchCenter/>
+                teamControl = <MatchCenter />
             } else {
                 selectedTab = this.GetSelectedTab();
                 teamControl = (

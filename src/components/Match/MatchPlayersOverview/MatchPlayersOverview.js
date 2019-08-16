@@ -22,7 +22,6 @@ const MatchPlayersOverview = (props) => {
                     <PlayerButton
                         name={name}
                         number={participant.playerNumber}
-                        className={classes.PlayerButton}
                     />
                 )
             }
@@ -34,8 +33,17 @@ const MatchPlayersOverview = (props) => {
     return (
         <div className={classes.MatchPlayersContainer}>
             {allPlayers}
-            {alreadyInTeam ? <div className={classes.Join} onClick={props.removeClicked}>Niet meer deelnemen</div> :
-            <div className={classes.Join} onClick={props.joinClicked}>Deelnemen</div>}
+            {alreadyInTeam ? 
+            <div 
+            className={classes.Join} 
+            onClick={props.removeClicked}
+            style={{backgroundColor:'#F19722'}}
+            >Niet meer deelnemen</div> :
+            <div 
+            className={classes.Join} 
+            onClick={props.joinClicked}
+            style={{backgroundColor:'#2C8693'}}            
+            >Deelnemen</div>}
         </div>
     )
 }

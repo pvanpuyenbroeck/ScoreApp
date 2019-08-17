@@ -1,14 +1,19 @@
 .PendingContainer{
-    width: 100%;
     display: flex;
     align-items: center;
     flex-flow: column;
     color: 326087;
+    width: 400px;
 }
 
 .PendingTitle{
     color:#326087;
+}
 
+.ButtonContainer{
+    display: flex;
+    justify-content: space-evenly;
+    margin: 10px 0;
 }
 
 .Button {
@@ -28,4 +33,8 @@
 
 .Button2 {
     background-color: #C33325;
+}
+
+.NumberSelection{
+    margin: 10px 0;
 }

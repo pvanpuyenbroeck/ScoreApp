@@ -40,7 +40,7 @@ const invitation = (props) => {
                     season: props.team.selectedSeason
                 }
                 if (allInvites.length === 0 || !allInvites.includes(emailKey)) {
-                    axios.get('http://localhost:9000/mail', {params:params})
+                    axios.get('http://localhost:8888/mail', {params:params})
                         .then(res => {
                             const result = res;
                             if (result.status === 200) {

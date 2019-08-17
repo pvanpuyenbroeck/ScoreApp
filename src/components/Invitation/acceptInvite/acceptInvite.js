@@ -32,9 +32,10 @@ const acceptInvite = (props) => {
                             teamMembers={typeof team.Seasons[selectedInvite.season].TeamMembers !== 'undefined' ? team.Seasons[selectedInvite.season].TeamMembers : null}
                             numberSelected={selectedNumber}
                         />
+                        <div className={classes.ButtonContainer}>
                         <button onClick={() => acceptHandler(true)} className={[classes.Button, classes.Button1].join(' ')}>Accepteer</button>
                         <button onClick={() => acceptHandler(false)} className={[classes.Button, classes.Button2].join(' ')}>Weiger</button>
-
+                        </div>    
                     </div>)
 
                 setSelectedNumberComponent(selectedNumberComponent);

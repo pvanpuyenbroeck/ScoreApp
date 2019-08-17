@@ -144,6 +144,11 @@ export const getTeam = (teamId, season, uid) => {
                         }, uid));
                     })
                 }
+                dispatch(getTeamSuccess({
+                    ...team,
+                    teamId: teamId,
+                    isAdmin: isAdmin,
+                }, uid));
             }
         }).catch(
             error => {

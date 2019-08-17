@@ -22,7 +22,7 @@ class matchCenter extends Component {
     }
 
     componentDidMount(){
-        
+        window.scrollTo(0, 0);
     }
     componentWillMount() {
         if (typeof this.props.team.teamName === 'undefined') {

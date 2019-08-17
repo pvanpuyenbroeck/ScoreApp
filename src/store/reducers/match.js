@@ -4,7 +4,7 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState = {
     selectedMatch:null,
     MatchPlayers: null,
-    loading: true,
+    loading: false,
     oponentGoals: 0,
     matchSaved: true,
     matchAddStarted: false,
@@ -39,7 +39,7 @@ const setMatchPlayersSuccess = (state, action) =>{
 const setMatchPlayersFail = (state, action) =>{
     return{
         ...state,
-        loading: true,
+        loading: false,
     }
 }
 const setMatchPlayersStart = (state, action) =>{

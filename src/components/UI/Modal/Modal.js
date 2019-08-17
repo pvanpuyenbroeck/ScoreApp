@@ -21,7 +21,7 @@ class Modal extends Component {
                 <div className={classes.Modal}
                     style={{
                         transform: this.props.show ? 'translateY(0)' : 'translateY(-100vh)',
-                        opacity: this.props.show ? '1' : '0'
+                        display: this.props.show ? 'inititial' : 'none'
                     }}>
                     {this.props.children}
                 </div>

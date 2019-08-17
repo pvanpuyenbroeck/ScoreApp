@@ -10,6 +10,10 @@ export const checkIfAdmin = (admins, loggedInUid, ownerId) => {
         return true;
     }
 
+    if(admins === false){
+        return false;
+    }
+    
     if (typeof admins === 'undefined') {
         return false
     }

@@ -66,13 +66,11 @@ const Match = (props) => {
             </div>
                 {/* <div>Afbeelding komt hier</div> */}
                 <div className={classes.GameDate} onClick={() =>    goToMatchPageHandler()}>{dateFormat()}</div>
-                {props.admin ? <div className={classes.MoreOptions} >
                     <div
                         style={moreButtonStyle}
                         className={classes.MoreButton}
                         onClick={(teamId) => props.showMatchDetailsClicked(teamId)}
                     />
-                </div> : null}
                 <div className={classes.OpponentName} onClick={() =>    goToMatchPageHandler()}>
                     {/* <Link to={"/Team/" + props.team.teamId + "/Match/" + props.match.matchId} style={{ textDecoration: 'none' }}> */}
                         <div className={classes.Opponent}>{typeof props.match.gameData.opponent === 'undefined' ? null : props.match.gameData.opponent}</div>

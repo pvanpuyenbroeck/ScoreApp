@@ -40,14 +40,14 @@ const MatchDetails = (props) => {
                     postcode={props.matches.gameData.locatie.postcode}
                     postnumber={props.matches.gameData.locatie.nummer}
                 />
-                <Button
+                {props.isAdmin ? <Button
                     color="red"
                     buttonClicked={() => props.removeMatchClicked()}
                     hide={props.hideRemoveButton}
                     className={classes.DeleteButton}
                 >
                     Match verwijderen
-            </Button>
+            </Button> : null}
                 {props.Button}
 
             </div>

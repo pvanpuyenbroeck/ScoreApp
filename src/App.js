@@ -44,9 +44,9 @@ class App extends Component {
     })
   }
 
-  InviteHandler(action, teamid){
+  InviteHandler(action, teamid) {
 
-    switch (action){
+    switch (action) {
       case "success":
         this.props.history.push(`/Team/${teamid}`);
         break;
@@ -69,11 +69,11 @@ class App extends Component {
         <Route path="/" exact render={(props) => <Landingpage {...props} user={this.props.user} />} />
         <Route path="/Team" component={TeamControl} />
         <Route path="/AddNewPlayer" exact component={AddNewPlayer} />
-        <Route path="/Invite/:teamId" exact render={(props) => <AcceptInvite 
-        team={this.props.team} 
-        user={this.props.user} 
-        selectedSeason={this.props.selectedSeason}
-        actionDone={(action, teamid) => this.InviteHandler(action, teamid)}
+        <Route path="/Invite/:teamId" exact render={(props) => <AcceptInvite
+          team={this.props.team}
+          user={this.props.user}
+          selectedSeason={this.props.selectedSeason}
+          actionDone={(action, teamid) => this.InviteHandler(action, teamid)}
         />} />
       </React.Fragment>
     )

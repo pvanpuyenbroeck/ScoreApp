@@ -21,16 +21,17 @@ class matchCenter extends Component {
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         window.scrollTo(0, 0);
-    }
-    componentWillMount() {
         if (typeof this.props.team.teamName === 'undefined') {
             this.props.history.push('/selectTeam');
         } else {
             this.setInitialPlayers();
         }
     }
+    // componentWillMount() {
+
+    // }
 
     setInitialPlayers = () => {
         if (typeof this.props.team.teamId === 'undefined') {
@@ -183,7 +184,7 @@ class matchCenter extends Component {
                             plusClicked={() => this.goalHandler(playerInfo.userid, 'add')}
                             minClicked={() => this.goalHandler(playerInfo.userid, 'min')}
                             goals={playerInfo.goals}
-                            adminLoggedIn = {this.props.adminLoggedIn}
+                            adminLoggedIn={this.props.adminLoggedIn}
                         />
                     )
                 })
@@ -200,16 +201,16 @@ class matchCenter extends Component {
                     adminOptions = (
                         <React.Fragment>
                             <div className={classes.MenuButtons}>
-                            <div className={classes.SelectPlayer} onClick={() => this.showPlayerSelectWindow()}>
-                                <div>Selecteer Speler</div>
-                            </div>
-                            <div className={saveGame.join(' ')}>
-                                <div onClick={() => this.props.saveGameStats(this.props.team.teamId, this.props.match.selectedMatch.matchId, this.props.match.selectedMatch)}>Opslaan</div>
-                            </div>
-                            <div className={classes.OpponentGoal}>
-                                <div onClick={() => this.oponentGoalHandler("minus")}><div className={classes.Center}>-</div></div>
-                                <div onClick={() => this.oponentGoalHandler("add")}><div className={classes.Center}>+</div></div>
-                            </div>
+                                <div className={classes.SelectPlayer} onClick={() => this.showPlayerSelectWindow()}>
+                                    <div>Selecteer Speler</div>
+                                </div>
+                                <div className={saveGame.join(' ')}>
+                                    <div onClick={() => this.props.saveGameStats(this.props.team.teamId, this.props.match.selectedMatch.matchId, this.props.match.selectedMatch)}>Opslaan</div>
+                                </div>
+                                <div className={classes.OpponentGoal}>
+                                    <div onClick={() => this.oponentGoalHandler("minus")}><div className={classes.Center}>-</div></div>
+                                    <div onClick={() => this.oponentGoalHandler("add")}><div className={classes.Center}>+</div></div>
+                                </div>
                             </div>
                         </React.Fragment>
                     )

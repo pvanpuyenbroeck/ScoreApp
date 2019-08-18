@@ -261,7 +261,7 @@ class Team extends Component {
         this.setState({
             selectedMatch: updatedMatch,
         })
-        updatedTeam.Seasons[this.props.selectedSeason].Matches[updatedMatch.matchId] = updatedMatch;
+        updatedTeam.Seasons[this.props.selectedSeason].Matches[this.state.selectedMatchId] = updatedMatch;
 
         this.props.updateSelectedTeam(updatedTeam);
         this.props.setSelectedPlayers(updatedParticipants, this.props.team.teamId, this.state.selectedMatchId, this.props.selectedSeason);
@@ -287,6 +287,7 @@ class Team extends Component {
                         </div>
                         {!this.state.matchDetailsToggle ? <MatchDetails
                             removeMatchClicked={() => this.removeMatchClickedHandler(this.state.selectedMatchId)}
+                            isAdmin={this.props.adminLoggedIn}
                             matches={match}
                             width={"100%"}
                         // joinMatchClicked={() => this.joinClickedHandler()}

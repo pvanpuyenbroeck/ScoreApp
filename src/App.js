@@ -44,6 +44,22 @@ class App extends Component {
     })
   }
 
+  InviteHandler(action, teamid){
+
+    switch (action){
+      case "success":
+        this.props.history.push(`/Team/${teamid}`);
+        break;
+      case "fail":
+        break;
+      case "deny":
+        this.props.history.push("/");
+        break;
+      default:
+        break;
+    }
+  }
+
 
 
   render() {
@@ -57,6 +73,7 @@ class App extends Component {
         team={this.props.team} 
         user={this.props.user} 
         selectedSeason={this.props.selectedSeason}
+        actionDone={(action, teamid) => this.InviteHandler(action, teamid)}
         />} />
       </React.Fragment>
     )

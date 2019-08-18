@@ -33,9 +33,9 @@ const acceptInvite = (props) => {
                             numberSelected={selectedNumber}
                         />
                         <div className={classes.ButtonContainer}>
-                        <button onClick={() => acceptHandler(true)} className={[classes.Button, classes.Button1].join(' ')}>Accepteer</button>
-                        <button onClick={() => acceptHandler(false)} className={[classes.Button, classes.Button2].join(' ')}>Weiger</button>
-                        </div>    
+                            <button onClick={() => acceptHandler(true)} className={[classes.Button, classes.Button1].join(' ')}>Accepteer</button>
+                            <button onClick={() => acceptHandler(false)} className={[classes.Button, classes.Button2].join(' ')}>Weiger</button>
+                        </div>
                     </div>)
 
                 setSelectedNumberComponent(selectedNumberComponent);
@@ -58,21 +58,23 @@ const acceptInvite = (props) => {
                 .then(res => {
                     firebase.database().ref(`/Invites/${emailKey}`).remove()
                         .then(res => {
+                            props.actionDone("success", selectedInvite.teamId);
                             console.log("removed succesful")
                         })
                         .catch(err => console.log(err));
                 }).catch(err => {
+                    props.actionDone("fail", selectedInvite.teamId);
                     console.log(err);
                 })
         }
         else {
             firebase.database().ref(`/Invites/${emailKey}`).remove()
                 .then(res => {
+                    props.actionDone("deny", "");
                     console.log("removed succesful")
                 })
                 .catch(err => console.log(err));
         }
-        props.actionDone();
         setActiveInvites([]);
         setSelectedInvite(null);
         setSelectedNumber("");

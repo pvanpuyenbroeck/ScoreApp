@@ -6,6 +6,7 @@
     border: 1px solid #C33325;
     border-radius: 5px;
     background-color: white;
+    align-self: center;
 }
 
 .Message {

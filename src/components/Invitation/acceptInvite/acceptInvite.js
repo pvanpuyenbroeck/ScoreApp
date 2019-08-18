@@ -60,8 +60,12 @@ const acceptInvite = (props) => {
                         .then(res => {
                             props.actionDone("success", selectedInvite.teamId);
                             console.log("removed succesful")
+                            props.history.push(`/Team/${selectedInvite.teamId}`);
                         })
-                        .catch(err => console.log(err));
+                        .catch(err => {
+                            console.log(err)
+
+                        });
                 }).catch(err => {
                     props.actionDone("fail", selectedInvite.teamId);
                     console.log(err);

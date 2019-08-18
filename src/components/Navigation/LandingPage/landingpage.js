@@ -24,6 +24,12 @@ class landingpage extends Component {
 
     componentDidMount() {
         this.props.selectedTeam(this.props.team.teamId, this.props.selectedSeason, this.props.user.uid);
+        if (this.getNextMatch() === null) {
+            this.setState({
+                tabs: [
+                    { title: "Teams", selected: true }]
+            })
+        }
         this.setInviteMessage();
     }
 
@@ -94,6 +100,9 @@ class landingpage extends Component {
                 </div>
             )
         }
+        else{
+            return null;
+        }
     }
     myTeams() {
         const myTeamsArray = this.props.teams;
@@ -137,7 +146,7 @@ class landingpage extends Component {
             else {
                 this.setState({ showInviteButton: 'none' });
             }
-            this.setState({showAcceptInvite:false});
+            this.setState({ showAcceptInvite: false });
         });
     }
     activeTab() {
@@ -145,7 +154,12 @@ class landingpage extends Component {
             if (tab.selected) {
                 switch (tab.title) {
                     case "Volgende match":
-                        return this.getNextMatch();
+                        const nextMatch = this.getNextMatch();
+                        if (nextMatch === null) {
+                            return <TeamsOverview />;
+                        } else {
+                            return nextMatch;
+                        }
                     case "Teams":
                         return <TeamsOverview />;
                     default: return null;
@@ -165,6 +179,7 @@ class landingpage extends Component {
                     user={this.props.user}
                     selectedSeason={this.props.selectedSeason}
                     actionDone={() => this.setInviteMessage()}
+                    history={this.props.history}
 
                 />
             </Flexbox>
@@ -176,6 +191,7 @@ class landingpage extends Component {
                 <div>Er zijn actieve uitnodigingen!</div>
                 <div className={classes.Sphere}></div>
             </div>
+
             <Tabs
                 tabs={
                     this.state.tabs

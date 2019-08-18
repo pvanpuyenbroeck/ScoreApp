@@ -5,7 +5,6 @@ const invitationbutton = props => {
 
     const [buttonActive, setButtonActive] = useState(false);
     const style = {
-        width: "100%",
         opacity: !buttonActive ? "0.5" : "1",
     }
 
@@ -28,7 +27,7 @@ const invitationbutton = props => {
         )
     } else {
         return (
-            <div className={classes.InvitationbuttonContainer}>
+            <div className={classes.InvitationbuttonContainer} style={style}>
                 <div>{props.children}</div>
             </div>
         )

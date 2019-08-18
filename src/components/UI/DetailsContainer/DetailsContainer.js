@@ -6,7 +6,6 @@ const DetailsContainer = (props) => {
     const boxStyle = {
         color:props.color,
         minHeight:'600px',
-        width: "450px",
         backgroundColor:"white",
     }
     return(

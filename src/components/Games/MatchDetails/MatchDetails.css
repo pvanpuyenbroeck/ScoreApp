@@ -2,6 +2,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    height: 100vh;
     padding: 2rem;
 }
 
@@ -11,12 +12,14 @@
 
 .Section{
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    margin: 3px 0 3px 0;
+    margin: 3px 0 20px 0;
 }
 
 .Section div:first-child{
     margin-right: 30px;
+    font-weight: bold;
 }
 
 .GameData{
@@ -28,7 +31,13 @@
 .LabelContainer{
     /* width: 80%; */
     min-width: 300px;
+    display: flex;
+    flex-direction: column;
+}
 
+.Section div:nth-child(2){
+    margin: 0 auto;
+    text-align: right;
 }
 @supports(grid-area: auto){
     .MatchDetailsContainer{
@@ -39,6 +48,20 @@
     }
     .DeleteButton{
         grid-row:3/4;
+    }
+
+    @media screen and (min-width: 321px){
+        .MatchDetailsContainer{
+            height: initial;
+        }
+
+        .Section{
+            flex-direction: row;
+        }
+
+        .Section div:nth-child(2){
+            margin: 0;
+        }
     }
 
     @media screen and (min-width: 600px) {

@@ -1,12 +1,28 @@
 .locationImage{
-    height: 100px;
-    width: 100px;
+    height: 50px;
+    width: 50px;
     margin: 5px 0 10px 0;
 
 }
 
 .locationImage:hover{
     cursor: pointer;
+}
+.MapImage{
+    height: 50px;
+    width: 50px;
+}
+
+@media screen and (min-width: 321px){
+    .MapImage{
+        height: 100px;
+        width: 100px;
+    }
+
+    .locationImage{
+        height: 100px;
+        width: 100px;    
+    }
 }
 
 @media screen and (min-width:600px){

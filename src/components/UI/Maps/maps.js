@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Classes from './maps.css';
+import classes from './maps.css';
 import GoogleMapsLogo from '../../../assets/Images/googleMapsLogo.png';
 
 class maps extends Component {
@@ -24,12 +24,10 @@ class maps extends Component {
             backgroundImage: "url(" + GoogleMapsLogo + ")",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
-            height: "100px",
-            width: "100px"
         }
         return (
-            <div className={Classes.locationImage} onClick={() => this.mapsSelector()} >
-                <div style={style}></div>
+            <div className={classes.locationImage} onClick={() => this.mapsSelector()} >
+                <div style={style} className={classes.MapImage}></div>
             </div>
         )
     }

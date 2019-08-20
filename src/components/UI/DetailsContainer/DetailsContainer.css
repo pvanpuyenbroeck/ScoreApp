@@ -8,14 +8,16 @@
     padding: 2rem;
     margin: 0 auto;
     position: fixed;
-    top:30px;
+    bottom: 10px;
+    height: 90vh;
+    overflow: scroll;
     color:black;
     width:100%;
 }
 
 .CloseButton{
     color:#C33325;
-
+    padding-bottom: 20px;
 }
 
 .CloseButton:hover{
@@ -29,10 +31,17 @@
         justify-self:center;
         align-self: center;
     }
+    @media screen and (min-width: 321px) {
+        .DetailsContainer{
+            height: 600px;
+            top:30px;            
+        }
+    }
 
     @media screen and (min-width: 650px) {
         .DetailsContainer{
             /* justify-content: center; */
+            height: 600px;
             width: 450px;
             position: fixed;
             top: 50%;

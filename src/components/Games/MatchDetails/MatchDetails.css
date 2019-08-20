@@ -1,7 +1,4 @@
 .MatchDetailsContainer{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
     height: 100vh;
     padding: 2rem;
 }
@@ -39,6 +36,11 @@
     margin: 0 auto;
     text-align: right;
 }
+
+.DeleteButton{
+    margin: 0 auto;
+}
+
 @supports(grid-area: auto){
     .MatchDetailsContainer{
         grid-row: 1/4;
@@ -61,6 +63,10 @@
 
         .Section div:nth-child(2){
             margin: 0;
+        }
+
+        .DeleteButton{
+           align-self: center;
         }
     }
 

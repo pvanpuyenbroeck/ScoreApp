@@ -30,11 +30,11 @@ const invitation = (props) => {
     const sendEmailHandler = (event) => {
         event.preventDefault();
         if (validateEmail(emailValue)) {
-            const emailKey = emailValue.replace(/\./g, "");
+            const emailKey = emailValue.replace(/\./g, "").toLowerCase();
             firebase.database().ref('/Invites').once('value', res => {
                 const allInvites = res.val() !== null ? Object.keys(res.val()) : [];
                 const params = {
-                    email: emailValue,
+                    email: emailValue.toLowerCase(),
                     teamName: props.team.selectedTeam.teamName,
                     teamId: props.team.selectedTeam.teamId,
                     season: props.team.selectedSeason

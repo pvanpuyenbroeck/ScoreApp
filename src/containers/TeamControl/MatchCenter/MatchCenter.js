@@ -173,10 +173,10 @@ class matchCenter extends Component {
         if (this.props.match.selectedMatch !== null) {
             if (players.length > 0) {
                 PlayerFrames = players.map(playerInfo => {
-                    let playerName = playerInfo.username;
-                    if (typeof playerName === 'undefined' || playerName === '') {
+                    let playerName = '';
+                    // if (typeof playerName === 'undefined' || playerName === '') {
                         playerName = playerInfo.voornaam + ' ' + playerInfo.familienaam;
-                    }
+                    // }
                     return (
                         <MatchPlayerFrame
                             key={playerInfo.userid}

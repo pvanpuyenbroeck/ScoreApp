@@ -10,10 +10,10 @@ export const checkIfAdmin = (admins, loggedInUid, ownerId) => {
         return true;
     }
 
-    if(admins === false){
+    if (admins === false) {
         return false;
     }
-    
+
     if (typeof admins === 'undefined') {
         return false
     }
@@ -82,12 +82,20 @@ export const countDownClock = (datum) => {
     return result
 }
 
-export const sortOnDate = (dateArray) => dateArray.sort((a,b) => {
-    if(a.gameData.date < b.gameData.date){
+export const sortOnDate = (dateArray) => dateArray.sort((a, b) => {
+    if (a.gameData.date < b.gameData.date) {
         return -1;
     }
-    if(a.gameData.date > b.gameData.date){
+    if (a.gameData.date > b.gameData.date) {
         return 1;
     }
     return 0;
 })
+
+export const getAllComingMatches = (matches) => {
+    const comingMatches = matches.filter(match => {
+        let lastMatch = countDownClock(match.gameData.date);
+        return (lastMatch.weekDif !== 0 || lastMatch.dayDif !== 0 || lastMatch.minutesDif !== 0 || lastMatch.secondsDif !== 0 || lastMatch.hourDif !== 0)
+    });
+    return comingMatches;
+}

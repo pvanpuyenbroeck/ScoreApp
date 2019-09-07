@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import classes from './landingpage.css';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
-import { countDownClock, sortOnDate } from '../../../store/utility';
+import { countDownClock, sortOnDate, getAllComingMatches} from '../../../store/utility';
 import MatchDetails from '../../Games/MatchDetails/MatchDetails';
 import Match from '../../Games/Match/Match';
 import SelectedTeamButton from '../../../components/Team/SelectTeamButton/SelectTeamButton';
@@ -69,10 +69,7 @@ class landingpage extends Component {
 
             let updatedMatches = Object.values(allteamMatches)
 
-            const allComingMatches = updatedMatches.filter(match => {
-                let lastMatch = countDownClock(match.gameData.date);
-                return (lastMatch.weekDif !== 0 || lastMatch.dayDif !== 0 || lastMatch.minutesDif !== 0 || lastMatch.secondsDif !== 0 || lastMatch.hourDif !== 0)
-            })
+            const allComingMatches = getAllComingMatches(updatedMatches);
 
             const sortedMatches = sortOnDate(allComingMatches);
 

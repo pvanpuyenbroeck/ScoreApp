@@ -1,42 +1,73 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import classes from './Games.css';
 import Match from '../Games/Match/Match';
-import {sortOnDate} from '../../store/utility';
+import { sortOnDate, getAllComingMatches } from '../../store/utility';
 
 const games = (props) => {
     let gameArray = [];
-    for (let key in props.matches) {
-        gameArray.push({
-            ...props.matches[key],
-            matchId: key,
-        });
-    }
+    const [nextMatch, setNextMatch] = useState(null);
+    const [allGames, setAllGames] = useState(<h1>Er zijn geen geplande matches</h1>);
 
-    const sortedMatchArray = sortOnDate(gameArray);
-    
-    let allGames = <h1>Er zijn geen geplande matches</h1>
-    if (props.matches) {
-        allGames = sortedMatchArray.map((game) => {
-            return (
-                <div className={classes.Match}
-                    key={game.matchId}>
+    useEffect(() => {
 
-                    <Match
-                        match={game}
-                        matchButtonClicked={(match) => props.matchClicked(match)}
-                        team={props.team}
-                        showMatchDetailsClicked={(matchId) => props.showMatchDetailsClicked(game.matchId)}
-                        history={props.history}
-                        admin={props.admin}
-                    />
+        for (let key in props.matches) {
+            gameArray.push({
+                ...props.matches[key],
+                matchId: key,
+            });
+        }
 
-                </div>
-            )
-        })
-    }
+        const sortedMatchArray = sortOnDate(gameArray);
+
+        if (props.matches) {
+            const games = sortedMatchArray.map((game) => {
+                return (
+                    <div className={classes.Match}
+                        key={game.matchId}>
+
+                        <Match
+                            match={game}
+                            matchButtonClicked={(match) => props.matchClicked(match)}
+                            team={props.team}
+                            history={props.history}
+                            admin={props.admin}
+                            showMatchDetailsClicked={(matchId) => props.showMatchDetailsClicked(game.matchId)}
+                        />
+
+                    </div>
+                )
+            })
+            setAllGames(games);
+            let matchesWithKey = [];
+            for (let key in props.matches) {
+                let matchObject = {
+                    ...props.matches[key],
+                    matchId: key,
+                }
+                matchesWithKey.push(matchObject);
+            }
+            // const matchArray = Object.values(props.matches);
+            const nextMatch = getAllComingMatches(matchesWithKey);
+            setNextMatch(<Match
+                match={nextMatch[0]}
+                matchButtonClicked={() => props.matchClicked(nextMatch[0])}
+                history={props.history}
+                admin={props.admin}
+                team={props.team}
+                showMatchDetailsClicked={() => props.showMatchDetailsClicked(nextMatch[0].matchId)}
+            />);
+        }
+    }, [])
+
+
     return (
         <div className={classes.GamesContainer}>
             <div className={classes.Matches}>
+                <div className={classes.NextMatch}>
+                    <div>Volgende match:</div>
+                    {nextMatch}
+                </div>
+                <div className={classes.AllMatchestitle}>Alle Matchen:</div>
                 {allGames}
             </div>
         </div>

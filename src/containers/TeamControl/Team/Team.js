@@ -293,7 +293,7 @@ class Team extends Component {
                         // joinMatchClicked={() => this.joinClickedHandler()}
                         /> : <MatchPlayersOverview
                                 user={this.props.user}
-                                match={this.state.selectedMatch}
+                                match={match}
                                 allTeamMember={this.props.team.Seasons[this.props.selectedSeason].TeamMembers}
                                 joinClicked={() => this.joinClickedHandler(match, 'add')}
                                 removeClicked={() => this.joinClickedHandler(match,'remove')}

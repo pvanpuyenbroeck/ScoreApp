@@ -50,33 +50,33 @@ const Match = (props) => {
 
             <div
                 className={classes.Match}
-                // onClick={() => props.matchButtonClicked(props.match)}
+            // onClick={() => props.matchButtonClicked(props.match)}
             // onMouseEnter={() => setShowHideOptionsHandler(classes.ShowOptions)}
             // onMouseLeave={() => setShowHideOptionsHandler(classes.HideOptions)}
             >
-            <div className={classes.Options}
-            // onMouseEnter={() => setShowHideOptionsHandler(classes.ShowOptions)}
-            // onMouseLeave={() => setShowHideOptionsHandler(classes.ShowOptions)} 
-            >
-                {/* <div
+                <div className={classes.Options}
+                // onMouseEnter={() => setShowHideOptionsHandler(classes.ShowOptions)}
+                // onMouseLeave={() => setShowHideOptionsHandler(classes.ShowOptions)} 
+                >
+                    {/* <div
                     style={closeButtonStyle}
                     className={showOptions === true ? classes.ShowOptions : classes.HideOptions}
                     onClick={(teamId) => props.showMatchDetailsClicked(teamId)}
                 ></div> */}
-            </div>
+                </div>
                 {/* <div>Afbeelding komt hier</div> */}
-                <div className={classes.GameDate} onClick={() =>    goToMatchPageHandler()}>{dateFormat()}</div>
-                    <div
-                        style={moreButtonStyle}
-                        className={classes.MoreButton}
-                        onClick={(teamId) => props.showMatchDetailsClicked(teamId)}
-                    />
-                <div className={classes.OpponentName} onClick={() =>    goToMatchPageHandler()}>
+                <div className={classes.GameDate} onClick={() => goToMatchPageHandler()}>{dateFormat()}</div>
+                <div
+                    style={moreButtonStyle}
+                    className={classes.MoreButton}
+                    onClick={(teamId) => props.showMatchDetailsClicked(teamId)}
+                />
+                <div className={classes.OpponentName} onClick={() => goToMatchPageHandler()}>
                     {/* <Link to={"/Team/" + props.team.teamId + "/Match/" + props.match.matchId} style={{ textDecoration: 'none' }}> */}
-                        <div className={classes.Opponent}>{typeof props.match.gameData.opponent === 'undefined' ? null : props.match.gameData.opponent}</div>
+                    <div className={classes.Opponent}>{typeof props.match.gameData.opponent === 'undefined' ? null : props.match.gameData.opponent}</div>
                     {/* </Link> */}
                 </div>
-                <div className={classes.Score} onClick={() =>    goToMatchPageHandler()}>{homeGoals} - {props.match.oponentGoals}</div>
+                <div className={classes.Score} onClick={() => goToMatchPageHandler()}>{homeGoals} - {props.match.oponentGoals}</div>
 
             </div>
 

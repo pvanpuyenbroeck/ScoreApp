@@ -10,7 +10,7 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import Aux from '../../../hoc/_Aux/_Aux';
 import Confirm from '../../../components/Alerts/Confirm/confirm';
 import SeasonSelection from '../../../components/Team/SeasonSelection/SeasonSelection';
-import PlayerRanking from '../../../components/PlayerRanking/PlayerRanking';
+import PlayerStats from '../../../components/PlayerStats/PlayerStats';
 import Tabs from '../../../components/UI/Tabs/Tabs';
 import PlayerMenu from '../../../components/Players/PlayerMenu/PlayerMenu';
 import MatchDetails from '../../../components/Games/MatchDetails/MatchDetails';
@@ -231,7 +231,7 @@ class Team extends Component {
                             admin={this.props.adminLoggedIn}
                         />;
                     case "Ranking":
-                        return <PlayerRanking
+                        return <PlayerStats
                             key={tab.title}
                             team={typeof mainProps.team.Seasons[mainProps.selectedSeason] !== "undefined" ? mainProps.team.Seasons[mainProps.selectedSeason] : false}
                         />;

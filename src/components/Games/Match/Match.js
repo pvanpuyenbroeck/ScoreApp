@@ -1,15 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import classes from './Match.css';
 import MoreButton from '../../../assets/Images/MoreButton.png';
 
 
 const Match = (props) => {
     // const [showOptions, setShowOptions] = useState(false);
+    const [result,setResult] = useState({
+        home:0,
+        away:0
+    })
 
     let homeGoals = 0;
     for (let key in props.match.Participants) {
         homeGoals += props.match.Participants[key].goals;
     }
+    setResult(result => result.home = homeGoals)
+    console.log(result);
     const dateFormat = () => {
         let date = new Date(props.match.gameData.date);
         const day = date.getDate();

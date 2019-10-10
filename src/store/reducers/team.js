@@ -258,6 +258,27 @@ const updateSelectedTeam = (state, action) => {
     }
 }
 
+const addSeasonSuccess = (state, action) => {
+    return{
+        ...state,
+        loading:false,
+    }
+}
+
+const addSeasonStart = (state, action) => {
+    return{
+        ...state,
+        loading:true,
+    }
+}
+
+const addSeasonFail = (state, action) => {
+    return{
+        ...state,
+        loading:false,
+    }
+}
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.ADD_TEAM: return addTeam(state, action);
@@ -301,6 +322,9 @@ const reducer = (state = initialState, action) => {
         case actionTypes.GET_LAST_SELECTED_TEAM_SUCCESS: return getLastSelectedTeamSuccess(state, action);
 
         case actionTypes.UPDATE_SELECTED_TEAM: return updateSelectedTeam(state, action);
+        case actionTypes.ADD_SEASON_SUCCESS: return addSeasonSuccess(state,action);
+        case actionTypes.ADD_SEASON_START: return addSeasonStart(state,action);
+        case actionTypes.ADD_SEASON_FAIL: return addSeasonFail(state,action);
         default: return state;
     }
 }

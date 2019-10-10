@@ -53,6 +53,39 @@ export const addTeam = (teamData) => {
     }
 }
 
+export const addSeasonToTeam = (selectedSeason, teamId) => {
+    return dispatch => {
+        dispatch(addSeasonStart());
+        firebase.database().ref("/Teams/" + teamId + "/Seasons/" + selectedSeason).set({
+            Matches:false,
+            TeamMembers:false,
+        }).then(response => {
+            dispatch(addSeasonSuccess(selectedSeason));
+        }).catch(err => {
+            dispatch(addSeasonFail());
+        })
+        // dispatch(getTeam(teamId,selectedSeason, uid));
+    }
+}
+
+export const addSeasonSuccess = (selectedSeason) => {
+    return{
+        type: actionTypes.ADD_SEASON_SUCCESS,
+    }
+}
+
+export const addSeasonFail = (selectedSeason) => {
+    return{
+        type: actionTypes.ADD_SEASON_FAIL,
+    }
+}
+
+export const addSeasonStart = (selectedSeason) => {
+    return{
+        type: actionTypes.ADD_SEASON_START,
+    }
+}
+
 export const setLastSelectedTeamSuccess = (selectedTeam) => {
     // selectedTeam(selectedTeam);
     return {
@@ -123,7 +156,7 @@ export const getTeam = (teamId, season, uid) => {
             const isAdmin = checkIfAdmin(team.admins, uid, team.admin);
             // const TeamMembersAvailable = team[season].TeamMembers === undefined;
             if (season in team.Seasons) {
-                if (typeof team.Seasons[season].TeamMembers !== 'undefined') {
+                if (typeof team.Seasons[season].TeamMembers !== 'undefined' && team.Seasons[season].TeamMembers !== false) {
                     const players = Object.keys(team.Seasons[season].TeamMembers);
                     firebase.database().ref('/Players').once('value').then(allPlayers => {
                         const allTeamMembers = allPlayers.val();
@@ -142,6 +175,10 @@ export const getTeam = (teamId, season, uid) => {
                             teamId: teamId,
                             isAdmin: isAdmin,
                         }, uid));
+                    }).catch(error => {
+                        dispatch(getTeamFail({
+                            error:error,
+                        }))
                     })
                 }
                 dispatch(getTeamSuccess({
@@ -149,6 +186,9 @@ export const getTeam = (teamId, season, uid) => {
                     teamId: teamId,
                     isAdmin: isAdmin,
                 }, uid));
+            }else{
+                dispatch(addSeasonToTeam(season,teamId));
+                dispatch(getTeamFail("Season not available"));
             }
         }).catch(
             error => {

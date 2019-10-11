@@ -1,20 +1,40 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import classes from './Match.css';
 import MoreButton from '../../../assets/Images/MoreButton.png';
 
 
 const Match = (props) => {
     // const [showOptions, setShowOptions] = useState(false);
+
+    
+    const Score = () => {
+    let homeGoals = 0;
+    if(typeof props.match !== 'undefined'){
+        for (let key in props.match.Participants) {
+            homeGoals += props.match.Participants[key].goals;
+        }
+    }
+    return homeGoals;
+    }
+
     const [result,setResult] = useState({
-        home:0,
-        away:0
+        home:Score(),
+        away:props.match.oponentGoals,
     })
 
-    let homeGoals = 0;
-    for (let key in props.match.Participants) {
-        homeGoals += props.match.Participants[key].goals;
+    const checkOutcome = () => {
+        switch (true) {
+            case (result.away < result.home):
+                return '#88bb88';
+            case (result.away > result.home):
+                return '#b77070';
+            default:
+                return '#ff8731';
+        }
     }
-    setResult(result => result.home = homeGoals)
+
+
+
     console.log(result);
     const dateFormat = () => {
         let date = new Date(props.match.gameData.date);
@@ -49,6 +69,11 @@ const Match = (props) => {
         backgroundImage: `url(${MoreButton})`,
     }
 
+    const backgroundStyle = {
+        backgroundColor: checkOutcome(),
+
+    }
+
     // const showHideOptionsClasses = [classes.Match,showOptions]
 
     return (
@@ -56,6 +81,7 @@ const Match = (props) => {
 
             <div
                 className={classes.Match}
+                style={backgroundStyle}
             // onClick={() => props.matchButtonClicked(props.match)}
             // onMouseEnter={() => setShowHideOptionsHandler(classes.ShowOptions)}
             // onMouseLeave={() => setShowHideOptionsHandler(classes.HideOptions)}
@@ -82,7 +108,7 @@ const Match = (props) => {
                     <div className={classes.Opponent}>{typeof props.match.gameData.opponent === 'undefined' ? null : props.match.gameData.opponent}</div>
                     {/* </Link> */}
                 </div>
-                <div className={classes.Score} onClick={() => goToMatchPageHandler()}>{homeGoals} - {props.match.oponentGoals}</div>
+                <div className={classes.Score} onClick={() => goToMatchPageHandler()}>{Score()} - {props.match.oponentGoals}</div>
 
             </div>
 

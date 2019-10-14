@@ -20,13 +20,6 @@ class SeasonSelection extends Component {
         })
     }
 
-
-    setSeason = (season) => new Promise(
-        (resolve, reject) => {
-            
-        } 
-    )
-
     seasonChanged = event => {
         const selectedSeason = event.target.value;
         if(typeof this.props.team.Seasons[selectedSeason] === 'undefined'){

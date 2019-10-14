@@ -214,13 +214,14 @@ const updateAdminSuccess = (state, action) => {
 const setLastSelectedTeamStart = (state, action) => {
     return {
         ...state,
-
+        loading: true,
     }
 }
 
 const setLastSelectedTeamFail = (state, action) => {
     return {
         ...state,
+        loading: false,
     }
 }
 
@@ -228,6 +229,7 @@ const setLastSelectedTeamSuccess = (state, action) => {
     return {
         ...state,
         lastSelectedTeam: action.selectedTeam,
+        loading: false,
     }
 }
 

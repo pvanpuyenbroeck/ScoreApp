@@ -122,7 +122,9 @@ const setLastSelectedTeam = (selectedTeamId, uid, season) => {
 
 
 export const getTeamSuccess = (selectedTeam, uid, isAdmin) => {
-    setLastSelectedTeam(selectedTeam.teamId, uid);
+    if(typeof uid !== 'undefined'){
+        setLastSelectedTeam(selectedTeam.teamId, uid);
+    }
     return {
         type: actionTypes.GET_TEAM_SUCCESS,
         selectedTeam: selectedTeam,

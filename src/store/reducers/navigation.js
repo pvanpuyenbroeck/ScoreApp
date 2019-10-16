@@ -34,6 +34,8 @@ const reducer = (state = initialState, action) => {
             ToggleSidePanel:false,
             showFlexItem:false,
             showFunctionMenu: false,
+            location:false,
+            NavPanelLink:"",
         }
         case actionTypes.SHOW_COMPONENT:
         return{

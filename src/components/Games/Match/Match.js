@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import classes from './Match.css';
 import MoreButton from '../../../assets/Images/MoreButton.png';
+import {checkIfDateIsInFuture} from '../../../store/utility';
 
 
 const Match = (props) => {
@@ -22,20 +23,20 @@ const Match = (props) => {
         away:props.match.oponentGoals,
     })
 
-    const checkOutcome = () => {
-        switch (true) {
-            case (result.away < result.home):
-                return '#88bb88';
-            case (result.away > result.home):
-                return '#b77070';
-            default:
-                return '#ff8731';
+    const checkOutcome = (gameInFuture) => {
+        if(gameInFuture){
+            return 'white';
+        }else{
+            switch (true) {
+                case (result.away < result.home):
+                    return '#88bb88';
+                case (result.away > result.home):
+                    return '#b77070';
+                default:
+                    return '#ff8731';
+            }
         }
     }
-
-
-
-    console.log(result);
     const dateFormat = () => {
         let date = new Date(props.match.gameData.date);
         const day = date.getDate();
@@ -70,7 +71,7 @@ const Match = (props) => {
     }
 
     const backgroundStyle = {
-        backgroundColor: checkOutcome(),
+        backgroundColor: checkOutcome(checkIfDateIsInFuture(props.match.gameData.date)),
 
     }
 

@@ -99,3 +99,13 @@ export const getAllComingMatches = (matches) => {
     });
     return comingMatches;
 }
+
+export const checkIfDateIsInFuture = (date) => {
+    const dateNow = new Date(Date.now());
+    const dateMatch = new Date(date);
+    if(dateNow < dateMatch){
+        return true;
+    }else{
+        return false;
+    }
+}

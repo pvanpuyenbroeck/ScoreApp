@@ -103,13 +103,13 @@ const PlayerStats = props => {
                     style={{backgroundColor:colors.blue, height:"50px"}}
                     disabled={false}
                     clicked={() => viewButtonClickedHandler('goals')}
-                    >Goals
+                    >GOALS
                 </Button>
                 <Button 
                 style={{backgroundColor:colors.blue, height:"50px"}}
                 disabled={false}
                 clicked={() => viewButtonClickedHandler('attendance')}
-                >Attendance
+                >DEELNAMES
             </Button>
                 {statsView}
                 </div>

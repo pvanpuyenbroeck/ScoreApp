@@ -130,20 +130,40 @@ export const getAllTeams = () => {
         })
 }
 
-export const getFilteredTeams = (input) => {
-    return firebase.database().ref('/Teams').once('value')
+// export const getFilteredTeams = (input) => {
+//     return firebase.database().ref('/Teams').once('value')
+//     .then(response => {
+//         const teams = response.val();
+//         const fetchedTeams = [];
+//         for (let key in teams) {
+//             fetchedTeams.push({
+//                 ...teams[key],
+//                 id: key,
+//             });
+//         }
+//         return fetchedTeams.filter(value => {
+//             value.teamName.star
+//         });
+//     }).catch(error => {
+//         console.log(error);
+//     })
+// }
+
+export const followTeam = (teamId) => {
+    return firebase.database().ref(`/Teams/${teamId}/Followers`).once('value')
     .then(response => {
-        const teams = response.val();
-        const fetchedTeams = [];
-        for (let key in teams) {
-            fetchedTeams.push({
-                ...teams[key],
-                id: key,
-            });
+        let Followers = [];
+        if(response.val() === null){
+            Followers.push(teamId);
+        }else{
+            Followers = response.val();
+            if(!Followers.includes(teamId)){
+                Followers.push(teamId);
+            }
         }
-        return fetchedTeams.filter(value => {
-            value.teamName.star
-        });
+        firebase.database().ref(`/Teams/${teamId}`).set(Followers).then(result => {
+            return result;
+        })
     }).catch(error => {
         console.log(error);
     })

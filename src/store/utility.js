@@ -1,3 +1,6 @@
+import firebase from '../firebase-scoreapp';
+import { getTeam } from './actions';
+
 export const updateObject = (oldObject, updatedProperties) => {
     return {
         ...oldObject,
@@ -108,4 +111,40 @@ export const checkIfDateIsInFuture = (date) => {
     }else{
         return false;
     }
+}
+
+export const getAllTeams = () => {
+    return firebase.database().ref('/Teams').once('value')
+        .then(response => {
+            const teams = response.val();
+            const fetchedTeams = [];
+            for (let key in teams) {
+                fetchedTeams.push({
+                    ...teams[key],
+                    id: key,
+                });
+            }
+            return fetchedTeams;
+        }).catch(error => {
+            console.log(error);
+        })
+}
+
+export const getFilteredTeams = (input) => {
+    return firebase.database().ref('/Teams').once('value')
+    .then(response => {
+        const teams = response.val();
+        const fetchedTeams = [];
+        for (let key in teams) {
+            fetchedTeams.push({
+                ...teams[key],
+                id: key,
+            });
+        }
+        return fetchedTeams.filter(value => {
+            value.teamName.star
+        });
+    }).catch(error => {
+        console.log(error);
+    })
 }

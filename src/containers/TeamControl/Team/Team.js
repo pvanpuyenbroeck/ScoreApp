@@ -47,11 +47,15 @@ class Team extends Component {
     //         .reduce((res, o) => Object.assign(res, o), {});
     // }
     componentDidMount() {
+        // if(typeof this.props.team.Seasons !== 'undefined' && typeof this.props.team.Seasons[this.props.selectedSeason] === 'undefined'){
+        //     this.props.addSeasonToTeam(this.props.selectedSeason, this.props.team.teamId, this.props.user.uid);
+        // }
         this.props.selectedTeam(this.props.match.params.teamId, this.props.selectedSeason, this.props.user.uid);
         this.props.changeLocation(3);
         this.setState({
             playerDetails: this.getPlayerDetails(),
         })
+
     }
 
     matchSelected = (match) => {
@@ -268,7 +272,11 @@ class Team extends Component {
     }
 
     GetMatchDetailsMenu = () => {
-        const match = typeof this.props.team.Seasons !== 'undefined' ? this.props.team.Seasons[this.props.selectedSeason].Matches[this.state.selectedMatchId] : null
+        if(typeof this.props.team.Seasons === 'undefined' ||
+        typeof this.props.team.Seasons[this.props.selectedSeason] === 'undefined'){
+        return null;
+        }
+        const match = typeof this.props.team.Seasons !== 'undefined' ? this.props.team.Seasons[this.props.selectedSeason].Matches[this.state.selectedMatchId]: null
         if (this.state.showMatchMenu) {
             if (typeof this.props.team.Seasons !== 'undefined') {
                 return (
@@ -400,6 +408,7 @@ const mapDispatchToProps = dispatch => {
         changeLocation: (location) => dispatch(actions.locationChange(location)),
         removePlayerFromTeam: (playerid, teamid, teamMembers, season, team) => dispatch(actions.removePlayerFromTeam(playerid, teamid, teamMembers, season, team)),
         removeMatchFromTeam: (updatedMatches, teamId, selectedSeason) => dispatch(actions.removeMatchFromTeam(updatedMatches, teamId, selectedSeason)),
+
     }
 }
 

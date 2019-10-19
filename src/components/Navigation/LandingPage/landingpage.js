@@ -11,6 +11,7 @@ import Tabs from '../../UI/Tabs/Tabs';
 import Flexbox from '../../UI/Flexbox/Flexbox';
 import AcceptInvite from '../../Invitation/acceptInvite/acceptInvite';
 import { getActiveInvites } from '../../../store/actions/invitation';
+import LookupTeam from '../../../components/Team/LookupTeam/LookupTeam';
 
 
 class landingpage extends Component {
@@ -153,12 +154,12 @@ class landingpage extends Component {
                     case "Volgende match":
                         const nextMatch = this.getNextMatch();
                         if (nextMatch === null) {
-                            return <TeamsOverview />;
+                            return <TeamsOverview  key={tab.title}/>;
                         } else {
                             return nextMatch;
                         }
                     case "Teams":
-                        return <TeamsOverview />;
+                        return <TeamsOverview key={tab.title}/>;
                     default: return null;
                 }
             }
@@ -169,6 +170,8 @@ class landingpage extends Component {
         let activeTab = null;
         activeTab = this.activeTab();
         return (<div className={classes.LandingPage}>
+        <LookupTeam/>
+
             <Flexbox show={this.state.showAcceptInvite} modalClicked={() => this.setState({ showAcceptInvite: !this.state.showAcceptInvite })}>
                 <AcceptInvite
                     className={classes.AcceptInviteContainer}

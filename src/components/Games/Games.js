@@ -48,6 +48,7 @@ const games = (props) => {
             }
             // const matchArray = Object.values(props.matches);
             const nextMatch = getAllComingMatches(matchesWithKey);
+            if(nextMatch.length > 0){
             setNextMatch(<Match
                 match={nextMatch[0]}
                 matchButtonClicked={() => props.matchClicked(nextMatch[0])}
@@ -56,6 +57,9 @@ const games = (props) => {
                 team={props.team}
                 showMatchDetailsClicked={() => props.showMatchDetailsClicked(nextMatch[0].matchId)}
             />);
+            }else{
+                setNextMatch("Geen komende matchen");
+            }
         }
     }, [])
 

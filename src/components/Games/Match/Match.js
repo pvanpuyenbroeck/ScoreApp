@@ -1,14 +1,41 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import classes from './Match.css';
 import MoreButton from '../../../assets/Images/MoreButton.png';
+import {checkIfDateIsInFuture} from '../../../store/utility';
 
 
 const Match = (props) => {
     // const [showOptions, setShowOptions] = useState(false);
 
+    
+    const Score = () => {
     let homeGoals = 0;
-    for (let key in props.match.Participants) {
-        homeGoals += props.match.Participants[key].goals;
+    if(typeof props.match !== 'undefined'){
+        for (let key in props.match.Participants) {
+            homeGoals += props.match.Participants[key].goals;
+        }
+    }
+    return homeGoals;
+    }
+
+    const [result,setResult] = useState({
+        home:Score(),
+        away:props.match.oponentGoals,
+    })
+
+    const checkOutcome = (gameInFuture) => {
+        if(gameInFuture){
+            return 'white';
+        }else{
+            switch (true) {
+                case (result.away < result.home):
+                    return '#88bb88';
+                case (result.away > result.home):
+                    return '#b77070';
+                default:
+                    return '#ff8731';
+            }
+        }
     }
     const dateFormat = () => {
         let date = new Date(props.match.gameData.date);
@@ -43,6 +70,11 @@ const Match = (props) => {
         backgroundImage: `url(${MoreButton})`,
     }
 
+    const backgroundStyle = {
+        backgroundColor: checkOutcome(checkIfDateIsInFuture(props.match.gameData.date)),
+
+    }
+
     // const showHideOptionsClasses = [classes.Match,showOptions]
 
     return (
@@ -50,6 +82,7 @@ const Match = (props) => {
 
             <div
                 className={classes.Match}
+                style={backgroundStyle}
             // onClick={() => props.matchButtonClicked(props.match)}
             // onMouseEnter={() => setShowHideOptionsHandler(classes.ShowOptions)}
             // onMouseLeave={() => setShowHideOptionsHandler(classes.HideOptions)}
@@ -76,7 +109,7 @@ const Match = (props) => {
                     <div className={classes.Opponent}>{typeof props.match.gameData.opponent === 'undefined' ? null : props.match.gameData.opponent}</div>
                     {/* </Link> */}
                 </div>
-                <div className={classes.Score} onClick={() => goToMatchPageHandler()}>{homeGoals} - {props.match.oponentGoals}</div>
+                <div className={classes.Score} onClick={() => goToMatchPageHandler()}>{Score()} - {props.match.oponentGoals}</div>
 
             </div>
 

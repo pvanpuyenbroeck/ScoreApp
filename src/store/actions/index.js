@@ -9,6 +9,7 @@ export{
     updatePlayerAdmins,
     getLastSelectedTeam,
     updateSelectedTeam,
+    addSeasonToTeam,
 } from './team';
 
 export{

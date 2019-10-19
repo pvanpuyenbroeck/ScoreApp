@@ -2,7 +2,6 @@ const port = process.env.port || 3000;
 const express = require('express');
 const path = require('path');
 const axios = require('axios');
-var { google } = require("googleapis");
 // import {firebaseConfigTest, firebaseConfigLive} from './firebase';
 
 // import firebase from 'firebase';
@@ -37,16 +36,15 @@ var { google } = require("googleapis");
 //     });
 // }
 
-const getArenas = () => {
-    return axios.get(`https://score-app-b69dc.firebaseio.com/Arenas.json`).then(response => {
-        console.log(response.data);
-        axios.put('https://mvcscorelive.firebaseio.com/Arenas.json', response.data).then(res => {
+const backupTable = (tableName) => {
+    return axios.get(`https://mvcscorelive.firebaseio.com/${tableName}.json`).then(response => {
+        axios.put(`https://mvcbackup-a8b15.firebaseio.com/${tableName}.json`, response.data).then(res => {
             console.log("success!");
         }).catch(error => {
-            console.log(error);
+            console.log(error.data);
         });
     }).catch(error => {
-        console.log(error);
+        console.log(error.data);
     }
     );
 }
@@ -60,7 +58,9 @@ app.get("/", (req, res) => {
 
 app.get("/transferTables", (req, res) => {
     // const firebaseTest = firebase.initializeApp(firebaseConfig);
-    getArenas();
+    backupTable('Arenas');
+    backupTable('Players');
+    backupTable('Teams');
     res.send("success");
 })
 // app.use(bodyParser.json)

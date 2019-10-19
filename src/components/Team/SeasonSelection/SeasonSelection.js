@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import classes from './SeasonSelection.css';
 import {connect} from 'react-redux';
 import * as actions from '../../../store/actions/index';
+import firebase from '../../../firebase-scoreapp';
 
 
 class SeasonSelection extends Component {
@@ -21,9 +22,22 @@ class SeasonSelection extends Component {
 
     seasonChanged = event => {
         const selectedSeason = event.target.value;
-        this.props.setSeasonState(selectedSeason);
-        this.props.selectedTeam(this.props.teamId,this.props.auth.uid, selectedSeason);
+        if(typeof this.props.team.Seasons[selectedSeason] === 'undefined'){
+            firebase.database().ref("/Teams/" + this.props.team.teamId + "/Seasons/" + selectedSeason).set({
+                Matches:false,
+                TeamMembers:false,
+            }).then(response => {
+                this.props.selectedTeam(this.props.team.teamId,this.props.auth.uid, selectedSeason);
+                this.props.setSeasonState(selectedSeason);
+            }).catch(err => {
+                console.log(err);
+            })
+        }else{
+            this.props.selectedTeam(this.props.team.teamId,this.props.auth.uid, selectedSeason);
+            this.props.setSeasonState(selectedSeason);
+        }
     }
+
     render(){
         const availableSeasons = this.state.seasons.map(season =>{
             return(
@@ -46,7 +60,7 @@ const mapStateToProps = state => {
     return{
         seasons: state.team.seasons,
         selectedSeason: state.team.selectedSeason,
-        teamId: state.team.selectedTeam.teamId,
+        team: state.team.selectedTeam,
         auth:state.auth.user,
     }
 }
@@ -55,6 +69,8 @@ const mapDispatchToProps = dispatch => {
     return{
         setSeasonState: (season) => dispatch(actions.setSeason(season)),
         selectedTeam: (teamId,uid, season) => dispatch(actions.getTeam(teamId, season, uid)),
+        addSeasonToTeam:(season, teamId) => dispatch(actions.addSeasonToTeam(season, teamId))
+
 
     }
 }

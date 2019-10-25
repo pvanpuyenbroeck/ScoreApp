@@ -149,19 +149,19 @@ export const getAllTeams = () => {
 //     })
 // }
 
-export const followTeam = (teamId) => {
+export const followTeam = (teamId, userId) => {
     return firebase.database().ref(`/Teams/${teamId}/Followers`).once('value')
     .then(response => {
         let Followers = [];
         if(response.val() === null){
-            Followers.push(teamId);
+            Followers.push(userId);
         }else{
             Followers = response.val();
-            if(!Followers.includes(teamId)){
-                Followers.push(teamId);
+            if(!Followers.includes(userId)){
+                Followers.push(userId);
             }
         }
-        firebase.database().ref(`/Teams/${teamId}`).set(Followers).then(result => {
+        firebase.database().ref(`/Teams/${teamId}/Followers`).set(Followers).then(result => {
             return result;
         })
     }).catch(error => {

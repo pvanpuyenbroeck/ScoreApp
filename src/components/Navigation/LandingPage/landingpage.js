@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import classes from './landingpage.css';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
-import { countDownClock, sortOnDate, getAllComingMatches} from '../../../store/utility';
+import {
+  countDownClock,
+  sortOnDate,
+  getAllComingMatches,
+} from '../../../store/utility';
 import MatchDetails from '../../Games/MatchDetails/MatchDetails';
 import Match from '../../Games/Match/Match';
 import SelectedTeamButton from '../../../components/Team/SelectTeamButton/SelectTeamButton';
@@ -11,7 +15,6 @@ import Tabs from '../../UI/Tabs/Tabs';
 import Flexbox from '../../UI/Flexbox/Flexbox';
 import AcceptInvite from '../../Invitation/acceptInvite/acceptInvite';
 import { getActiveInvites } from '../../../store/actions/invitation';
-import LookupTeam from '../../../components/Team/LookupTeam/LookupTeam';
 
 
 class landingpage extends Component {
@@ -21,10 +24,14 @@ class landingpage extends Component {
             { title: "Teams", selected: false }],
         showAcceptInvite: false,
         showInviteButton: 'none',
+        selectedTeam:null,
     }
-
+    
+    componentWillMount() {
+        this.props.getLastSelectedTeam(this.props.user.uid, this.props.team.selectedSeason);
+    }
     componentDidMount() {
-        this.props.selectedTeam(this.props.team.teamId, this.props.selectedSeason, this.props.user.uid);
+        // this.props.selectedTeam(this.props.team.teamId, this.props.selectedSeason, this.props.user.uid);
         if (this.getNextMatch() === null) {
             this.setState({
                 tabs: [
@@ -72,14 +79,16 @@ class landingpage extends Component {
 
             const allComingMatches = getAllComingMatches(updatedMatches);
 
-            const sortedMatches = sortOnDate(allComingMatches);
+            let sortedMatches = [];
+            
+            if(!this.props.team.loading){
+                sortedMatches = sortOnDate(allComingMatches);
+            }
 
             return (
                 <div className={classes.MatchDetails}>
                     {typeof sortedMatches[0] !== 'undefined' ?
-                        <MatchDetails
-                            closeContainer={this.props.closeModal}
-                            matches={sortedMatches[0]}
+                        <MatchDetails closeContainer={this.props.closeModal} matches={sortedMatches[0]}
                             width={"100%"}
                             title={"Volgende match van " + this.props.team.teamName + ":"}
                             hideRemoveButton={true}
@@ -170,8 +179,6 @@ class landingpage extends Component {
         let activeTab = null;
         activeTab = this.activeTab();
         return (<div className={classes.LandingPage}>
-        <LookupTeam/>
-
             <Flexbox show={this.state.showAcceptInvite} modalClicked={() => this.setState({ showAcceptInvite: !this.state.showAcceptInvite })}>
                 <AcceptInvite
                     className={classes.AcceptInviteContainer}
@@ -180,7 +187,6 @@ class landingpage extends Component {
                     selectedSeason={this.props.selectedSeason}
                     actionDone={() => this.setInviteMessage()}
                     history={this.props.history}
-
                 />
             </Flexbox>
             <div
@@ -217,6 +223,7 @@ const mapDispatchToProps = dispatch => {
         changeLocation: (location) => dispatch(actions.locationChange(location)),
         removePlayerFromTeam: (playerid, teamid, teamMembers, season, team) => dispatch(actions.removePlayerFromTeam(playerid, teamid, teamMembers, season, team)),
         removeMatchFromTeam: (updatedMatches, teamId, selectedSeason) => dispatch(actions.removeMatchFromTeam(updatedMatches, teamId, selectedSeason)),
+        getLastSelectedTeam: (userId, selectedSeason) => dispatch(actions.getLastSelectedTeam(userId, selectedSeason)),
     }
 }
 

@@ -236,13 +236,14 @@ const setLastSelectedTeamSuccess = (state, action) => {
 const getLastSelectedTeamStart = (state, action) => {
     return {
         ...state,
-
+        loading: true,
     }
 }
 
 const getLastSelectedTeamFail = (state, action) => {
     return {
         ...state,
+        loading:false,
     }
 }
 
@@ -250,6 +251,7 @@ const getLastSelectedTeamSuccess = (state, action) => {
     return {
         ...state,
         lastSelectedTeam: action.selectedTeam,
+        loading:false,
     }
 }
 

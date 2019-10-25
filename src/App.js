@@ -19,6 +19,8 @@ import Profile from './components/Registration/ProfileInfo';
 import Landingpage from './components/Navigation/LandingPage/landingpage';
 import Invite from './components/Invitation/invitation';
 import AcceptInvite from './components/Invitation/acceptInvite/acceptInvite';
+import LookupTeam from './components/Team/LookupTeam/LookupTeam';
+import Spinner from './components/UI/Spinner/Spinner';
 
 const AddTeam = React.lazy(() => import('./containers/TeamControl/AddTeam/AddTeam'));
 
@@ -65,18 +67,19 @@ class App extends Component {
   render() {
     let flexItem = "";
     let routes = (
-      <React.Fragment>
-        <Route path="/" exact render={(props) => <Landingpage {...props} user={this.props.user} />} />
-        <Route path="/Team" component={TeamControl} />
-        <Route path="/AddNewPlayer" exact component={AddNewPlayer} />
-        <Route path="/Invite/:teamId" exact render={(props) => <AcceptInvite
-          team={this.props.team}
-          user={this.props.user}
-          selectedSeason={this.props.selectedSeason}
-          actionDone={(action, teamid) => this.InviteHandler(action, teamid)}
-        />} />
-      </React.Fragment>
-    )
+        <React.Fragment>
+          <Route path="/" exact render={(props) => <Landingpage {...props} user={this.props.user} />} />
+          <Route path="/Team" component={TeamControl} />
+          <Route path="/AddNewPlayer" exact component={AddNewPlayer} />
+          <Route path="/Invite/:teamId" exact render={(props) => <AcceptInvite
+            team={this.props.team}
+            user={this.props.user}
+            selectedSeason={this.props.selectedSeason}
+            actionDone={(action, teamid) => this.InviteHandler(action, teamid)}
+          />} />
+        </React.Fragment>
+      )
+    
     if (!this.props.isAuthenticated) {
       routes = (
         <React.Fragment>
@@ -92,6 +95,8 @@ class App extends Component {
     if (this.props.navItem === "AddMatch") { flexItem = <AddMatch team={this.props.team} /> };
     if (this.props.navItem === "Profile") { flexItem = <Profile user={this.props.user} /> };
     if (this.props.navItem === "Invitation") { flexItem = <Invite team={this.props.team} /> };
+    if (this.props.navItem === "FollowTeam") { flexItem = <LookupTeam team={this.props.team} user={this.props.user} /> };
+    
 
 
     return (

@@ -154,7 +154,6 @@ export const getTeam = (teamId, season, uid) => {
         dispatch(getTeamStart());
         firebase.database().ref('/Teams/' + teamId).once('value').then(res => {
             const team = res.val();
-            console.log(team);
             const isAdmin = checkIfAdmin(team.admins, uid, team.admin);
             // const TeamMembersAvailable = team[season].TeamMembers === undefined;
             if (season in team.Seasons) {
@@ -210,7 +209,7 @@ export const getLastSelectedTeamFail = () => {
         type: actionTypes.GET_LAST_SELECTED_TEAM_FAIL,
     }
 }
-export const getLastSelectedTeamSuccess = () => {
+export const getLastSelectedTeamSuccess = (selectedTeam) => {
     return {
         type: actionTypes.GET_LAST_SELECTED_TEAM_SUCCESS,
     }

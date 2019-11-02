@@ -52,20 +52,7 @@ export const dateFormatToString = datum => {
 	const year = date.getFullYear();
 	const hour = date.getHours();
 	const minutes = date.getMinutes();
-	const months = [
-		"Januari",
-		"Februari",
-		"Maart",
-		"April",
-		"Mei",
-		"Juni",
-		"Juli",
-		"Augustus",
-		"September",
-		"Oktober",
-		"November",
-		"December"
-	];
+	const months = ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"];
 	return `${day} ${months[month]} ${year}  ${hour}u${minutes}m`;
 };
 
@@ -92,27 +79,14 @@ export const countDownClock = datum => {
 	if (diff <= 0) {
 		return result;
 	}
-	const dayDifAbso =
-		7 * (Math.floor(diff) === 0 ? diff : diff % Math.floor(diff));
+	const dayDifAbso = 7 * (Math.floor(diff) === 0 ? diff : diff % Math.floor(diff));
 	result.dayDif = Math.floor(dayDifAbso);
 	result.weekDif = Math.abs(Math.floor(diff));
-	const hourDifAbso =
-		24 *
-		(Math.floor(dayDifAbso) === 0
-			? dayDifAbso
-			: dayDifAbso % result.dayDif);
+	const hourDifAbso = 24 * (Math.floor(dayDifAbso) === 0 ? dayDifAbso : dayDifAbso % result.dayDif);
 	result.hourDif = Math.floor(hourDifAbso);
-	const minutesDifAbso =
-		60 *
-		(Math.floor(hourDifAbso) === 0
-			? hourDifAbso
-			: hourDifAbso % result.hourDif);
+	const minutesDifAbso = 60 * (Math.floor(hourDifAbso) === 0 ? hourDifAbso : hourDifAbso % result.hourDif);
 	result.minutesDif = Math.floor(minutesDifAbso);
-	const secondsDifAbso =
-		60 *
-		(result.minutesDif === 0
-			? minutesDifAbso
-			: minutesDifAbso % result.minutesDif);
+	const secondsDifAbso = 60 * (result.minutesDif === 0 ? minutesDifAbso : minutesDifAbso % result.minutesDif);
 	result.secondsDif = Math.floor(secondsDifAbso);
 
 	return result;
@@ -132,13 +106,7 @@ export const sortOnDate = dateArray =>
 export const getAllComingMatches = matches => {
 	const comingMatches = matches.filter(match => {
 		let lastMatch = countDownClock(match.gameData.date);
-		return (
-			lastMatch.weekDif !== 0 ||
-			lastMatch.dayDif !== 0 ||
-			lastMatch.minutesDif !== 0 ||
-			lastMatch.secondsDif !== 0 ||
-			lastMatch.hourDif !== 0
-		);
+		return lastMatch.weekDif !== 0 || lastMatch.dayDif !== 0 || lastMatch.minutesDif !== 0 || lastMatch.secondsDif !== 0 || lastMatch.hourDif !== 0;
 	});
 	return sortOnDate(comingMatches);
 };
@@ -193,7 +161,7 @@ export const getAllTeams = () => {
 //     })
 // }
 
-export const followTeam = teamId => {
+export const followTeam = (teamId, userId) => {
 	return firebase
 		.database()
 		.ref(`/Teams/${teamId}/Followers`)
@@ -201,16 +169,16 @@ export const followTeam = teamId => {
 		.then(response => {
 			let Followers = [];
 			if (response.val() === null) {
-				Followers.push(teamId);
+				Followers.push(userId);
 			} else {
 				Followers = response.val();
-				if (!Followers.includes(teamId)) {
-					Followers.push(teamId);
+				if (!Followers.includes(userId)) {
+					Followers.push(userId);
 				}
 			}
 			firebase
 				.database()
-				.ref(`/Teams/${teamId}`)
+				.ref(`/Teams/${teamId}/Followers`)
 				.set(Followers)
 				.then(result => {
 					return result;

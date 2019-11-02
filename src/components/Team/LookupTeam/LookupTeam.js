@@ -6,7 +6,7 @@ import classes from './LookupTeam.css';
 const TeamComponent = (props) => {
 
     const followClickedHandler = () => {
-        followTeam(props.teamId).then(result => {
+        followTeam(props.team.id, props.user.uid).then(result => {
             console.log(result);
         })
     }
@@ -54,7 +54,7 @@ const  LookupTeam = props => {
         />
         <div className={classes.ResultContainer}>
             {filteredTeams.length ? filteredTeams.map(team => {
-                return <TeamComponent key={team.id} team={team}/>  
+                return <TeamComponent key={team.id} team={team} user={props.user}/>  
             }): <div>No Teams</div>}
         </div>
       </div>

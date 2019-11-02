@@ -12,9 +12,10 @@ const Flexbox = (props) => {
             <div className={attachedClasses.join(' ')}>
                 <div>{props.children}</div>
             </div>
-            <Modal show={props.show}  modalClosed={props.modalClicked}/>
         </React.Fragment>
     )
 }
 
 export default Flexbox;
+
+// <Modal show={props.show}  modalClosed={props.modalClicked}/>

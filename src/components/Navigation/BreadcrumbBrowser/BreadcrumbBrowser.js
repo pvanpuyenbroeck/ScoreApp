@@ -7,7 +7,8 @@ const breadcrumbBrowser = (props) => {
         <Breadcrumb
             key={1}
             location={"/"}
-            navClicked={() => props.navClicked({ navNumber: 1 })}
+            dropdown={[{text:"Follow Team", id:"FollowTeam"}]}
+            navClicked={(navItem) => props.navClicked({ navNumber: 1, navItem: navItem })}
             navActive={props.breadcrumbLocation >= 1 ? true : false}
             breadCrumbHide={false}
             // breadcrumbLocation={props.breadcrumbLocation}
@@ -15,7 +16,7 @@ const breadcrumbBrowser = (props) => {
         <Breadcrumb
             key={2}
             location={"/Team"}
-            dropdown={[{ text: 'Add team', id: 'AddTeam' }]}
+            dropdown={[{ text: 'Add Team', id: 'AddTeam' }]}
             navClicked={(navItem) => props.navClicked({ navNumber: 2 , navItem: navItem})}
             navActive={props.breadcrumbLocation >= 2 ? true : false} 
             breadCrumbHide={false}           

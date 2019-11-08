@@ -6,7 +6,13 @@ import {checkIfDateIsInFuture} from '../../../store/utility';
 
 const Match = (props) => {
     // const [showOptions, setShowOptions] = useState(false);
+    const [forfait, setForfait] = useState({side:'home', forfait:false});
 
+    useEffect(() => {
+        if(typeof props.match.forfait !== 'undefined' || props.match.forfait){
+            setForfait({side:'home', forfait:true});
+        }
+    }, [forfait])
     
     const Score = () => {
     let homeGoals = 0;
@@ -53,18 +59,12 @@ const Match = (props) => {
                 <div className={classes.Year}>{year}</div>
             </React.Fragment>
         )
-        // `${day}-${month}-${year}  ${hour}:${minutes}`
     }
 
     const goToMatchPageHandler = () => {
         props.matchButtonClicked(props.match)
         props.history.replace("/Team/" + props.team.teamId + "/Match/" + props.match.matchId);
     }
-
-    // const setShowHideOptionsHandler = () => {
-    //     setShowOptions(!showOptions);
-    // }
-
 
     const moreButtonStyle = {
         backgroundImage: `url(${MoreButton})`,
@@ -75,27 +75,15 @@ const Match = (props) => {
 
     }
 
-    // const showHideOptionsClasses = [classes.Match,showOptions]
-
     return (
         <React.Fragment>
 
             <div
                 className={classes.Match}
                 style={backgroundStyle}
-            // onClick={() => props.matchButtonClicked(props.match)}
-            // onMouseEnter={() => setShowHideOptionsHandler(classes.ShowOptions)}
-            // onMouseLeave={() => setShowHideOptionsHandler(classes.HideOptions)}
             >
                 <div className={classes.Options}
-                // onMouseEnter={() => setShowHideOptionsHandler(classes.ShowOptions)}
-                // onMouseLeave={() => setShowHideOptionsHandler(classes.ShowOptions)} 
                 >
-                    {/* <div
-                    style={closeButtonStyle}
-                    className={showOptions === true ? classes.ShowOptions : classes.HideOptions}
-                    onClick={(teamId) => props.showMatchDetailsClicked(teamId)}
-                ></div> */}
                 </div>
                 {/* <div>Afbeelding komt hier</div> */}
                 <div className={classes.GameDate} onClick={() => goToMatchPageHandler()}>{dateFormat()}</div>

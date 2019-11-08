@@ -7,6 +7,7 @@ import AddPlayerstoMatch from '../../../components/Navigation/AddPlayersToMatch/
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import { Redirect } from 'react-router';
 import Aux from '../../../hoc/_Aux/_Aux';
+import ShowMore from '../../../components/UI/ShowMore/ShowMore';
 // import Button from '../../../components/UI/Button/Button/Button';
 
 

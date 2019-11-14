@@ -1,47 +1,97 @@
 import React, {useState, useEffect} from 'react';
-import {getAllTeams, followTeam} from '../../../store/utility';
+import {getAllTeams, followTeam, checkIfUserFolowsTeam, unfollowTeam} from '../../../store/utility';
 import Input from '../../UI/Input/Input';
 import classes from './LookupTeam.css';
+import {colors} from '../../../utils/styles/helpers';
 
 const TeamComponent = (props) => {
 
-    const followClickedHandler = () => {
-        followTeam(props.team.id, props.user.uid).then(result => {
-            console.log(result);
-        })
+    const Style ={
+        backgroundColor: props.team.following ? colors.green : colors.red,
     }
-    return(
-        <div className={classes.TeamComponent}>
-            <div className={classes.TeamName}>{props.team.teamName}</div>
-            <div 
-            className={classes.FollowButton}
-            onClick={followClickedHandler}
-            >Follow</div>
-        </div>
-    )
-}
 
+        return  (
+            <div className={classes.TeamComponent}>
+                <div className={classes.TeamName}>{props.team.teamName}</div>
+                <div 
+                className={classes.FollowButton}
+                onClick={props.followClicked}
+                style={Style}
+                >{props.team.following ? 'Unfollow' : 'Follow'}</div>
+            </div>
+        )
+}
 
 const  LookupTeam = props => {
 
     const [allTeams, setAllTeams] = useState([]);
     const [teamInputValue, setTeamInputValue] = useState('');
-    const [filteredTeams, setFilteredTeams] = useState('');
+    const [filteredTeams, setFilteredTeams] = useState([]);
+
+
+    
 
     useEffect(() => {
-        getAllTeams().then(result => {
-            setAllTeams(result);
-            setFilteredTeams(result);
-        });
-    }, [])
+        const filterTeams = async () => {
+          const result =  await getAllTeams();
+                setAllTeams(result);
+                let filteredTeamsUpdated = result;
+                filteredTeamsUpdated.length > 0 ? filteredTeamsUpdated = filteredTeamsUpdated.map(async team => {
+                const userFollows = await checkIfUserFolowsTeam(props.user.uid, team.id);
+                let updatedTeam = {
+                        ...team,
+                        following: true
+                    };
+                    if (userFollows) {
+                        return updatedTeam;
+                    }
+                    else {
+                    updatedTeam.following = false;
+                    return updatedTeam;
+                            }
+                        }): filteredTeamsUpdated = null;
+                    setFilteredTeams(await Promise.all(filteredTeamsUpdated));
+        }
+        filterTeams();
+    }, []);
+
+    const followClickedHandler = (selectedTeam) => {
+        if(!selectedTeam.following){
+            followTeam(selectedTeam.id, props.user.uid).then(result => {
+
+            })
+        }else{
+            unfollowTeam(selectedTeam.id, props.user.uid).then(result => {
+
+            })
+        }
+
+        const filteredTeamsUpdate = filteredTeams.map(team => {
+            if(team.id === selectedTeam.id){
+                team.following = !team.following;
+            }
+            return team;
+        })
+
+        const updateAllTeams = allTeams.map(team => {
+            if(team.id === selectedTeam.id){
+                team.following = team.following;
+            }
+            return team;
+        })
+        setAllTeams(updateAllTeams);
+
+        setFilteredTeams(filteredTeamsUpdate);
+    }
+
+
 
     const inputChangedHandler = (event) => {
         setTeamInputValue(event.target.value);
-        console.log(event.target.value);
-        const filteredTeams = allTeams.filter((team) => {
+        const filteredUpdatedTeams =  allTeams.filter((team) => {
             return team.teamName.toLowerCase().startsWith(event.target.value.toLowerCase());
         })
-        setFilteredTeams(filteredTeams);
+        setFilteredTeams(filteredUpdatedTeams);
     }
 
     return (
@@ -53,9 +103,11 @@ const  LookupTeam = props => {
             changed={inputChangedHandler}
         />
         <div className={classes.ResultContainer}>
-            {filteredTeams.length ? filteredTeams.map(team => {
-                return <TeamComponent key={team.id} team={team} user={props.user}/>  
-            }): <div>No Teams</div>}
+            {   filteredTeams.length > 0 ? 
+                filteredTeams.filter((team) => {
+                    return typeof team !== 'undefined';
+                }).map(team  =>  {return <TeamComponent key={team.id} team={team} user={props.user} followClicked={() => followClickedHandler(team)}/>})
+            : <div>No Teams</div>}
         </div>
       </div>
     );

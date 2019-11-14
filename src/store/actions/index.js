@@ -10,6 +10,7 @@ export{
     getLastSelectedTeam,
     updateSelectedTeam,
     addSeasonToTeam,
+    getFollowedTeams,
 } from './team';
 
 export{

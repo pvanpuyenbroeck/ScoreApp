@@ -26,11 +26,13 @@ class TeamsOverview extends Component {
     componentDidMount() {
         this.props.getAllTeams(this.props.userId);
         this.props.changeLocation();
+        this.props.getFollowedTeams(this.props.userId);
     }
 
     render() {
         let participantTeams = <Spinner />;
         let managedteams = <Spinner />;
+        let followingTeams = <Spinner/>;
         if (!this.props.loading) {
             const teamArray = this.props.teams;
             if (teamArray.length > 0) {
@@ -66,6 +68,13 @@ class TeamsOverview extends Component {
                     }
                     return null;
                 })
+                followingTeams = teamArray.filter(team => {
+                    if(typeof team.Followers !== 'undefined'){
+                        return team.Followers.includes(this.props.userId);
+                    }
+                    return false;
+                });
+                console.log(followingTeams);
             } else {
                 return <div className={classes.Message}>Geen team aanwezig, maak een aan of maak deel uit van een bestaand team.</div>
             }
@@ -103,6 +112,7 @@ const mapDispatchToProps = dispatch => {
         // teamSelectedHandler: (teamId, season, uid) => dispatch(actions.getTeam(teamId, season, uid)),
         getAllTeams: (userId) => dispatch(actions.getAllTeams(userId)),
         changeLocation: () => dispatch(actions.locationChange(2)),
+        getFollowedTeams: (userid) => dispatch(actions.getFollowedTeams(userid)),
     }
 };
 

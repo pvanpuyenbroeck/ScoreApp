@@ -11,7 +11,7 @@ const TeamComponent = (props) => {
     }
 
         return  (
-            <div className={classes.TeamComponent}>
+            <div className={classes.TeamComponent} onClick={props.onClicked}>
                 <div className={classes.TeamName}>{props.team.teamName}</div>
                 <div 
                 className={classes.FollowButton}
@@ -106,7 +106,13 @@ const  LookupTeam = props => {
             {   filteredTeams.length > 0 ? 
                 filteredTeams.filter((team) => {
                     return typeof team !== 'undefined';
-                }).map(team  =>  {return <TeamComponent key={team.id} team={team} user={props.user} followClicked={() => followClickedHandler(team)}/>})
+                }).map(team  =>  {return <TeamComponent 
+                    key={team.id} 
+                    team={team} 
+                    user={props.user} 
+                    followClicked={() => followClickedHandler(team)}
+                    onClicked={() => props.onClick(filteredTeams)}
+                    />})
             : <div>No Teams</div>}
         </div>
       </div>

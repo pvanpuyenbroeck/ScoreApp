@@ -68,12 +68,21 @@ class TeamsOverview extends Component {
                     }
                     return null;
                 })
-                followingTeams = teamArray.filter(team => {
-                    if(typeof team.Followers !== 'undefined'){
-                        return team.Followers.includes(this.props.userId);
+
+                const filteredInFollowing = teamArray.filter(team => {
+                    console.log(this.props.followers);
+                    if(typeof this.props.followers !== 'undefined'){
+                        return this.props.followers.includes(team.id);
                     }
                     return false;
                 });
+                followingTeams = filteredInFollowing.map(team => {
+                    return <SelectedTeamButton
+                    key={team.id}
+                    teamName={team.teamName}
+                    id={team.id}
+                    />
+                })
                 console.log(followingTeams);
             } else {
                 return <div className={classes.Message}>Geen team aanwezig, maak een aan of maak deel uit van een bestaand team.</div>
@@ -90,6 +99,10 @@ class TeamsOverview extends Component {
                     {participantTeams[0] === null ? null : <h1>Team:</h1>}
                     {participantTeams}
                 </div>
+                <div className={classes.Teams}>
+                    {followingTeams[0] === null ? null : <h1>Teams die ik volg:</h1>}
+                    {followingTeams}
+                </div>
             </div>
         );
     }
@@ -104,6 +117,7 @@ const mapStateToProps = state => {
         loading: state.team.loading,
         isAuthenticated: state.auth.user.uid != null,
         season: state.team.selectedSeason,
+        followers: state.team.followedTeams,
     };
 };
 

@@ -505,3 +505,40 @@ export const getFollowedTeams = (userId) => {
         })
     }
 }
+
+export const setFollowedTeamsStart = () => {
+    return {
+        type: actionTypes.GET_FOLLOWEDTEAMS_START,
+    }
+}
+
+export const setFollowedTeamsSuccess = (followedTeams) => {
+    return {
+        type: actionTypes.GET_FOLLOWEDTEAMS_SUCCESS,
+        followedTeams: followedTeams,
+    }
+}
+
+export const setFollowedTeamsFail = () => {
+    return {
+        type: actionTypes.GET_FOLLOWEDTEAMS_FAIL,
+    }
+}
+
+export const setFollowedTeams = (teams) => {
+    
+    return dispatch => {
+        dispatch(setFollowedTeamsStart());
+        try {
+            const filteredTeams = teams.filter(team => {
+                return team.following;
+            })
+            const teamIds = filteredTeams.map(team => {
+                return team.id;
+            })
+            dispatch(setFollowedTeamsSuccess(teamIds));
+        } catch (error) {
+            dispatch(setFollowedTeamsFail());
+        }
+    }
+}

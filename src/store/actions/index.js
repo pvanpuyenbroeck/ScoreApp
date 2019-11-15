@@ -11,6 +11,7 @@ export{
     updateSelectedTeam,
     addSeasonToTeam,
     getFollowedTeams,
+    setFollowedTeams,
 } from './team';
 
 export{

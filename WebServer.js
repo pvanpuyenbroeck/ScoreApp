@@ -5,11 +5,10 @@ const app = express()
 const fs = require('fs');
 const http = require('http');
 const https = require('https');
-const privatekey = fs.readFileSync('/etc/letsencrypt/live/www.thewhiterussians.be/privkey.pem', 'utf8');
-const certificate = fs.readFileSync('/etc/letsencrypt/live/www.thewhiterussians.be/cert.pem', 'utf8');
-const ca = fs.readFileSync('/etc/letsencrypt/live/www.thewhiterussians.be/fullchain.pem', 'utf8');
+const privatekey = fs.readFileSync('./keys/privkey.pem');
+const ca = fs.readFileSync('./keys/fullchain.pem');
 
-const credentials = {key:privatekey, cert: certificate, ca:ca }
+const credentials = {key:privatekey, cert: ca}
 // this assumes that all your app files
 // `public` directory relative to where your server.js is
 app.use(express.static(__dirname, { dotfiles: 'allow' } ))
@@ -19,9 +18,15 @@ app.get('*', function (request, response){
   response.sendFile(path.resolve(__dirname, 'index.html'))
 })
 
+
 // Starting both http & https servers
 const httpServer = http.createServer(app);
 const httpsServer = https.createServer(credentials, app);
+
+// httpServer.get('*', (req,res) => {
+//   res.redirect('https://' + req.headers.host + req.url);
+// })
+
 
 httpServer.listen(80, () => {
   console.log('listening on port 80');

@@ -100,7 +100,7 @@ class TeamsOverview extends Component {
                     {participantTeams}
                 </div>
                 <div className={classes.Teams}>
-                    {followingTeams[0] === null ? null : <h1>Teams die ik volg:</h1>}
+                    {followingTeams.length > 0 ?  <h1>Teams die ik volg:</h1>: null}
                     {followingTeams}
                 </div>
             </div>

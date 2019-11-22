@@ -2,45 +2,45 @@ import * as actionTypes from './actionTypes';
 
 export const navpanelSelection = (navItem) => {
     console.log(navItem);
-    return{
+    return {
         type: actionTypes.NAVPANEL_SELECTION,
-        navItem:navItem,
+        navItem: navItem,
     }
 }
 
 export const sidepanelToggle = () => {
-    return{
+    return {
         type: actionTypes.SIDEPANEL_TOGGLE,
     }
 }
 
 export const closeModal = () => {
-    return{
+    return {
         type: actionTypes.CLOSE_MODAL,
     }
 }
 
 export const showModal = () => {
-    return{
+    return {
         type: actionTypes.SHOW_MODAL,
     }
 }
 
 export const showComponent = (component) => {
-    return{
+    return {
         type: actionTypes.SHOW_COMPONENT,
         component: component,
     }
 }
 
 export const showFunctionMenu = () => {
-    return{
+    return {
         type: actionTypes.SHOW_FUNCTIONMENU,
     }
 }
 
 export const locationChange = (location) => {
-    return{
+    return {
         type: actionTypes.LOCATION_CHANGE,
         location: location,
     }

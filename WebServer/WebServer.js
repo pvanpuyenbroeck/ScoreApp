@@ -1,3 +1,4 @@
+const mailFunctions = require("./functions/Mail");
 const express = require('express')
 const path = require('path')
 const port = process.env.PORT || 80
@@ -6,8 +7,8 @@ const httpApp = express()
 const fs = require('fs')
 const http = require('http');
 const https = require('https');
-const privatekey = fs.readFileSync('./keys/privkey.pem');
-const ca = fs.readFileSync('./keys/fullchain.pem');
+const privatekey = fs.readFileSync('../../build/keys/privkey.pem');
+const ca = fs.readFileSync('../../build/keys/fullchain.pem');
 
 
 const credentials = {
@@ -34,6 +35,7 @@ app.get('*', function (request, response) {
   }
 })
 
+mailFunctions.Timer();
 
 // Starting both http & https servers
 http.createServer(httpApp).listen(httpApp.get('port'), function () {

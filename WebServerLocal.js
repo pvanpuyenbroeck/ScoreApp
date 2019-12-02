@@ -1,24 +1,22 @@
-const mailFunctions = require("./functions/Mail");
+// const mailFunctions = require("./functions/Mail");
 const express = require("express")
 const path = require("path")
 const port = process.env.PORT || 8080
 const app = express()
 const fs = require("fs")
 const http = require("http")
-const sendmailRouter = require('./routes/SendMail');
-app.use(express.static(__dirname + '/../'));
+// const sendmailRouter = require('./routes/SendMail');
 
-// app.get("/", function(request, response) {
-// 	console.log(__dirname);
-// 	console.log(path.join(__dirname,'../','index.html'));
-// 	response.sendFile(path.resolve(__dirname, 'index.html'));
-// 	// response.sendFile(path.resolve(__dirname, "index.html"))
-// })
-
-mailFunctions.Timer();
+app.get("/", function(request, response) {
+	console.log(__dirname);
+	// console.log(path.join(__dirname,'../build','index.html'));
+	// response.sendFile(path.join(__dirname,'../build','index.html'));
+	response.sendFile(path.resolve(__dirname + '\\build', "index.html"))
+})
+// mailFunctions.Timer();
 
 //link routes to app
-app.use('/sendmail', sendmailRouter);
+// app.use('/sendmail', sendmailRouter);
 
 const httpServer = http.createServer(app)
 

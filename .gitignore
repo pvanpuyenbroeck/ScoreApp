@@ -19,3 +19,4 @@ node_modules/.bin/sshpk-sign
 node_modules/.bin/uglifyjs
 src/utils/ImportExportFirebase/node_modules/*
 src/utils/score-app-b69dc-firebase-adminsdk-8xbui-9c0061900c.json
+node_modules

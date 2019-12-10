@@ -20,6 +20,7 @@ const credentials = {
 // app.use(express.static(__dirname, {
 //   dotfiles: 'allow'
 // }))
+mailFunctions.Timer();
 
 app.use(express.static(__dirname + '/../'));
 httpApp.use(express.static(__dirname + '/../'));
@@ -39,8 +40,6 @@ app.get('*', function (request, response) {
 
   }
 })
-
-mailFunctions.Timer();
 
 // Starting both http & https servers
 http.createServer(httpApp).listen(httpApp.get('port'), function () {

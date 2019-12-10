@@ -15,10 +15,15 @@ app.use(express.static(__dirname + '/../'));
 // 	// response.sendFile(path.resolve(__dirname, "index.html"))
 // })
 
-mailFunctions.Timer();
+
 
 //link routes to app
 app.use('/sendmail', sendmailRouter);
+
+app.use('/test', (req,res) => {
+	mailFunctions.TestClicked();
+	res.send("<h1>Test Pagina</h1>")
+})
 
 const httpServer = http.createServer(app)
 

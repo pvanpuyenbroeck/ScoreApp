@@ -59,7 +59,9 @@ const sendMailToUsers = filteredPlayers => {
 		const uid = userRecord.uid
 		const name = typeof(userRecord.displayName) === 'undefined' ? 'Playaa' : userRecord.displayName;
 		const params = {
-			email: "pietervp283@gmailtest.com"
+			email: "pietervp283@gmailtest.com",
+			uid: uid,
+			naam: name
 		}
 		axios
 			.get("https://thewhiterussians.be:8888/mail/MatchInvite", {

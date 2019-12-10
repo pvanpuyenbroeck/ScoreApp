@@ -459,3 +459,86 @@ export const updatePlayerAdmins = (teamId, updatedAdmins) => {
             })
     }
 }
+
+export const getFollowedTeamsStart = () => {
+    return {
+        type: actionTypes.GET_FOLLOWEDTEAMS_START,
+    }
+}
+
+export const getFollowedTeamsSuccess = (followedTeams) => {
+    return {
+        type: actionTypes.GET_FOLLOWEDTEAMS_SUCCESS,
+        followedTeams: followedTeams,
+    }
+}
+
+export const getFollowedTeamsFail = () => {
+    return {
+        type: actionTypes.GET_FOLLOWEDTEAMS_FAIL,
+    }
+}
+
+export const getFollowedTeams = (userId) => {
+    return dispatch => {
+        dispatch(getFollowedTeamsStart());
+        firebase.database().ref(`/Teams/`).once("value").then(
+            teams => {
+                let followedTeams = [];
+                const allTeams = teams.val();
+                if(typeof allTeams !== 'undefined'){
+                    for(let teamId in allTeams){
+                        console.log(allTeams[teamId].Followers );
+                        if(typeof allTeams[teamId].Followers !== 'undefined'){
+                            if(allTeams[teamId].Followers.includes(userId)){
+                             followedTeams.push(teamId);
+                            }
+                        }
+                    }
+                }
+            console.log(followedTeams);
+            dispatch(getFollowedTeamsSuccess(followedTeams));
+            }
+        ).catch(error => {
+            console.log(error);
+            dispatch(getFollowedTeamsFail());
+        })
+    }
+}
+
+export const setFollowedTeamsStart = () => {
+    return {
+        type: actionTypes.GET_FOLLOWEDTEAMS_START,
+    }
+}
+
+export const setFollowedTeamsSuccess = (followedTeams) => {
+    return {
+        type: actionTypes.GET_FOLLOWEDTEAMS_SUCCESS,
+        followedTeams: followedTeams,
+    }
+}
+
+export const setFollowedTeamsFail = () => {
+    return {
+        type: actionTypes.GET_FOLLOWEDTEAMS_FAIL,
+    }
+}
+
+export const setFollowedTeams = (teams) => {
+    
+    return dispatch => {
+        dispatch(setFollowedTeamsStart());
+        try {
+            const filteredTeams = teams.filter(team => {
+                return team.following;
+            })
+            const teamIds = filteredTeams.map(team => {
+                return team.id;
+            })
+            dispatch(setFollowedTeamsSuccess(teamIds));
+        } catch (error) {
+            dispatch(setFollowedTeamsFail());
+        }
+    }
+}

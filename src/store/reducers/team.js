@@ -18,6 +18,7 @@ const initialState = {
     selectedSeason: "2019-2020",
     makingAdmin: false,
     lastSelectedTeam: {},
+    followedTeams: [],
 }
 
 const addTeam = (state, action) => {
@@ -283,6 +284,48 @@ const addSeasonFail = (state, action) => {
     }
 }
 
+const getFollowedTeamsStart = (state, action) => {
+    return{
+        ...state,
+        followedTeams : [],
+    }
+}
+
+const getFollowedTeamsFail = (state, action) => {
+    return{
+        ...state,
+        followedTeams: [],
+    }
+}
+
+const getFollowedTeamsSuccess = (state, action) => {
+    return{
+        ...state,
+        followedTeams: action.followedTeams,
+    }
+}
+
+const setFollowedTeamsStart = (state, action) => {
+    return{
+        ...state,
+        followedTeams : [],
+    }
+}
+
+const setFollowedTeamsFail = (state, action) => {
+    return{
+        ...state,
+        followedTeams: [],
+    }
+}
+
+const setFollowedTeamsSuccess = (state, action) => {
+    return{
+        ...state,
+        followedTeams: action.followedTeams,
+    }
+}
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.ADD_TEAM: return addTeam(state, action);
@@ -329,6 +372,14 @@ const reducer = (state = initialState, action) => {
         case actionTypes.ADD_SEASON_SUCCESS: return addSeasonSuccess(state,action);
         case actionTypes.ADD_SEASON_START: return addSeasonStart(state,action);
         case actionTypes.ADD_SEASON_FAIL: return addSeasonFail(state,action);
+
+        case actionTypes.GET_FOLLOWEDTEAMS_SUCCESS: return getFollowedTeamsSuccess(state,action);
+        case actionTypes.GET_FOLLOWEDTEAMS_START: return getFollowedTeamsStart(state,action);
+        case actionTypes.GET_FOLLOWEDTEAMS_FAIL: return getFollowedTeamsFail(state,action);
+
+        case actionTypes.SET_FOLLOWEDTEAMS_SUCCESS: return setFollowedTeamsSuccess(state,action);
+        case actionTypes.SET_FOLLOWEDTEAMS_START: return setFollowedTeamsStart(state,action);
+        case actionTypes.SET_FOLLOWEDTEAMS_FAIL: return setFollowedTeamsFail(state,action);
         default: return state;
     }
 }

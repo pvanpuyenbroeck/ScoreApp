@@ -26,11 +26,13 @@ class TeamsOverview extends Component {
     componentDidMount() {
         this.props.getAllTeams(this.props.userId);
         this.props.changeLocation();
+        this.props.getFollowedTeams(this.props.userId);
     }
 
     render() {
         let participantTeams = <Spinner />;
         let managedteams = <Spinner />;
+        let followingTeams = <Spinner/>;
         if (!this.props.loading) {
             const teamArray = this.props.teams;
             if (teamArray.length > 0) {
@@ -66,6 +68,22 @@ class TeamsOverview extends Component {
                     }
                     return null;
                 })
+
+                const filteredInFollowing = teamArray.filter(team => {
+                    console.log(this.props.followers);
+                    if(typeof this.props.followers !== 'undefined'){
+                        return this.props.followers.includes(team.id);
+                    }
+                    return false;
+                });
+                followingTeams = filteredInFollowing.map(team => {
+                    return <SelectedTeamButton
+                    key={team.id}
+                    teamName={team.teamName}
+                    id={team.id}
+                    />
+                })
+                console.log(followingTeams);
             } else {
                 return <div className={classes.Message}>Geen team aanwezig, maak een aan of maak deel uit van een bestaand team.</div>
             }
@@ -81,6 +99,10 @@ class TeamsOverview extends Component {
                     {participantTeams[0] === null ? null : <h1>Team:</h1>}
                     {participantTeams}
                 </div>
+                <div className={classes.Teams}>
+                    {followingTeams.length > 0 ?  <h1>Teams die ik volg:</h1>: null}
+                    {followingTeams}
+                </div>
             </div>
         );
     }
@@ -95,6 +117,7 @@ const mapStateToProps = state => {
         loading: state.team.loading,
         isAuthenticated: state.auth.user.uid != null,
         season: state.team.selectedSeason,
+        followers: state.team.followedTeams,
     };
 };
 
@@ -103,6 +126,7 @@ const mapDispatchToProps = dispatch => {
         // teamSelectedHandler: (teamId, season, uid) => dispatch(actions.getTeam(teamId, season, uid)),
         getAllTeams: (userId) => dispatch(actions.getAllTeams(userId)),
         changeLocation: () => dispatch(actions.locationChange(2)),
+        getFollowedTeams: (userid) => dispatch(actions.getFollowedTeams(userid)),
     }
 };
 

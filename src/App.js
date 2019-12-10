@@ -95,7 +95,7 @@ class App extends Component {
     if (this.props.navItem === "AddMatch") { flexItem = <AddMatch team={this.props.team} /> };
     if (this.props.navItem === "Profile") { flexItem = <Profile user={this.props.user} /> };
     if (this.props.navItem === "Invitation") { flexItem = <Invite team={this.props.team} /> };
-    if (this.props.navItem === "FollowTeam") { flexItem = <LookupTeam team={this.props.team} user={this.props.user} /> };
+    if (this.props.navItem === "FollowTeam") { flexItem = <LookupTeam team={this.props.team} user={this.props.user} onClick={(filteredTeams) => this.props.setFollowedTeams(filteredTeams)}/> };
     
 
 
@@ -125,6 +125,9 @@ const mapDispatchToProps = dispatch => {
     ModalClicked: () => dispatch(actions.closeModal()),
     authSuccess: (user) => dispatch(actions.authSuccess(user)),
     getLastSelectedTeam: (userId, selectedSeason) => dispatch(actions.getLastSelectedTeam(userId, selectedSeason)),
+    getFollowedTeams: (userid) => dispatch(actions.getFollowedTeams(userid)),
+    setFollowedTeams: (teams) => dispatch(actions.setFollowedTeams(teams)),
+
   }
 };
 

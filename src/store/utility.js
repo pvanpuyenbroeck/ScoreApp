@@ -214,24 +214,40 @@ export const followTeam = (teamId, userId) => {
           return result;
         });
     })
-    .catch(error => {
-      console.log(error);
-    });
-};
+}
 
-export const doesUserFollowTeam = async (teamid, userid) => {
-  return firebase
-    .database()
-    .ref(`/Teams/${teamid}/Followers`)
-    .once("value")
-    .then(result => {
-      if (result.val().includes(userid)) {
-        return true;
-      } else {
-        return false;
-      }
+export const unfollowTeam = (teamId, userId) => {
+    return firebase.database().ref(`/Teams/${teamId}/Followers`).once('value')
+    .then(response => {
+        let Followers = [];
+        let filterdFollowers;
+            Followers = response.val();
+            if(Followers.includes(userId)){
+                filterdFollowers = Followers.filter((value) => {
+                    return value !== userId;
+                } )
+            }
+        firebase.database().ref(`/Teams/${teamId}/Followers`).set(filterdFollowers).then(result => {
+            return result;
+        })
+    }).catch(error => {
+        console.log(error);
     })
-    .catch(error => {
-      console.log(error);
-    });
-};
+}
+
+export const checkIfUserFolowsTeam = (loggedInUid, teamId) => {
+    return firebase.database().ref(`/Teams/${teamId}/Followers`).once('value')
+    .then(res => {
+        const followers = res.val();
+        if(followers !== null){
+            if(followers.includes(loggedInUid)){
+                return true;
+            } else{
+                return false;
+            }            
+        }
+    }).catch(error => {
+        console.log(error);
+    }
+    )
+}

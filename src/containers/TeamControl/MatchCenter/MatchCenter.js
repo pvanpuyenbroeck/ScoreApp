@@ -1,12 +1,13 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import classes from "./MatchCenter.css";
-import MatchPlayerFrame from "../../../components/Match/MatchPlayerFrame/MatchPlayerFrame";
-import * as actions from "../../../store/actions/index";
-import AddPlayerstoMatch from "../../../components/Navigation/AddPlayersToMatch/AddPlayersToMatch";
-import Spinner from "../../../components/UI/Spinner/Spinner";
-import { Redirect } from "react-router";
-import Aux from "../../../hoc/_Aux/_Aux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import classes from './MatchCenter.css';
+import MatchPlayerFrame from '../../../components/Match/MatchPlayerFrame/MatchPlayerFrame';
+import * as actions from '../../../store/actions/index';
+import AddPlayerstoMatch from '../../../components/Navigation/AddPlayersToMatch/AddPlayersToMatch';
+import Spinner from '../../../components/UI/Spinner/Spinner';
+import { Redirect } from 'react-router';
+import Aux from '../../../hoc/_Aux/_Aux';
+import ShowMore from '../../../components/UI/ShowMore/ShowMore';
 // import Button from '../../../components/UI/Button/Button/Button';
 
 class matchCenter extends Component {

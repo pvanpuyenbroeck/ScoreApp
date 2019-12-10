@@ -4,7 +4,12 @@ import Input from '../../UI/Input/Input';
 import classes from './LookupTeam.css';
 import {colors} from '../../../utils/styles/helpers';
 
-const TeamComponent = (props) => {
+const TeamComponent = props => {
+  const followClickedHandler = () => {
+    followTeam(props.team.id, props.user.uid).then(result => {
+      console.log(result);
+    });
+  };
 
     const Style ={
         backgroundColor: props.team.following ? colors.green : colors.red,
@@ -93,6 +98,7 @@ const  LookupTeam = props => {
         })
         setFilteredTeams(filteredUpdatedTeams);
     }
+  }, [filteredTeams]);
 
     return (
       <div className={classes.Container}>

@@ -44,9 +44,7 @@
     width: 100%;
 }
 
-.OpponentGoal div:hover,
-.SelectPlayer:hover,
-.SaveGame:hover {
+.OpponentGoal div:hover, .SelectPlayer:hover, .SaveGame:hover {
     background: rgb(191, 103, 92);
     cursor: pointer;
 }
@@ -132,7 +130,16 @@
     opacity: 0;
 }
 
-.SelectPlayer{
+.Forfait {
+    display: flex;
+    flex-direction: row;
+    background-color: #105187;
+    color: #F0F1D5;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+.SelectPlayer {
     width: 40%;
     display: flex;
     align-items: center;
@@ -147,7 +154,7 @@
             display: grid;
             width: 500px;
             grid-template-columns: 10rem repeat(3, 1fr) 10rem;
-            grid-template-rows: 3rem 3rem auto;
+            grid-template-rows: 3rem 3rem 3rem auto;
         }
         .MenuButtons {
             grid-row: 2/3;
@@ -161,18 +168,20 @@
         }
         .PlayersFieldNames {
             grid-column: 1/6;
-            grid-row:3/6;
+            grid-row: 4/6;
         }
         .SaveGame {
             grid-column: 2/5;
             grid-row: 2/3;
         }
-        .OpponentGoal {
+        .Forfait {
+            grid-column: 1/6;
+            grid-row: 3/6;
         }
+        .OpponentGoal {}
     }
-
-    @media screen and (min-width:1100px){
-        .MatchCenter{
+    @media screen and (min-width:1100px) {
+        .MatchCenter {
             grid-column: 1/3;
         }
     }

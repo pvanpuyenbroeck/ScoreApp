@@ -1,12 +1,15 @@
 const mailFunctions = require("./functions/Mail");
 const express = require("express")
 const path = require("path")
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 8081
 const app = express()
 const fs = require("fs")
 const http = require("http")
 const sendmailRouter = require('./routes/SendMail');
+app.engine('pug', require('pug').__express)
 app.use(express.static(__dirname + '/../'));
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, './emails'));
 
 // app.get("/", function(request, response) {
 // 	console.log(__dirname);

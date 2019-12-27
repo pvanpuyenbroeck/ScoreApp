@@ -1,0 +1,39 @@
+.Button {
+    width: 100px;
+    height: 50px;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    color: white;
+    border-radius: 5px;
+    background-color: #2C8693;
+    font-size:1.1rem;
+}
+
+
+.MatchNavButtonContainer {
+    display: flex;
+    justify-content: space-evenly;
+    width:100%;
+}
+
+.MatchNavButtonContainer div {
+    width: 100px;
+    height: 30px;
+    border: 1px solid black;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.MatchNavButtonContainer div:hover {
+    cursor: pointer;
+}
+
+.Team {
+    width: 100%;
+}
+
+.ToggleButton {
+    width: 100px;
+}

@@ -13,10 +13,7 @@ import SeasonSelection from '../../../components/Team/SeasonSelection/SeasonSele
 import PlayerStats from '../../../components/PlayerStats/PlayerStats';
 import Tabs from '../../../components/UI/Tabs/Tabs';
 import PlayerMenu from '../../../components/Players/PlayerMenu/PlayerMenu';
-import MatchDetails from '../../../components/Games/MatchDetails/MatchDetails';
-import DetailsContainer from '../../../components/UI/DetailsContainer/DetailsContainer';
-import MatchPlayersOverview from '../../../components/Match/MatchPlayersOverview/MatchPlayersOverview';
-import classes from './Team.css';
+import MatchDetailsMenu from '../../../components/Games/MatchDetails/MatchDetailsMenu';
 
 
 class Team extends Component {
@@ -246,75 +243,9 @@ class Team extends Component {
         })
     )
 
-    joinClickedHandler(match, addOrRemove) {
-        let updatedParticipants = { ...match.Participants };
-        let updatedMatch = { ...this.props.selectedMatch };
-        let updatedTeam = { ...this.props.team };
-        const selectedSeason = { ...this.props.team.Seasons[this.props.selectedSeason] };
-        if(addOrRemove === 'add'){
-        updatedParticipants[this.props.user.uid] = {
-            ...selectedSeason.filteredPlayers[this.props.user.uid],
-            active: true,
-            goals: 0,
-            attending: true,
-        }}
-        else if(addOrRemove === 'remove'){
-           delete updatedParticipants[this.props.user.uid];
-        }
-        updatedMatch.Participants = updatedParticipants;
-        this.setState({
-            selectedMatch: updatedMatch,
-        })
-        updatedTeam.Seasons[this.props.selectedSeason].Matches[this.state.selectedMatchId] = updatedMatch;
 
-        this.props.updateSelectedTeam(updatedTeam);
-        this.props.setSelectedPlayers(updatedParticipants, this.props.team.teamId, this.state.selectedMatchId, this.props.selectedSeason);
-    }
 
-    GetMatchDetailsMenu = () => {
-        if(typeof this.props.team.Seasons === 'undefined' ||
-        typeof this.props.team.Seasons[this.props.selectedSeason] === 'undefined'){
-        return null;
-        }
-        const match = typeof this.props.team.Seasons !== 'undefined' ? this.props.team.Seasons[this.props.selectedSeason].Matches[this.state.selectedMatchId]: null
-        if (this.state.showMatchMenu) {
-            if (typeof this.props.team.Seasons !== 'undefined') {
-                return (
-                    <DetailsContainer closeContainer={() => this.closeAllContainers()} >
-                        <div className={classes.MatchNavButtonContainer}>
-                            <div
-                                onClick={() => this.setState({ matchDetailsToggle: false })}
-                                className={[classes.Button, classes.ButtonMatch].join(' ')}
-                                style={{opacity:this.state.matchDetailsToggle ? '0.5' : '1'}}
-                                >Match</div>
-                            <div
-                                onClick={() => this.setState({ matchDetailsToggle: true })}
-                                className={[classes.Button, classes.ButtonMembers].join(' ')}
-                                style={{opacity:!this.state.matchDetailsToggle ? '0.5' : '1'}}                                
-                                >Deelnemers</div>
-                        </div>
-                        {!this.state.matchDetailsToggle ? <MatchDetails
-                            removeMatchClicked={() => this.removeMatchClickedHandler(this.state.selectedMatchId)}
-                            isAdmin={this.props.adminLoggedIn}
-                            matches={match}
-                            width={"100%"}
-                        // joinMatchClicked={() => this.joinClickedHandler()}
-                        /> : <MatchPlayersOverview
-                                user={this.props.user}
-                                match={match}
-                                allTeamMember={this.props.team.Seasons[this.props.selectedSeason].TeamMembers}
-                                joinClicked={() => this.joinClickedHandler(match, 'add')}
-                                removeClicked={() => this.joinClickedHandler(match,'remove')}
-                            />}
-                    </DetailsContainer>
-                )
-            }
-            else {
-                return null;
-            }
-        }
-        return null;
-    }
+    
 
 
     // seasonChangedHandler(season){
@@ -382,11 +313,27 @@ class Team extends Component {
                 )
             }
         }
-        const MatchDetailsMenu = () => this.GetMatchDetailsMenu();
+        // const MatchDetailsMenu = () => this.GetMatchDetailsMenu();
         return (
             <Aux>
                 {teamControl}
-                <MatchDetailsMenu />
+                <MatchDetailsMenu 
+                    team = {this.props.team}
+                    selectedSeason = {this.props.selectedSeason}
+                    matchDetailsToggle = {this.state.matchDetailsToggle}
+                    user = {this.props.user}
+                    adminLoggedIn = {this.props.adminLoggedIn}
+                    selectedMatchId = {this.state.selectedMatchId}
+                    showMatchMenu = {this.state.showMatchMenu}
+                    matchDetailsToggleHandlerFalse = {() => this.setState({ matchDetailsToggle: false })}
+                    matchDetailsToggleHandlerTrue = {() => this.setState({ matchDetailsToggle: true })}
+                    removeMatchHandler = {() => this.removeMatchClickedHandler(this.state.selectedMatchId)}
+                    closeAllContainers = {() => this.closeAllContainers()}
+                    joinClickedHandler = {(match, adOrRemove) => this.joinClickedHandler}
+                    setSelectedMatch = {(updatedMatch) => this.setState({selectedMatch: updatedMatch})}
+                    updateSelectedTeam = {(updatedTeam) => this.props.updateSelectedTeam(updatedTeam)}
+                    setSelectedPlayers = {(updatedParticipants) => this.props.setSelectedPlayers(updatedParticipants, this.props.team.teamId, this.state.selectedMatchId, this.props.selectedSeason)}
+                />
             </Aux>
         )
     }

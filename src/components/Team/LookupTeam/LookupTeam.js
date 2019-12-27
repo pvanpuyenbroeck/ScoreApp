@@ -98,7 +98,6 @@ const  LookupTeam = props => {
         })
         setFilteredTeams(filteredUpdatedTeams);
     }
-  }, [filteredTeams]);
 
     return (
       <div className={classes.Container}>

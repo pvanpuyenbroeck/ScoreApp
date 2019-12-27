@@ -1,12 +1,15 @@
-import React from 'react';
+import React, {useCallback} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import classes from './MatchDetailsMenu.css';
 
 import MatchDetails from '../../../components/Games/MatchDetails/MatchDetails';
 import DetailsContainer from '../../../components/UI/DetailsContainer/DetailsContainer';
 import MatchPlayersOverview from '../../../components/Match/MatchPlayersOverview/MatchPlayersOverview';
+import * as actions from '../../../store/actions/index';
 
 const MatchDetailsMenu = (props) => {
 
+    const dispatch = useDispatch();
     const joinClickedHandler = (match, addOrRemove) => {
         let updatedParticipants = { ...match.Participants };
         let updatedMatch = { ...match };
@@ -29,9 +32,10 @@ const MatchDetailsMenu = (props) => {
         // })
         updatedTeam.Seasons[props.selectedSeason].Matches[props.selectedMatchId] = updatedMatch;
 
-        props.updateSelectedTeam(updatedTeam);
-        props.setSelectedPlayers(updatedParticipants);
+        dispatch(actions.updateSelectedTeam(updatedTeam));
+        // dispatch(actions.updatePlayerAdmins(props.team.teamId, updatedParticipants, , props.selectedMatchId, props.selectedSeason));
     }
+
 
 
         const GetMatchDetailsMenu = () => {
@@ -66,7 +70,7 @@ const MatchDetailsMenu = (props) => {
                                     user={props.user}
                                     match={match}
                                     allTeamMember={props.team.Seasons[props.selectedSeason].TeamMembers}
-                                    joinClicked={() => joinClickedHandler(match, 'add')}
+                                    joinClicked={() => joinClickedHandler(match,'add')}
                                     removeClicked={() => joinClickedHandler(match,'remove')}
                                 />}
                         </DetailsContainer>

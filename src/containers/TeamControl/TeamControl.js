@@ -31,7 +31,7 @@ class TeamControl extends Component {
                     <Route path="/Team" exact component={TeamsOverview} />
                     <Route path="/Team/:teamId/selectPlayers" exact component={SelectPlayers} />
                     <Route path="/addTeam" component={AddTeam} />
-                    <Route path="/Team/:teamId/matchdetails/:matchId" exact component={MatchDetails}/>
+                    <Route path="/Team/:teamId/matchdetails" exact component={MatchDetails}/>
                 </Switch>
             )
         }
